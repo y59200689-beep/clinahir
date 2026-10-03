@@ -3,7 +3,7 @@
     {
       "category": "violation",
       "file": "src/AppointmentsPage.tsx",
-      "line": 227,
+      "line": 228,
       "message": "Application-owned form does not declare its validation owner.",
       "remediation": "Add noValidate/novalidate and implement the canonical validation contract.",
       "ruleId": "form.novalidate-missing",
@@ -12,10 +12,19 @@
     {
       "category": "violation",
       "file": "src/PatientsPage.tsx",
-      "line": 90,
+      "line": 91,
       "message": "Application-owned form does not declare its validation owner.",
       "remediation": "Add noValidate/novalidate and implement the canonical validation contract.",
       "ruleId": "form.novalidate-missing",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "src/styles.css",
+      "line": 62,
+      "message": "Scrollbar theme does not provide both standards-based scrollbar properties.",
+      "remediation": "Add global scrollbar-color and scrollbar-width standards properties plus fallbacks.",
+      "ruleId": "scrollbar.webkit-only",
       "severity": "error"
     }
   ],
@@ -23,10 +32,10 @@
   "projectRoot": "/Users/youssefmahir/Documents/ChatGPT/Agency/kelo-clone",
   "schemaVersion": 1,
   "summary": {
-    "errors": 2,
-    "total": 2,
+    "errors": 3,
+    "total": 3,
     "unresolved": 0,
-    "violations": 2,
+    "violations": 3,
     "warnings": 0
   }
 }
