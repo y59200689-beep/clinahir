@@ -1,0 +1,68 @@
+# Prototype Instructions
+
+Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
+
+Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
+
+When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
+
+Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
+
+Dashboard prototype data is anchored to September 29, 2026. Appointments began July 1, 2026; today is 207 and the full period totals 1,507. The default date selection is "This month". The date selector drives the appointment cards, examination breakdown, and trend chart from the same daily sample series. Monthly totals are 100 in July, 350 in August, and 1,057 in September. Upcoming appointments and unread messages remain 23 and 18 across date ranges.
+
+The dashboard sidebar includes an Activity Log page directly below Posts & Articles. Its French label is "Journal d'activité". The page follows the user's September 30 reference with summary metrics, team performance cards, and a dated appointment timeline in Clinahir's glass style. It shares the Dashboard's date selection and `appointmentDays` data, defaulting to "This month"; the two pages must show the same appointment count for a period. It has no Refresh button. The average response time uses generated demo receipt and first-action timestamps; new appointment status changes record the actual first action time in the browser session. The best-member and four team cards rank current confirmations by demo member label (`Member 01` through `Member 04`) and show handled actions, confirmation share, and average response time; changing an appointment to confirmed records `Member 04`. Keep the demo disclosure visible so synthetic timing and staff attribution are not presented as real operational data.
+
+The Appointments sidebar item opens a separate appointments view based on the user's September 29 screenshot, with the dashboard's glass styling. It includes six summary cards, search, date filters, list/agenda views, status filters, and an appointment table. Its mock records follow the Dashboard's daily appointment series and default to "This month", so the totals match across pages. The 23 upcoming appointments are shown separately from the historical series.
+
+The Appointments agenda view is a horizontally scrolling, five-column status board based on the user's September 29 reference image. Each column has a status icon and count; compact appointment cards show a patient initial, masked name, examination, date, and time. Keep the established Clinahir glass treatment rather than the reference image's opaque light surfaces.
+
+Agenda cards can be moved between status columns by drag and drop. Do not show a status selector on the cards. These status changes are temporary UI state: they update counts and the List view until page reload, then revert to each record's original status. Do not save these moves to session storage.
+
+The separate Agenda sidebar page opens a scheduling calendar based on the user's September 29 reference: examination filter, Today/Previous/Next navigation, a centered date range, and Month/Week/Day views. Do not show Export or Print buttons. Month view is the default. Week view uses seven day columns with half-hour time rows and compact examination cards. Preserve the Clinahir translucent glass treatment, and draw calendar entries from the same appointment records used by the Appointments page.
+
+The Agenda examination filter should use a custom glass-styled menu rather than the browser's native select popup. Keep selected and hover states visually consistent with the dashboard controls.
+
+Calendar appointment cards on the separate Agenda page should share the translucent glass treatment of the Appointments agenda cards. Keep their content compact enough for half-hour calendar slots.
+Use the Dashboard examination breakdown colors to distinguish calendar appointments by examination: MRI purple, radiography sky blue, ultrasound orange, CT scan teal, mammography emerald, other slate, and interventional radiology violet. Keep the glass treatment.
+
+The Patients sidebar item opens a separate glass-styled patient directory based on the user's September 29 reference. It has three summary cards (patient records, patients active in the last 30 days, consultations), search, a New Patient form, and a table with patient, phone, last service, last visit, and appointment count. Derive existing patient rows and metrics from the shared appointment records; do not copy the reference screenshot's data. Mask placeholder phone numbers from the demo records.
+
+The patient records total represents the full period since July 1, 2026, using the same 92% patient estimate as the Dashboard's "From the start" selection. Keep the synthetic patient directory in a stable shuffled order with varied visit dates. In the table, display only the first two letters of each patient name followed by six asterisks; retain the underlying name for search.
+Label the last patient table column "Total RDV" in both languages and center its heading and count badges.
+Keep a visible mix of one, two, and three or more visits in the first patient rows while preserving each patient's actual visit count and the overall consultation total.
+
+All Appointments surfaces should use the same translucent `bg-white/5`, subtle white border, and backdrop blur treatment as the Dashboard metric cards. The six summary cards should follow the Dashboard metric card anatomy: icon at top, small uppercase label, and large value below. Keep the hero background framing stable when switching pages.
+
+The Posts & Articles sidebar item opens a glass-styled article management page based on the user's September 29 reference: three summary cards, site and new article tabs, and a list of dated posts with topic labels and status controls. Use different article topics, varied counts, and varied dates from the reference image while preserving Clinahir's translucent visual style.
+
+The Messages sidebar item opens a glass-styled inbox based on the user's September 30 reference: three summary cards, All/Unread/Read filters, a scrollable message list, and a reading pane with an instructional empty state. Keep the existing landscape background and dashboard glass surfaces. The initial demo inbox has 18 unread and 3 read messages, matching the Dashboard's unread count; opening a message marks it read in the current page session. Display sender names as their first two letters followed by five asterisks in both list and reading pane. The Refresh control reports that local demo messages are up to date rather than implying a live server sync.
+
+The Doctors sidebar item opens a glass-styled medical team directory based on the user's September 30 reference. Seed four demo doctor profiles from the same doctor assignments used in Appointments. Display each name as `Dr. ` followed by its first two letters and five asterisks; never reveal the full name in the UI. Show each doctor's historical appointment and confirmation counts, confirmation rate, upcoming appointments, and a clearly marked demo last-login time. The Add doctor action creates a new masked card in local page state, with zero metrics until records are assigned.
+
+The Staff sidebar item opens a glass-styled four-member directory based on the user's September 30 reference. The four seeded cards are the same `Member 01` through `Member 04` shown in Activity Log. Staff and Activity Log use the same shared appointment attribution and date selection for confirmations, handled actions, share, and average response time. Staff adds a search field, summary cards, permission tags, and last appointment activity; data and permissions are explicitly demo values. New account creates a local demo profile with no appointment activity and does not grant real access.
+
+The footer Settings item opens a glass-styled page based on the user's September 30 reference. It has an internal staff announcement with enable and priority controls, followed by contact details and useful links. All fields start empty: never copy personal phone numbers, email addresses, links, or other private information from the reference screenshot. Saving persists these demo settings only in the current browser; it does not publish an announcement or update any external service.
+
+The Settings page also has an Opening hours card directly below Contact details. Its editable demo defaults follow the user's September 30 hours reference: Monday–Friday 08:00–20:00, Saturday 08:00–15:00, and Sunday closed. These hours save with the other local demo settings.
+
+The Settings page includes a full-width Message templates card beneath the contact/link and hours cards. It has editable confirmation, reminder, and no-answer drafts with `{NOM}`, `{DATE}`, `{HEURE}`, and `{SERVICE}` tokens. Do not copy the center name or phone number from the reference screenshot into the templates. Drafts persist with local demo settings and are not sent or wired to appointment actions.
+
+The Settings page places a Social media links card below Useful links and opposite Opening hours. Facebook, Instagram, and TikTok URL fields start blank and save with the other browser-local demo settings.
+
+The footer Support item opens a glass-styled help center within the dashboard shell. It has searchable quick guides that navigate to Appointments, Agenda, Messages, and Settings; expandable workflow questions; and a support request draft. Drafts are validated and stored only in this browser, reopen on return, and are never sent. The form warns staff not to include patient or medical information. Support offers English and French copy.
+
+The marketing hero places an "INTERACTIVE DEMO · Explore the dashboard ↓" cue immediately above the demo dashboard. Keep it visually prominent against the landscape image with a solid high-contrast surface and legible type; the earlier faint glass label was too easy to miss.
+
+In the interactive dashboard header on desktop, keep the notification icon, center-admin text, and avatar grouped at the far right edge of the dashboard content area. The search field stays on the left with clear space between it and the account controls.
+
+The marketing landing page has one primary business goal: generate qualified demo conversations with medical-center owners and decision makers. Keep Clinahir's established colors. Lead with a clear patient-journey offer, show the interactive product with an explicit sample-data disclosure, explain the implementation process and scope, answer buyer objections, and route every sales CTA to the same demo inquiry. Do not invent client results, testimonials, team biographies, or prices. The demo inquiry asks only for business contact and center context; it must not accept or request patient details. The demo inquiry uses the centralized same-origin `/api/leads` backend. Visitor success requires durable Clinahir lead capture; downstream Daily Command failure is tracked privately and must not leak into visitor errors. See `INTEGRATION.md` for server-only environment variables, outbox retries, and deployment requirements. Avoid dead anchors, fake social links, and local-only newsletter success states.
+
+The demo inquiry's role and priority dropdown menus must match the rounded Clinahir form styling rather than opening a browser-native popup. Keep selection, keyboard navigation, and visible focus states usable in both English and French.
+
+The sections below the interactive dashboard must keep the same premium, visual character as Clinahir's landing page. Preserve the product-specific feature visuals and interactive patient-journey panel; use layered imagery, glass, distinct section rhythm, and clear hierarchy for the remaining sales content. Avoid replacing them with repetitive plain card grids. Keep the established colors and route sales calls to action to the demo inquiry.
+
+Landing motion should feel responsive and restrained: numerical summary cards across the interactive demo, including Dashboard, Appointments, Patients, Staff, Messages, Doctors, Posts & Articles, and Activity Log, count to their demo totals when visible and when values change. Dashboard cards also animate on the first page load after their entrance reveal. Respect reduced-motion preferences and avoid continuous decorative loops.
+
+The mobile dashboard page navigation should never show a bright browser-native scrollbar against the glass shell. Keep its tabs horizontally accessible with a subtle edge fade and scroll controls that match the dashboard glass styling.
+
+Clinahir sales lead integration uses Vercel API functions and a dedicated Redis outbox. All public demo/contact CTAs share the demo inquiry. Interactive dashboard patient, appointment, staff, and support forms remain local prototype tools and must never enter the sales lead pipeline. Preserve server/client secret isolation, stable retry IDs, and the existing landing design.

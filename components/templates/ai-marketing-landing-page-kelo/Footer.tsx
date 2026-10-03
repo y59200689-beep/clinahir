@@ -1,0 +1,15 @@
+import { ArrowRight } from 'lucide-react';
+
+export default function Footer({ language = 'en', onLanguageChange }: { language?: 'en' | 'fr'; onLanguageChange?: (language: 'en' | 'fr') => void }) {
+  const fr = language === 'fr';
+  return <footer className="bg-[var(--brand-dark)] px-6 pb-8 pt-20 text-white">
+    <div className="mx-auto max-w-6xl">
+      <div className="mb-16 flex flex-col gap-8 border-b border-white/15 pb-16 md:flex-row md:items-end md:justify-between">
+        <div><p className="mb-4 text-xs font-bold tracking-[.2em] text-[var(--brand-primary)]">{fr ? 'PROCHAINE ÉTAPE' : 'NEXT STEP'}</p><h2 className="max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">{fr ? 'Voyons ce que Clinahir pourrait apporter à votre centre.' : 'Let’s see what Clinahir could do for your center.'}</h2></div>
+        <a href="#book-demo" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--brand-primary)] px-7 py-4 font-semibold text-white transition hover:bg-[var(--brand-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{fr ? 'Demander une démo' : 'Request a demo'}<ArrowRight size={18}/></a>
+      </div>
+      <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]"><div><span className="text-2xl font-bold tracking-tight text-white" aria-label="Clinahir">Clinahir</span><p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">{fr ? 'Technologie numérique et accompagnement à la croissance pour les centres médicaux au Maroc.' : 'Digital technology and growth support for medical centers in Morocco.'}</p></div><nav aria-label={fr ? 'Navigation de pied de page' : 'Footer navigation'} className="flex flex-col gap-3 text-sm"><span className="font-semibold">{fr ? 'Explorer' : 'Explore'}</span><a className="text-white/60 hover:text-white" href="#solutions">Solutions</a><a className="text-white/60 hover:text-white" href="#interactive-demo">{fr ? 'Démo interactive' : 'Interactive demo'}</a><a className="text-white/60 hover:text-white" href="#process">{fr ? 'Méthode' : 'Process'}</a></nav><nav aria-label={fr ? 'Entreprise' : 'Company'} className="flex flex-col gap-3 text-sm"><span className="font-semibold">Clinahir</span><a className="text-white/60 hover:text-white" href="#about">{fr ? 'À propos' : 'About'}</a><a className="text-white/60 hover:text-white" href="#book-demo">Contact</a></nav></div>
+      <div className="mt-14 flex flex-wrap items-center justify-between gap-5 border-t border-white/15 pt-6 text-xs text-white/50"><span>© {new Date().getFullYear()} Clinahir</span><label data-language-selector className="flex items-center gap-2"><span>{fr ? 'Langue' : 'Language'}</span><select aria-label="Language / Langue" value={language} onChange={event => onLanguageChange?.(event.target.value as 'en' | 'fr')} className="rounded-lg border border-white/20 bg-white/10 px-2 py-1 text-white"><option value="en" className="text-black">English</option><option value="fr" className="text-black">Français</option></select></label></div>
+    </div>
+  </footer>;
+}
