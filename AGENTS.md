@@ -68,3 +68,5 @@ The mobile dashboard page navigation should never show a bright browser-native s
 Clinahir sales lead integration uses Vercel API functions and a private Supabase outbox. All public demo/contact CTAs share the demo inquiry. Interactive dashboard patient, appointment, staff, and support forms remain local prototype tools and must never enter the sales lead pipeline. Preserve server/client secret isolation, stable retry IDs, and the existing landing design.
 
 Successful marketing demo inquiries show a prominent branded confirmation dialog in English/French, only after durable server capture. Preserve inline errors, keyboard focus restoration, Escape dismissal, and reduced-motion support.
+
+The marketing demo inquiry requires a phone number in English and French; reject missing or blank phone values server-side.

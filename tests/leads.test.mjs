@@ -38,7 +38,7 @@ test('duplicate submits are idempotent and changed data cannot replace captured 
  const conflict=await leadRequest(req({...input,companyName:'Other center'}),store,config,fetcher);assert.equal(conflict.status,409);
 });
 test('invalid form, cross-origin, oversized and invalid content type rejected',async()=> {
- const store=new MemoryStore();for(const patch of [{email:'bad'},{role:'fake'},{companyName:''},{submissionId:'bad'},{formType:'newsletter'},{landingPage:'https://bad.example'}]) assert.equal((await leadRequest(req({...input,...patch}),store,config)).status,400);
+ const store=new MemoryStore();for(const patch of [{phone:''},{phone:'   '},{phone:null},{phone:undefined},{email:'bad'},{role:'fake'},{companyName:''},{submissionId:'bad'},{formType:'newsletter'},{landingPage:'https://bad.example'}]) assert.equal((await leadRequest(req({...input,...patch}),store,config)).status,400);
  assert.equal(store.records.size,0);
  assert.equal((await leadRequest(new Request('https://clinahir.example.com/api/leads',{method:'POST',headers:{Origin:'https://evil.example','Content-Type':'application/json'},body:JSON.stringify(input)}),store,config)).status,403);
  assert.equal((await leadRequest(new Request('https://clinahir.example.com/api/leads',{method:'POST',body:'x'}),store,config)).status,415);
@@ -85,7 +85,7 @@ test('Supabase SQL restricts RPCs and prevents lease races',()=> {
 test('browser client uses same-origin API, preserves attribution and ID on error, clears form ID only on success',async()=> {
  const data=new Map();globalThis.sessionStorage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};globalThis.window={location:{pathname:'/',search:'?utm_source=google&utm_medium=cpc&utm_campaign=radiology'}};
  assert.equal(captureAttribution().utmSource,'google');window.location={pathname:'/about',search:''};assert.equal(captureAttribution().landingPage,'/');
- const form=new FormData();for(const [k,v] of Object.entries({center_name:'Atlas',city:'Casablanca',email:'contact@example.com',role:input.role,priority:input.priority}))form.set(k,v);
+ const form=new FormData();for(const [k,v] of Object.entries({center_name:'Atlas',city:'Casablanca',email:'contact@example.com',phone:'0612345678',role:input.role,priority:input.priority}))form.set(k,v);
  let first;await assert.rejects(()=>submitLead(form,async(url,init)=>{assert.equal(url,'/api/leads');first=JSON.parse(init.body);assert(!JSON.stringify(init).includes(config.CLINAHIR_INTEGRATION_SECRET));return Response.json({error:'offline'},{status:503});}));
  const id=await submitLead(form,async(url,init)=>{const body=JSON.parse(init.body);assert.equal(body.submissionId,first.submissionId);assert.equal(body.utmCampaign,'radiology');return Response.json({ok:true,externalId:`cli_${body.submissionId}`},{status:201});});assert.equal(data.get('clinahir:last-lead-id'),id);assert(!data.has('clinahir:lead-submission:v1'));
 });

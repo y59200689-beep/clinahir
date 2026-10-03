@@ -38,7 +38,7 @@ export function validateLead(body: unknown): LeadInput {
   const landingPage = field(d, 'landingPage', 500, true)!;
   if (!landingPage.startsWith('/') || landingPage.startsWith('//') || /[?#\r\n]/.test(landingPage)) throw new InvalidLead('landingPage');
   return { submissionId: submissionId.toLowerCase(), companyName: field(d, 'companyName', 200, true)!, city: field(d, 'city', 120, true)!, email, role, priority, formType, landingPage,
-    phone: field(d, 'phone', 40), contactName: field(d, 'contactName', 200), message: field(d, 'message', 3000),
+    phone: field(d, 'phone', 40, true)!, contactName: field(d, 'contactName', 200), message: field(d, 'message', 3000),
     utmSource: field(d, 'utmSource', 200), utmMedium: field(d, 'utmMedium', 200), utmCampaign: field(d, 'utmCampaign', 200) };
 }
 export function makeRecord(input: LeadInput, now = new Date()): LeadRecord {
