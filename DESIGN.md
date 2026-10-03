@@ -16,3 +16,5 @@ The radiology center dashboard is shown inside the existing landscape hero. Chan
 - Use visible selected states on sidebar items, tabs, filters, and list rows. Keyboard focus uses a visible cyan ring.
 - Open a record into its detail area without changing the landscape background or dashboard shell.
 - Keep English and French labels available through the existing `language` prop used by dashboard pages.
+
+Successful marketing demo inquiries show a prominent branded confirmation dialog in English/French, only after durable server capture. Preserve inline errors, keyboard focus restoration, Escape dismissal, and reduced-motion support.

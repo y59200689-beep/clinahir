@@ -1,3 +1,4 @@
+import { LeadConfirmation } from './LeadConfirmation';
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { ArrowRight, CalendarCheck2, Check, ChevronDown, ClipboardList, MessageCircle, Search, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -119,6 +120,7 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
   };
   useEffect(() => { captureAttribution(); }, []);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [role, setRole] = useState('');
   const [priority, setPriority] = useState('');
   const [selectionError, setSelectionError] = useState(false);
@@ -135,10 +137,12 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
       form.reset();
       setRole(''); setPriority(''); setSelectionError(false);
       setStatus('success');
+      setConfirmationOpen(true);
     } catch { setStatus('error'); }
   }
 
   return <>
+    <LeadConfirmation open={confirmationOpen} language={language} onClose={() => setConfirmationOpen(false)}/>
     <motion.section {...sectionReveal} className="marketing-proof px-6 py-24"><div className="mx-auto grid max-w-6xl gap-10 rounded-[36px] border border-[var(--border)] bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,.05)] md:grid-cols-[1.2fr_.8fr] md:p-12"><div><p className="mb-4 text-xs font-bold tracking-[0.2em] text-[var(--brand-primary-hover)]">{t.proofEyebrow}</p><h2 className="mb-5 text-4xl font-semibold tracking-tight">{t.proofTitle}</h2><p className="max-w-xl text-lg leading-relaxed text-[var(--text-body)]">{t.proofBody}</p><a href="#interactive-demo" className="mt-7 inline-flex items-center gap-2 font-semibold text-[var(--brand-primary-hover)] underline underline-offset-4">{language === 'fr' ? 'Explorer la démo interactive' : 'Explore the interactive demo'}<ArrowRight size={17}/></a></div><div className="flex flex-col justify-center gap-4">{t.proofPoints.map((point) => <div key={point} className="flex gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-4"><Check className="mt-0.5 shrink-0 text-[var(--brand-primary)]" size={19}/><span className="font-medium text-[var(--text-strong)]">{point}</span></div>)}</div></div></motion.section>
 
     <motion.section {...sectionReveal} id="process" className="marketing-process scroll-mt-8 px-6 py-28"><div className="mx-auto max-w-6xl"><p className="mb-4 text-xs font-bold tracking-[0.2em] text-[var(--brand-primary-hover)]">{t.processEyebrow}</p><h2 className="mb-12 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">{t.processTitle}</h2><div className="grid gap-4 md:grid-cols-4">{t.process.map(([number,title,body]) => <article key={number} className="border-t-2 border-[var(--brand-primary)] pt-6"><span className="mb-8 block text-sm font-bold text-[var(--brand-primary-hover)]">{number}</span><h3 className="mb-3 text-xl font-semibold">{title}</h3><p className="leading-relaxed text-[var(--text-body)]">{body}</p></article>)}</div></div></motion.section>

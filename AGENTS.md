@@ -66,3 +66,5 @@ Landing motion should feel responsive and restrained: numerical summary cards ac
 The mobile dashboard page navigation should never show a bright browser-native scrollbar against the glass shell. Keep its tabs horizontally accessible with a subtle edge fade and scroll controls that match the dashboard glass styling.
 
 Clinahir sales lead integration uses Vercel API functions and a private Supabase outbox. All public demo/contact CTAs share the demo inquiry. Interactive dashboard patient, appointment, staff, and support forms remain local prototype tools and must never enter the sales lead pipeline. Preserve server/client secret isolation, stable retry IDs, and the existing landing design.
+
+Successful marketing demo inquiries show a prominent branded confirmation dialog in English/French, only after durable server capture. Preserve inline errors, keyboard focus restoration, Escape dismissal, and reduced-motion support.
