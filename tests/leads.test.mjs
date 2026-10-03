@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { captureLead, deliver, makeRecord, validateLead, Conflict } from '../.integration-build/server/leads.js';
 import { leadRequest, retryRequest } from '../.integration-build/server/http.js';
-import { RedisLeadStore } from '../.integration-build/server/redis.js';
+import { SupabaseLeadStore } from '../.integration-build/server/supabase.js';
 import { captureAttribution, submitLead } from '../.integration-build/src/leads/client.js';
 import { MemoryStore } from './fixtures/memory-store.mjs';
 
@@ -53,11 +53,34 @@ test('eight temporary attempts exhaust automatic retries and retain lead',async(
  for(let n=0;n<8;n++) await deliver(store,record.payload.externalId,config,async()=>new Response('',{status:500}),store.queue.get(record.payload.externalId));
  assert.equal(store.records.get(record.payload.externalId).status,'exhausted');assert.equal(store.queue.size,0);assert.equal(store.records.size,1);
 });
-test('storage uses atomic EVAL capture, lease claim and token-checked completion',async()=> {
- const commands=[]; const record=makeRecord(validateLead(input));
- const store=new RedisLeadStore('https://redis.example.com','storage-secret',async(_,init)=>{const args=JSON.parse(init.body);commands.push(args);return Response.json({result: commands.length===1?JSON.stringify(record):null});});
- await store.capture(record); await store.claim(record.payload.externalId,'token',0);await store.finish(record.payload.externalId,'token',record,null);
- assert.equal(commands[0][0],'EVAL');assert(commands[0][1].includes("redis.call('ZADD'"));assert(commands[1][1].includes("'NX', 'PX', 60000"));assert(commands[2][1].includes("~= ARGV[2]"));
+test('Supabase maps real fields, uses server key, RPC leases and original duplicate ID',async()=> {
+ const calls=[];const r=makeRecord(validateLead(input));
+ const row={external_id:r.payload.externalId,company_name:r.payload.companyName,email:r.payload.email,city:r.payload.city,form_type:'demo',landing_page:'/',submitted_at:r.payload.submittedAt,role:r.role,priority:r.priority,submission_fingerprint:r.fingerprint,daily_command_status:'pending',daily_command_attempts:0};
+ const store=new SupabaseLeadStore('https://project.supabase.co','sb_secret_test',async(url,init)=> {
+  assert.equal(init.headers.apikey,'sb_secret_test');assert(!init.headers.Authorization);
+  const body=init.body?JSON.parse(init.body):undefined;calls.push({url,body});
+  if(url.includes('capture'))return Response.json(row);
+  if(url.includes('claim'))return Response.json({...row,daily_command_attempts:1});
+  if(url.includes('clinahir_leads?'))return Response.json([{external_id:row.external_id}]);
+  return Response.json(true);
+ });
+ assert.equal((await store.capture(r)).payload.externalId,r.payload.externalId);
+ assert.equal((await store.capture(r)).payload.submittedAt,r.payload.submittedAt);
+ assert.equal(calls[0].body.p_record.utm_campaign,'radiology');
+ assert.equal((await store.claim(row.external_id,'token',0)).attempts,1);
+ await store.finish(row.external_id,'token',{...r,status:'synced'},null);
+ assert.equal(calls[3].body.p_token,'token');assert.equal(calls[3].body.p_next,null);
+ assert.deepEqual(await store.due(0,10),[row.external_id]);assert(await store.replay(row.external_id,0));assert(await store.allow('hash'));
+ await assert.rejects(()=>store.capture({...r,fingerprint:'different'}),Conflict);
+ const legacy=new SupabaseLeadStore('https://project.supabase.co','legacy-jwt',async(_,init)=>{assert.equal(init.headers.Authorization,'Bearer legacy-jwt');return Response.json(true);});assert(await legacy.allow('hash'));
+ const failed=new SupabaseLeadStore('https://project.supabase.co','sb_secret_test',async()=>new Response('private detail',{status:503}));
+ await assert.rejects(()=>failed.capture(r),/lead_storage_unavailable/);
+});
+test('Supabase SQL restricts RPCs and prevents lease races',()=> {
+ const sql=readFileSync('supabase/migrations/20261003095303_clinahir_supabase_outbox.sql','utf8');
+ assert(sql.includes('for update'));assert(sql.includes('daily_command_lock_token=p_token'));
+ assert(sql.includes('on conflict (external_id) do nothing'));assert(sql.includes('from public,anon,authenticated'));
+ assert(sql.includes('security invoker'));assert(sql.includes('enable row level security'));
 });
 test('browser client uses same-origin API, preserves attribution and ID on error, clears form ID only on success',async()=> {
  const data=new Map();globalThis.sessionStorage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};globalThis.window={location:{pathname:'/',search:'?utm_source=google&utm_medium=cpc&utm_campaign=radiology'}};
@@ -69,5 +92,5 @@ test('browser client uses same-origin API, preserves attribution and ID on error
 test('existing form delegates submission and preserves success/error states',()=> {const source=readFileSync('src/LandingSections.tsx','utf8');assert(source.includes('await submitLead(body)'));assert(source.includes("setStatus('success')"));assert(source.includes("catch { setStatus('error'); }"));assert(source.includes("disabled={status === 'sending'}"));assert(!source.includes('VITE_DEMO_FORM_ENDPOINT'));});
 test('private integration secret absent from client source and built assets',()=> {
  const source=readFileSync('src/leads/client.ts','utf8');assert(!source.includes('CLINAHIR_INTEGRATION_SECRET'));
- for(const f of readdirSync('dist/client/assets')) if(f.endsWith('.js')) {const bundle=readFileSync(`dist/client/assets/${f}`,'utf8');assert(!bundle.includes('CLINAHIR_INTEGRATION_SECRET'));assert(!bundle.includes('integration-build-secret-canary'));assert(!bundle.includes('UPSTASH_REDIS_REST_TOKEN'));}
+ for(const f of readdirSync('dist/client/assets')) if(f.endsWith('.js')) {const bundle=readFileSync(`dist/client/assets/${f}`,'utf8');assert(!bundle.includes('CLINAHIR_INTEGRATION_SECRET'));assert(!bundle.includes('integration-build-secret-canary'));assert(!bundle.includes('SUPABASE_SERVICE_ROLE_KEY'));assert(!bundle.includes('sb_secret_test'));}
 });

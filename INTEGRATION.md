@@ -6,7 +6,7 @@ This is React 19 + Vite 6, with TSX components and a browser SPA. It is not Next
 
 ## Implemented flow
 
-Existing demo inquiry → `POST /api/leads` → validation → atomic durable Redis record and outbox entry → one server-side delivery attempt → normal visitor success once safely captured.
+Existing demo inquiry → `POST /api/leads` → validation → atomic durable Supabase lead/outbox row → one server-side delivery attempt → normal visitor success once safely captured.
 
 Vercel API functions are in `api/`; development Vite uses the same server handlers via `scripts/leads-dev.mjs`. The existing Sites static-worker packaging remains intact, but it does not deploy these new Vercel functions. This integration requires Vercel or an equivalent host running the API; a static-only/Sites preview cannot accept live leads.
 
@@ -16,10 +16,10 @@ Use the `kelo-clone` directory as the Vercel project root, Vite preset, Node 24,
 
 - `DAILY_COMMAND_URL`: Daily Command HTTPS origin, such as `https://dailycommand.example.com`, no path/query.
 - `CLINAHIR_INTEGRATION_SECRET`: the bearer secret agreed with Daily Command's receiver.
-- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`: a dedicated Clinahir Redis database's REST credentials. This is Clinahir storage, not Daily Command's database.
+- `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`: Clinahir Supabase URL and server-only service-role or modern secret API key. This is Clinahir storage, not Daily Command's database.
 - `CRON_SECRET`: a different strong random secret protecting the outbox processor.
 
-Never prefix these with `VITE_` or `NEXT_PUBLIC_`. Remove the obsolete `VITE_DEMO_FORM_ENDPOINT`. Use isolated storage and receiver secrets for Preview/Development; do not send preview leads into the production prospect system. Redeploy after setting the variables. Keep Redis eviction disabled, do not apply TTLs to lead records, and enable the storage provider's available durability/backups. Records have no automatic expiry. Establish an operational retention/export policy for accepted leads.
+Never prefix these with `VITE_` or `NEXT_PUBLIC_`. Remove the obsolete `VITE_DEMO_FORM_ENDPOINT`. Use isolated storage and receiver secrets for Preview/Development; do not send preview leads into the production prospect system. Redeploy after setting the variables. Enable available Supabase backups. Records have no automatic expiry. Establish an operational retention/export policy for accepted leads.
 
 The checked-in cron runs daily at 03:00 UTC, processing at most 10 due leads with a 30-second start budget to leave completion time within the function limit. For quicker recovery/higher volume, change to a frequency supported by your Vercel plan, or use an authenticated external scheduler. Delays are minimum eligibility times; actual retries happen on the next scheduled invocation. Monitor queue backlog and Vercel logs; increase cadence/capacity if needed. Cron is production-only on Vercel.
 
@@ -51,7 +51,7 @@ Optional phone is included only when provided. No contact name is collected, so 
 
 ## Identity, persistence, retries
 
-A browser-generated UUID v4 is stored in sessionStorage as a pending submission ID (in-memory fallback if unavailable). The server validates it and prefixes it `cli_`. A response timeout/retry/reload in that browser tab reuses it. Redis atomically creates the lead and enqueues it in one Lua operation. Existing IDs return the original record; a hash of normalized fields rejects changed input under the same ID. A conflict clears the client pending ID for the visitor's next explicit submission. A successful response clears the pending ID; an intentionally new submission then gets a new ID. Separate browser sessions cannot be identified as the same lead automatically.
+A browser-generated UUID v4 is stored in sessionStorage as a pending submission ID (in-memory fallback if unavailable). The server validates it and prefixes it `cli_`. A response timeout/retry/reload in that browser tab reuses it. Supabase atomically creates a lead with pending delivery metadata through a private database function. Existing IDs return the original record; a hash of normalized fields rejects changed input under the same ID. A conflict clears the client pending ID for the visitor's next explicit submission. A successful response clears the pending ID; an intentionally new submission then gets a new ID. Separate browser sessions cannot be identified as the same lead automatically.
 
 `clinahir:lead:<externalId>` retains payload, role, priority, normalized input fingerprint, status, attempts, lastError, syncedAt. `clinahir:leads:due` tracks retry eligibility. No local disk or process memory is used for production persistence. Tests alone use an isolated in-memory fixture.
 
@@ -66,7 +66,7 @@ POST /api/cron/leads?externalId=cli_<uuid>
 Authorization: Bearer <CRON_SECRET>
 ```
 
-This resets its attempt budget and requeues the same record/ID, then processes a bounded batch of due records. `GET /api/cron/leads` with the same authorization processes only due records. Inspect records/statuses in the private Redis console and monitor `clinahir_lead_sync`, `clinahir_lead_capture`, and `clinahir_outbox` logs. There is no public lead listing or public replay endpoint.
+This resets its attempt budget and requeues the same record/ID, then processes a bounded batch of due records. `GET /api/cron/leads` with the same authorization processes only due records. Inspect records/statuses in the private Supabase table editor and monitor `clinahir_lead_sync`, `clinahir_lead_capture`, and `clinahir_outbox` logs. There is no public lead listing or public replay endpoint.
 
 The accepted lead ID is retained as `clinahir:last-lead-id` in sessionStorage for a future meeting association. There is no actual meeting scheduler in this project. Connecting one later needs a server-verified booking reference/webhook and a Daily Command update contract; do not blindly reuse an ID for unrelated new inquiries.
 
@@ -80,13 +80,13 @@ The browser calls only `/api/leads`. Server code is outside client imports. Ther
 
 `npm run typecheck` checks all TS/TSX including existing components. `npm run lint` is a focused integration boundary check, not a claim of existing ESLint coverage. `npm run test:leads` uses the project's existing Node test runner and strict compiled TypeScript. `npm run test:sites` keeps prior hosting tests. `npm run build` was run with a fake secret canary; tests check its absence in the browser output.
 
-The actual browser form was submitted against a disposable local receiver and store. Its success UX, UTM payload, server bearer authorization, and synced record were verified. Unit/contract tests cover retry identity, transient loss prevention, 400/401, invalid data, storage failure, replay auth, exhaustion, and client behavior. Redis scripts are tested as request contracts; a real provisioned Redis database and live Daily Command endpoint have not been exercised because no credentials/URL were provided. Once configured, submit a clearly labeled test lead and confirm it appears in Daily Command's Leads/Prospects database/UI, then test transient recovery against a staging receiver. Never use the local test harness for real leads.
+The actual browser form was submitted against a disposable local receiver and store. Its success UX, UTM payload, server bearer authorization, and synced record were verified. Unit/contract tests cover retry identity, transient loss prevention, 400/401, invalid data, storage failure, replay auth, exhaustion, and client behavior. Supabase adapter contracts and live database RPC behavior are verified; the deployed HTTP flow requires a server API key and the live Daily Command endpoint remains unconfigured. Once configured, submit a clearly labeled test lead and confirm it appears in Daily Command's Leads/Prospects database/UI, then test transient recovery against a staging receiver. Never use the local test harness for real leads.
 
 ## Changed files
 
 - `src/LandingSections.tsx`: delegates the existing inquiry to the shared same-origin submission client, enables submission, retains existing validation/success/error states.
 - `src/leads/types.ts`, `src/leads/client.ts`: strict request/payload types, attribution, pending ID and shared submit utility.
-- `server/leads.ts`, `server/redis.ts`, `server/http.ts`, `server/config.ts`: validation, normalization, payload mapping, durable capture, delivery/outbox, protected retry/replay, environment adapter.
+- `server/leads.ts`, `server/supabase.ts`, `server/http.ts`, `server/config.ts`: validation, normalization, payload mapping, durable capture, delivery/outbox, protected retry/replay, environment adapter.
 - `api/leads.ts`, `api/cron/leads.ts`: Vercel method handlers.
 - `vite.config.mjs`, `scripts/leads-dev.mjs`: local API support using the same backend.
 - `vercel.json`, `.env.example`, `.gitignore`: hosting/cron and secret configuration.
@@ -96,3 +96,9 @@ The actual browser form was submitted against a disposable local receiver and st
 - `INTEGRATION.md`, `AGENTS.md`, `DESIGN.md`: setup and durable integration guidance.
 
 Existing Sites worker/build scripts and tests were preserved. Existing layouts, styles, and unrelated form behavior were preserved.
+
+## Supabase storage migration
+
+The existing `public.clinahir_leads` table is the durable store and outbox. Apply `supabase/migrations/20261003095303_clinahir_supabase_outbox.sql` once to add service-role-only capture, claim, finish, replay and rate-limit RPCs. This migration was applied to the Clinahir project. Claims lock rows and grant a 60-second UUID lease; completion only accepts the matching token. Failed completions become eligible again when the lease expires. No leads are automatically deleted. Hashed email rate counters expire after ten minutes.
+
+Configure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel and local `.env.local`. The latter accepts either a legacy service-role JWT or a modern sb_secret API key; neither enters browser code. Redis variables are no longer used. Existing Redis records, if any, require an explicit export/import before retiring that store; this project had no configured Redis credentials.
