@@ -30,6 +30,9 @@ export class SupabaseLeadStore implements LeadStore {
   if (!response.ok) throw new Error('lead_storage_unavailable');
   return await response.json() as T;
  }
+ async analyticsEvent(event: {id:string;event_type:string;placement:string;language:string}): Promise<void> {
+  await this.request('rpc/clinahir_record_analytics',{p_event:event});
+ }
  async capture(r: LeadRecord): Promise<LeadRecord> {
   const p = r.payload;
   const saved = record(await this.request<LeadRow>('rpc/clinahir_capture_lead', { p_record: {

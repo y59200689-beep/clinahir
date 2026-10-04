@@ -94,3 +94,14 @@ test('private integration secret absent from client source and built assets',()=
  const source=readFileSync('src/leads/client.ts','utf8');assert(!source.includes('CLINAHIR_INTEGRATION_SECRET'));
  for(const f of readdirSync('dist/client/assets')) if(f.endsWith('.js')) {const bundle=readFileSync(`dist/client/assets/${f}`,'utf8');assert(!bundle.includes('CLINAHIR_INTEGRATION_SECRET'));assert(!bundle.includes('integration-build-secret-canary'));assert(!bundle.includes('SUPABASE_SERVICE_ROLE_KEY'));assert(!bundle.includes('sb_secret_test'));}
 });
+test('analytics accepts only bounded anonymous metadata and rejects cross-origin requests',async()=> {
+ const {analyticsRequest}=await import('../.integration-build/server/analytics.js');
+ const env={SUPABASE_URL:'https://project.supabase.co',SUPABASE_SERVICE_ROLE_KEY:'sb_secret_test'};let stored;
+ const request=(body,origin='https://clinahir.example.com')=>new Request('https://clinahir.example.com/api/analytics',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)});
+ const event={id:'12345678-1234-4234-8234-123456789abc',eventType:'demo_cta_click',placement:'hero',language:'fr',email:'must-not-forward@example.com'};
+ const result=await analyticsRequest(request(event),env,async(_,init)=>{stored=JSON.parse(init.body);return Response.json({});});assert.equal(result.status,204);assert.deepEqual(stored.p_event,{id:event.id,event_type:'demo_cta_click',placement:'hero',language:'fr'});
+ assert.equal((await analyticsRequest(request(event,'https://evil.example'),env)).status,403);
+ assert.equal((await analyticsRequest(request({...event,eventType:'arbitrary'}),env)).status,400);
+ assert.equal((await analyticsRequest(request({...event,extra:'x'.repeat(2000)}),env)).status,413);
+ assert.equal((await analyticsRequest(request(event),env,async()=>new Response('',{status:500}))).status,503);
+});
