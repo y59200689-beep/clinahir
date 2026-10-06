@@ -168,3 +168,8 @@ html { scroll-behavior: smooth; }
 
 #book-demo form input { min-width: 0; }
 #book-demo form label, #book-demo form .grid > * { min-width: 0; }
+
+/* Keep fine dashboard text legible on the existing translucent surfaces. */
+#interactive-demo .text-white\/50 { color: rgb(255 255 255 / .76); }
+#interactive-demo .text-white\/40 { color: rgb(255 255 255 / .72); }
+#interactive-demo .text-white\/60 { color: rgb(255 255 255 / .82); }

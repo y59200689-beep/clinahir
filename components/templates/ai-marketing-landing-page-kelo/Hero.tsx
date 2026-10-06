@@ -1,3 +1,4 @@
+import DemoTour from '../../../src/DemoTour';
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -514,7 +515,7 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
 
         {/* Dashboard Content */}
         <main className="flex-1 min-w-0 p-4 sm:p-8 space-y-6">
-          <MobilePageNav activePage={activePage} onSelect={setActivePage} />
+          <MobilePageNav activePage={activePage} onSelect={setActivePage} /><DemoTour language={language} onNavigate={setActivePage} />
           {activePage === "Support" ? (
             <div key="support-page" className="h-[760px] min-w-0 overflow-y-auto overscroll-contain pr-1" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.25) transparent" }}>
               <SupportPage language={language} onNavigate={setActivePage} />
@@ -644,7 +645,7 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
-export default function AiMarketingHeroKelo({ className, language = "en" }: { className?: string; language?: "en" | "fr" }) {
+export default function AiMarketingHeroKelo({ className, language = "en", onLanguageChange }: { className?: string; language?: "en" | "fr"; onLanguageChange?: (language: "en" | "fr") => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -685,7 +686,7 @@ export default function AiMarketingHeroKelo({ className, language = "en" }: { cl
               </div>
 
               {/* Center: Nav Links — absolutely centered relative to pill */}
-              <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
+              <div className="hidden lg:flex items-center gap-5 absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
                 {["Solutions", "Demo", "Process", "About"].map((item, index) => (
                   <a
                     key={item}
@@ -700,7 +701,7 @@ export default function AiMarketingHeroKelo({ className, language = "en" }: { cl
 
               {/* Right: Buttons */}
               <div className="flex items-center gap-3">
-                <a href="#book-demo" className="hidden sm:inline-flex text-[15px] font-medium text-white/70 hover:text-white transition-colors px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+                <label data-language-selector className="flex items-center"><span className="sr-only">{language === "fr" ? "Langue" : "Language"}</span><select aria-label="Site language / Langue du site" value={language} onChange={event => onLanguageChange?.(event.target.value as "en" | "fr")} className="rounded-full border border-white/25 bg-white/10 px-2 py-2 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"><option className="text-black" value="en">EN</option><option className="text-black" value="fr">FR</option></select></label><a href="#book-demo" className="hidden xl:inline-flex text-[15px] font-medium text-white/70 hover:text-white transition-colors px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
                   Contact
                 </a>
                 <a href="#book-demo" className="rounded-full px-5 py-2 text-[15px] font-semibold bg-[var(--surface)] text-[var(--text-primary)] hover:bg-white/90 transition-all hover:scale-105 active:scale-95">
@@ -722,8 +723,7 @@ export default function AiMarketingHeroKelo({ className, language = "en" }: { cl
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" as const }}
               className="text-center font-semibold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] leading-[1.1] tracking-[-0.02em] text-white max-w-4xl mt-0 mb-4"
             >
-              Turn More Searches Into<br />
-              Booked <span className="italic">Appointments</span>
+              {language === "fr" ? <>Transformez les recherches<br className="hidden sm:block"/> en rendez-vous <span className="italic">confirmés</span></> : <>Turn More Searches Into<br />Booked <span className="italic">Appointments</span></>}
             </motion.h1>
 
             {/* Subheadline */}

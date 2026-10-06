@@ -1,323 +1,66 @@
-"use client";
+import { useState } from 'react';
+import { CalendarDays, Check, CheckCircle2, Clock3, MapPin, Search, ArrowUpRight, BarChart3, Users, Stethoscope, ArrowRight } from 'lucide-react';
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Activity,
-  Command,
-  MousePointer2,
-  Users,
-  Zap
-} from "lucide-react";
-
-const ACCENT_COLOR = "var(--brand-primary)";
-
-function GridLine({ vertical = false }: { vertical?: boolean }) {
-  return (
-    <div
-      className={
-        "absolute " +
-        (vertical ? "w-px h-full top-0" : "h-px w-full left-0") +
-        " bg-[var(--border-60)]"
-      }
-    />
-  );
-}
-
-function FeatureCard({
-  title,
-  description,
-  icon: Icon,
-  children,
-  className = "",
-}: {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-  children?: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className={"relative p-8 group overflow-hidden flex flex-col " + className}
-    >
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-[var(--surface-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] group-hover:text-[var(--brand-primary)] transition-colors duration-300">
-            <Icon size={20} />
-          </div>
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] tracking-tight">{title}</h3>
-        </div>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 max-w-[280px]">
-          {description}
-        </p>
-        <div className="flex-1 flex flex-col">
-          {children}
-        </div>
+export default function Features({ language = 'en', className = '' }: { language?: 'en' | 'fr'; className?: string }) {
+  const fr = language === 'fr';
+  const [slot, setSlot] = useState('09:30');
+  const t = (en: string, french: string) => fr ? french : en;
+  const card = 'feature-preview-card min-w-0 rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8';
+  const preview = 'rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-5 sm:p-6';
+  const label = 'text-[10px] font-semibold uppercase tracking-[.12em] text-[var(--text-secondary)]';
+  return <section className={`bg-[var(--surface)] px-6 py-24 md:px-12 ${className}`}>
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-12 grid items-end gap-6 md:grid-cols-2 md:gap-12">
+        <h2 className="text-4xl font-semibold leading-[1.1] tracking-tight text-[var(--text-primary)] md:text-5xl">{t('One System for Your Digital Patient Journey', 'Une seule solution pour le parcours digital de vos patients')}</h2>
+        <p className="max-w-lg text-lg leading-relaxed text-[var(--text-secondary)]">{t('Give patients a modern way to discover your center, understand your services and book an appointment while giving your team the tools to manage requests efficiently.', 'Permettez aux patients de découvrir votre centre, de comprendre vos services et de prendre rendez-vous facilement, tout en donnant à votre équipe les outils pour gérer les demandes efficacement.')}</p>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-primary-05)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    </motion.div>
-  );
-}
-
-export default function Features02Kelo({ className }: { className?: string }) {
-  const [activeMetric, setActiveMetric] = useState(0);
-
-  const metrics = [
-    { label: "Requests", value: "Visible", trend: "+ Ready" },
-    { label: "Booking", value: "Simple", trend: "Clear" },
-    { label: "Support", value: "Ongoing", trend: "Stable" },
-  ];
-
-  return (
-    <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-        crossOrigin="anonymous"
-      />
-
-      <section
-        className={"bg-[var(--surface)] py-24 px-6 md:px-12 font-sans overflow-hidden " + (className || "")}
-      >
-        <div className="max-w-7xl mx-auto relative">
-
-          {/* Header Section */}
-          <div className="mb-20 relative">
-            <div className="grid md:grid-cols-2 gap-12 items-end">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-[48px] font-semibold text-[var(--text-primary)] tracking-tight leading-[1.1]"
-              >
-                One System for <br />
-                Your Digital Patient Journey
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-lg text-[var(--text-secondary)] leading-relaxed max-w-md"
-              >
-                Give patients a modern way to discover your center, understand your services and book an appointment while giving your team the tools to manage requests efficiently.
-              </motion.p>
+      <div className="grid gap-5 lg:grid-cols-2">
+        <article className={card}>
+          <div className="mb-5 flex items-center gap-3"><CalendarDays className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Patient Experience', 'Expérience patient')}</h3></div>
+          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('A clear appointment request, from choosing an examination to finding a convenient time.', 'Une demande simple, du choix de l’examen à la sélection d’un créneau adapté.')}</p>
+          <div className={preview}>
+            <div className="mb-5 flex items-start justify-between gap-3"><div><p className={label}>{t('Appointment request', 'Demande de rendez-vous')}</p><p className="mt-2 text-lg font-semibold">{t('Find a time that suits you', 'Choisissez votre créneau')}</p></div><span className="rounded-lg bg-white p-2 text-[var(--brand-primary-hover)]"><Stethoscope size={20}/></span></div>
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-[var(--border)] bg-white p-4"><div><p className={label}>{t('Examination', 'Examen')}</p><p className="mt-1 text-sm font-semibold">{t('Ultrasound', 'Échographie')}</p></div><CheckCircle2 size={18} className="shrink-0 text-[var(--brand-primary-hover)]"/></div>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-2"><span className="text-sm font-medium">{t('Monday, 12 October', 'Lundi 12 octobre')}</span><span className="text-xs text-[var(--text-secondary)]">{t('Choose a time', 'Choisissez une heure')}</span></div>
+            <div className="mt-3 grid grid-cols-3 gap-2" role="group" aria-label={t('Sample appointment times', 'Exemples de créneaux')}>
+              {['09:30','10:00','14:30'].map(time => <button key={time} type="button" aria-pressed={slot===time} onClick={()=>setSlot(time)} className={`rounded-xl border px-2 py-3 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-primary)] ${slot===time?'border-[var(--brand-primary-hover)] bg-[var(--brand-primary-hover)] text-white':'border-[var(--border)] bg-white hover:border-[var(--brand-primary)]'}`}>{time}</button>)}
             </div>
+            <div aria-live="polite" className="mt-5 flex items-center gap-2 text-xs text-[var(--text-secondary)]"><Clock3 size={14}/>{t('Selected time:', 'Créneau choisi :')} <strong className="text-[var(--text-primary)]">{slot}</strong></div>
           </div>
-
-          {/* Main Grid Showcase */}
-          <div className="relative border border-[var(--border)] rounded-[32px] overflow-hidden bg-[var(--surface-muted-30)]">
-
-            <GridLine />
-            <div className="absolute top-0 left-1/2 w-px h-full bg-[var(--border-60)] hidden md:block" />
-            <div className="absolute top-1/2 left-0 w-full h-px bg-[var(--border-60)] hidden md:block" />
-            <div className="absolute top-0 left-3/4 w-px h-full bg-[var(--border-60)] hidden md:block" />
-
-            <div className="grid grid-cols-1 md:grid-cols-4 min-h-[600px]">
-
-              {/* Feature 1: Real-time Analytics (Large) */}
-              <FeatureCard
-                title="Patient Experience"
-                description="A modern mobile-first website with clear examination pages, easy navigation and online appointment booking."
-                icon={Activity}
-                className="md:col-span-2 md:row-span-2 border-b md:border-b-0 md:border-r border-[var(--border)]"
-              >
-                <div className="flex-1 bg-[var(--surface)] rounded-2xl border border-[var(--border)] p-6 shadow-sm relative overflow-hidden group/chart flex flex-col">
-                  <div className="flex justify-between items-center mb-8">
-                    <div className="flex gap-2">
-                      {metrics.map((m, i) => (
-                        <button
-                          key={m.label}
-                          onClick={() => setActiveMetric(i)}
-                          className={
-                            "px-3 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all " +
-                            (activeMetric === i
-                              ? "bg-[var(--brand-primary)] text-white"
-                              : "bg-[var(--surface-muted)] text-[var(--text-muted)] hover:bg-[var(--background)]")
-                          }
-                        >
-                          {m.label}
-                        </button>
-                      ))}
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-[var(--text-primary)] tracking-tight">
-                        {metrics[activeMetric].value}
-                      </p>
-                      <p
-                        className={
-                          "text-[10px] font-bold " +
-                          (metrics[activeMetric].trend.startsWith("+")
-                            ? "text-[var(--brand-primary)]"
-                            : "text-[var(--text-muted)]")
-                        }
-                      >
-                        {metrics[activeMetric].trend} for your center
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Animated Bars */}
-                  <div className="flex-1 flex items-end gap-1.5 min-h-[200px]">
-                    {Array.from({ length: 24 }).map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ height: "20%" }}
-                        animate={{
-                          height:
-                            activeMetric === 0
-                              ? (Math.random() * 60 + 40) + "%"
-                              : activeMetric === 1
-                              ? (Math.random() * 30 + 10) + "%"
-                              : "80%",
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity as number,
-                          repeatType: "reverse" as const,
-                          delay: i * 0.05,
-                        }}
-                        className={
-                          "flex-1 rounded-t-sm " +
-                          (i > 18
-                            ? "bg-[var(--surface-muted)]"
-                            : "bg-[var(--brand-primary-20)] group-hover/chart:bg-[var(--brand-primary-40)] transition-colors")
-                        }
-                      />
-                    ))}
-                  </div>
-
-                  {/* Monospace Data Overlay */}
-                  <div className="absolute bottom-2 right-4 font-mono text-[9px] text-[var(--border-strong)] uppercase tracking-widest">
-                    Booking_Activity_Visible
-                  </div>
-                </div>
-              </FeatureCard>
-
-              {/* Feature 2: Smart Automations */}
-              <FeatureCard
-                title="Center Dashboard"
-                description="Manage appointments, patient requests, schedules and activity from one organized workspace."
-                icon={Zap}
-                className="md:col-span-2 border-b border-[var(--border)]"
-              >
-                <div className="mt-4 flex flex-col gap-3">
-                  {[
-                    { label: "Request: New Booking", status: "Active", color: "var(--brand-primary)" },
-                    { label: "Action: Staff Follow-up", status: "Pending", color: "var(--warning)" },
-                  ].map((item, i) => (
-                    <motion.div
-                      key={item.label}
-                      initial={false}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      className="flex items-center justify-between bg-[var(--surface)] p-3 rounded-xl border border-[var(--border)] shadow-sm"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-2 h-2 rounded-full"
-                          style={{ backgroundColor: item.color }}
-                        />
-                        <span className="text-xs font-medium text-[var(--text-body)]">{item.label}</span>
-                      </div>
-                      <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">
-                        {item.status}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </FeatureCard>
-
-              {/* Feature 3: Developer API */}
-              <FeatureCard
-                title="Search Visibility"
-                description="Help patients find your center through Google Maps, SEO and clear service pages."
-                icon={Command}
-                className="border-b md:border-b-0 md:border-r border-[var(--border)]"
-              >
-                <div className="mt-4 bg-[var(--brand-dark)] rounded-xl p-4 font-mono text-[10px] leading-tight overflow-hidden relative group/api">
-                  <div className="flex gap-2 mb-2">
-                    <div className="w-2 h-2 rounded-full bg-[var(--danger-soft)]" />
-                    <div className="w-2 h-2 rounded-full bg-[var(--warning-soft)]" />
-                    <div className="w-2 h-2 rounded-full bg-[var(--success-soft)]" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex gap-2">
-                      <span className="text-[var(--soft-purple)]">report</span>
-                      <span className="text-[var(--brand-blue-light)]">CenterActivity</span>
-                      <span className="text-[var(--text-muted)]">{"{"}</span>
-                    </div>
-                    <div className="pl-4 flex gap-2">
-                      <span className="text-[var(--brand-blue-light)]">center</span>
-                      <span className="text-[var(--text-muted)]">{"{"}</span>
-                    </div>
-                    <div className="pl-8 text-[var(--brand-primary)]">booking</div>
-                    <div className="pl-8 text-[var(--brand-primary)]">requests</div>
-                    <div className="pl-4 text-[var(--text-muted)]">{"}"}</div>
-                    <div className="text-[var(--text-muted)]">{"}"}</div>
-                  </div>
-                  <motion.div
-                    animate={{ opacity: [1, 0] }}
-                    transition={{
-                      duration: 0.8,
-                      repeat: Infinity as number,
-                    }}
-                    className="absolute bottom-4 left-[90px] w-1.5 h-3 bg-[var(--brand-primary-60)]"
-                  />
-                </div>
-              </FeatureCard>
-
-              {/* Feature 4: Team Collaboration */}
-              <FeatureCard
-                title="Team Coordination"
-                description="Keep your staff aligned around appointments, incoming requests and patient follow-up."
-                icon={Users}
-                className=""
-              >
-                <div className="mt-4 relative h-24 flex items-center justify-center">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full border border-dashed border-[var(--border)] animate-[spin_10s_linear_infinite]" />
-                    <div className="absolute w-20 h-20 rounded-full border border-dashed border-[var(--border)] animate-[spin_15s_linear_infinite_reverse]" />
-                  </div>
-                  <div className="relative flex -space-x-3">
-                    {[1, 2, 3, 4].map((i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.4 + i * 0.1 }}
-                        className="relative"
-                      >
-                        <img
-                          src={"https://picsum.photos/seed/collab" + i + "/100/100"}
-                          alt={"Team member " + i}
-                          className="w-10 h-10 rounded-full border-2 border-[var(--surface)] shadow-sm object-cover"
-                          referrerPolicy="no-referrer"
-                        />
-                        {i === 1 && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--brand-primary)] rounded-full border-2 border-[var(--surface)]" />
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-[var(--surface)] px-2 py-1 rounded-full border border-[var(--border)] shadow-sm">
-                    <MousePointer2 size={10} className="text-[var(--brand-primary)] fill-[var(--brand-primary)]" />
-                    <span className="text-[9px] font-bold text-[var(--text-secondary)]">Staff is reviewing...</span>
-                  </div>
-                </div>
-              </FeatureCard>
-
+          <p className="mt-4 text-xs text-[var(--text-secondary)]">{t('Interactive example · No appointment is created.', 'Exemple interactif · Aucun rendez-vous n’est créé.')}</p>
+        </article>
+        <article className={card}>
+          <div className="mb-5 flex items-center gap-3"><BarChart3 className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Center Dashboard', 'Tableau de bord du centre')}</h3></div>
+          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('See incoming requests, confirmed appointments and what still needs your team’s attention.', 'Suivez les demandes reçues, les rendez-vous confirmés et les demandes à traiter par votre équipe.')}</p>
+          <div className={preview}>
+            <div className="mb-6 flex flex-wrap items-start justify-between gap-3"><div><p className={label}>{t('Appointment activity', 'Activité des rendez-vous')}</p><p className="mt-2 text-lg font-semibold">{t('This week at a glance', 'Votre semaine en bref')}</p></div><span className="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-xs">{t('Sample report', 'Rapport fictif')}</span></div>
+            <div className="grid grid-cols-3 gap-3">
+              {[[48,t('Requests','Demandes')],[40,t('Confirmed','Confirmés')],[8,t('To review','À traiter')]].map(([value,name])=><div key={name} className="min-w-0"><p className="text-3xl font-semibold tracking-tight">{value}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{name}</p></div>)}
             </div>
+            <div className="mt-7 border-t border-[var(--border)] pt-5"><div className="mb-3 flex justify-between gap-2 text-xs"><span>{t('Confirmed appointments', 'Rendez-vous confirmés')}</span><strong>40 / 48</strong></div><div className="flex h-2.5 overflow-hidden rounded-full bg-white" aria-hidden="true"><div className="w-5/6 bg-[var(--brand-primary)]"/><div className="flex-1 bg-[var(--brand-primary-20)]"/></div></div>
+            <div className="mt-5 flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white p-3 text-sm"><Users size={17} className="shrink-0 text-[var(--brand-primary-hover)]"/>{t('8 requests ready for staff review', '8 demandes à examiner par l’équipe')}</div>
           </div>
-
-        </div>
-      </section>
-    </>
-  );
+          <p className="mt-4 text-xs text-[var(--text-secondary)]">{t('Illustrative figures · Not client results.', 'Chiffres fictifs · Aucun résultat client réel.')}</p>
+        </article>
+        <article className={card}>
+          <div className="mb-5 flex items-center gap-3"><Search className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Search Visibility', 'Visibilité sur Google')}</h3></div>
+          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('Help nearby patients find your services and reach your center’s booking page.', 'Aidez les patients à proximité à trouver vos services et votre page de réservation.')}</p>
+          <div className={preview}>
+            <div className="mb-4 flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm"><Search size={16} className="shrink-0 text-[var(--text-secondary)]"/><span>{t('Radiology center near me', 'Centre de radiologie à proximité')}</span></div>
+            <div className="rounded-xl border border-[var(--border)] bg-white p-4 sm:p-5"><div className="flex items-start gap-3"><span className="rounded-xl bg-[var(--brand-primary-10)] p-3 text-[var(--brand-primary-hover)]"><MapPin size={22}/></span><div className="min-w-0"><p className={label}>{t('Fictional local listing', 'Fiche locale fictive')}</p><p className="mt-1 text-lg font-semibold">{t('Example Radiology Center', 'Centre de radiologie exemple')}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{t('Radiology · Medical imaging', 'Radiologie · Imagerie médicale')}</p></div></div><div className="mt-4 flex flex-wrap gap-2">{[t('MRI','IRM'),t('Ultrasound','Échographie'),t('CT scan','Scanner')].map(service=><span key={service} className="rounded-lg bg-[var(--surface-muted)] px-3 py-1.5 text-xs">{service}</span>)}</div><div className="mt-4 flex items-center justify-between border-t border-[var(--border)] pt-4 text-sm font-semibold text-[var(--brand-primary-hover)]"><span>{t('Online appointment requests', 'Demandes de rendez-vous en ligne')}</span><ArrowUpRight size={18} className="shrink-0"/></div></div>
+          </div>
+        </article>
+        <article className={card}>
+          <div className="mb-5 flex items-center gap-3"><Users className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Team Coordination', 'Coordination de l’équipe')}</h3></div>
+          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('Give every request a clear next step, from the first contact to the appointment reminder.', 'Donnez à chaque demande une prochaine étape claire, du premier contact au rappel du rendez-vous.')}</p>
+          <div className={preview}>
+            <p className={label}>{t('Example patient journey', 'Exemple de parcours patient')}</p>
+            <ol className="mt-5 space-y-3">
+              {[[CalendarDays,t('Request received','Demande reçue'),t(`Ultrasound · Monday, ${slot}`,`Échographie · Lundi, ${slot}`)],[CheckCircle2,t('Appointment confirmed','Rendez-vous confirmé'),t('Time agreed with the patient','Créneau convenu avec le patient')],[Clock3,t('Follow-up planned','Suivi prévu'),t('Reminder before the appointment','Rappel avant le rendez-vous')]].map(([Icon,title,detail],index)=>{const StepIcon=Icon as typeof CalendarDays;return <li key={String(title)} className="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-white p-4"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary-10)] text-[var(--brand-primary-hover)]"><StepIcon size={17}/></span><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{String(title)}</p><p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">{String(detail)}</p></div>{index<2?<Check size={16} className="shrink-0 text-[var(--brand-primary-hover)]"/>:<ArrowRight size={16} className="shrink-0 text-[var(--text-secondary)]"/>}</li>;})}
+            </ol>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>;
 }

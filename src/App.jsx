@@ -1,4 +1,6 @@
 import Hero from '../components/templates/ai-marketing-landing-page-kelo/Hero';
+import PrivacyNotice from './PrivacyNotice';
+import ClientSpotlight from './ClientSpotlight';
 import Features from '../components/templates/ai-marketing-landing-page-kelo/Features';
 import HowItWorks from '../components/templates/ai-marketing-landing-page-kelo/How it Works';
 import LandingSections from './LandingSections';
@@ -64,5 +66,5 @@ export function App() {
     document.documentElement.lang = language;
     localStorage.setItem('site-language', language);
   }, [language]);
-  return <main className="min-h-screen"><Hero language={language} /><div id="solutions"><Features /></div><HowItWorks /><LandingSections language={language} /><FAQ /><Footer language={language} onLanguageChange={setLanguage} /></main>;
+  return <main className="min-h-screen"><PrivacyNotice language={language} /><Hero language={language} onLanguageChange={setLanguage} /><div id="solutions"><Features language={language} /></div><ClientSpotlight language={language} /><HowItWorks language={language} /><LandingSections language={language} /><FAQ /><Footer language={language} onLanguageChange={setLanguage} /></main>;
 }

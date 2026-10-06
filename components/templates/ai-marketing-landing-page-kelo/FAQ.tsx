@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const faqs = [
+const faqItems = [
   {
     question: "How long does it take to build the platform?",
     answer: "Timelines depend on your center’s website, booking and dashboard requirements. We define the scope and schedule together before work begins."
@@ -49,6 +49,8 @@ const faqs = [
     answer: "Yes. We work with radiology and medical centers across Morocco."
   }
 ];
+
+const faqs = [faqItems[1], { question: "How is pricing determined?", answer: "Pricing depends on the website, booking workflow and growth support your center needs. We provide a tailored scope and proposal before work begins." }, faqItems[0], faqItems[8], faqItems[2], ...[3,4,5,6,7,9,10].map(index=>faqItems[index])];
 
 export default function Faq05Kelo({ className }: { className?: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

@@ -18,3 +18,9 @@ The radiology center dashboard is shown inside the existing landscape hero. Chan
 - Keep English and French labels available through the existing `language` prop used by dashboard pages.
 
 Successful marketing demo inquiries show a prominent branded confirmation dialog in English/French, only after durable server capture. Preserve inline errors, keyboard focus restoration, Escape dismissal, and reduced-motion support.
+
+Marketing feature previews use native UI cards for a fictional local search listing, an interactive sample appointment time, a labeled illustrative report, and an ordered request/confirmation/follow-up flow. Preserve existing palette tokens, translate through the language prop, and label sample figures without implying real client results.
+
+The featured client spotlight follows Solutions: Radiologie Bab Doukkala in Marrakech. The owner confirmed permission to name the center and show its website, and confirmed Clinahir built the entire website and handles Instagram, website SEO, Google Maps SEO and paid advertising. Use the captured public homepage, existing dark/green tokens, and English/French copy. Do not invent testimonials or performance metrics.
+
+Launch polish: a shared language state drives the header and footer language controls. The optional demo tour navigates Appointments → Agenda → Activity Log without changing records. Offer cards preselect a corresponding inquiry priority in the existing form. Contact name is optional and forwarded through the central lead flow. Form errors are localized inline; the same form/popup explains that meeting time is agreed by email. The data-use notice describes implemented handling only; legal identity, retention and reply-time promises require owner-provided facts.

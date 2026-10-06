@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Target, Mail, Zap, BarChart3, CheckCircle2, Search, Brain, Sparkles, TrendingUp, Compass, Wand2, Workflow, BarChart4, ArrowRight } from "lucide-react";
+import { Clock3, Target, Mail, Zap, BarChart3, CheckCircle2, Search, Brain, Sparkles, TrendingUp, Compass, Wand2, Workflow, BarChart4, ArrowRight } from "lucide-react";
 
 interface StepData {
   id: string;
@@ -69,65 +69,13 @@ const staggerVisible: Variants = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-function DiscoveryMockup() {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between bg-white/80 p-3 rounded-xl border border-white/50 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[var(--brand-primary-10)] flex items-center justify-center text-[var(--brand-primary)]">
-            <Search className="w-4 h-4" />
-          </div>
-          <span className="text-xs font-bold text-[var(--brand-dark)]">Reviewing Requests...</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)] animate-pulse" />
-          <span className="text-[10px] font-bold text-[var(--brand-primary)]">ACTIVE</span>
-        </div>
-      </div>
-
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={staggerVisible}
-        className="grid grid-cols-1 gap-3"
-      >
-        {[
-          { name: "New Appointment", match: "Open", status: "Online Request" },
-          { name: "Follow-up", match: "Ready", status: "Staff Review" },
-        ].map((item, i) => (
-          <motion.div
-            key={i}
-            variants={discoveryVariants}
-            className="bg-[var(--surface)] p-4 rounded-xl border border-[var(--border)] shadow-sm flex items-center justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[var(--surface-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--brand-dark)] font-bold text-xs">
-                {item.name[0]}
-              </div>
-              <div>
-                <p className="font-bold text-sm text-[var(--brand-dark)]">{item.name}</p>
-                <p className="text-[10px] text-[var(--text-secondary)]">{item.status}</p>
-              </div>
-            </div>
-            <div className="bg-[var(--brand-primary-05)] px-3 py-1 rounded-full border border-[var(--brand-primary-10)]">
-              <span className="text-xs font-black text-[var(--brand-primary)]">{item.match}</span>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  );
+function DiscoveryMockup({ language }: { language: 'en' | 'fr' }) {
+  const fr = language === 'fr';
+  return <div className="space-y-4"><div className="flex items-center gap-3 rounded-full border border-white/70 bg-white p-4 text-sm"><Search size={18} className="shrink-0 text-[var(--brand-primary-hover)]"/>{fr ? 'Radiologie à proximité' : 'Radiology near me'}</div><div className="rounded-2xl border border-white/70 bg-white p-5"><p className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">{fr ? 'Exemple de fiche locale' : 'Sample local listing'}</p><p className="text-lg font-semibold">{fr ? 'Centre de radiologie exemple' : 'Example Radiology Center'}</p><p className="mt-2 text-sm text-[var(--text-secondary)]">{fr ? 'IRM · Scanner · Échographie' : 'MRI · CT scan · Ultrasound'}</p><div className="mt-5 border-t border-[var(--border)] pt-4 text-sm font-semibold text-[var(--brand-primary-hover)]">{fr ? 'Consulter les examens et demander un RDV' : 'Explore examinations and request a time'}</div></div><p className="text-center text-xs text-[var(--text-body)]">{fr ? 'Une prochaine étape claire depuis la recherche.' : 'A clear next step from local search.'}</p></div>;
 }
 
-const outreachLineVariants: Variants = {
-  hidden: { opacity: 0, x: -5 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const outreachStagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-};
+const outreachLineVariants: Variants = { hidden: { opacity: 0, x: -5 }, visible: { opacity: 1, x: 0 } };
+const outreachStagger: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
 
 function OutreachMockup() {
   return (
@@ -249,51 +197,9 @@ const insightCardVariants: Variants = {
   visible: { opacity: 1, y: 0 },
 };
 
-function InsightsMockup() {
-  return (
-    <div className="space-y-5">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={staggerVisible}
-        className="grid grid-cols-2 gap-4"
-      >
-        {[
-          { icon: <TrendingUp />, value: "Clear", label: "Activity", color: "var(--brand-primary)", isGreen: true },
-          { icon: <Brain />, value: "Ready", label: "Reporting", color: "var(--brand-dark)", isGreen: false },
-        ].map((stat, i) => (
-          <motion.div
-            key={i}
-            variants={insightCardVariants}
-            className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--border)] shadow-sm"
-          >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
-              style={{ backgroundColor: stat.isGreen ? "rgba(0, 188, 125, 0.05)" : "var(--surface-muted)", color: stat.color }}
-            >
-              {React.cloneElement(stat.icon as React.ReactElement<{ className?: string }>, { className: "w-4 h-4" })}
-            </div>
-            <p className="text-2xl font-black text-[var(--brand-dark)]">{stat.value}</p>
-            <p className="text-[10px] font-bold text-[var(--text-secondary)] uppercase">{stat.label}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3 }}
-        className="bg-[var(--brand-dark)] p-5 rounded-2xl text-white shadow-xl"
-      >
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-2 h-2 rounded-full bg-[var(--brand-primary)]" />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--brand-primary)]">Growth Insight</span>
-        </div>
-        <p className="text-xs text-[var(--border-strong)] leading-relaxed">
-          "Review your appointment activity and digital visibility to guide the next steps for your center."
-        </p>
-      </motion.div>
-    </div>
-  );
+function InsightsMockup({ language }: { language: 'en' | 'fr' }) {
+ const fr = language === 'fr';
+ return <div className="rounded-2xl border border-white/70 bg-white p-5"><p className="text-xs font-semibold text-[var(--brand-primary-hover)]">{fr ? 'RAPPORT FICTIF · CETTE SEMAINE' : 'SAMPLE REPORT · THIS WEEK'}</p><h4 className="mt-3 text-xl font-semibold">{fr ? 'Suivi des rendez-vous' : 'Appointment overview'}</h4><div className="mt-6 grid grid-cols-2 gap-4">{[[48,fr?'Demandes':'Requests'],[40,fr?'Confirmés':'Confirmed']].map(([value,label])=><div key={label} className="rounded-xl bg-[var(--surface-muted)] p-4"><p className="text-3xl font-semibold">{value}</p><p className="mt-2 text-xs text-[var(--text-body)]">{label}</p></div>)}</div><div className="mt-5 flex items-center gap-2 text-sm"><Clock3 size={17}/>{fr ? '8 demandes à traiter' : '8 requests to review'}</div><p className="mt-5 border-t border-[var(--border)] pt-4 text-xs text-[var(--text-secondary)]">{fr ? 'Chiffres illustratifs, aucun résultat client réel.' : 'Illustrative figures, not client results.'}</p></div>;
 }
 
 function DemoCta() {
@@ -304,15 +210,15 @@ function DemoCta() {
   </a>;
 }
 
-export default function HowItWroks03Kelo({ className }: { className?: string }) {
+export default function HowItWroks03Kelo({ className, language = "en" }: { className?: string; language?: "en" | "fr" }) {
   const [activeTab, setActiveTab] = useState(0);
 
   const renderMockup = () => {
     switch (steps[activeTab].mockupType) {
-      case "discovery": return <DiscoveryMockup />;
+      case "discovery": return <DiscoveryMockup language={language} />;
       case "outreach": return <OutreachMockup />;
       case "workflows": return <WorkflowsMockup />;
-      case "insights": return <InsightsMockup />;
+      case "insights": return <InsightsMockup language={language} />;
       default: return null;
     }
   };
@@ -402,8 +308,8 @@ export default function HowItWroks03Kelo({ className }: { className?: string }) 
                     </div>
 
                     <motion.div
-                      animate={{ y: [0, -10, 0] }}
-                      transition={{ repeat: Infinity as number, duration: 4, ease: "easeInOut" as const }}
+                      animate={{ y: 0 }}
+                      transition={{ duration: 0.2 }}
                       className="w-full relative z-10 bg-white/60 backdrop-blur-[24px] border border-white/80 rounded-[32px] p-8 shadow-[0_40px_80px_rgba(0,0,0,0.1)] overflow-hidden"
                     >
                       <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/40 to-transparent rotate-45 pointer-events-none" />

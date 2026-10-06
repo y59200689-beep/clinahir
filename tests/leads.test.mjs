@@ -105,3 +105,9 @@ test('analytics accepts only bounded anonymous metadata and rejects cross-origin
  assert.equal((await analyticsRequest(request({...event,extra:'x'.repeat(2000)}),env)).status,413);
  assert.equal((await analyticsRequest(request(event),env,async()=>new Response('',{status:500}))).status,503);
 });
+
+test('optional contact name is normalized and delivered without changing lead identity', async()=>{
+ const store=new MemoryStore();let sent;
+ const response=await leadRequest(req({...input,contactName:' Dr. Example '}),store,config,async(_url,init)=>{sent=JSON.parse(init.body);return new Response('{}',{status:201});});
+ assert.equal(response.status,201);assert.equal(sent.contactName,'Dr. Example');assert.equal(sent.externalId,'cli_'+input.submissionId);
+});

@@ -26,7 +26,7 @@ export function submissionId(): string {
 }
 export async function submitLead(form: FormData, fetcher: typeof fetch = fetch): Promise<string> {
   const value = (key: string) => String(form.get(key) ?? '').trim();
-  const input: LeadInput = { ...captureAttribution(), submissionId: submissionId(), companyName: value('center_name'), city: value('city'), email: value('email'), phone: value('phone'), role: value('role'), priority: value('priority'), formType: 'demo' };
+  const input: LeadInput = { ...captureAttribution(), submissionId: submissionId(), companyName: value('center_name'), city: value('city'), email: value('email'), phone: value('phone'), contactName: value('contact_name') || undefined, role: value('role'), priority: value('priority'), formType: 'demo' };
   const response = await fetcher('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(input), signal: AbortSignal.timeout(30_000) });
   const result = await response.json() as { ok?: boolean; externalId?: string };
   if (response.status === 409) {

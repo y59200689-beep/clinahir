@@ -94,3 +94,5 @@ export const french = {
   'Sun 27': 'dim. 27', 'Mon 28': 'lun. 28', 'Tue 29': 'mar. 29',
   'Appointments over seven days: 0, 2, 2, 4, 0, 3, 3': 'Rendez-vous sur sept jours : 0, 2, 2, 4, 0, 3, 3',
 };
+
+Object.assign(french, {"How is pricing determined?": "Comment le tarif est-il défini ?", "Pricing depends on the website, booking workflow and growth support your center needs. We provide a tailored scope and proposal before work begins.": "Le tarif dépend du site, du parcours de réservation et de l’accompagnement dont votre centre a besoin. Nous proposons un périmètre et un devis adaptés avant de commencer."});

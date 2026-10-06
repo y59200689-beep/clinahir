@@ -26,7 +26,7 @@ export function LeadConfirmation({ open, language, onClose }: { open: boolean; l
     <p className="mb-3 text-xs font-bold tracking-[.18em] text-[var(--brand-primary-hover)]">CLINAHIR</p>
     <h2 id="lead-confirmation-title" className="text-3xl font-semibold tracking-tight">{fr ? 'Demande bien reçue' : 'Request received'}</h2>
     <p id="lead-confirmation-body" className="mt-4 leading-relaxed text-[var(--text-body)]">{fr ? 'Merci pour votre intérêt. Nous vous contacterons à l’adresse e-mail indiquée pour organiser une démonstration adaptée à votre centre.' : 'Thank you for your interest. We’ll contact you at the email address you provided to arrange a demo tailored to your center.'}</p>
-    <div className="mt-6 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm leading-relaxed text-[var(--text-body)]">{fr ? 'Vous pouvez continuer à explorer la démo interactive en attendant.' : 'You can keep exploring the interactive demo while you wait.'}</div>
+    <div className="mt-6 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm leading-relaxed text-[var(--text-body)]">{fr ? 'Nous conviendrons d’un créneau avec vous par e-mail. Aucun créneau de réunion n’a encore été réservé.' : 'We’ll agree a time with you by email. No meeting slot has been reserved yet.'}</div>
     <button autoFocus type="button" onClick={onClose} className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--brand-primary)] px-5 py-4 font-semibold text-white transition hover:bg-[var(--brand-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-primary)]">{fr ? 'Continuer à explorer' : 'Continue exploring'}<ArrowRight size={18}/></button>
   </dialog>, document.body);
 }
