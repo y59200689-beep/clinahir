@@ -1,13 +1,13 @@
 import { Conflict, type LeadRecord, type LeadStore, type SyncStatus } from './leads.js';
 interface LeadRow {
- external_id: string; company_name: string; email: string; city: string; form_type: LeadRecord['payload']['formType'];
+ external_id: string; company_name: string; email: string | null; city: string; form_type: LeadRecord['payload']['formType'];
  contact_name: string | null; phone: string | null; message: string | null; landing_page: string;
  utm_source: string | null; utm_medium: string | null; utm_campaign: string | null; submitted_at: string;
  role: string; priority: string; submission_fingerprint: string; daily_command_status: SyncStatus;
  daily_command_attempts: number; daily_command_last_error: string | null; daily_command_synced_at: string | null;
 }
 function record(row: LeadRow): LeadRecord {
- return { payload: { externalId: row.external_id, companyName: row.company_name, email: row.email, city: row.city,
+ return { payload: { externalId: row.external_id, companyName: row.company_name, email: row.email ?? undefined, city: row.city,
  formType: row.form_type, landingPage: row.landing_page, submittedAt: new Date(row.submitted_at).toISOString(),
  contactName: row.contact_name ?? undefined, phone: row.phone ?? undefined, message: row.message ?? undefined,
  utmSource: row.utm_source ?? undefined, utmMedium: row.utm_medium ?? undefined, utmCampaign: row.utm_campaign ?? undefined },
@@ -30,6 +30,9 @@ export class SupabaseLeadStore implements LeadStore {
   if (!response.ok) throw new Error('lead_storage_unavailable');
   return await response.json() as T;
  }
+ async adminRpc<T>(name:string,args:object):Promise<T>{return this.request<T>(`rpc/${name}`,args);}
+ async content():Promise<{draft:unknown;published:unknown;version:number;published_at:string|null}[]> {return this.request('clinahir_site_content?select=draft,published,version,published_at');}
+ async publishedContent():Promise<{published:unknown}[]> {return this.request('clinahir_site_content?select=published');}
  async analyticsEvent(event: {id:string;event_type:string;placement:string;language:string}): Promise<void> {
   await this.request('rpc/clinahir_record_analytics',{p_event:event});
  }
@@ -56,4 +59,11 @@ export class SupabaseLeadStore implements LeadStore {
  }
  async replay(id: string, now: number): Promise<boolean> { return this.request('rpc/clinahir_replay_lead',{p_id:id,p_now:new Date(now).toISOString()}); }
  async allow(identifier: string): Promise<boolean> { return this.request('rpc/clinahir_allow_lead',{p_identifier:identifier}); }
+ async whatsappDue(limit:number):Promise<string[]> { return (await this.request<{external_id:string}[]>(`clinahir_whatsapp_jobs?select=external_id&status=eq.pending&next_attempt_at=lte.${encodeURIComponent(new Date().toISOString())}&order=next_attempt_at.asc&limit=${Math.min(3,limit)}`)).map(row=>row.external_id); }
+ async whatsappClaim(id:string):Promise<import('./whatsapp.js').WhatsAppJob|null> {return this.request('rpc/clinahir_claim_whatsapp',{p_id:id});}
+ async whatsappFinish(id:string,token:string,status:string,error:string|null,messageId:string|null,next:string|null):Promise<void> {await this.request('rpc/clinahir_finish_whatsapp',{p_id:id,p_token:token,p_status:status,p_error:error,p_message_id:messageId,p_next:next});}
+ async cronHeartbeat(error:boolean):Promise<void> {await this.request('rpc/clinahir_record_cron',{p_error:error});}
+ async heartbeat():Promise<unknown> {return this.request('clinahir_cron_runs?select=completed_at,whatsapp_error');}
+ async health():Promise<unknown> {return this.request('clinahir_delivery_health?select=*');}
+
 }

@@ -1,0 +1,166 @@
+{
+  "One System for Your Digital Patient Journey": {
+    "en": "One System for Your Digital Patient Journey",
+    "fr": "Une seule solution pour le parcours digital de vos patients"
+  },
+  "Give patients a modern way to discover your center, understand your services and book an appointment while giving your team the tools to manage requests efficiently.": {
+    "en": "Give patients a modern way to discover your center, understand your services and book an appointment while giving your team the tools to manage requests efficiently.",
+    "fr": "Permettez aux patients de découvrir votre centre, de comprendre vos services et de prendre rendez-vous facilement, tout en donnant à votre équipe les outils pour gérer les demandes efficacement."
+  },
+  "Patient Experience": {
+    "en": "Patient Experience",
+    "fr": "Expérience patient"
+  },
+  "A clear appointment request, from choosing an examination to finding a convenient time.": {
+    "en": "A clear appointment request, from choosing an examination to finding a convenient time.",
+    "fr": "Une demande simple, du choix de l’examen à la sélection d’un créneau adapté."
+  },
+  "Appointment request": {
+    "en": "Appointment request",
+    "fr": "Demande de rendez-vous"
+  },
+  "Find a time that suits you": {
+    "en": "Find a time that suits you",
+    "fr": "Choisissez votre créneau"
+  },
+  "Examination": {
+    "en": "Examination",
+    "fr": "Examen"
+  },
+  "Ultrasound": {
+    "en": "Ultrasound",
+    "fr": "Échographie"
+  },
+  "Monday, 12 October": {
+    "en": "Monday, 12 October",
+    "fr": "Lundi 12 octobre"
+  },
+  "Choose a time": {
+    "en": "Choose a time",
+    "fr": "Choisissez une heure"
+  },
+  "Sample appointment times": {
+    "en": "Sample appointment times",
+    "fr": "Exemples de créneaux"
+  },
+  "Selected time:": {
+    "en": "Selected time:",
+    "fr": "Créneau choisi :"
+  },
+  "Interactive example · No appointment is created.": {
+    "en": "Interactive example · No appointment is created.",
+    "fr": "Exemple interactif · Aucun rendez-vous n’est créé."
+  },
+  "Center Dashboard": {
+    "en": "Center Dashboard",
+    "fr": "Tableau de bord du centre"
+  },
+  "See incoming requests, confirmed appointments and what still needs your team’s attention.": {
+    "en": "See incoming requests, confirmed appointments and what still needs your team’s attention.",
+    "fr": "Suivez les demandes reçues, les rendez-vous confirmés et les demandes à traiter par votre équipe."
+  },
+  "Appointment activity": {
+    "en": "Appointment activity",
+    "fr": "Activité des rendez-vous"
+  },
+  "This week at a glance": {
+    "en": "This week at a glance",
+    "fr": "Votre semaine en bref"
+  },
+  "Sample report": {
+    "en": "Sample report",
+    "fr": "Rapport fictif"
+  },
+  "Requests": {
+    "en": "Requests",
+    "fr": "Demandes"
+  },
+  "Confirmed": {
+    "en": "Confirmed",
+    "fr": "Confirmés"
+  },
+  "To review": {
+    "en": "To review",
+    "fr": "À traiter"
+  },
+  "Confirmed appointments": {
+    "en": "Confirmed appointments",
+    "fr": "Rendez-vous confirmés"
+  },
+  "8 requests ready for staff review": {
+    "en": "8 requests ready for staff review",
+    "fr": "8 demandes à examiner par l’équipe"
+  },
+  "Illustrative figures · Not client results.": {
+    "en": "Illustrative figures · Not client results.",
+    "fr": "Chiffres fictifs · Aucun résultat client réel."
+  },
+  "Search Visibility": {
+    "en": "Search Visibility",
+    "fr": "Visibilité sur Google"
+  },
+  "Help nearby patients find your services and reach your center’s booking page.": {
+    "en": "Help nearby patients find your services and reach your center’s booking page.",
+    "fr": "Aidez les patients à proximité à trouver vos services et votre page de réservation."
+  },
+  "Radiology center near me": {
+    "en": "Radiology center near me",
+    "fr": "Centre de radiologie à proximité"
+  },
+  "Fictional local listing": {
+    "en": "Fictional local listing",
+    "fr": "Fiche locale fictive"
+  },
+  "Example Radiology Center": {
+    "en": "Example Radiology Center",
+    "fr": "Centre de radiologie exemple"
+  },
+  "Radiology · Medical imaging": {
+    "en": "Radiology · Medical imaging",
+    "fr": "Radiologie · Imagerie médicale"
+  },
+  "MRI": {
+    "en": "MRI",
+    "fr": "IRM"
+  },
+  "CT scan": {
+    "en": "CT scan",
+    "fr": "Scanner"
+  },
+  "Online appointment requests": {
+    "en": "Online appointment requests",
+    "fr": "Demandes de rendez-vous en ligne"
+  },
+  "Team Coordination": {
+    "en": "Team Coordination",
+    "fr": "Coordination de l’équipe"
+  },
+  "Give every request a clear next step, from the first contact to the appointment reminder.": {
+    "en": "Give every request a clear next step, from the first contact to the appointment reminder.",
+    "fr": "Donnez à chaque demande une prochaine étape claire, du premier contact au rappel du rendez-vous."
+  },
+  "Example patient journey": {
+    "en": "Example patient journey",
+    "fr": "Exemple de parcours patient"
+  },
+  "Request received": {
+    "en": "Request received",
+    "fr": "Demande reçue"
+  },
+  "Appointment confirmed": {
+    "en": "Appointment confirmed",
+    "fr": "Rendez-vous confirmé"
+  },
+  "Time agreed with the patient": {
+    "en": "Time agreed with the patient",
+    "fr": "Créneau convenu avec le patient"
+  },
+  "Follow-up planned": {
+    "en": "Follow-up planned",
+    "fr": "Suivi prévu"
+  },
+  "Reminder before the appointment": {
+    "en": "Reminder before the appointment",
+    "fr": "Rappel avant le rendez-vous"
+  }
+}

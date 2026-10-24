@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, Check, X } from 'lucide-react';
 
-export function LeadConfirmation({ open, language, onClose }: { open: boolean; language: 'en' | 'fr'; onClose: () => void }) {
+export function LeadConfirmation({ open, language, onClose, returnFocusRef }: { returnFocusRef: RefObject<HTMLButtonElement | null>; open: boolean; language: 'en' | 'fr'; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const element = dialog.current;
@@ -14,9 +14,9 @@ export function LeadConfirmation({ open, language, onClose }: { open: boolean; l
     return () => {
       element.close();
       document.body.style.overflow = overflow;
-      previous?.focus();
+      (returnFocusRef.current ?? previous)?.focus();
     };
-  }, [open]);
+  }, [open, returnFocusRef]);
   const fr = language === 'fr';
   return createPortal(<dialog ref={dialog} aria-labelledby="lead-confirmation-title" aria-describedby="lead-confirmation-body"
     onCancel={event => { event.preventDefault(); onClose(); }}
@@ -25,8 +25,8 @@ export function LeadConfirmation({ open, language, onClose }: { open: boolean; l
     <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-[var(--brand-primary)]/20 bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]"><Check size={32} strokeWidth={2.5}/></div>
     <p className="mb-3 text-xs font-bold tracking-[.18em] text-[var(--brand-primary-hover)]">CLINAHIR</p>
     <h2 id="lead-confirmation-title" className="text-3xl font-semibold tracking-tight">{fr ? 'Demande bien reçue' : 'Request received'}</h2>
-    <p id="lead-confirmation-body" className="mt-4 leading-relaxed text-[var(--text-body)]">{fr ? 'Merci pour votre intérêt. Nous vous contacterons à l’adresse e-mail indiquée pour organiser une démonstration adaptée à votre centre.' : 'Thank you for your interest. We’ll contact you at the email address you provided to arrange a demo tailored to your center.'}</p>
-    <div className="mt-6 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm leading-relaxed text-[var(--text-body)]">{fr ? 'Nous conviendrons d’un créneau avec vous par e-mail. Aucun créneau de réunion n’a encore été réservé.' : 'We’ll agree a time with you by email. No meeting slot has been reserved yet.'}</div>
+    <p id="lead-confirmation-body" className="mt-4 leading-relaxed text-[var(--text-body)]">{fr ? 'Merci pour votre intérêt. Nous utiliserons votre numéro WhatsApp pour vous transmettre la démonstration adaptée à votre centre.' : 'Thank you for your interest. We’ll use the WhatsApp number you provided to share a demo tailored to your center.'}</p>
+    <div className="mt-6 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm leading-relaxed text-[var(--text-body)]">{fr ? 'Votre demande est enregistrée. Ce message confirme sa réception, pas encore la livraison sur WhatsApp.' : 'Your request is saved. This confirms receipt, not WhatsApp delivery yet.'}</div>
     <button autoFocus type="button" onClick={onClose} className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--brand-primary)] px-5 py-4 font-semibold text-white transition hover:bg-[var(--brand-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-primary)]">{fr ? 'Continuer à explorer' : 'Continue exploring'}<ArrowRight size={18}/></button>
   </dialog>, document.body);
 }

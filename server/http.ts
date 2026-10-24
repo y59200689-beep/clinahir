@@ -5,7 +5,7 @@ const json = (body: object, status = 200) => Response.json(body, { status, heade
 export async function leadRequest(request: Request, store: LeadStore, config: ServerConfig, fetcher: typeof fetch = fetch): Promise<Response> {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const origin = request.headers.get('origin');
-  if (origin && origin !== new URL(request.url).origin) return json({ error: 'Request not allowed' }, 403);
+  if (origin !== new URL(request.url).origin) return json({ error: 'Request not allowed' }, 403);
   if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return json({ error: 'JSON required' }, 415);
   try {
     const reader = request.body?.getReader();
@@ -15,8 +15,12 @@ export async function leadRequest(request: Request, store: LeadStore, config: Se
     raw += decoder.decode();
     let body: unknown;
     try { body = JSON.parse(raw); } catch { throw new InvalidLead('body'); }
+    if (body && typeof body==='object' && 'website' in body && (body as Record<string,unknown>).website) throw new InvalidLead('bot');
+    // Vercel overwrites this trusted client-IP header. No raw IP is persisted.
+    const ip=request.headers.get('x-vercel-forwarded-for')?.split(',')[0].trim();
+    if(ip && !await store.allow(createHash('sha256').update(`lead-ip:${ip}`).digest('hex'))) return json({error:'Please try again later'},429);
     const input = validateLead(body);
-    const limitKey = createHash('sha256').update(input.email).digest('hex');
+    const limitKey = createHash('sha256').update(`lead-phone:${input.phone.replace(/\D/g,'')}`).digest('hex');
     if (!await store.allow(limitKey)) return json({ error: 'Please try again later' }, 429);
     const externalId = await captureLead(input, store, config, fetcher);
     return json({ ok: true, externalId }, 201);
@@ -28,9 +32,7 @@ export async function leadRequest(request: Request, store: LeadStore, config: Se
   }
 }
 export async function retryRequest(request: Request, store: LeadStore, config: ServerConfig, fetcher: typeof fetch = fetch): Promise<Response> {
-  const expected = `Bearer ${config.CRON_SECRET ?? ''}`;
-  const auth = request.headers.get('authorization') ?? '';
-  if (!config.CRON_SECRET || Buffer.byteLength(auth) !== Buffer.byteLength(expected) || !timingSafeEqual(Buffer.from(auth), Buffer.from(expected))) return json({ error: 'Unauthorized' }, 401);
+  if (!cronAuthorized(request,config.CRON_SECRET)) return json({ error: 'Unauthorized' }, 401);
   if (!['GET', 'POST'].includes(request.method)) return json({ error: 'Method not allowed' }, 405);
   try {
     if (request.method === 'POST') {
@@ -40,4 +42,9 @@ export async function retryRequest(request: Request, store: LeadStore, config: S
     }
     return json({ processed: await retryDue(store, config, fetcher) });
   } catch { console.error('clinahir_outbox', { reason: 'processing_failed' }); return json({ error: 'Outbox unavailable' }, 503); }
+}
+
+export function cronAuthorized(request:Request,secret:string|undefined):boolean {
+ const expected=`Bearer ${secret ?? ''}`, auth=request.headers.get('authorization') ?? '';
+ return Boolean(secret) && Buffer.byteLength(auth)===Buffer.byteLength(expected) && timingSafeEqual(Buffer.from(auth),Buffer.from(expected));
 }

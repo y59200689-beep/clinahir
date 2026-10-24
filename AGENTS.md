@@ -70,3 +70,9 @@ Clinahir sales lead integration uses Vercel API functions and a private Supabase
 Successful marketing demo inquiries show a prominent branded confirmation dialog in English/French, only after durable server capture. Preserve inline errors, keyboard focus restoration, Escape dismissal, and reduced-motion support.
 
 The marketing demo inquiry requires a phone number in English and French; reject missing or blank phone values server-side.
+
+The public demo inquiry now requires full name and an international WhatsApp number, replacing work email. Preserve legacy email leads. Queue automatic WhatsApp demos durably; sending remains disabled until server-only Meta credentials, approved template and demo URL are configured. Confirm receipt only, never claim delivery before provider confirmation.
+
+Clinahir owner administration is separate from the public sample dashboard at `/admin`. Keep owner-only Supabase Auth validation on every API call, HttpOnly sessions and server-only credentials. Use the private lead table and admin audit trail; never seed fictional production leads. Public website copy uses the managed bilingual content schema, with private drafts, explicit publishing and optimistic versions. Preserve the landing design. The owner chooses a password privately; never add a hardcoded/default admin login. See ADMIN.md for activation, operational boundaries and verification.
+
+The owner selected the first Product Design concept (Forest Command) on October 20, 2026. Use a dark forest-green sidebar, pale main canvas, larger high-contrast headings, a compact metrics band, and a prominent lead table beside attention and activity panels. Preserve real admin data, authentication, publishing and management flows; do not replace these with the public glass demo or invented business results.

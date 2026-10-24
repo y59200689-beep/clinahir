@@ -1,3 +1,5 @@
+import { useSiteContent } from '../../../src/content/SiteContent';
+import { siteDefaults } from '../../../src/content/schema';
 import DemoTour from '../../../src/DemoTour';
 "use client";
 
@@ -646,6 +648,8 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
 // MAIN COMPONENT
 // ============================================================================
 export default function AiMarketingHeroKelo({ className, language = "en", onLanguageChange }: { className?: string; language?: "en" | "fr"; onLanguageChange?: (language: "en" | "fr") => void }) {
+  const { document: site } = useSiteContent();
+  const hero=site.hero[language];
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -687,7 +691,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
 
               {/* Center: Nav Links — absolutely centered relative to pill */}
               <div className="hidden lg:flex items-center gap-5 absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
-                {["Solutions", "Demo", "Process", "About"].map((item, index) => (
+                {["Solutions", "Demo", "Process", "About"].map((item, index) => item === "Solutions" && !site.settings.sections.solutions ? null : (
                   <a
                     key={item}
                     href={"#" + ["solutions", "interactive-demo", "process", "about"][index]}
@@ -723,7 +727,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" as const }}
               className="text-center font-semibold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] leading-[1.1] tracking-[-0.02em] text-white max-w-4xl mt-0 mb-4"
             >
-              {language === "fr" ? <>Transformez les recherches<br className="hidden sm:block"/> en rendez-vous <span className="italic">confirmés</span></> : <>Turn More Searches Into<br />Booked <span className="italic">Appointments</span></>}
+              {hero.headline!==siteDefaults.hero[language].headline ? hero.headline : language === "fr" ? <>Transformez les recherches<br className="hidden sm:block"/> en rendez-vous <span className="italic">confirmés</span></> : <>Turn More Searches Into<br />Booked <span className="italic">Appointments</span></>}
             </motion.h1>
 
             {/* Subheadline */}
@@ -733,7 +737,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" as const }}
               className="text-center text-base md:text-lg text-white/90 max-w-[480px] leading-relaxed mb-8"
             >
-              Websites, online booking, digital visibility and growth systems built for radiology and medical centers.
+              {hero.description}
             </motion.p>
 
             {/* CTA */}
@@ -747,10 +751,10 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
                 className="rounded-full px-8 py-4 text-base font-semibold bg-white border border-white/70 text-[var(--text-primary)] hover:bg-white/90 transition-all shadow-2xl hover:scale-105 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 style={{ boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)" }}
               >
-                Book a Free Demo
+                {hero.cta}
               </a>
               <span className="text-sm text-white/60">
-                Built to improve the patient journey from Google search to confirmed appointment.
+                {hero.note}
               </span>
             </motion.div>
 

@@ -1,58 +1,13 @@
+import { useSiteContent } from '../../../src/content/SiteContent';
 "use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const faqItems = [
-  {
-    question: "How long does it take to build the platform?",
-    answer: "Timelines depend on your center’s website, booking and dashboard requirements. We define the scope and schedule together before work begins."
-  },
-  {
-    question: "What happens in the first demo call?",
-    answer: "We discuss your center’s current website and appointment process, then walk through the relevant parts of the interactive platform. You can ask for a proposed scope afterward."
-  },
-  {
-    question: "Will our team receive training?",
-    answer: "We define onboarding and staff training with you as part of the implementation scope, so your team knows what to expect before launch."
-  },
-  {
-    question: "How are patient data and access handled?",
-    answer: "The dashboard on this page uses sample data. For a real implementation, we review data handling, access needs, and responsibilities with your center before any patient information is used."
-  },
-  {
-    question: "Can patients book appointments directly online?",
-    answer: "Yes. The platform includes online appointment requests so patients can start the booking process at any time."
-  },
-  {
-    question: "Can our staff manage appointments from the dashboard?",
-    answer: "Yes. The dashboard is designed to keep appointment requests, schedules and center activity in one workspace."
-  },
-  {
-    question: "Do you manage Google Maps and SEO?",
-    answer: "Yes. Our growth support includes Google Maps optimization, local SEO and clear service pages for your center."
-  },
-  {
-    question: "Can you manage advertising campaigns for our center?",
-    answer: "Yes. Meta Ads and lead generation can be included as part of your center’s growth management."
-  },
-  {
-    question: "Is hosting and maintenance included?",
-    answer: "Technical setup and ongoing support can be included in the proposal. We confirm hosting and maintenance scope with each center before work begins."
-  },
-  {
-    question: "Can the platform be adapted to our specific workflow?",
-    answer: "Yes. We shape booking and dashboard workflows around how your center handles patient requests and appointments."
-  },
-  {
-    question: "Do you work with centers outside Marrakech?",
-    answer: "Yes. We work with radiology and medical centers across Morocco."
-  }
-];
 
-const faqs = [faqItems[1], { question: "How is pricing determined?", answer: "Pricing depends on the website, booking workflow and growth support your center needs. We provide a tailored scope and proposal before work begins." }, faqItems[0], faqItems[8], faqItems[2], ...[3,4,5,6,7,9,10].map(index=>faqItems[index])];
-
-export default function Faq05Kelo({ className }: { className?: string }) {
+export default function Faq05Kelo({ className, language = "en" }: { className?: string; language?: "en" | "fr" }) {
+  const { document: site } = useSiteContent();
+  const faqs=site.faq[language];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (

@@ -1,3 +1,4 @@
+import { useSiteContent } from './content/SiteContent';
 import Hero from '../components/templates/ai-marketing-landing-page-kelo/Hero';
 import PrivacyNotice from './PrivacyNotice';
 import ClientSpotlight from './ClientSpotlight';
@@ -60,11 +61,12 @@ function usePageLanguage(language) {
 }
 
 export function App() {
+  const { document: site } = useSiteContent();
   const [language, setLanguage] = useState(() => localStorage.getItem('site-language') === 'fr' ? 'fr' : 'en');
   usePageLanguage(language);
   useEffect(() => {
     document.documentElement.lang = language;
     localStorage.setItem('site-language', language);
   }, [language]);
-  return <main className="min-h-screen"><PrivacyNotice language={language} /><Hero language={language} onLanguageChange={setLanguage} /><div id="solutions"><Features language={language} /></div><ClientSpotlight language={language} /><HowItWorks language={language} /><LandingSections language={language} /><FAQ /><Footer language={language} onLanguageChange={setLanguage} /></main>;
+  return <main className="min-h-screen"><PrivacyNotice language={language} /><Hero language={language} onLanguageChange={setLanguage} />{site.settings.sections.solutions && <div id="solutions"><Features language={language} /></div>}{site.settings.sections.client && <ClientSpotlight language={language} />}{site.settings.sections.outcomes && <HowItWorks language={language} />}<LandingSections language={language} />{site.settings.sections.faq && <FAQ language={language} />}<Footer language={language} onLanguageChange={setLanguage} /></main>;
 }

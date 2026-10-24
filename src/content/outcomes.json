@@ -1,0 +1,62 @@
+{
+  "en": [
+    {
+      "heading": "Help patients find your center.",
+      "description": "Improve your visibility through Google, local SEO and optimized medical service pages.",
+      "badge": "PHASE 01: VISIBILITY",
+      "tabLabel": "1. Get Found",
+      "image": "https://cdn.jiro.build/Kelo/a-breathtaking-3d-rendered-landscape-of-smooth-rol.jpg"
+    },
+    {
+      "heading": "Make booking simple for patients.",
+      "description": "Turn website visitors into appointment requests with a clear and simple booking journey.",
+      "badge": "PHASE 02: BOOKING",
+      "tabLabel": "2. Convert",
+      "image": "https://cdn.jiro.build/Kelo/a-worn-vintage-yellow-wooden-desk-sitting-in-an-op.jpeg"
+    },
+    {
+      "heading": "Keep every request organized.",
+      "description": "Keep appointment requests organized and make it easier for your team to respond quickly.",
+      "badge": "PHASE 03: RESPONSE",
+      "tabLabel": "3. Follow Up",
+      "image": "https://cdn.jiro.build/Kelo/a-breathtaking-3d-rendered-landscape-of-smooth-rol.jpg"
+    },
+    {
+      "heading": "See what supports your growth.",
+      "description": "Track appointments, activity and performance through a centralized dashboard.",
+      "badge": "PHASE 04: INSIGHT",
+      "tabLabel": "4. Measure",
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
+    }
+  ],
+  "fr": [
+    {
+      "heading": "Aidez les patients à trouver votre centre.",
+      "description": "Améliorez votre visibilité sur Google grâce au référencement local et à des pages de services médicaux optimisées.",
+      "badge": "ÉTAPE 01 : VISIBILITÉ",
+      "tabLabel": "1. Être trouvé",
+      "image": "https://cdn.jiro.build/Kelo/a-breathtaking-3d-rendered-landscape-of-smooth-rol.jpg"
+    },
+    {
+      "heading": "Simplifiez la prise de rendez-vous.",
+      "description": "Transformez les visiteurs de votre site en demandes de rendez-vous grâce à un parcours de réservation simple et clair.",
+      "badge": "ÉTAPE 02 : RÉSERVATION",
+      "tabLabel": "2. Convertir",
+      "image": "https://cdn.jiro.build/Kelo/a-worn-vintage-yellow-wooden-desk-sitting-in-an-op.jpeg"
+    },
+    {
+      "heading": "Organisez chaque demande.",
+      "description": "Centralisez les demandes de rendez-vous et aidez votre équipe à répondre rapidement.",
+      "badge": "ÉTAPE 03 : RÉPONSE",
+      "tabLabel": "3. Assurer le suivi",
+      "image": "https://cdn.jiro.build/Kelo/a-breathtaking-3d-rendered-landscape-of-smooth-rol.jpg"
+    },
+    {
+      "heading": "Suivez ce qui soutient votre croissance.",
+      "description": "Suivez les rendez-vous, l’activité et les résultats depuis un tableau de bord centralisé.",
+      "badge": "ÉTAPE 04 : ANALYSE",
+      "tabLabel": "4. Mesurer",
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
+    }
+  ]
+}

@@ -4,16 +4,22 @@ export function leadsDev() {
     const env = { ...loadEnv(server.config.mode, server.config.root, ''), ...process.env };
     server.middlewares.use(async (req, res, next) => {
       const pathname = new URL(req.url, 'http://localhost').pathname;
-      if (!['/api/leads', '/api/cron/leads', '/api/analytics'].includes(pathname)) return next();
+      if (!['/api/leads', '/api/cron/leads', '/api/analytics', '/api/admin', '/api/content'].includes(pathname)) return next();
       try {
         const chunks = []; let size = 0;
-        for await (const chunk of req) { size += chunk.length; if (size > 16384) { res.writeHead(413); res.end(); return; } chunks.push(chunk); }
+        for await (const chunk of req) { size += chunk.length; if (size > (pathname === '/api/admin' ? 200000 : 16384)) { res.writeHead(413); res.end(); return; } chunks.push(chunk); }
         const { SupabaseLeadStore } = await server.ssrLoadModule('/server/supabase.ts');
         const { leadRequest, retryRequest } = await server.ssrLoadModule('/server/http.ts');
         const { serverConfig } = await server.ssrLoadModule('/server/config.ts');
         const headers = new Headers();
         for (const [key, value] of Object.entries(req.headers)) if (value) headers.set(key, Array.isArray(value) ? value.join(',') : value);
         const request = new Request(`http://${req.headers.host}${req.url}`, { method: req.method, headers, body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(chunks) });
+        if (pathname === '/api/admin') {
+          const {adminRequest}=await server.ssrLoadModule('/server/admin.ts');const result=await adminRequest(request,env);res.writeHead(result.status,Object.fromEntries(result.headers));res.end(await result.text());return;
+        }
+        if (pathname === '/api/content') {
+          try {const rows=await new SupabaseLeadStore(env.SUPABASE_URL||'',env.SUPABASE_SERVICE_ROLE_KEY||'').publishedContent();res.setHeader('Content-Type','application/json');res.end(JSON.stringify({content:rows[0]?.published??null}));}catch{res.writeHead(503,{'Content-Type':'application/json'});res.end(JSON.stringify({content:null}));}return;
+        }
         if (pathname === '/api/analytics') {
           const { analyticsRequest } = await server.ssrLoadModule('/server/analytics.ts');
           const result = await analyticsRequest(request,env); res.writeHead(result.status,Object.fromEntries(result.headers));res.end(await result.text());return;

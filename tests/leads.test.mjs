@@ -41,7 +41,7 @@ test('invalid form, cross-origin, oversized and invalid content type rejected',a
  const store=new MemoryStore();for(const patch of [{phone:''},{phone:'   '},{phone:null},{phone:undefined},{email:'bad'},{role:'fake'},{companyName:''},{submissionId:'bad'},{formType:'newsletter'},{landingPage:'https://bad.example'}]) assert.equal((await leadRequest(req({...input,...patch}),store,config)).status,400);
  assert.equal(store.records.size,0);
  assert.equal((await leadRequest(new Request('https://clinahir.example.com/api/leads',{method:'POST',headers:{Origin:'https://evil.example','Content-Type':'application/json'},body:JSON.stringify(input)}),store,config)).status,403);
- assert.equal((await leadRequest(new Request('https://clinahir.example.com/api/leads',{method:'POST',body:'x'}),store,config)).status,415);
+ assert.equal((await leadRequest(new Request('https://clinahir.example.com/api/leads',{method:'POST',headers:{Origin:'https://clinahir.example.com'},body:'x'}),store,config)).status,415);
  assert.equal((await leadRequest(req({...input,message:'x'.repeat(17000)}),store,config)).status,413);
 });
 test('storage capture failure returns normal error; post-capture status failure stays success',async()=> {
@@ -85,14 +85,14 @@ test('Supabase SQL restricts RPCs and prevents lease races',()=> {
 test('browser client uses same-origin API, preserves attribution and ID on error, clears form ID only on success',async()=> {
  const data=new Map();globalThis.sessionStorage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};globalThis.window={location:{pathname:'/',search:'?utm_source=google&utm_medium=cpc&utm_campaign=radiology'}};
  assert.equal(captureAttribution().utmSource,'google');window.location={pathname:'/about',search:''};assert.equal(captureAttribution().landingPage,'/');
- const form=new FormData();for(const [k,v] of Object.entries({center_name:'Atlas',city:'Casablanca',email:'contact@example.com',phone:'0612345678',role:input.role,priority:input.priority}))form.set(k,v);
+ const form=new FormData();for(const [k,v] of Object.entries({center_name:'Atlas',city:'Casablanca',contact_name:'Test Contact',phone:'+212612345678',role:input.role,priority:input.priority}))form.set(k,v);
  let first;await assert.rejects(()=>submitLead(form,async(url,init)=>{assert.equal(url,'/api/leads');first=JSON.parse(init.body);assert(!JSON.stringify(init).includes(config.CLINAHIR_INTEGRATION_SECRET));return Response.json({error:'offline'},{status:503});}));
- const id=await submitLead(form,async(url,init)=>{const body=JSON.parse(init.body);assert.equal(body.submissionId,first.submissionId);assert.equal(body.utmCampaign,'radiology');return Response.json({ok:true,externalId:`cli_${body.submissionId}`},{status:201});});assert.equal(data.get('clinahir:last-lead-id'),id);assert(!data.has('clinahir:lead-submission:v1'));
+ const id=await submitLead(form,async(url,init)=>{const body=JSON.parse(init.body);assert.equal(body.submissionId,first.submissionId);assert.equal(body.utmCampaign,'radiology');assert.equal(body.contactName,'Test Contact');assert.equal(body.email,undefined);return Response.json({ok:true,externalId:`cli_${body.submissionId}`},{status:201});});assert.equal(data.get('clinahir:last-lead-id'),id);assert(!data.has('clinahir:lead-submission:v1'));
 });
 test('existing form delegates submission and preserves success/error states',()=> {const source=readFileSync('src/LandingSections.tsx','utf8');assert(source.includes('await submitLead(body)'));assert(source.includes("setStatus('success')"));assert(source.includes("catch { setStatus('error'); }"));assert(source.includes("disabled={status === 'sending'}"));assert(!source.includes('VITE_DEMO_FORM_ENDPOINT'));});
 test('private integration secret absent from client source and built assets',()=> {
  const source=readFileSync('src/leads/client.ts','utf8');assert(!source.includes('CLINAHIR_INTEGRATION_SECRET'));
- for(const f of readdirSync('dist/client/assets')) if(f.endsWith('.js')) {const bundle=readFileSync(`dist/client/assets/${f}`,'utf8');assert(!bundle.includes('CLINAHIR_INTEGRATION_SECRET'));assert(!bundle.includes('integration-build-secret-canary'));assert(!bundle.includes('SUPABASE_SERVICE_ROLE_KEY'));assert(!bundle.includes('sb_secret_test'));}
+ for(const f of readdirSync('dist/client/assets')) if(f.endsWith('.js')) {const bundle=readFileSync(`dist/client/assets/${f}`,'utf8');assert(!bundle.includes('CLINAHIR_INTEGRATION_SECRET'));assert(!bundle.includes('integration-build-secret-canary'));assert(!bundle.includes('SUPABASE_SERVICE_ROLE_KEY'));assert(!bundle.includes('sb_secret_test'));assert(!bundle.includes('WHATSAPP_ACCESS_TOKEN'));assert(!bundle.includes('CLINAHIR_ADMIN_USER_ID'));assert(!bundle.includes('admin-private-build-canary'));assert(!bundle.includes('whatsapp-build-secret-canary'));}
 });
 test('analytics accepts only bounded anonymous metadata and rejects cross-origin requests',async()=> {
  const {analyticsRequest}=await import('../.integration-build/server/analytics.js');

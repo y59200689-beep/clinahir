@@ -1,3 +1,4 @@
+import {useSiteContent} from '../../../src/content/SiteContent';
 "use client";
 
 import React, { useState } from "react";
@@ -16,7 +17,7 @@ interface StepData {
   mockupType: "discovery" | "outreach" | "workflows" | "insights";
 }
 
-const steps: StepData[] = [
+const stepDefaults: StepData[] = [
   {
     id: "step-1",
     tabLabel: "1. Get Found",
@@ -211,6 +212,8 @@ function DemoCta() {
 }
 
 export default function HowItWroks03Kelo({ className, language = "en" }: { className?: string; language?: "en" | "fr" }) {
+  const {document:site}=useSiteContent();
+  const steps=stepDefaults.map((step,i)=>({...step,...site.outcomes[language][i]}));
   const [activeTab, setActiveTab] = useState(0);
 
   const renderMockup = () => {

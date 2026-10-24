@@ -27,8 +27,12 @@ export function validateLead(body: unknown): LeadInput {
   const d = body as Record<string, unknown>;
   const submissionId = field(d, 'submissionId', 36, true)!;
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId)) throw new InvalidLead('submissionId');
-  const email = field(d, 'email', 254, true)!.toLowerCase();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new InvalidLead('email');
+  const email = field(d, 'email', 254)?.toLowerCase();
+  const contactName = field(d, 'contactName', 200, !email);
+  let phone = field(d, 'phone', 40, true)!;
+  if (!/^[+()\d\s.-]+$/.test(phone) || phone.replace(/\D/g,'').length < 8 || phone.replace(/\D/g,'').length > 15) throw new InvalidLead('phone');
+  if (!email) { if (!/^\+[1-9]/.test(phone)) throw new InvalidLead('phone'); phone='+'+phone.replace(/\D/g,''); }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new InvalidLead('email');
   const role = field(d, 'role', 100, true)!;
   const priority = field(d, 'priority', 200, true)!;
   if (!roles.includes(role) || !priorities.includes(priority)) throw new InvalidLead('selection');
@@ -38,7 +42,7 @@ export function validateLead(body: unknown): LeadInput {
   const landingPage = field(d, 'landingPage', 500, true)!;
   if (!landingPage.startsWith('/') || landingPage.startsWith('//') || /[?#\r\n]/.test(landingPage)) throw new InvalidLead('landingPage');
   return { submissionId: submissionId.toLowerCase(), companyName: field(d, 'companyName', 200, true)!, city: field(d, 'city', 120, true)!, email, role, priority, formType, landingPage,
-    phone: field(d, 'phone', 40, true)!, contactName: field(d, 'contactName', 200), message: field(d, 'message', 3000),
+    phone, contactName, message: field(d, 'message', 3000),
     utmSource: field(d, 'utmSource', 200), utmMedium: field(d, 'utmMedium', 200), utmCampaign: field(d, 'utmCampaign', 200) };
 }
 export function makeRecord(input: LeadInput, now = new Date()): LeadRecord {
@@ -80,7 +84,7 @@ export async function retryDue(store: LeadStore, config: IntegrationConfig, fetc
   let processed = 0;
   for (const id of ids) {
     // Leave enough time for one bounded claim/delivery/completion within the 60s function limit.
-    if (Date.now() - began >= 30_000) break;
+    if (Date.now() - began >= 10_000) break;
     await deliver(store, id, config, fetcher);
     processed++;
   }

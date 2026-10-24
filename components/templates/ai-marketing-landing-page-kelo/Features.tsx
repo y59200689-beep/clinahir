@@ -1,10 +1,12 @@
+import { useSiteContent } from '../../../src/content/SiteContent';
 import { useState } from 'react';
 import { CalendarDays, Check, CheckCircle2, Clock3, MapPin, Search, ArrowUpRight, BarChart3, Users, Stethoscope, ArrowRight } from 'lucide-react';
 
 export default function Features({ language = 'en', className = '' }: { language?: 'en' | 'fr'; className?: string }) {
   const fr = language === 'fr';
   const [slot, setSlot] = useState('09:30');
-  const t = (en: string, french: string) => fr ? french : en;
+  const { document: site } = useSiteContent();
+  const t = (en: string, french: string) => site.features[en]?.[language] ?? (fr ? french : en);
   const card = 'feature-preview-card min-w-0 rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8';
   const preview = 'rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-5 sm:p-6';
   const label = 'text-[10px] font-semibold uppercase tracking-[.12em] text-[var(--text-secondary)]';
