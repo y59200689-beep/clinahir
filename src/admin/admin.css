@@ -599,9 +599,12 @@
 .ca-import-review-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:13px}
 .ca-import-review-footer>p{font-size:10px;line-height:1.5;color:#798276;max-width:540px;margin:0}
 .ca-lead-toolbar.ca-prospect-toolbar{align-items:flex-end;padding:20px 25px 15px;gap:14px}
-.ca-prospect-search{max-width:none;min-height:43px;background:#fff;border-color:#dfe6dc;border-radius:10px;padding-left:13px}
+.ca-prospect-search{display:flex!important;flex-direction:row!important;align-items:center!important;max-width:none;min-height:48px;background:#fff;border-color:#dfe6dc;border-radius:11px;padding:0 12px;gap:10px;box-shadow:0 1px 2px #17372208}
 .ca-prospect-search:focus-within{border-color:#789a76;box-shadow:0 0 0 3px #517d3c12}
-.ca-prospect-search input{font-size:12px!important}
+.ca-prospect-search>input{display:block!important;flex:1 1 auto;width:1px;min-width:0;height:46px;margin:0!important;padding:9px 0!important;font-size:13px!important;line-height:1.4;color:#263d30!important}
+.ca-prospect-search input::placeholder{color:#77847a;opacity:1}
+.ca-prospect-search>svg{width:18px;height:18px;color:#54705d}
+.ca-prospect-search:focus-within{background:#fff}
 .ca-prospect-search>button{border:0;background:none;color:#788477;display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:7px}
 .ca-prospect-search>button:hover{background:#f0f4ed;color:#31583d}
 .ca-prospect-filters{display:flex;align-items:flex-end;gap:9px}
@@ -667,8 +670,6 @@
 .ca-prospects-page .ca-primary:hover{background:#0d422a;border-color:#0d422a}
 .ca-prospects-page .ca-secondary{border-color:#cbd8cd;color:#214934}
 .ca-prospects-page .ca-secondary:hover{background:#edf4ee;border-color:#9eb6a1}
-.ca-prospects-page .ca-prospect-policy{background:#edf3ed;border:1px solid #ceddce;border-left:3px solid #1d613c;color:#3e5847}
-.ca-prospects-page .ca-prospect-policy svg{color:#1f6440}
 .ca-prospects-page .ca-prospect-search{border-color:#cbd8ce;background:#fff}
 .ca-prospects-page .ca-prospect-search:focus-within{border-color:#286b43;box-shadow:0 0 0 3px #286b431a}
 .ca-prospects-page .ca-prospect-filters>label{color:#4f6254;font-size:10px}
@@ -711,7 +712,7 @@
 .ca-prospects-page .ca-empty>span{background:#e8f0e9;border-color:#cbdacb;color:#1e603c}
 .ca-prospects-page input[hidden]{display:none!important}
 .ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{display:grid;grid-template-columns:minmax(195px,.7fr) minmax(390px,1.3fr);align-items:end}
-.ca-prospects-page .ca-prospect-search{width:100%;min-width:0}
+.ca-prospects-page .ca-prospect-search{width:100%;min-width:0;align-self:stretch}
 .ca-prospects-page .ca-prospect-filters{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr)) 40px;gap:8px;align-items:end;min-width:0}
 .ca-prospects-page .ca-prospect-filters>label{min-width:0}
 .ca-prospects-page .ca-prospect-filters select{min-width:0;width:100%}
@@ -724,3 +725,12 @@
   .ca-prospects-page .ca-prospect-refresh{justify-self:start}
   .ca-prospects-page .ca-prospect-table{min-width:1010px}
 }
+
+.ca-sidebar-toggle{display:inline-flex;width:36px;height:36px;color:#244b35;border:1px solid transparent}
+.ca-sidebar-toggle:hover{background:#eaf1eb;color:#13472e}
+@media(min-width:901px){
+  .ca-workspace .ca-sidebar,.ca-workspace .ca-main{transition:width .22s ease,margin-left .22s ease,transform .22s ease,padding .22s ease}
+  .ca-workspace.ca-sidebar-hidden .ca-sidebar{width:0;padding-left:0;padding-right:0;border-right-width:0;overflow:hidden;visibility:hidden;pointer-events:none;transform:translateX(-100%)}
+  .ca-workspace.ca-sidebar-hidden .ca-main{margin-left:0}
+}
+@media(prefers-reduced-motion:reduce){.ca-sidebar-toggle,.ca-workspace .ca-sidebar,.ca-workspace .ca-main{transition:none!important}}
