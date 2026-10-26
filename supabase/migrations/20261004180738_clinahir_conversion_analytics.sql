@@ -1,4 +1,12 @@
-revoke execute on function public.rls_auto_enable() from public, anon, authenticated;
+-- This helper exists only in some existing projects. New Clinahir databases
+-- enable RLS explicitly on each table in their migrations.
+do $$
+begin
+  if pg_catalog.to_regprocedure('public.rls_auto_enable()') is not null then
+    execute 'revoke execute on function public.rls_auto_enable() from public, anon, authenticated';
+  end if;
+end;
+$$;
 create table public.clinahir_analytics_events (
  id uuid primary key,
  event_type text not null check(event_type in ('page_view','demo_cta_click')),

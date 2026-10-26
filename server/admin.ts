@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { SupabaseLeadStore } from './supabase.js';
 import { validateSiteDocument } from '../src/content/schema.js';
+import { parseProspectCsv } from './prospects.js';
 export interface AdminEnv extends Record<string, string | undefined> {
     SUPABASE_URL?: string;
     SUPABASE_SERVICE_ROLE_KEY?: string;
@@ -56,7 +57,7 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
     if (request.method === 'POST' && request.headers.get('origin') !== url.origin)
         return reply({ error: 'Request not allowed' }, 403);
     if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY || !env.CLINAHIR_ADMIN_USER_ID || !env.CLINAHIR_ADMIN_EMAIL)
-        return reply({ error: 'Admin setup is not complete. Configure the owner account and database migration.' }, 503);
+        return reply({ error: 'Admin sign-in is not configured for this environment. Check the server-side Supabase and owner settings.' }, 503);
     try {
         const store = new SupabaseLeadStore(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, fetcher);
         if (action === 'login' && request.method === 'POST') {
@@ -122,8 +123,34 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
             const rows = await store.content();
             return reply({ content: rows[0] ?? { draft: null, published: null, version: 0, published_at: null } });
         }
+        if (action === 'prospects' && request.method === 'GET') {
+            const search = (url.searchParams.get('search') ?? '').slice(0, 120), stage = url.searchParams.get('stage') ?? '',
+                city = (url.searchParams.get('city') ?? '').slice(0, 120), website = url.searchParams.get('website') ?? '', page = Number(url.searchParams.get('page') ?? 0);
+            if (!['','review','qualified','not_a_fit','do_not_contact'].includes(stage) || !['','with','without'].includes(website) || !Number.isInteger(page) || page < 0 || page > 10000)
+                return reply({ error: 'Invalid filters' }, 400);
+            return reply(await store.adminRpc('clinahir_admin_prospects', { p_search: search, p_stage: stage, p_page: page, p_city: city, p_website: website }));
+        }
         if (request.method === 'POST') {
             const d = await readBody(request);
+            if (action === 'prospects-import') {
+                if (typeof d.csv !== 'string' || d.csv.length > 180000 || d.sourceUseConfirmed !== true)
+                    return reply({ error: 'Confirm the data source and choose a valid CSV under 180 KB.' }, 400);
+                let rows;
+                try { rows = parseProspectCsv(d.csv, d.sourceUseConfirmed); }
+                catch (error) { return reply({ error: (error as Error).message }, 400); }
+                return reply(await store.adminRpc('clinahir_admin_import_prospects', { p_actor: user.id, p_rows: rows }));
+            }
+            if (action === 'prospect') {
+                const optInEvidence = typeof d.optInEvidence === 'string' ? d.optInEvidence.trim() : '';
+                if (typeof d.id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(d.id)
+                    || !['review','qualified','not_a_fit','do_not_contact'].includes(String(d.stage))
+                    || typeof d.notes !== 'string' || d.notes.length > 3000
+                    || typeof d.whatsappOptIn !== 'boolean'
+                    || (d.whatsappOptIn && (optInEvidence.length < 5 || optInEvidence.length > 500)))
+                    return reply({ error: 'Review fields are invalid. WhatsApp opt-in needs a short evidence note.' }, 400);
+                await store.adminRpc('clinahir_admin_update_prospect', { p_actor: user.id, p_id: d.id, p_stage: d.stage, p_notes: d.notes, p_whatsapp_opt_in: d.whatsappOptIn, p_opt_in_evidence: d.whatsappOptIn ? optInEvidence : null });
+                return reply({ ok: true });
+            }
             if (action === 'lead') {
                 if (typeof d.id !== 'string' || !/^cli_[0-9a-f-]{36}$/i.test(d.id) || !['new', 'contacted', 'qualified', 'won', 'lost'].includes(String(d.stage)) || typeof d.notes !== 'string' || d.notes.length > 5000)
                     return reply({ error: 'Invalid lead update' }, 400);
@@ -159,7 +186,13 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
     catch (error) {
         if (error instanceof AdminInputError)
             return reply({ error: error.message }, 400);
+        // Storage and auth providers can be temporarily unreachable (for example,
+        // when local DNS or network access is unavailable). Keep credentials and
+        // provider internals out of the response while giving the admin a useful
+        // next step.
+        if (error instanceof TypeError && /fetch failed/i.test(error.message))
+            return reply({ error: 'The admin service cannot reach Supabase right now. Check your internet connection and try again.' }, 503, { 'Retry-After': '10' });
         console.error('clinahir_admin', { action, reason: 'request_failed' });
-        return reply({ error: 'The request could not be completed. Check configuration and try again.' }, 503);
+        return reply({ error: 'The admin service is temporarily unavailable. Please try again shortly.' }, 503, { 'Retry-After': '10' });
     }
 }

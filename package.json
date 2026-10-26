@@ -10,7 +10,7 @@
     "test:sites": "node --test tests/sites-worker.test.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "node scripts/lint-integration.mjs",
-    "test:leads": "tsc -p tsconfig.tests.json && node --test tests/leads.test.mjs tests/whatsapp.test.mjs tests/admin.test.mjs"
+    "test:leads": "tsc -p tsconfig.tests.json && node --test tests/leads.test.mjs tests/whatsapp.test.mjs tests/admin.test.mjs tests/prospects.test.mjs tests/migrations.test.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "5.0.4",
