@@ -1,0 +1,112 @@
+/* Forest directory — scoped to the owner prospects workspace. */
+.ca-prospects-page{--pd-ink:#1c2d26;--pd-muted:#617069;--pd-line:#dfe6e2;--pd-primary:#18543c;--pd-canvas:#f5f7f6;background:var(--pd-canvas);color:var(--pd-ink)}
+.ca-prospects-page .ca-sidebar{width:224px;background:#12372b;padding:25px 16px 18px;border:0}
+.ca-prospects-page .ca-sidebar>.ca-wordmark{font-size:25px;margin-bottom:26px}
+.ca-prospects-page .ca-sidebar nav{gap:5px}
+.ca-prospects-page .ca-sidebar nav button{min-height:44px;border-radius:8px;padding:11px 12px;color:#c2d2ca;font-size:14px;font-weight:500}
+.ca-prospects-page .ca-sidebar nav button.active{background:#285440;color:#fff;box-shadow:inset 3px 0 #b7d7bb}
+.ca-prospects-page .ca-sidebar nav button:hover:not(.active){background:#204b38;color:#fff}
+.ca-prospects-page .ca-sidebar-bottom{border-top:1px solid #ffffff20;padding-top:12px}
+.ca-prospects-page .ca-account{padding:14px 0;color:#fff}
+.ca-prospects-page .ca-account small{font-size:11px;color:#bccfc3}
+.ca-prospects-page .ca-signout{min-height:44px;color:#c2d2ca;font-size:13px}
+.ca-prospects-page .ca-main{margin-left:224px;background:var(--pd-canvas)}
+.ca-prospects-page .ca-topbar{height:64px;min-height:64px;padding:0 32px;background:#fff;border-bottom:1px solid var(--pd-line)}
+.ca-prospects-page .ca-breadcrumb{gap:12px;font-size:13px}
+.ca-prospects-page .ca-breadcrumb>span{color:var(--pd-muted)}
+.ca-prospects-page .ca-topbar-right{gap:20px}
+.ca-prospects-page .ca-private{font-size:12px;color:var(--pd-muted)}
+.ca-prospects-page .ca-top-avatar{width:34px;height:34px;background:#eef3ef;color:var(--pd-primary);border-color:var(--pd-line)}
+.ca-prospects-page .ca-main-content{padding:30px 32px 24px;max-width:1720px;margin:0 auto}
+.ca-prospects-page .ca-page-header{margin-bottom:24px;gap:16px}
+.ca-prospects-page .ca-page-header .ca-eyebrow{display:none}
+.ca-prospects-page .ca-page-header h1{font-size:28px;font-weight:650;line-height:1.25;letter-spacing:-.8px;color:var(--pd-ink);margin:0}
+.ca-prospects-page .ca-page-header p:not(.ca-eyebrow){font-size:14px;line-height:1.5;margin-top:8px;color:var(--pd-muted)}
+.ca-prospects-page .ca-prospect-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.ca-prospects-page .ca-prospect-stat{position:relative;display:grid;grid-template-columns:1fr 36px;gap:4px 10px;text-align:left;padding:17px 18px;min-height:124px;background:#fff;border:1px solid var(--pd-line);border-radius:10px;box-shadow:none;color:var(--pd-ink)}
+.ca-prospects-page .ca-prospect-stat:hover{background:#f9fbfa;border-color:#a5bcb0}
+.ca-prospects-page .ca-prospect-stat.is-active{background:#edf5ef;border:1px solid #769e85;box-shadow:inset 0 2px var(--pd-primary)}
+.ca-prospects-page .ca-prospect-stat .ca-stat-icon{grid-column:2;grid-row:1/3;width:34px;height:34px;border:1px solid var(--pd-line);border-radius:8px;background:#f4f7f5;color:#466654;margin:0;align-self:start}
+.ca-prospects-page .ca-prospect-stat>p{grid-column:1;grid-row:1;font-size:13px;line-height:1.5;margin:0;color:#4b5f53;font-weight:550}
+.ca-prospects-page .ca-prospect-stat>strong{grid-column:1;grid-row:2;font-size:29px;line-height:1.15;letter-spacing:-.7px;font-weight:650;color:var(--pd-ink);font-variant-numeric:tabular-nums}
+.ca-prospects-page .ca-prospect-stat>small{grid-column:1/-1;font-size:12px;color:var(--pd-muted);margin-top:6px}
+.ca-prospects-page .ca-prospect-panel{border:1px solid var(--pd-line);border-radius:12px;box-shadow:0 2px 3px #18372603;overflow:hidden;background:#fff}
+.ca-prospects-page .ca-prospect-head{padding:22px 24px;gap:20px;align-items:center;border-bottom:1px solid var(--pd-line)}
+.ca-prospects-page .ca-prospect-head h2{font-size:18px;letter-spacing:-.35px;color:var(--pd-ink);font-weight:650}
+.ca-prospects-page .ca-prospect-head p{font-size:13px;color:var(--pd-muted);margin-top:5px;line-height:1.5}
+.ca-prospects-page .ca-button{min-height:42px;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:none}
+.ca-prospects-page .ca-primary{background:var(--pd-primary);border-color:var(--pd-primary)}
+.ca-prospects-page .ca-primary:hover{background:#103e2b}
+.ca-prospects-page .ca-secondary{border-color:var(--pd-line);color:#3d5145}
+.ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{padding:20px 24px 16px;gap:16px;grid-template-columns:minmax(240px,1.2fr) minmax(460px,1.6fr)}
+.ca-prospects-page label.ca-prospect-search{display:flex;align-items:center;align-self:end;min-height:42px;height:42px;border:1px solid #cbd6cf;border-radius:8px;padding:0 12px;gap:9px;background:#fff;box-shadow:none}
+.ca-prospects-page .ca-prospect-search>input{width:0!important;flex:1;height:40px;padding:0!important;margin:0!important;font-size:13px!important;line-height:normal;font-weight:400;color:var(--pd-ink)!important}
+.ca-prospects-page .ca-prospect-search>svg{width:17px;height:17px;color:#61776b}
+.ca-prospects-page .ca-prospect-filters{grid-template-columns:repeat(3,minmax(110px,1fr)) 42px;gap:10px}
+.ca-prospects-page .ca-prospect-filters>label{font-size:11px;letter-spacing:0;text-transform:none;font-weight:600;color:#52635a}
+.ca-prospects-page .ca-prospect-filters select{height:42px;min-height:42px;padding:8px 28px 8px 11px!important;font-size:12px!important;font-weight:500;border-radius:8px;margin-top:7px!important;border-color:#cbd6cf!important}
+.ca-prospects-page .ca-prospect-refresh{width:42px;height:42px;border-radius:8px;background:#fff;border:1px solid #cbd6cf}
+.ca-prospects-page .ca-prospect-caption{padding:0 24px 16px;min-height:30px;font-size:12px}
+.ca-prospects-page .ca-prospect-caption>strong{font-size:12px;font-weight:600;color:#435c4c}
+.ca-prospect-loading{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#617069}
+.ca-prospects-page .ca-prospect-table-scroll{max-height:calc(100dvh - 435px);min-height:240px;overflow:auto;scrollbar-width:thin;scrollbar-color:#bdccc2 #f5f7f6}
+.ca-prospects-page .ca-prospect-table{width:100%;min-width:1050px;table-layout:fixed;border-collapse:separate;border-spacing:0}
+.ca-prospects-page .ca-prospect-table thead{position:sticky;top:0;z-index:5}
+.ca-prospects-page .ca-prospect-table th{background:#f4f7f5!important;color:#53675a;border-top:1px solid var(--pd-line);border-bottom:1px solid var(--pd-line);padding:12px 16px;font-size:11px;font-weight:600;letter-spacing:0;text-transform:none;white-space:nowrap}
+.ca-prospects-page .ca-prospect-table th:first-child{width:29%;min-width:0}
+.ca-prospects-page .ca-prospect-table th:nth-child(2){width:20%}
+.ca-prospects-page .ca-prospect-table th:nth-child(3){width:15%}
+.ca-prospects-page .ca-prospect-table th:nth-child(4){width:12%}
+.ca-prospects-page .ca-prospect-table th:nth-child(5){width:10%}
+.ca-prospects-page .ca-prospect-table th:nth-child(6){width:12%}
+.ca-prospects-page .ca-prospect-table th:last-child{width:42px}
+.ca-prospects-page .ca-prospect-table td{height:76px;padding:14px 16px;border-bottom:1px solid #edf0ed;font-size:13px;line-height:1.45;color:var(--pd-ink)}
+.ca-prospects-page .ca-prospect-table td:first-child{min-width:0;box-shadow:4px 0 8px -8px #244a32}
+.ca-prospects-page .ca-prospect-table tbody tr:hover,.ca-prospects-page .ca-prospect-table tbody tr:focus-within{background:#f2f7f3}
+.ca-prospects-page .ca-prospect-table tbody tr:focus-within td:first-child{background:#f2f7f3}
+.ca-prospects-page .ca-prospect-name{max-width:100%;width:100%;gap:11px;font-size:13px;font-weight:600;line-height:1.4;min-height:44px;text-align:left;color:var(--pd-ink)}
+.ca-prospects-page .ca-prospect-name>span:last-child{white-space:normal;overflow:visible;overflow-wrap:anywhere}
+.ca-prospects-page .ca-prospect-name small{font-size:12px;color:var(--pd-muted);font-weight:400;letter-spacing:.1px;margin-top:4px}
+.ca-prospects-page .ca-prospect-avatar{width:32px;height:34px;border-radius:8px;flex-shrink:0;background:#edf4ef;color:#4a7458;border:1px solid #dce8df}
+.ca-prospects-page .ca-prospect-city{color:#344e3f;font-size:13px;font-weight:500;gap:5px}
+.ca-prospects-page .ca-prospect-city svg{display:none}
+.ca-prospects-page .ca-prospect-address{font-size:11px;line-height:1.4;color:var(--pd-muted);padding:0;margin-top:4px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.ca-prospects-page .ca-category-pill{font-size:11px;font-weight:450;background:#f5f7f5;border:1px solid #e5eae6;border-radius:5px;padding:4px 7px;white-space:normal;line-height:1.4;color:#536357}
+.ca-prospects-page .ca-prospect-website{font-size:12px;color:var(--pd-primary);font-weight:550;gap:5px}
+.ca-prospects-page .ca-website-missing{font-size:12px;color:var(--pd-muted)}
+.ca-prospects-page .ca-rating{font-size:13px;gap:5px;color:#80622c;font-variant-numeric:tabular-nums}
+.ca-prospects-page .ca-rating small{font-size:11px;line-height:1.5;color:var(--pd-muted);margin-top:3px}
+.ca-prospects-page .ca-prospect-table .ca-badge{font-size:11px;white-space:nowrap;padding:4px 7px;border-radius:5px;font-weight:500}
+.ca-prospects-page .ca-prospect-table .ca-review{color:#865d20;background:#fbf3e3;border:1px solid #f0dfb9}
+.ca-prospects-page .ca-prospect-table .ca-icon-button{width:34px;height:40px;border:1px solid transparent;border-radius:6px;color:#657b6b}
+.ca-prospects-page .ca-prospect-table .ca-icon-button:hover{background:#e5efe7;border-color:#d1e2d5;color:#184b30}
+.ca-prospects-page .ca-pagination{padding:13px 24px;background:#fff;font-size:12px;color:var(--pd-muted);border-top:1px solid var(--pd-line)}
+.ca-prospects-page .ca-pagination .ca-icon-button{width:36px;height:36px;border-radius:7px;border:1px solid var(--pd-line)}
+.ca-prospects-page .ca-pagination button:disabled{opacity:.35;cursor:not-allowed}
+.ca-prospects-page .ca-notice{margin:16px 24px 0;font-size:13px;line-height:1.5;border-radius:8px}
+.ca-prospects-page .ca-empty{padding:48px 24px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ca-prospects-page .ca-empty h3{font-size:17px;color:var(--pd-ink)}
+.ca-prospects-page .ca-empty p{font-size:13px;color:var(--pd-muted);max-width:380px}
+.ca-prospects-page .ca-sidebar-toggle{width:36px;height:36px}
+.ca-prospects-page :is(button,a,input,select,textarea):focus-visible{outline:2px solid #258455;outline-offset:3px}
+.ca-prospects-page .ca-prospect-search:focus-within{border-color:#258455;box-shadow:0 0 0 3px #25845518}
+.ca-prospects-page .ca-workspace-footer{padding:20px 0 0;font-size:11px;color:#718075}
+@media(min-width:901px){.ca-prospects-page.ca-sidebar-hidden .ca-main{margin-left:0}}
+@media(max-width:1200px){.ca-prospects-page .ca-main-content{padding:24px}.ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{grid-template-columns:1fr;gap:14px}.ca-prospects-page .ca-prospect-search{max-width:100%}.ca-prospects-page .ca-prospect-table-scroll{max-height:540px}.ca-prospects-page .ca-prospect-head{align-items:flex-start}.ca-prospects-page .ca-prospect-stat{padding:16px 14px}}
+@media(max-width:900px){.ca-prospects-page .ca-main{margin-left:0}.ca-prospects-page .ca-sidebar{width:244px}.ca-prospects-page .ca-topbar{padding:0 24px}.ca-prospects-page .ca-prospect-head .ca-actions{flex-wrap:nowrap}.ca-prospects-page .ca-private{display:none}}
+@media(max-width:600px){.ca-prospects-page .ca-topbar{padding:0 16px;height:60px;min-height:60px}.ca-prospects-page .ca-breadcrumb{gap:8px}.ca-prospects-page .ca-breadcrumb>span,.ca-prospects-page .ca-breadcrumb>svg{display:none}.ca-prospects-page .ca-topbar-right{gap:12px}.ca-prospects-page .ca-website-link{font-size:12px}.ca-prospects-page .ca-main-content{padding:22px 16px}.ca-prospects-page .ca-page-header h1{font-size:26px}.ca-prospects-page .ca-page-header p:not(.ca-eyebrow){font-size:13px;max-width:32ch}.ca-prospects-page .ca-prospect-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:20px}.ca-prospects-page .ca-prospect-stat{min-height:118px;padding:14px 12px;grid-template-columns:1fr 28px;gap:3px 4px}.ca-prospects-page .ca-prospect-stat .ca-stat-icon{width:28px;height:28px}.ca-prospects-page .ca-prospect-stat .ca-stat-icon svg{width:15px;height:15px}.ca-prospects-page .ca-prospect-stat>p{font-size:12px}.ca-prospects-page .ca-prospect-stat>strong{font-size:26px}.ca-prospects-page .ca-prospect-stat>small{font-size:11px}.ca-prospects-page .ca-prospect-head{padding:20px 16px;flex-direction:column;gap:16px}.ca-prospects-page .ca-prospect-head .ca-actions{width:100%;gap:8px}.ca-prospects-page .ca-prospect-head .ca-button{flex:1;font-size:12px;min-height:44px;padding:10px}.ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{padding:16px}.ca-prospects-page .ca-prospect-filters{grid-template-columns:1fr 1fr;gap:12px}.ca-prospects-page .ca-prospect-filters select{min-height:44px;height:44px}.ca-prospects-page label.ca-prospect-search{height:44px;min-height:44px}.ca-prospects-page .ca-prospect-search>input{font-size:16px!important}.ca-prospects-page .ca-prospect-refresh{height:44px;width:44px;justify-self:end}.ca-prospects-page .ca-prospect-caption{padding:0 16px 16px;gap:12px;align-items:center}.ca-prospects-page .ca-prospect-caption>span{gap:5px;font-size:11px}.ca-prospects-page .ca-prospect-table{min-width:1030px}.ca-prospects-page .ca-prospect-table th:first-child{width:230px}.ca-prospects-page .ca-prospect-table td{height:76px}.ca-prospects-page .ca-prospect-table .ca-icon-button{width:44px;height:44px}.ca-prospects-page .ca-pagination{padding:12px 16px;gap:10px}.ca-prospects-page .ca-pagination .ca-icon-button{width:44px;height:44px}.ca-prospects-page .ca-prospect-table-scroll{min-height:240px;max-height:460px}.ca-prospects-page .ca-notice{margin:16px}.ca-prospects-page .ca-prospect-loading{display:none}}
+@media(prefers-reduced-motion:reduce){.ca-prospects-page *{scroll-behavior:auto!important;transition:none!important}}
+/* Refinement: compact mobile summaries and stable, readable identity details. */
+.ca-prospects-page .ca-account small{white-space:nowrap;text-overflow:ellipsis}
+.ca-prospects-page .ca-prospect-table .ca-qualified{background:#e8f3ec;color:#25603d;border:1px solid #cbe2d2}
+.ca-prospects-page .ca-prospect-table .ca-notafit{background:#f2f3f3;color:#59665f}
+.ca-prospects-page .ca-prospect-table .ca-donotcontact{background:#fbecec;color:#983b3b}
+@media(max-width:600px){.ca-prospects-page .ca-prospect-stat{min-height:100px;padding:12px}.ca-prospects-page .ca-prospect-stat>small{margin-top:2px}.ca-prospects-page .ca-prospect-stats{margin-bottom:16px}.ca-prospects-page .ca-page-header{margin-bottom:18px}.ca-prospects-page .ca-prospect-head{padding:16px;gap:12px}.ca-prospects-page .ca-prospect-head h2{font-size:17px}.ca-prospects-page .ca-prospect-caption>span{display:flex}.ca-prospects-page .ca-prospect-caption>span>span{display:none}.ca-prospects-page .ca-prospect-caption .ca-text-button{font-size:12px}}
+@media(min-width:601px) and (max-width:1000px){.ca-prospects-page .ca-prospect-stat{grid-template-rows:38px 34px auto}.ca-prospects-page .ca-prospect-stat>p{align-self:start}.ca-prospects-page .ca-prospect-stat>strong{align-self:end}}
+/* Final density pass: keep more business rows visible without shrinking text. */
+@media(min-width:1001px){.ca-prospects-page .ca-prospect-stat{min-height:108px;grid-template-rows:20px 34px 18px;padding:14px 18px;gap:3px 10px}.ca-prospects-page .ca-prospect-stat>small{margin:0;min-height:0}.ca-prospects-page .ca-prospect-stats{margin-bottom:20px}}
+.ca-prospects-page .ca-prospect-head{padding-top:16px;padding-bottom:16px}
+.ca-prospects-page .ca-prospect-head h2{line-height:1.35;margin:0}
+.ca-prospects-page .ca-prospect-head p{margin:4px 0 0;line-height:1.5}
+.ca-prospects-page .ca-prospect-name{font-size:14px}
+.ca-prospects-page .ca-prospect-stat>strong{margin:0;align-self:center}
