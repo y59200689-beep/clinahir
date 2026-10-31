@@ -10,7 +10,9 @@ export function SiteContentProvider({ children }: {
         if (d.content)
             setDocument(validateSiteDocument(d.content));
     } }).catch(() => { }); return () => abort.abort(); }, []);
-    return <Context.Provider value={{ document }}>{children}</Context.Provider>;
+    // Keep the featured client project and its navigation links hidden.
+    const visibleDocument = { ...document, settings: { ...document.settings, sections: { ...document.settings.sections, client: false } } };
+    return <Context.Provider value={{ document: visibleDocument }}>{children}</Context.Provider>;
 }
 export function useSiteContent() { return useContext(Context); }
 export function useManagedCopy<T>(key: 'landing' | 'client', fallback: T, language: Locale): T {
