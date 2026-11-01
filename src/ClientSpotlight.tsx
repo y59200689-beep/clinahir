@@ -11,10 +11,10 @@ export default function ClientSpotlight({ language = 'en' }: { language?: Langua
   const icons = [Globe2, Search, Megaphone];
   const focus = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand-primary)]';
   return <section id="client-project" aria-labelledby="client-project-title" className="scroll-mt-8 bg-[var(--surface)] px-6 pb-24 md:px-12">
-    <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-white/10 bg-[var(--brand-dark)] text-white shadow-[0_24px_70px_rgba(0,0,0,.12)]">
+    <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-white/10 bg-[var(--brand-dark)] text-white shadow-xl">
       <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:p-12">
         <div className="min-w-0">
-          <p className="mb-5 text-xs font-bold tracking-[.18em] text-[var(--brand-primary)]">{t.eyebrow}</p>
+          <p className="mb-4 text-xs font-semibold text-[var(--brand-primary)]">{t.eyebrow}</p>
           <h2 id="client-project-title" className="max-w-lg text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">{t.title}</h2>
           <div className="mt-8 border-l-2 border-[var(--brand-primary)] pl-5">
             <h3 className="text-xl font-semibold">{t.client}</h3>

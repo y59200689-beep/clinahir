@@ -7,9 +7,9 @@ export default function Features({ language = 'en', className = '' }: { language
   const [slot, setSlot] = useState('09:30');
   const { document: site } = useSiteContent();
   const t = (en: string, french: string) => site.features[en]?.[language] ?? (fr ? french : en);
-  const card = 'feature-preview-card min-w-0 rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8';
+  const card = 'feature-preview-card min-w-0 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8 shadow-sm';
   const preview = 'rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-5 sm:p-6';
-  const label = 'text-[10px] font-semibold uppercase tracking-[.12em] text-[var(--text-secondary)]';
+  const label = 'text-xs font-medium text-[var(--text-secondary)]';
   return <section className={`bg-[var(--surface)] px-6 py-24 md:px-12 ${className}`}>
     <div className="mx-auto max-w-7xl">
       <div className="mb-12 grid items-end gap-6 md:grid-cols-2 md:gap-12">
@@ -37,7 +37,7 @@ export default function Features({ language = 'en', className = '' }: { language
           <div className={preview}>
             <div className="mb-6 flex flex-wrap items-start justify-between gap-3"><div><p className={label}>{t('Appointment activity', 'Activité des rendez-vous')}</p><p className="mt-2 text-lg font-semibold">{t('This week at a glance', 'Votre semaine en bref')}</p></div><span className="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-xs">{t('Sample report', 'Rapport fictif')}</span></div>
             <div className="grid grid-cols-3 gap-3">
-              {[[48,t('Requests','Demandes')],[40,t('Confirmed','Confirmés')],[8,t('To review','À traiter')]].map(([value,name])=><div key={name} className="min-w-0"><p className="text-3xl font-semibold tracking-tight">{value}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{name}</p></div>)}
+              {[[48,t('Requests','Demandes')],[40,t('Confirmed','Confirmés')],[8,t('To review','À traiter')]].map(([value,name])=><div key={name} className="min-w-0"><p className="text-3xl font-semibold tracking-tight tabular-nums">{value}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{name}</p></div>)}
             </div>
             <div className="mt-7 border-t border-[var(--border)] pt-5"><div className="mb-3 flex justify-between gap-2 text-xs"><span>{t('Confirmed appointments', 'Rendez-vous confirmés')}</span><strong>40 / 48</strong></div><div className="flex h-2.5 overflow-hidden rounded-full bg-white" aria-hidden="true"><div className="w-5/6 bg-[var(--brand-primary)]"/><div className="flex-1 bg-[var(--brand-primary-20)]"/></div></div>
             <div className="mt-5 flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white p-3 text-sm"><Users size={17} className="shrink-0 text-[var(--brand-primary-hover)]"/>{t('8 requests ready for staff review', '8 demandes à examiner par l’équipe')}</div>

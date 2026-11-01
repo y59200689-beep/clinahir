@@ -293,7 +293,6 @@ function MetricCard({ icon, label, value, badge, tone }: {
   badge?: string;
   tone: "cyan" | "blue" | "green" | "amber";
 }) {
-  const reducedMotion = useReducedMotion();
   const [entered, setEntered] = useState(false);
 
   const tones = {
@@ -302,15 +301,15 @@ function MetricCard({ icon, label, value, badge, tone }: {
     green: "text-emerald-300 bg-emerald-400/10",
     amber: "text-orange-300 bg-orange-400/10",
   };
-  const badgeTone = tone === "green" ? "text-red-200 bg-red-400/10 border-red-300/20" : tone === "cyan" ? "text-emerald-200 bg-emerald-400/10 border-emerald-300/20" : "text-white/55 bg-white/5 border-white/10";
+  const badgeTone = tone === "green" ? "text-red-200 bg-red-400/10 border-red-300/20" : tone === "cyan" ? "text-emerald-200 bg-emerald-400/10 border-emerald-300/20" : "text-white/60 bg-white/5 border-white/10";
   return (
-    <motion.div variants={itemVariants} onAnimationComplete={() => setEntered(true)} whileHover={reducedMotion ? undefined : { y: -4 }} className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-5 min-w-0 transition-colors hover:bg-white/[0.07]">
-      <div className="flex items-start justify-between gap-2 mb-6">
-        <div className={"w-11 h-11 shrink-0 rounded-xl flex items-center justify-center " + tones[tone]}>{icon}</div>
-        {badge && <span className={"px-2 py-1 rounded-full border text-[10px] font-semibold whitespace-nowrap " + badgeTone}>{badge}</span>}
+    <motion.div variants={itemVariants} onAnimationComplete={() => setEntered(true)} className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6 min-w-0 transition-colors hover:bg-white/[0.07]">
+      <div className="flex items-start justify-between gap-2 mb-5">
+        <div className={"w-10 h-10 shrink-0 rounded-xl flex items-center justify-center " + tones[tone]}>{icon}</div>
+        {badge && <span className={"px-2.5 py-0.5 rounded-full border text-[11px] font-medium whitespace-nowrap " + badgeTone}>{badge}</span>}
       </div>
-      <p className="text-white/55 text-[10px] font-semibold uppercase tracking-wider min-h-[28px] leading-tight">{label}</p>
-      <p className="text-[36px] leading-none font-bold mt-2"><AnimatedMetricValue value={value} start={entered} /></p>
+      <p className="text-white/70 text-xs font-medium min-h-[24px] leading-snug">{label}</p>
+      <p className="text-3xl leading-tight font-semibold tracking-tight tabular-nums mt-1"><AnimatedMetricValue value={value} start={entered} /></p>
     </motion.div>
   );
 }
@@ -572,14 +571,13 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
             <h1 className="text-2xl font-bold">Analytics</h1>
             <div className="flex flex-wrap items-center gap-3">
               <DateRangeDropdown language={language} range={dateRange} onRangeChange={changeDateRange} />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
+                type="button"
                 className="bg-[var(--surface)] text-[var(--text-primary)] rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2 hover:bg-white/90 transition-colors"
               >
                 <UserPlus size={16} />
                 New Appointment
-              </motion.button>
+              </button>
             </div>
           </motion.div>
 
@@ -596,7 +594,6 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
               {/* Appointment trend */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ y: -4 }}
                 className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6 flex-1 flex flex-col transition-colors hover:bg-white/[0.07]"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -613,7 +610,6 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
               {/* Examination breakdown */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ y: -4 }}
                 className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6 transition-colors hover:bg-white/[0.07]"
               >
                 <div className="flex items-start justify-between gap-2">
@@ -708,7 +704,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
                 <label data-language-selector className="flex items-center"><span className="sr-only">{language === "fr" ? "Langue" : "Language"}</span><select aria-label="Site language / Langue du site" value={language} onChange={event => onLanguageChange?.(event.target.value as "en" | "fr")} className="rounded-full border border-white/25 bg-white/10 px-2 py-2 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"><option className="text-black" value="en">EN</option><option className="text-black" value="fr">FR</option></select></label><a href="#book-demo" className="hidden xl:inline-flex text-[15px] font-medium text-white/70 hover:text-white transition-colors px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
                   Contact
                 </a>
-                <a href="#book-demo" className="rounded-full px-5 py-2 text-[15px] font-semibold bg-[var(--surface)] text-[var(--text-primary)] hover:bg-white/90 transition-all hover:scale-105 active:scale-95">
+                <a href="#book-demo" className="rounded-full px-5 py-2 text-[15px] font-semibold bg-[var(--surface)] text-[var(--text-primary)] hover:bg-white/90 transition-colors">
                   Book a Demo
                 </a>
               </div>
@@ -717,7 +713,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
         </div>
 
         {/* Hero Content */}
-        <div className="relative flex-1 flex flex-col items-center text-center px-6 pt-[180px] pb-16 z-10">
+        <div className="relative flex-1 flex flex-col items-center text-center px-6 pt-36 sm:pt-40 pb-16 z-10">
           <div className="flex flex-col items-center w-full">
 
             {/* Headline */}
@@ -727,7 +723,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" as const }}
               className="text-center font-semibold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] leading-[1.1] tracking-[-0.02em] text-white max-w-4xl mt-0 mb-4"
             >
-              {hero.headline!==siteDefaults.hero[language].headline ? hero.headline : language === "fr" ? <>Transformez les recherches<br className="hidden sm:block"/> en rendez-vous <span className="italic">confirmés</span></> : <>Turn More Searches Into<br />Booked <span className="italic">Appointments</span></>}
+              {hero.headline!==siteDefaults.hero[language].headline ? hero.headline : language === "fr" ? <>Transformez les recherches<br className="hidden sm:block"/> en rendez-vous confirmés</> : <>Turn More Searches Into<br />Booked Appointments</>}
             </motion.h1>
 
             {/* Subheadline */}
@@ -748,8 +744,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
               className="flex flex-col items-center gap-3"
             >
               <a href="#book-demo"
-                className="rounded-full px-8 py-4 text-base font-semibold bg-white border border-white/70 text-[var(--text-primary)] hover:bg-white/90 transition-all shadow-2xl hover:scale-105 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                style={{ boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)" }}
+                className="rounded-full px-8 py-3.5 text-base font-semibold bg-white border border-white/80 text-[var(--text-primary)] hover:bg-white/90 transition-colors shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 {hero.cta}
               </a>
@@ -760,12 +755,12 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
 
             {/* Dashboard */}
             <div id="interactive-demo" className="mt-10 w-full scroll-mt-6">
-              <p className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-white/80 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-[0_10px_30px_rgba(12,32,42,0.28)]">
-                <span className="text-[11px] font-bold tracking-[0.14em] text-teal-700">INTERACTIVE DEMO</span>
-                <span className="text-slate-400" aria-hidden="true">·</span>
-                <span>Explore the dashboard</span>
-                <span className="text-lg leading-none text-teal-700" aria-hidden="true">↓</span>
-              </p>
+              <div className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-primary)]" />
+                <span>Interactive radiology preview</span>
+                <span className="text-white/40" aria-hidden="true">·</span>
+                <span className="text-white/70">Explore the dashboard</span>
+              </div>
               <p className="mb-4 text-sm font-medium text-white/85">Sample data for exploration · No patient records are shown</p>
               <Dashboard language={language} />
             </div>

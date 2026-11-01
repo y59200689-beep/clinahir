@@ -28,44 +28,32 @@ export default function Faq05Kelo({ className, language = "en" }: { className?: 
             </p>
           </div>
 
-          {/* Accordion Area with Background Image Box */}
-          <div className="relative max-w-[580px] mx-auto group">
-            {/* Background Image Box */}
-            <div className="absolute -inset-4 md:-inset-8 bg-[var(--surface-muted)] rounded-[40px] overflow-hidden z-0 shadow-inner">
-              <img
-                src="https://cdn.jiro.build/Kelo/a-breathtaking-3d-rendered-landscape-of-smooth-rol.jpg"
-                alt="3D Landscape Background"
-                className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-                referrerPolicy="no-referrer"
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px]" />
-            </div>
-
+          {/* Accordion Area */}
+          <div className="relative max-w-[580px] mx-auto">
             {/* FAQ Accordion Container */}
-            <div className="relative z-10 bg-white/40 backdrop-blur-2xl rounded-[32px] border border-white/40 overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.08)]">
+            <div className="bg-white rounded-2xl border border-[var(--border)] overflow-hidden shadow-sm">
               {faqs.map((faq: { question: string; answer: string }, index: number) => {
                 const isOpen = openIndex === index;
                 return (
                   <div
                     key={index}
-                    className={"relative bg-transparent transition-colors duration-150 border-b border-white/20 last:border-b-0 " + (!isOpen ? "hover:bg-white/20" : "")}
+                    className={"relative bg-transparent transition-colors duration-150 border-b border-[var(--border)] last:border-b-0 " + (!isOpen ? "hover:bg-slate-50/80" : "")}
                   >
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${index}`}
-                      className="w-full text-left p-[24px_28px] flex items-center justify-between cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--brand-primary)]"
+                      className="w-full text-left p-6 flex items-center justify-between cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--brand-primary)]"
                     >
-                      <span className="text-[var(--text-primary)] text-[16px] font-semibold tracking-tight">
+                      <span className="text-[var(--text-primary)] text-base font-semibold tracking-tight pr-4">
                         {faq.question}
                       </span>
                       <motion.span
                         animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
-                        className="text-[var(--text-secondary)] text-[18px] flex items-center justify-center"
+                        transition={{ duration: 0.25, ease: "easeOut" as const }}
+                        className="text-[var(--text-secondary)] text-lg flex items-center justify-center shrink-0"
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9l6 6 6-6" />
                         </svg>
                       </motion.span>
@@ -78,11 +66,11 @@ export default function Faq05Kelo({ className, language = "en" }: { className?: 
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
+                          transition={{ duration: 0.25, ease: "easeOut" as const }}
                           className="overflow-hidden"
                         >
-                          <div id={`faq-answer-${index}`} className="px-7 pb-7 pt-0">
-                            <p className="text-[var(--text-body)] text-[15px] leading-[1.7] font-medium">
+                          <div id={`faq-answer-${index}`} className="px-6 pb-6 pt-0">
+                            <p className="text-[var(--text-body)] text-sm leading-relaxed">
                               {faq.answer}
                             </p>
                           </div>

@@ -22,25 +22,22 @@
 .ca-icon-button:hover{background:#ecf2ed;color:#245d47}
 .ca-text-button{display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:#317359;font-size:14px;font-weight:600}
 .ca-muted{color:var(--ca-muted)}
-.ca-eyebrow{font-size:12px;font-weight:650;letter-spacing:.14em}
+.ca-eyebrow{font-size:12px;font-weight:600;letter-spacing:.04em}
 .ca-wordmark{display:flex;align-items:center;font-size:27px;font-weight:620;letter-spacing:-1.4px;gap:9px}
-.ca-logo-mark{display:inline-flex;align-items:center;justify-content:center;font-size:31px;font-weight:650;line-height:1;background:#b5d2b5;border-radius:11px 11px 11px 2px;color:#214c34;width:31px;height:34px;font-style:italic;padding-right:3px}
+.ca-logo-mark{display:inline-flex;align-items:center;justify-content:center;font-size:31px;font-weight:650;line-height:1;background:#b5d2b5;border-radius:11px 11px 11px 2px;color:#214c34;width:31px;height:34px;font-style:normal;padding-right:3px}
 .ca-wordmark-dot{color:#799076;margin-left:-8px}
 .ca-session-loading{display:flex;gap:12px;align-items:center;justify-content:center;color:#618069}
 .ca-login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#fbfcfa}
 .ca-login-art{background:#193d30;color:#fff;padding:43px 52px 28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
 .ca-login-art>.ca-wordmark{align-self:flex-start}
-.ca-login-art:before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,#72975825,transparent 70%);bottom:-100px;left:-150px;pointer-events:none}
 .ca-login-art>div{position:relative;padding:58px 0 15px}
 .ca-login-art .ca-eyebrow{color:#7b927c;font-size:12px}
 .ca-login-art h1{font-size:clamp(34px,3.4vw,53px);line-height:1.17;letter-spacing:-2px;font-weight:480;margin:18px 0}
 .ca-login-art p{color:#829085;font-size:14px;line-height:1.8}
-.ca-login-art>small{display:flex;justify-content:space-between;gap:10px;color:#6c8070;font-size:10px;letter-spacing:.08em;position:relative}
+.ca-login-art>small{display:flex;justify-content:space-between;gap:10px;color:#6c8070;font-size:10px;letter-spacing:.04em;position:relative}
 .ca-login-art>small span{letter-spacing:0}
 .ca-login-visual{height:300px;position:relative;display:flex;align-items:center;justify-content:center;margin-top:20px}
-.ca-orbit{position:absolute;border:1px solid #8caf7c20;border-radius:50%;width:370px;height:300px;transform:rotate(-20deg)}
-.ca-orbit:after{content:'';position:absolute;inset:25px;border:1px solid #8caf7c20;border-radius:50%}
-.ca-visual-card{position:relative;width:310px;max-width:100%;background:#f4f8f1;color:#254c38;padding:19px;border-radius:17px;box-shadow:0 25px 80px #00180d35;transform:rotate(-4deg);border:1px solid #fff8}
+.ca-visual-card{position:relative;width:310px;max-width:100%;background:#f4f8f1;color:#254c38;padding:19px;border-radius:17px;box-shadow:0 12px 40px #00180d18;border:1px solid #fff8}
 .ca-visual-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:15px;border-bottom:1px solid #dee8dc;font-size:13px;font-weight:600}
 .ca-visual-head>span:first-child{display:flex;gap:8px;align-items:center}
 .ca-live-dot{width:6px;height:6px;background:#64ad79;border-radius:50%;box-shadow:0 0 0 4px #64ad7915}
@@ -79,7 +76,7 @@
 .ca-workspace-name>div{flex:1}
 .ca-workspace-name small{font-weight:400;display:block;font-size:11px;color:#697365;margin-top:2px}
 .ca-workspace-name>svg{color:#687361}
-.ca-nav-label{font-size:10px!important;font-weight:600;letter-spacing:.15em;color:#767e75;padding-left:12px;margin-bottom:10px!important}
+.ca-nav-label{font-size:11px!important;font-weight:600;letter-spacing:.03em;color:#767e75;padding-left:12px;margin-bottom:8px!important}
 .ca-sidebar nav{display:flex;flex-direction:column;gap:5px}
 .ca-sidebar nav button{border:0;background:none;display:flex;align-items:center;gap:11px;text-align:left;color:#58645a;padding:11px 12px;border-radius:9px;font-size:14px;transition:.2s}
 .ca-sidebar nav button.active{background:#234e3b;color:#fff;box-shadow:0 3px 5px #14342115}
