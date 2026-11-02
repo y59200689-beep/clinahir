@@ -50,7 +50,7 @@ function SidebarItem({ icon, label, active = false, onClick }: { icon: React.Rea
       type="button"
       onClick={onClick}
       aria-current={active && onClick ? "page" : undefined}
-      className={"w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all " + (active ? "bg-white/10 text-white font-medium" : "text-white/50 hover:text-white hover:bg-white/5")}
+      className={"w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors " + (active ? "bg-white/10 text-white font-medium" : "text-white/50 hover:text-white hover:bg-white/5")}
     >
       {icon}
       {label}
@@ -109,7 +109,7 @@ function ExaminationChart({ examinations }: { examinations: Array<{ label: strin
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <strong className="text-3xl leading-none">{total}</strong>
-        <span className="text-[10px] tracking-wider font-bold text-white/50 mt-1">TOTAL</span>
+        <span className="text-[10px] font-medium text-white/50 mt-1">Total</span>
       </div>
     </div>
   );
@@ -490,7 +490,7 @@ function Dashboard({ language }: { language: "en" | "fr" }) {
             <input
               type="text"
               placeholder="Search"
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-white/20 transition-all"
+              className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors"
             />
           </div>
 
@@ -694,7 +694,7 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
                     className="text-[15px] font-medium text-white/70 hover:text-white transition-colors relative group"
                   >
                     {item}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--surface)] transition-all group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[var(--surface)] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
                   </a>
                 ))}
               </div>
@@ -756,12 +756,11 @@ export default function AiMarketingHeroKelo({ className, language = "en", onLang
             {/* Dashboard */}
             <div id="interactive-demo" className="mt-10 w-full scroll-mt-6">
               <div className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-primary)]" />
                 <span>Interactive radiology preview</span>
-                <span className="text-white/40" aria-hidden="true">·</span>
+                <span className="text-white/40" aria-hidden="true">—</span>
                 <span className="text-white/70">Explore the dashboard</span>
               </div>
-              <p className="mb-4 text-sm font-medium text-white/85">Sample data for exploration · No patient records are shown</p>
+              <p className="mb-4 text-sm font-medium text-white/85">Sample data for exploration — no patient records are shown</p>
               <Dashboard language={language} />
             </div>
 

@@ -31,7 +31,7 @@ export default function ClientSpotlight({ language = 'en' }: { language?: Langua
             <div className="flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3"><Globe2 size={14} className="shrink-0 text-white/60" aria-hidden="true"/><span className="min-w-0 truncate text-xs text-white/80">{site.settings.clientWebsite ? new URL(site.settings.clientWebsite).hostname.replace(/^www\./,'') : t.client}</span><ArrowUpRight size={14} className="ml-auto shrink-0 text-white/50" aria-hidden="true"/></div>
             <img src={site.settings.clientImage || websitePreview} alt={t.alt} width="1265" height="712" loading="lazy" decoding="async" className="block h-auto w-full"/>
           </div>
-          <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-white/65"><span>{t.caption}</span><span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-primary)]" aria-hidden="true"/>{t.built}</span></figcaption>
+          <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-white/65"><span>{t.caption}</span><span>{t.built}</span></figcaption>
         </figure>
       </div>
       <div className="grid border-t border-white/10 md:grid-cols-3">

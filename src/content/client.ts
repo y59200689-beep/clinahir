@@ -1,7 +1,7 @@
 export const clientDefaults = {
   en: {
-    eyebrow: 'FEATURED CLIENT PROJECT', title: 'A real center. A connected digital presence.',
-    client: 'Radiologie Bab Doukkala', location: 'Medical imaging · Marrakech, Morocco',
+    eyebrow: 'Featured client project', title: 'A real center. A connected digital presence.',
+    client: 'Radiologie Bab Doukkala', location: 'Medical imaging, Marrakech, Morocco',
     body: 'We built the center’s website and continue to manage its Instagram presence, website SEO, Google Maps SEO, and paid advertising to attract new patients.',
     built: 'Website built by Clinahir', ongoing: 'Ongoing growth support',
     website: 'Explore the website', instagram: 'View Instagram', cta: 'See what this could look like for your center',
@@ -13,8 +13,8 @@ export const clientDefaults = {
     ],
   },
   fr: {
-    eyebrow: 'PROJET CLIENT À LA UNE', title: 'Un centre réel. Une présence digitale connectée.',
-    client: 'Radiologie Bab Doukkala', location: 'Imagerie médicale · Marrakech, Maroc',
+    eyebrow: 'Projet client à la une', title: 'Un centre réel. Une présence digitale connectée.',
+    client: 'Radiologie Bab Doukkala', location: 'Imagerie médicale, Marrakech, Maroc',
     body: 'Nous avons créé le site du centre et continuons à gérer sa présence Instagram, le référencement du site, le SEO Google Maps et les campagnes publicitaires pour attirer de nouveaux patients.',
     built: 'Site créé par Clinahir', ongoing: 'Accompagnement continu',
     website: 'Découvrir le site', instagram: 'Voir Instagram', cta: 'Voyons ce que cela pourrait apporter à votre centre',

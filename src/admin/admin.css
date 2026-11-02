@@ -157,7 +157,7 @@
 .ca-count-chip{background:#f0f5e9;color:#677354;border:1px solid #e5ecd9;border-radius:5px;padding:1px 5px;font-size:10px}
 .ca-table-scroll{overflow:auto}
 .ca-table{border-collapse:collapse;width:100%;white-space:nowrap;text-align:left;font-size:12px}
-.ca-table th{text-transform:uppercase;font-size:10px;letter-spacing:.06em;color:#777f71;font-weight:500;background:#fcfdf9;padding:12px 22px;border-bottom:1px solid #eef2e8}
+.ca-table th{font-size:11px;color:#777f71;font-weight:500;background:#fcfdf9;padding:12px 22px;border-bottom:1px solid #eef2e8}
 .ca-table td{padding:15px 22px;color:#64715c;border-bottom:1px solid #f0f3eb}
 .ca-table tr:last-child td{border-bottom:0}
 .ca-table tbody tr:hover{background:#fbfdf8}
@@ -605,7 +605,7 @@
 .ca-prospect-search>button{border:0;background:none;color:#788477;display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:7px}
 .ca-prospect-search>button:hover{background:#f0f4ed;color:#31583d}
 .ca-prospect-filters{display:flex;align-items:flex-end;gap:9px}
-.ca-prospect-filters>label{min-width:120px;font-size:9px;line-height:1.2;color:#748072;font-weight:650;text-transform:uppercase;letter-spacing:.06em}
+.ca-prospect-filters>label{min-width:120px;font-size:11px;line-height:1.2;color:#748072;font-weight:550}
 .ca-prospect-filters select{margin-top:6px!important;padding:9px 28px 9px 10px!important;min-height:39px;border-radius:9px;font-size:11px!important;color:#34463a}
 .ca-prospect-refresh{width:39px;height:39px;border:1px solid #e2e8de;background:#fff;color:#617463}
 .ca-prospect-caption{align-items:center;padding:0 25px 13px;color:#6f7a70}
@@ -613,7 +613,7 @@
 .ca-prospect-caption>span{display:flex;align-items:center;gap:16px}
 .ca-prospect-caption .ca-text-button{font-size:10px;color:#5c7951}
 .ca-prospect-table{min-width:990px}
-.ca-prospect-table th{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#778273;background:#fafbf8;padding:12px 15px;border-top:1px solid #edf0e9;border-bottom:1px solid #edf0e9}
+.ca-prospect-table th{font-size:11px;color:#778273;background:#fafbf8;padding:12px 15px;border-top:1px solid #edf0e9;border-bottom:1px solid #edf0e9}
 .ca-prospect-table td{padding:13px 15px;vertical-align:middle;font-size:11px;color:#465348}
 .ca-prospect-table tbody tr{transition:background .15s}
 .ca-prospect-table tbody tr:hover{background:#f8faf6}

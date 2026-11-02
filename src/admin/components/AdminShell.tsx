@@ -90,7 +90,7 @@ export function AdminShell({
 
       {/* Navigation Sidebar */}
       <aside
-        className={`fixed md:sticky top-0 h-screen z-50 md:z-30 bg-[#0A261D] text-slate-200 border-r border-[#0D382B] flex flex-col transition-all duration-200 ease-in-out ${
+        className={`fixed md:sticky top-0 h-screen z-50 md:z-30 bg-[#0A261D] text-slate-200 border-r border-[#0D382B] flex flex-col transition-[width,transform] duration-200 ease-in-out ${
           sidebarCollapsed ? 'w-16' : 'w-64'
         } ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'

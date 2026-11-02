@@ -5,30 +5,30 @@ import { motion } from "framer-motion";
 
 const stats = [
   {
-    index: "001",
+    index: "01",
     value: "24/7",
-    label: "ONLINE BOOKING",
+    label: "Online booking",
     barHeights: [40, 60, 30, 80],
     litCount: 1,
   },
   {
-    index: "002",
+    index: "02",
     value: "Simpler",
-    label: "PATIENT JOURNEY",
+    label: "Patient journey",
     barHeights: [30, 50, 80, 40],
     litCount: 2,
   },
   {
-    index: "003",
+    index: "03",
     value: "Centralized",
-    label: "MANAGEMENT",
+    label: "Management",
     barHeights: [20, 40, 60, 90],
     litCount: 3,
   },
   {
-    index: "004",
+    index: "04",
     value: "Improved",
-    label: "DIGITAL VISIBILITY",
+    label: "Digital visibility",
     barHeights: [30, 50, 70, 100],
     litCount: 4,
   },
@@ -103,7 +103,7 @@ export default function StatsMetrics02Kelo({ className }: { className?: string }
                   className="px-8 py-12 flex flex-col justify-between min-h-[220px]"
                 >
                   <div className="flex items-center justify-between mb-8">
-                    <span className="text-xs font-medium text-[var(--text-muted)] tracking-widest">
+                    <span className="text-xs font-medium text-[var(--text-muted)] tabular-nums">
                       {stat.index}
                     </span>
                     <MiniBarChart heights={stat.barHeights} litCount={stat.litCount} />
@@ -113,7 +113,7 @@ export default function StatsMetrics02Kelo({ className }: { className?: string }
                     <div className="text-5xl md:text-6xl font-bold text-[var(--text-primary)] mb-4 tracking-tighter">
                       {stat.value}
                     </div>
-                    <div className="text-[10px] font-bold text-[var(--text-muted)] tracking-[0.15em] leading-tight uppercase">
+                    <div className="text-[11px] font-medium text-[var(--text-muted)] leading-tight">
                       {stat.label}
                     </div>
                   </div>

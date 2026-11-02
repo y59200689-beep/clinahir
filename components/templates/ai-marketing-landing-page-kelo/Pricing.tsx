@@ -95,7 +95,7 @@ export default function Pricing02Kelo({ className }: { className?: string }) {
 
               <div className="relative mt-10">
                 <div className="absolute -bottom-4 left-4 right-4 h-8 bg-[var(--brand-primary)] blur-xl opacity-30 rounded-full" />
-                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[14px] py-[14px] px-7 text-[15px] font-bold flex items-center gap-2.5 transition-all duration-200">
+                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[14px] py-[14px] px-7 text-[15px] font-semibold flex items-center gap-2.5 transition-colors duration-200">
                   Request a Proposal
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5">
                     <path d="M7 7v6a4 4 0 0 0 4 4h9" />
@@ -141,7 +141,7 @@ export default function Pricing02Kelo({ className }: { className?: string }) {
 
               <div className="relative mt-10">
                 <div className="absolute -bottom-4 left-4 right-4 h-8 bg-[var(--brand-primary)] blur-xl opacity-30 rounded-full" />
-                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[14px] py-[14px] px-7 text-[15px] font-bold flex items-center gap-2.5 transition-all duration-200">
+                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[14px] py-[14px] px-7 text-[15px] font-semibold flex items-center gap-2.5 transition-colors duration-200">
                   Discuss Your Growth
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5">
                     <path d="M7 7v6a4 4 0 0 0 4 4h9" />
@@ -196,7 +196,7 @@ export default function Pricing02Kelo({ className }: { className?: string }) {
               </div>
 
               <div className="mt-10">
-                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[12px] py-[14px] px-8 text-[15px] font-bold transition-all duration-200">
+                <button className="relative z-10 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white rounded-[12px] py-[14px] px-8 text-[15px] font-semibold transition-colors duration-200">
                   Book a Consultation
                 </button>
               </div>

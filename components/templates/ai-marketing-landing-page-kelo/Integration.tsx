@@ -10,26 +10,26 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "Website",
       description: "Modern, fast and mobile-first.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--surface-muted)] rounded-[12px] flex items-center justify-center mb-7">
-          <Monitor aria-label="Website" className="w-6 h-6 text-[#0055FF]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <Monitor aria-label="Website" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
     {
-      name: "Online Booking",
+      name: "Online booking",
       description: "Simple appointment requests available 24/7.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--danger-soft)] rounded-[12px] flex items-center justify-center mb-7">
-          <CalendarDays aria-label="Online booking" className="w-7 h-7 text-[#EA4335]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <CalendarDays aria-label="Online booking" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
     {
-      name: "Admin Dashboard",
+      name: "Admin dashboard",
       description: "Manage appointments and center activity.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-[12px] flex items-center justify-center mb-7">
-          <LayoutDashboard aria-label="Admin dashboard" className="w-6 h-6 text-black" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <LayoutDashboard aria-label="Admin dashboard" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
@@ -37,8 +37,8 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "Google Maps",
       description: "Strengthen local search visibility.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-[12px] flex items-center justify-center mb-7">
-          <MapPin aria-label="Google Maps" className="w-6 h-6 text-black" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <MapPin aria-label="Google Maps" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
@@ -46,8 +46,8 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "SEO",
       description: "Build long-term organic visibility.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--info-soft)] rounded-[12px] flex items-center justify-center mb-7">
-          <Search aria-label="SEO" className="w-7 h-7 text-[#5865F2]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <Search aria-label="SEO" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
@@ -55,8 +55,8 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "Meta Ads",
       description: "Generate qualified appointment leads.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--info-soft)] rounded-[12px] flex items-center justify-center mb-7">
-          <Megaphone aria-label="Meta Ads" className="w-7 h-7 text-[#0061FE]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <Megaphone aria-label="Meta Ads" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
@@ -64,8 +64,8 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "Content",
       description: "Maintain a professional digital presence.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--warning-soft)] rounded-[12px] flex items-center justify-center mb-7">
-          <FileText aria-label="Content" className="w-7 h-7 text-[#18BFFF]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <FileText aria-label="Content" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     },
@@ -73,8 +73,8 @@ export default function Integration03Kelo({ className }: { className?: string })
       name: "Reporting",
       description: "Track activity and monthly performance.",
       icon: (
-        <div className="w-[52px] h-[52px] bg-[var(--success-soft)] rounded-[12px] flex items-center justify-center mb-7">
-          <ChartNoAxesCombined aria-label="Reporting" className="w-7 h-7 text-[#7AB55C]" />
+        <div className="w-[48px] h-[48px] bg-[var(--surface-muted)] border border-[var(--border)] rounded-xl flex items-center justify-center mb-6">
+          <ChartNoAxesCombined aria-label="Reporting" className="w-5 h-5 text-[var(--text-secondary)]" />
         </div>
       )
     }
@@ -97,7 +97,7 @@ export default function Integration03Kelo({ className }: { className?: string })
             <button className="flex-1 md:flex-none bg-[var(--surface-muted)] text-[var(--text-primary)] border border-[var(--border)] rounded-full px-[22px] py-3 text-sm font-medium hover:bg-[var(--border)] transition-colors cursor-pointer">
               Book a Demo
             </button>
-            <button className="flex-1 md:flex-none bg-[var(--brand-primary)] text-white rounded-full px-[22px] py-3 text-sm font-semibold hover:bg-[var(--brand-primary-hover)] transition-all hover:shadow-lg cursor-pointer">
+            <button className="flex-1 md:flex-none bg-[var(--brand-primary)] text-white rounded-full px-[22px] py-3 text-sm font-semibold hover:bg-[var(--brand-primary-hover)] transition-colors cursor-pointer">
               Explore Solutions
             </button>
           </div>
@@ -111,10 +111,10 @@ export default function Integration03Kelo({ className }: { className?: string })
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[var(--surface)] border border-[var(--border)] rounded-[16px] p-8 md:px-7 md:py-8 flex flex-col hover:border-[var(--brand-primary)] hover:shadow-xl transition-all duration-300 group cursor-default"
+              className="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-7 flex flex-col hover:border-[var(--text-secondary)] transition-colors duration-200 group cursor-default"
             >
               {app.icon}
-              <h3 className="text-[var(--text-primary)] font-bold text-lg mb-2">
+              <h3 className="text-[var(--text-primary)] font-semibold text-base mb-2">
                 {app.name}
               </h3>
               <p className="text-[var(--text-body)] text-sm leading-[1.6]">

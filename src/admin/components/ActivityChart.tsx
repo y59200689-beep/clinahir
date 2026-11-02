@@ -71,7 +71,7 @@ export function ActivityChart({
               <button
                 key={range}
                 onClick={() => setSelectedRange(range)}
-                className={`text-[11px] font-semibold px-2.5 py-1 rounded-md transition-all ${
+                className={`text-[11px] font-semibold px-2.5 py-1 rounded-md transition-colors ${
                   selectedRange === range
                     ? 'bg-white text-slate-900 shadow-sm'
                     : 'text-slate-500 hover:text-slate-800'
@@ -128,7 +128,7 @@ export function ActivityChart({
                   {/* Rounded Bar */}
                   <div
                     style={{ height: `${heightPercent}%` }}
-                    className={`w-full max-w-[32px] rounded-t-lg transition-all duration-300 ${
+                    className={`w-full max-w-[32px] rounded-t-lg transition-[height,background-color] duration-300 ${
                       isPeak
                         ? 'bg-[#0A3A2A] shadow-sm'
                         : val > 0

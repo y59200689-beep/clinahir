@@ -51,9 +51,13 @@ body {
   min-width: 320px;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
 .mobile-dashboard-nav {
   scrollbar-width: none;
   -ms-overflow-style: none;
