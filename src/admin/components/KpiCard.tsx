@@ -47,7 +47,7 @@ export function KpiCard({
           )}
         </div>
 
-        <div className="mb-3">
+        <div className={change ? 'mb-3' : ''}>
           <div className="text-3xl font-semibold tracking-tight text-white font-mono tabular-nums">
             {value}
           </div>
@@ -86,7 +86,7 @@ export function KpiCard({
         )}
       </div>
 
-      <div className="mb-3">
+      <div className={change ? 'mb-3' : ''}>
         <div className="text-3xl font-semibold tracking-tight text-slate-900 font-mono tabular-nums">
           {value}
         </div>

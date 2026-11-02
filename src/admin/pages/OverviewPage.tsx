@@ -61,7 +61,6 @@ export function OverviewPage({
           title="New Inquiries"
           value={number(data.summary.new)}
           subtitle="Awaiting initial response"
-          change="+12% this week"
           icon={MessageCircle}
           onClick={() => {
             onFilterStage('new');
@@ -73,7 +72,6 @@ export function OverviewPage({
           title="Captured Leads"
           value={number(data.summary.total)}
           subtitle="Inbound website requests"
-          change="+8% vs last month"
           icon={Users}
           onClick={() => onNavigate('Leads')}
         />
@@ -82,7 +80,6 @@ export function OverviewPage({
           title="Qualified Centers"
           value={number(data.summary.qualified)}
           subtitle="Passed clinical review"
-          change="High fit profile"
           icon={ShieldCheck}
           onClick={() => {
             onFilterStage('qualified');
@@ -94,7 +91,6 @@ export function OverviewPage({
           title="Clinics Won"
           value={number(data.summary.won)}
           subtitle="Onboarded partners"
-          change="Verified"
           icon={CheckCircle2}
           onClick={() => {
             onFilterStage('won');

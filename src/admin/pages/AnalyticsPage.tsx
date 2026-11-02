@@ -35,7 +35,6 @@ export function AnalyticsPage({ data }: AnalyticsPageProps) {
           title="Page Views"
           value={number(views)}
           subtitle="Total impressions"
-          change="Last 30 days"
           icon={Users}
         />
 
@@ -43,7 +42,6 @@ export function AnalyticsPage({ data }: AnalyticsPageProps) {
           title="Demo Clicks"
           value={number(clicks)}
           subtitle={`${ctr}% click-through`}
-          change="Consultation intent"
           icon={MousePointerClick}
         />
 
@@ -52,7 +50,6 @@ export function AnalyticsPage({ data }: AnalyticsPageProps) {
           title="Saved Inquiries"
           value={number(conversions)}
           subtitle={`${conversionRate}% conversion rate`}
-          change="Captured leads"
           icon={CheckCircle2}
         />
       </div>
