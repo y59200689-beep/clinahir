@@ -1,285 +1,207 @@
-import {leadsCsv} from './csv';
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, BarChart3, Building2, Check, CheckCircle2, ChevronLeft, ChevronRight, ChevronDown, Clock3, ExternalLink, Eye, EyeOff, FileText, Globe2, LayoutDashboard, LoaderCircle, LockKeyhole, LogOut, Mail, MapPin, Menu, MessageCircle, MoreHorizontal, PanelLeftClose, PanelLeftOpen, RefreshCw, Save, Search, Send, Settings2, ShieldCheck, Sparkles, Star, Upload, Users, X, AlertCircle } from 'lucide-react';
-import { siteDefaults, protectedLandingFields, type SiteDocument } from '../content/schema';
-import { adminApi, emptySnapshot, type Lead, type Snapshot, type Prospect, type ProspectSnapshot } from './types';
+import { useEffect, useRef, useState } from 'react';
+import { LoaderCircle, CheckCircle2, X } from 'lucide-react';
+import { adminApi, emptySnapshot, type Lead, type Snapshot } from './types';
+import { AdminShell, type AdminPage } from './components/AdminShell';
+import { LoginPage } from './pages/LoginPage';
+import { OverviewPage } from './pages/OverviewPage';
+import { LeadsPage } from './pages/LeadsPage';
+import { ProspectsPage } from './pages/ProspectsPage';
+import { WebsitePage } from './pages/WebsitePage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { DeliveriesPage } from './pages/DeliveriesPage';
+import { ActivityPage } from './pages/ActivityPage';
+import { SettingsPage } from './pages/SettingsPage';
 import './admin.css';
-import './prospects.css';
-import './admin-brand.css';
-type Page = 'Overview' | 'Leads' | 'Prospects' | 'Website' | 'Analytics' | 'Deliveries' | 'Activity' | 'Settings';
-const pages: {
-    name: Page;
-    icon: typeof Users;
-    label?: string;
-}[] = [{ name: 'Overview', icon: LayoutDashboard }, { name: 'Leads', icon: Users }, { name: 'Prospects', icon: Building2 }, { name: 'Website', icon: Globe2, label: 'Website content' }, { name: 'Analytics', icon: BarChart3 }, { name: 'Deliveries', icon: Send }, { name: 'Activity', icon: Activity }, { name: 'Settings', icon: Settings2 }];
-const stages = ['new', 'contacted', 'qualified', 'won', 'lost'];
-const number = (n: number) => new Intl.NumberFormat('en').format(n);
-const date = (s: string | null) => s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Not recorded';
-const time = (s: string) => new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-function Badge({ value }: {
-    value: string;
-}) { return <span className={`ca-badge ca-${value.replace(/[^a-z]/g, '')}`}><i />{value === 'review' ? 'Needs review' : value.replaceAll('_', ' ')}</span>; }
-function Empty({ title, body, icon: Icon = Users }: {
-    title: string;
-    body: string;
-    icon?: typeof Users;
-}) { return <div className="ca-empty"><span><Icon size={25}/></span><h3>{title}</h3><p>{body}</p></div>; }
-function Modal({ title, onClose, children }: {
-    title: string;
-    onClose: () => void;
-    children: ReactNode;
-}) { const ref = useRef<HTMLDialogElement>(null); useEffect(() => { const prior = document.activeElement as HTMLElement; ref.current?.showModal(); return () => { ref.current?.close(); prior?.focus(); }; }, []); return <dialog ref={ref} className="ca-dialog" aria-label={title} onCancel={e => { e.preventDefault(); onClose(); }}><div className="ca-dialog-head"><h2>{title}</h2><button className="ca-icon-button" aria-label="Close dialog" onClick={onClose}><X size={20}/></button></div>{children}</dialog>; }
-function Login({ onLogin }: {
-    onLogin: (email: string) => void;
-}) {
-    const [show, setShow] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState('');
-    async function submit(e: FormEvent<HTMLFormElement>) { e.preventDefault(); setBusy(true); setError(''); const data = new FormData(e.currentTarget); try {
-        const r = await adminApi<{
-            user: {
-                email: string;
-            };
-        }>('login', { email: data.get('email'), password: data.get('password') });
-        onLogin(r.user.email);
-    }
-    catch (e) {
-        setError((e as Error).message);
-    }
-    finally {
-        setBusy(false);
-    } }
-    return <div className="ca-login"><aside className="ca-login-art"><a className="ca-wordmark ca-brand-wordmark" href="/"><span className="ca-brand-mark">c</span><span>Clinahir<small>Workspace</small></span></a><div className="ca-brand-login-copy"><span className="ca-brand-login-label">Owner administration</span><h1>Your business.<br/>One clear workspace.</h1><p>Manage opportunities, shape your website, and keep your operations connected.</p><div className="ca-brand-login-features"><div><Users size={21}/><span><strong>Keep opportunities moving</strong><small>Review leads and qualify your prospects.</small></span></div><div><Globe2 size={21}/><span><strong>Make your website yours</strong><small>Edit, review, and publish in two languages.</small></span></div><div><ShieldCheck size={21}/><span><strong>A private space to work</strong><small>Owner access with secure authentication.</small></span></div></div></div><small>Clinahir administration</small></aside><section className="ca-login-form"><a href="/" className="ca-back-link"><ChevronLeft size={16}/> Back to website</a><div className="ca-login-inner"><span className="ca-login-lock"><LockKeyhole size={24}/></span><p className="ca-eyebrow">Welcome back</p><h2>Your workspace awaits.</h2><p>Sign in to manage Clinahir.</p><form onSubmit={submit}><label>Email address<input name="email" type="email" required autoComplete="username" placeholder="you@company.com"/></label><label>Password<div className="ca-password"><input name="password" type={show ? 'text' : 'password'} required maxLength={200} autoComplete="current-password" placeholder="Enter your password"/><button type="button" aria-label={show ? 'Hide password' : 'Show password'} onClick={() => setShow(!show)}>{show ? <EyeOff size={18}/> : <Eye size={18}/>}</button></div></label>{error && <div className="ca-notice ca-error" role="alert"><AlertCircle size={18}/><span>{error}</span></div>}<button className="ca-button ca-primary" disabled={busy}>{busy ? <LoaderCircle className="ca-spin" size={18}/> : <>Sign in <ArrowRight size={18}/></>}</button></form><div className="ca-login-help"><ShieldCheck size={16}/><p>Owner access only. Your account is provisioned privately—there is no public registration.</p></div><details><summary>Need help signing in?</summary><p>Use your Supabase Auth owner account. If you need a password reset, open Authentication → Users in your Supabase project. A session lasts up to one hour.</p></details></div><small className="ca-login-footer">© {new Date().getFullYear()} Clinahir · Secure administration</small></section></div>;
-}
-function LeadDetail({ lead, onClose, onSave }: {
-    lead: Lead;
-    onClose: () => void;
-    onSave: () => void;
-}) { const [stage, setStage] = useState(lead.admin_stage), [notes, setNotes] = useState(lead.admin_notes), [busy, setBusy] = useState(false), [error, setError] = useState(''); async function save(e: FormEvent) { e.preventDefault(); setBusy(true); try {
-    await adminApi('lead', { id: lead.external_id, stage, notes });
-    onSave();
-    onClose();
-}
-catch (e) {
-    setError((e as Error).message);
-}
-finally {
-    setBusy(false);
-} } return <Modal title="Lead details" onClose={onClose}><div className="ca-lead-profile"><span className="ca-avatar">{lead.company_name.slice(0, 2).toUpperCase()}</span><div><h3>{lead.company_name}</h3><p>{lead.city} · Received {date(lead.submitted_at)}</p></div></div><div className="ca-detail-grid"><div><small>CONTACT</small><strong>{lead.contact_name || 'Not supplied'}</strong></div><div><small>WHATSAPP / PHONE</small><strong>{lead.phone || 'Not supplied'}</strong></div>{lead.email && <div><small>EMAIL</small><a href={`mailto:${lead.email}`}>{lead.email}</a></div>}<div><small>DAILY COMMAND</small><Badge value={lead.daily_command_status}/></div><div><small>SOURCE</small><strong>{lead.utm_source || 'Direct / unknown'}</strong></div></div><div className="ca-detail-context"><small>REQUEST CONTEXT</small><p>{lead.message || lead.priority}</p><small>{lead.utm_campaign ? `Campaign: ${lead.utm_campaign} · ` : ''}Landing page: {lead.landing_page}</small></div><form onSubmit={save}><label>Pipeline stage<select value={stage} onChange={e => setStage(e.target.value)}>{stages.map(s => <option key={s} value={s}>{s[0].toUpperCase() + s.slice(1)}</option>)}</select></label><label>Private notes<textarea value={notes} maxLength={5000} rows={4} onChange={e => setNotes(e.target.value)} placeholder="Add context, next steps, or a follow-up reminder…"/></label><p className="ca-hint">Notes stay in this admin workspace. They are not sent to the contact.</p>{error && <p role="alert" className="ca-error-text">{error}</p>}<div className="ca-dialog-actions"><button type="button" className="ca-button ca-secondary" onClick={onClose}>Cancel</button><button className="ca-button ca-primary" disabled={busy}>{busy ? <LoaderCircle size={16} className="ca-spin"/> : <Save size={16}/>} Save changes</button></div></form></Modal>; }
-function Chart({ rows }: {
-    rows: Snapshot['analytics'];
-}) { const max = Math.max(1, ...rows.map(x => Number(x.demo_submissions))); const total = rows.reduce((a, b) => a + Number(b.demo_submissions), 0); return <div className="ca-chart"><div className="ca-chart-label"><span><strong>{number(total)}</strong> <small>demo requests</small></span><span className="ca-chart-legend"><i /> Submissions</span></div>{rows.length ? <><div className="ca-chart-plot"><div className="ca-chart-grid"><span>{max}</span><span>{max > 1 ? Math.round(max / 2) : 0.5}</span><span>0</span></div><div className="ca-chart-bars">{rows.map(row => <div className="ca-chart-column" key={row.day}><div title={`${date(row.day)}: ${row.demo_submissions} submissions`} style={{ height: `${Math.max(Number(row.demo_submissions) ? 3 : 0, Number(row.demo_submissions) / max * 100)}%` }}/><small>{new Date(row.day + 'T12:00:00').getDate()}</small></div>)}</div></div><div className="ca-chart-bottom"><span>{date(rows[0].day)}</span><span>{date(rows[rows.length - 1].day)}</span></div></> : <Empty icon={BarChart3} title="Your first insights start here" body="Real conversion activity will appear as visitors explore your website."/>}</div>; }
-function LeadTable({ leads, onSelect, compact = false }: {
-    leads: Lead[];
-    onSelect: (l: Lead) => void;
-    compact?: boolean;
-}) { if (!leads.length)
-    return <Empty title="No leads here yet" body="New website requests will appear here automatically. Try another filter if you’re searching."/>; return <div className="ca-table-scroll"><table className="ca-table"><thead><tr><th>Center / contact</th><th>Stage</th>{!compact && <th>Source</th>}<th>Received</th><th><span className="ca-sr-only">Open</span></th></tr></thead><tbody>{leads.map((lead, i) => <tr key={lead.external_id}><td><button className="ca-lead-cell" onClick={() => onSelect(lead)}><span className={`ca-avatar ca-avatar-${i % 3}`}>{lead.company_name.slice(0, 2).toUpperCase()}</span><span><strong>{lead.company_name}</strong><small>{lead.contact_name || lead.email || 'Contact details'} · {lead.city}</small></span></button></td><td><Badge value={lead.admin_stage}/></td>{!compact && <td><span className="ca-source">{lead.utm_source || 'Direct / unknown'}</span></td>}<td className="ca-date-cell">{date(lead.submitted_at)}<small>{time(lead.submitted_at)}</small></td><td><button className="ca-icon-button" aria-label={`Open ${lead.company_name}`} onClick={() => onSelect(lead)}><ArrowUpRight size={17}/></button></td></tr>)}</tbody></table></div>; }
-function ProspectReview({ prospect, onClose, onSaved }: { prospect: Prospect; onClose: () => void; onSaved: () => void }) {
-    const [stage, setStage] = useState(prospect.qualification_stage), [notes, setNotes] = useState(prospect.notes), [optIn, setOptIn] = useState(Boolean(prospect.whatsapp_opt_in_at)), [evidence, setEvidence] = useState(prospect.whatsapp_opt_in_evidence ?? ''), [busy, setBusy] = useState(false), [error, setError] = useState('');
-    async function save(e: FormEvent) { e.preventDefault(); setBusy(true); setError(''); try { await adminApi('prospect', { id: prospect.id, stage, notes, whatsappOptIn: optIn, optInEvidence: evidence }); onSaved(); onClose(); } catch (err) { setError((err as Error).message); } finally { setBusy(false); } }
-    return <Modal title="Prospect review" onClose={onClose}><div className="ca-lead-profile"><span className="ca-avatar"><Building2 size={20}/></span><div><h3>{prospect.center_name}</h3><p>{prospect.city} · Added {date(prospect.created_at)}</p></div></div><div className="ca-detail-grid"><div><small>BUSINESS PHONE</small><strong>{prospect.phone || 'Not listed'}</strong></div><div><small>BUSINESS EMAIL</small><strong>{prospect.email || 'Not listed'}</strong></div><div><small>ADDRESS</small><strong>{prospect.address || 'Not listed'}</strong></div><div><small>CATEGORY</small><strong>{prospect.category || 'Not listed'}</strong></div><div><small>WEBSITE</small>{prospect.website_url ? <a href={prospect.website_url} target="_blank" rel="noreferrer">Open website <ExternalLink size={13}/></a> : <strong>Not listed</strong>}</div><div><small>PUBLIC LISTING</small>{prospect.listing_url ? <a href={prospect.listing_url} target="_blank" rel="noreferrer">Open source listing <ExternalLink size={13}/></a> : <strong>Not provided</strong>}</div><div><small>RATING & REVIEWS</small><strong>{prospect.rating ?? '—'} · {prospect.review_count ?? '—'} reviews</strong></div><div><small>ONLINE BOOKING</small><strong>{prospect.online_booking_available === null ? 'Not checked' : prospect.online_booking_available ? 'Available' : 'Not found'}</strong></div><div><small>SOURCE</small><a href={prospect.source_url} target="_blank" rel="noreferrer">{prospect.source_name} <ExternalLink size={13}/></a></div>{prospect.main_gap && <div className="ca-prospect-gap"><small>OBSERVED GAP</small><strong>{prospect.main_gap}</strong><p>{prospect.gap_evidence || 'Evidence not recorded yet.'}</p></div>}</div><div className="ca-prospect-socials">{[['Instagram',prospect.instagram_url],['Facebook',prospect.facebook_url],['TikTok',prospect.tiktok_url]].filter(([,href])=>href).map(([label,href])=><a key={label} href={String(href)} target="_blank" rel="noreferrer">{label} <ExternalLink size={13}/></a>)}</div><form onSubmit={save}><label>Review status<select value={stage} onChange={e=>setStage(e.target.value as Prospect['qualification_stage'])}><option value="review">Needs review</option><option value="qualified">Qualified</option><option value="not_a_fit">Not a fit</option><option value="do_not_contact">Do not contact</option></select></label><label className="ca-prospect-optin"><input type="checkbox" checked={optIn && stage !== 'do_not_contact'} disabled={stage === 'do_not_contact'} onChange={e=>setOptIn(e.target.checked)}/> WhatsApp opt-in has been explicitly verified</label>{optIn && stage !== 'do_not_contact' && <label>Consent evidence<textarea rows={2} maxLength={500} required value={evidence} onChange={e=>setEvidence(e.target.value)} placeholder="Where and when did they agree to WhatsApp messages?"/></label>}<label>Private review notes<textarea rows={3} maxLength={3000} value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Add only relevant, verifiable business context…"/></label><p className="ca-hint">This records permission only. Clinahir does not send WhatsApp messages to prospects from this queue.</p>{error && <p role="alert" className="ca-error-text">{error}</p>}<div className="ca-dialog-actions"><button type="button" className="ca-button ca-secondary" onClick={onClose}>Cancel</button><button className="ca-button ca-primary" disabled={busy}>{busy ? <LoaderCircle size={16} className="ca-spin"/> : <Save size={16}/>} Save review</button></div></form></Modal>;
-}
-function csvRecordCount(source: string) {
-    let quoted = false, records = 0, hasText = false;
-    for (let i = 0; i < source.length; i++) {
-        const char = source[i];
-        if (quoted) { if (char === '"' && source[i + 1] === '"') i++; else if (char === '"') quoted = false; else if (!/\s/.test(char)) hasText = true; }
-        else if (char === '"') quoted = true;
-        else if (char === '\n' || char === '\r') { if (hasText) records++; hasText = false; if (char === '\r' && source[i + 1] === '\n') i++; }
-        else if (!/\s/.test(char)) hasText = true;
-    }
-    if (hasText) records++;
-    return Math.max(0, records - 1);
-}
-function ProspectsWorkspace({ onToast }: { onToast: (message: string) => void }) {
-    const [data,setData]=useState<ProspectSnapshot>({prospects:[],total:0,cities:[],counts:{total:0,review:0,qualified:0,opted_in:0,no_website:0}}), [search,setSearch]=useState(''), [stage,setStage]=useState(''), [city,setCity]=useState(''), [website,setWebsite]=useState(''), [pageIndex,setPageIndex]=useState(0), [busy,setBusy]=useState(false), [error,setError]=useState(''), [selected,setSelected]=useState<Prospect|null>(null), [csv,setCsv]=useState(''), [fileName,setFileName]=useState(''), [confirmSource,setConfirmSource]=useState(false), [importing,setImporting]=useState(false);
-    const fileRef=useRef<HTMLInputElement>(null);
-    const prospectLoadSequence=useRef(0);
-    async function load(){const sequence=++prospectLoadSequence.current;setBusy(true);setError('');try{const result=await adminApi<ProspectSnapshot>('prospects',undefined,`&search=${encodeURIComponent(search)}&stage=${stage}&city=${encodeURIComponent(city)}&website=${website}&page=${pageIndex}`);if(sequence===prospectLoadSequence.current)setData(result);}catch(e){if(sequence===prospectLoadSequence.current)setError((e as Error).message);}finally{if(sequence===prospectLoadSequence.current)setBusy(false);}}
-    useEffect(()=>{const timer=setTimeout(()=>void load(),180);return()=>clearTimeout(timer);},[search,stage,city,website,pageIndex]);
-    async function chooseFile(file?:File){if(!file)return;setError('');if(file.size>180000){setError('Choose a CSV under 180 KB.');return;}try{setCsv(await file.text());setFileName(file.name);setConfirmSource(false);}catch{setError('The CSV file could not be read.');}}
-    async function importCsv(){setImporting(true);setError('');try{const result=await adminApi<{inserted:number;duplicates:number}>('prospects-import',{csv,sourceUseConfirmed:confirmSource});setCsv('');setFileName('');setConfirmSource(false);if(fileRef.current)fileRef.current.value='';onToast(`${result.inserted} prospects imported · ${result.duplicates} duplicates skipped.`);await load();}catch(e){setError((e as Error).message);}finally{setImporting(false);}}
-    function template(){const header='center_name,city,phone,email,listing_url,rating,review_count,website_url,instagram_url,facebook_url,tiktok_url,online_booking_available,main_gap,gap_evidence,source_name,source_url,notes\n';const url=URL.createObjectURL(new Blob([header],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='clinahir-prospects-template.csv';a.click();URL.revokeObjectURL(url);}
-    const recordsInUpload=csv?csvRecordCount(csv):0;
-    const filtered=Boolean(search||stage||city||website);
-    function clearFilters(){setSearch('');setStage('');setCity('');setWebsite('');setPageIndex(0);}
-    return <>
-      <div className="ca-stats ca-stats-four ca-prospect-stats">
-        <button className={`ca-stat ca-prospect-stat ${!filtered?'is-active':''}`} aria-pressed={!filtered} onClick={clearFilters}><span className="ca-stat-icon"><Building2 size={20}/></span><strong>{number(data.counts.total)}</strong><p>All prospects</p><small>Across {data.cities.length} cities</small></button>
-        <button className={`ca-stat ca-prospect-stat ${stage==='review'?'is-active':''}`} aria-pressed={stage==='review'} onClick={()=>{setStage(stage==='review'?'':'review');setPageIndex(0);}}><span className="ca-stat-icon ca-stat-icon-1"><Clock3 size={20}/></span><strong>{number(data.counts.review)}</strong><p>Needs review</p><small>Awaiting qualification</small></button>
-        <button className={`ca-stat ca-prospect-stat ${website==='without'?'is-active':''}`} aria-pressed={website==='without'} onClick={()=>{setWebsite(website==='without'?'':'without');setPageIndex(0);}}><span className="ca-stat-icon ca-stat-icon-2"><Globe2 size={20}/></span><strong>{number(data.counts.no_website)}</strong><p>No website listed</p><small>Potential digital gap</small></button>
-        <button className={`ca-stat ca-prospect-stat ${stage==='qualified'?'is-active':''}`} aria-pressed={stage==='qualified'} onClick={()=>{setStage(stage==='qualified'?'':'qualified');setPageIndex(0);}}><span className="ca-stat-icon ca-stat-icon-3"><CheckCircle2 size={20}/></span><strong>{number(data.counts.qualified)}</strong><p>Qualified</p><small>Ready for next review</small></button>
-      </div>
-      <section className="ca-panel ca-prospect-panel" aria-label="Prospect directory" aria-busy={busy}>
-        <div className="ca-panel-head ca-prospect-head">
-          <div><h2>Prospect directory</h2><p>Find a center and review its business details.</p></div>
-          <div className="ca-actions"><button className="ca-button ca-secondary" onClick={template}><ArrowDownToLine size={16}/> CSV template</button><button className="ca-button ca-primary" onClick={()=>fileRef.current?.click()}><Upload size={16}/> Import prospects</button><input ref={fileRef} type="file" accept=".csv,text/csv" hidden onChange={e=>void chooseFile(e.target.files?.[0])}/></div>
-        </div>
-        {csv && <div className="ca-import-review ca-import-review-rich"><div className="ca-import-review-top"><span className="ca-import-icon"><FileText size={19}/></span><div><strong>{fileName}</strong><p>{number(recordsInUpload)} records detected · Google Maps columns will be matched automatically</p></div><button className="ca-icon-button" aria-label="Remove selected CSV" onClick={()=>{setCsv('');setFileName('');setConfirmSource(false);if(fileRef.current)fileRef.current.value='';}}><X size={18}/></button></div><div className="ca-import-mapping"><span><b>Business</b> title</span><span><b>Phone</b> phone</span><span><b>Website</b> website</span><span><b>Rating</b> review rating</span><span><b>Location</b> address · city</span><span><b>Category</b> category</span></div><label className="ca-prospect-optin"><input type="checkbox" checked={confirmSource} onChange={e=>setConfirmSource(e.target.checked)}/> I confirm this source permits collecting and retaining these business details for commercial prospecting.</label><div className="ca-import-review-footer"><p>Duplicates are skipped. Blank fields stay blank. Records enter “Needs review”; no messages are sent.</p><button className="ca-button ca-primary" disabled={!confirmSource||importing} onClick={()=>void importCsv()}>{importing?<LoaderCircle size={16} className="ca-spin"/>:<Upload size={16}/>} Import {number(recordsInUpload)} prospects</button></div></div>}
-        {error&&<div className="ca-notice ca-error" role="alert"><AlertCircle size={18}/><span>{error}</span><button onClick={()=>void load()}>Try again</button></div>}
-        <div className="ca-lead-toolbar ca-prospect-toolbar">
-          <label className="ca-search ca-prospect-search"><Search size={18}/><input aria-label="Search prospects" placeholder="Search center, city, address or phone" value={search} onChange={e=>{setSearch(e.target.value);setPageIndex(0);}}/>{search&&<button type="button" aria-label="Clear search" onClick={()=>setSearch('')}><X size={15}/></button>}</label>
-          <div className="ca-prospect-filters"><label><span>City</span><select aria-label="Filter prospects by city" value={city} onChange={e=>{setCity(e.target.value);setPageIndex(0);}}><option value="">All cities</option>{data.cities.map(name=><option key={name} value={name}>{name}</option>)}</select></label><label><span>Website</span><select aria-label="Filter prospects by website" value={website} onChange={e=>{setWebsite(e.target.value);setPageIndex(0);}}><option value="">All listings</option><option value="with">Has website</option><option value="without">No website</option></select></label><label><span>Review status</span><select aria-label="Filter prospects by review status" value={stage} onChange={e=>{setStage(e.target.value);setPageIndex(0);}}><option value="">All statuses</option><option value="review">Needs review</option><option value="qualified">Qualified</option><option value="not_a_fit">Not a fit</option><option value="do_not_contact">Do not contact</option></select></label><button className="ca-icon-button ca-prospect-refresh" aria-label="Refresh prospects" onClick={()=>void load()} disabled={busy}><RefreshCw size={16} className={busy?'ca-spin':''}/></button></div>
-        </div>
-        <div className="ca-table-caption ca-prospect-caption"><strong aria-live="polite">{number(data.total)} {filtered?'matching ':''}prospects</strong><span>{filtered&&<button className="ca-text-button" onClick={clearFilters}>Clear filters <X size={13}/></button>}{busy&&<span className="ca-prospect-loading" role="status"><LoaderCircle size={14} className="ca-spin"/> Updating…</span>}<span>Page {pageIndex+1} · 25 per page</span></span></div>
-        {data.prospects.length?<div className="ca-table-scroll ca-prospect-table-scroll" tabIndex={0} role="region" aria-label="Prospect results, scroll to see all columns"><table className="ca-table ca-prospect-table"><caption className="ca-sr-only">Medical-center prospects and business details</caption><thead><tr><th scope="col">Medical center</th><th scope="col">City & address</th><th scope="col">Category</th><th scope="col">Website</th><th scope="col">Google rating</th><th scope="col">Review status</th><th><span className="ca-sr-only">Open record</span></th></tr></thead><tbody>{data.prospects.map((p,i)=><tr key={p.id}><td><button className="ca-text-button ca-prospect-name" onClick={()=>setSelected(p)}><span className={`ca-prospect-avatar ca-prospect-avatar-${i%4}`}><Building2 size={15}/></span><span>{p.center_name}<small>{p.phone||p.email||'No public phone listed'}</small></span></button></td><td><span className="ca-prospect-city"><MapPin size={14}/>{p.city}</span><small className="ca-prospect-address" title={p.address||undefined}>{p.address||'Address not listed'}</small></td><td><span className="ca-category-pill">{p.category||'Uncategorized'}</span></td><td>{p.website_url?<a className="ca-prospect-website" href={p.website_url} target="_blank" rel="noreferrer">Open website <ExternalLink size={13}/></a>:<span className="ca-website-missing"><span/>Not listed</span>}</td><td><span className="ca-rating"><Star size={14} fill="currentColor"/>{p.rating??'—'}<small>{p.review_count==null?'':`${number(p.review_count)} reviews`}</small></span></td><td><Badge value={p.qualification_stage}/></td><td><button className="ca-icon-button" aria-label={`Review ${p.center_name}`} onClick={()=>setSelected(p)}><ArrowUpRight size={16}/></button></td></tr>)}</tbody></table></div>:<Empty icon={Building2} title={busy?'Loading prospects…':error?'Prospects could not be loaded':filtered?'No prospects match these filters':'Your pre-selection list starts here'} body={busy?'Retrieving business details…':error?'Use Try again above to reload this directory.':filtered?'Try a different city or clear one of the active filters.':'Import a CSV from an approved source. New records enter review and remain separate from inbound leads.'}/>}
-        <div className="ca-pagination"><span>Showing {data.prospects.length?number(pageIndex*25+1):'0'}–{number(Math.min((pageIndex+1)*25,data.total))} of {number(data.total)}</span><div><button className="ca-icon-button" aria-label="Previous prospect page" disabled={!pageIndex||busy} onClick={()=>setPageIndex(n=>n-1)}><ChevronLeft size={18}/></button><button className="ca-icon-button" aria-label="Next prospect page" disabled={(pageIndex+1)*25>=data.total||busy} onClick={()=>setPageIndex(n=>n+1)}><ChevronRight size={18}/></button></div></div>
-      </section>{selected&&<ProspectReview prospect={selected} onClose={()=>setSelected(null)} onSaved={()=>{onToast('Prospect review saved.');void load();}}/>}
-    </>;
-}
-function ContentEditor({ onToast }: {
-    onToast: (s: string) => void;
-}) {
-    const [doc, setDoc] = useState<SiteDocument | null>(null), [version, setVersion] = useState(0), [published, setPublished] = useState<string | null>(null), [locale, setLocale] = useState<'en' | 'fr'>('en'), [group, setGroup] = useState('hero'), [busy, setBusy] = useState(false), [dirty, setDirty] = useState(false), [error, setError] = useState(''), [confirm, setConfirm] = useState(false);
-    useEffect(() => { void adminApi<{
-        content: {
-            draft: SiteDocument | null;
-            published: SiteDocument | null;
-            version: number;
-            published_at: string | null;
-        };
-    }>('content').then(({ content }) => { setDoc(content.draft ?? content.published ?? structuredClone(siteDefaults)); setVersion(content.version); setPublished(content.published_at); }).catch(e => setError(e.message)); }, []);
-    useEffect(() => { if (!dirty)
-        return; const warn = (e: BeforeUnloadEvent) => e.preventDefault(); window.addEventListener('beforeunload', warn); return () => window.removeEventListener('beforeunload', warn); }, [dirty]);
-    function change(path: string[], value: unknown) { setDoc(old => { const next = structuredClone(old!); let node = next as unknown as Record<string, unknown>; for (const key of path.slice(0, -1))
-        node = node[key] as Record<string, unknown>; node[path.at(-1)!] = value; return next; }); setDirty(true); }
-    async function save(publish = false) { if (!doc)
-        return; setBusy(true); setError(''); try {
-        const r = await adminApi<{
-            content: {
-                version: number;
-                published_at: string | null;
-            };
-        }>('content', { content: doc, version, publish });
-        setVersion(r.content.version);
-        setPublished(r.content.published_at);
-        setDirty(false);
-        setConfirm(false);
-        onToast(publish ? 'Website published. Changes appear within 30 seconds.' : 'Draft saved. Your live website is unchanged.');
-    }
-    catch (e) {
-        setError((e as Error).message);
-    }
-    finally {
-        setBusy(false);
-    } }
-    function fields(value: unknown, path: string[]): ReactNode { if (typeof value === 'string') {
-        const key = path.at(-1)!;
-        if (path[0] === 'landing' && protectedLandingFields.includes(path[2]))
-            return null;
-        const words = key.replace(/([a-z])([A-Z])/g, '$1 $2').replaceAll('_', ' ');
-        const label = key === 'cta' ? 'Button label' : words.charAt(0).toUpperCase() + words.slice(1);
-        return <label key={path.join('.')} className="ca-content-field"><span>{/^\d+$/.test(key) ? `Text ${Number(key) + 1}` : label}</span>{value.length > 110 || /body|description|answer|note|message/i.test(key) ? <textarea rows={3} value={value} maxLength={6000} onChange={e => change(path, e.target.value)}/> : <input value={value} maxLength={6000} onChange={e => change(path, e.target.value)}/>}</label>;
-    } if (typeof value === 'boolean')
-        return <label className="ca-switch-row" key={path.join('.')}><span>{path.at(-1)}<small>Show this section on the public website</small></span><input type="checkbox" checked={value} onChange={e => change(path, e.target.checked)}/></label>; if (value && typeof value === 'object')
-        return Object.entries(value).filter(([key])=>!(path[0]==='landing'&&path.length===2&&protectedLandingFields.includes(key))).map(([key, val]) => typeof val === 'string' || typeof val === 'boolean' ? fields(val, [...path, key]) : <fieldset className="ca-content-group" key={key}><legend>{Array.isArray(value) ? `Item ${Number(key) + 1}` : key.replace(/([a-z])([A-Z])/g, '$1 $2')}</legend>{fields(val, [...path, key])}</fieldset>); return null; }
-    const groups = [['hero', 'Hero & first impression'], ['landing', 'Process, offers & about'], ['features', 'Solutions & previews'], ['outcomes', 'Outcome tabs & images'], ['client', 'Client project'], ['faq', 'Frequently asked questions'], ['settings', 'Contact, links & visibility']];
-    return <><div className="ca-content-top"><div><span className="ca-draft-status"><i />{dirty ? 'Unsaved changes' : 'Draft workspace'}</span><p>Last published: {published ? date(published) : 'Using website defaults'}</p></div><div className="ca-actions"><button className="ca-button ca-secondary" onClick={() => void save()} disabled={!doc || busy}><Save size={16}/> Save draft</button><button className="ca-button ca-primary" onClick={() => setConfirm(true)} disabled={!doc || busy}><Send size={16}/> Publish changes</button></div></div>{error && <div className="ca-notice ca-error" role="alert"><AlertCircle size={18}/>{error}</div>}<div className="ca-content-layout"><nav aria-label="Content sections" className="ca-content-nav">{groups.map(([key, label]) => <button key={key} className={group === key ? 'active' : ''} onClick={() => setGroup(key)}>{label}<ChevronRight size={14}/></button>)}<div className="ca-content-tip"><ShieldCheck size={19}/><strong>Review before publishing</strong><p>Drafts stay private. Publishing updates your public website in both languages.</p></div></nav><section className="ca-panel ca-content-panel"><div className="ca-panel-head"><div><h2>{groups.find(x => x[0] === group)?.[1]}</h2><p>Keep it clear, useful and unmistakably Clinahir.</p></div><div className="ca-segment"><button className={locale === 'en' ? 'active' : ''} onClick={() => setLocale('en')}>EN</button><button className={locale === 'fr' ? 'active' : ''} onClick={() => setLocale('fr')}>FR</button></div></div><div className="ca-content-fields">{!doc ? <Empty icon={FileText} title="Content is not available" body={error ? 'Finish the database setup, then reload this page.' : 'Loading your website content…'}/> : group === 'features' ? Object.entries(doc.features).map(([key, val]) => <label key={key} className="ca-content-field"><span>{key}</span><textarea rows={2} value={val[locale]} onChange={e => change(['features', key, locale], e.target.value)}/></label>) : group === 'faq' ? <>{doc.faq[locale].map((item, index) => <div key={index} className="ca-faq-editor"><div className="ca-faq-editor-head"><strong>Question {index + 1}</strong><button className="ca-text-button" disabled={doc.faq[locale].length <= 1} onClick={() => change(['faq', locale], doc.faq[locale].filter((_, i) => i !== index))}>Remove</button></div>{fields(item, ['faq', locale, String(index)])}</div>)}<button className="ca-button ca-secondary" disabled={doc.faq[locale].length >= 30} onClick={() => change(['faq', locale], [...doc.faq[locale], { question: locale === 'en' ? 'New question' : 'Nouvelle question', answer: '' }])}>Add a question</button></> : group === 'settings' ? fields(doc.settings, ['settings']) : fields((doc[group as 'hero' | 'landing' | 'client' | 'faq' | 'outcomes'])[locale], [group, locale])}</div></section></div>{confirm && <Modal title="Publish website changes?" onClose={() => setConfirm(false)}><div className="ca-modal-body"><p>This publishes the current content in English and French. Visitors will see your changes within 30 seconds.</p><p className="ca-hint">Your leads, integration credentials and interactive demo records are not changed.</p><div className="ca-dialog-actions"><button className="ca-button ca-secondary" onClick={() => setConfirm(false)}>Keep editing</button><button className="ca-button ca-primary" disabled={busy} onClick={() => void save(true)}>{busy ? <LoaderCircle size={16} className="ca-spin"/> : <Send size={16}/>} Publish website</button></div></div></Modal>}</>;
-}
+
 export default function AdminApp() {
-    const [user, setUser] = useState<string | null>(null), [checking, setChecking] = useState(true), [page, setPage] = useState<Page>('Overview'), [data, setData] = useState<Snapshot>(emptySnapshot), [busy, setBusy] = useState(false), [error, setError] = useState(''), [search, setSearch] = useState(''), [stage, setStage] = useState(''), [pageIndex, setPageIndex] = useState(0), [selected, setSelected] = useState<Lead | null>(null), [toast, setToast] = useState(''), [mobile, setMobile] = useState(false), [sidebarHidden, setSidebarHidden] = useState(false), [replay, setReplay] = useState<{
-        id: string;
-        channel: string;
-    } | null>(null), [replaying, setReplaying] = useState(false);
-    const loadSequence = useRef(0);
-    const [contentVisited, setContentVisited] = useState(false);
-    const [small, setSmall] = useState(() => window.matchMedia('(max-width:900px)').matches);
-    const sidebarRef = useRef<HTMLElement>(null);
-    useEffect(() => { const media = window.matchMedia('(max-width:900px)'); const changed = () => setSmall(media.matches); media.addEventListener('change', changed); return () => media.removeEventListener('change', changed); }, []);
-    useEffect(() => { if (!mobile || !small)
-        return; const previous = document.activeElement as HTMLElement; const root = sidebarRef.current; root?.querySelector<HTMLButtonElement>('nav button')?.focus(); const key = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') {
-        setMobile(false);
-        return;
-    } if (e.key === 'Tab' && root) {
-        const items = Array.from(root.querySelectorAll<HTMLElement>('a,button'));
-        const first = items[0], last = items.at(-1);
-        if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last?.focus();
-        }
-        else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first?.focus();
-        }
-    } }; window.addEventListener('keydown', key); return () => { window.removeEventListener('keydown', key); previous?.focus(); }; }, [mobile, small]);
-    useEffect(() => { document.title = 'Clinahir Admin — Your workspace'; const robots = document.createElement('meta'); robots.name = 'robots'; robots.content = 'noindex, nofollow'; document.head.append(robots); void adminApi<{
-        user: {
-            email: string;
-        };
-    }>('session').then(r => setUser(r.user.email)).catch(() => { }).finally(() => setChecking(false)); }, []);
-    useEffect(() => { if (!toast)
-        return; const timer = setTimeout(() => setToast(''), 5000); return () => clearTimeout(timer); }, [toast]);
-    async function load() { const sequence = ++loadSequence.current; setBusy(true); try {
-        const result = await adminApi<Snapshot>('snapshot', undefined, `&search=${encodeURIComponent(search)}&stage=${stage}&page=${pageIndex}`);
-        if (sequence === loadSequence.current) {
-            setData(result);
-            setError('');
-        }
-    }
-    catch (e) {
-        if (sequence !== loadSequence.current)
-            return;
-        if ((e as Error & {
-            status?: number;
-        }).status === 401) {
-            setUser(null);
-            setData(emptySnapshot);
-        }
-        else
-            setError((e as Error).message);
-    }
-    finally {
-        if (sequence === loadSequence.current)
-            setBusy(false);
-    } }
-    useEffect(() => { if (!user)
-        return; const timer = setTimeout(() => void load(), 220); return () => clearTimeout(timer); }, [user, search, stage, pageIndex]);
-    function navigate(next: Page) { if (next === 'Website')
-        setContentVisited(true); setPage(next); setMobile(false); setSearch(''); setStage(''); setPageIndex(0); }
-    async function logout() { try {
-        await adminApi('logout', {});
+  const [user, setUser] = useState<string | null>(null);
+  const [checking, setChecking] = useState(true);
+  const [page, setPage] = useState<AdminPage>('Overview');
+  const [data, setData] = useState<Snapshot>(emptySnapshot);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+  const [stage, setStage] = useState('');
+  const [pageIndex, setPageIndex] = useState(0);
+  const [toast, setToast] = useState('');
+
+  const loadSequence = useRef(0);
+
+  // Set page meta on mount
+  useEffect(() => {
+    document.title = 'Clinahir HQ — Clinical Operations Workspace';
+    const robots = document.createElement('meta');
+    robots.name = 'robots';
+    robots.content = 'noindex, nofollow';
+    document.head.append(robots);
+
+    void adminApi<{ user: { email: string } }>('session')
+      .then((r) => setUser(r.user.email))
+      .catch(() => {})
+      .finally(() => setChecking(false));
+  }, []);
+
+  // Toast timer
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(''), 5000);
+    return () => clearTimeout(timer);
+  }, [toast]);
+
+  // Load snapshot data
+  async function loadData() {
+    const sequence = ++loadSequence.current;
+    setBusy(true);
+    try {
+      const result = await adminApi<Snapshot>(
+        'snapshot',
+        undefined,
+        `&search=${encodeURIComponent(search)}&stage=${stage}&page=${pageIndex}`
+      );
+      if (sequence === loadSequence.current) {
+        setData(result);
+        setError('');
+      }
+    } catch (e) {
+      if (sequence !== loadSequence.current) return;
+      if ((e as Error & { status?: number }).status === 401) {
         setUser(null);
         setData(emptySnapshot);
-        setSelected(null);
-    }
-    catch (e) {
+      } else {
         setError((e as Error).message);
-    } }
-    function exportCsv() { const csv=leadsCsv(data.leads); const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); const a = document.createElement('a'); a.href = url; a.download = 'clinahir-leads-current-page.csv'; a.click(); URL.revokeObjectURL(url); setToast('Current page exported. Keep lead data private.'); }
-    const views = data.analytics.reduce((n, r) => n + Number(r.page_views), 0), clicks = data.analytics.reduce((n, r) => n + Number(r.demo_cta_clicks), 0), conversions = data.analytics.reduce((n, r) => n + Number(r.demo_submissions), 0);
-    const descriptions: Record<Page, string> = { Overview: 'Your opportunities, website, and operations at a glance.', Leads: 'Manage incoming inquiries and move each conversation forward.', Prospects: 'A private review list for sourced medical-center opportunities.', Website: 'Shape your public website, one thoughtful detail at a time.', Analytics: 'Understand how visitors become conversations.', Deliveries: 'Keep every request connected and every delivery visible.', Activity: 'A record of the changes that move your business forward.', Settings: 'Manage your account and check your connected services.' };
-    if (checking)
-        return <div className="ca-root ca-brand ca-session-loading"><LoaderCircle size={26} className="ca-spin"/><p>Opening your workspace…</p></div>;
-    if (!user)
-        return <div className="ca-root ca-brand"><Login onLogin={email => { setUser(email); setError(''); }}/></div>;
-    return <div className={`ca-root ca-brand ca-workspace ca-view-${page.toLowerCase()} ${page === 'Prospects' ? 'ca-prospects-page' : ''} ${!small && sidebarHidden ? 'ca-sidebar-hidden' : ''}`}><aside id="clinahir-admin-sidebar" ref={sidebarRef} inert={small && !mobile} className={`ca-sidebar ${mobile ? 'ca-sidebar-open' : ''}`}><a className="ca-wordmark ca-brand-wordmark" href="/"><span className="ca-brand-mark">c</span><span>Clinahir<small>Workspace</small></span></a><div className="ca-brand-workspace"><span className="ca-brand-workspace-icon"><Building2 size={18}/></span><span>Owner workspace<small>Administration</small></span><LockKeyhole size={14}/></div><nav aria-label="Admin navigation">{[{label:'Pipeline',items:['Overview','Leads','Prospects']},{label:'Workspace',items:['Website','Analytics','Deliveries']},{label:'Administration',items:['Activity','Settings']}].map(group=><div className="ca-nav-group" key={group.label}><p>{group.label}</p>{pages.filter(item=>group.items.includes(item.name)).map(({name,icon:Icon,label})=><button key={name} onClick={()=>navigate(name)} className={page===name?'active':''} aria-label={label??name} aria-current={page===name?'page':undefined}><Icon size={18}/><span>{label??name}</span>{name==='Leads'&&data.summary.new>0&&<span className="ca-nav-count">{data.summary.new}</span>}{page===name&&<span className="ca-nav-current" aria-hidden="true"/>}</button>)}</div>)}</nav><div className="ca-sidebar-bottom"><button className="ca-account" onClick={() => navigate('Settings')}><span className="ca-account-avatar">YM</span><span>Owner account<small>{user}</small></span><Settings2 size={16}/></button><button className="ca-signout" onClick={() => void logout()}><LogOut size={16}/> Sign out</button></div></aside>{small && mobile && <button aria-label="Close navigation" className="ca-mobile-overlay" onClick={() => setMobile(false)}/>}
- <div className="ca-main" inert={small && mobile}><header className="ca-topbar"><div className="ca-breadcrumb"><button className={`ca-icon-button ca-sidebar-toggle ${small ? 'ca-mobile-menu' : ''}`} aria-label={small ? (mobile ? 'Close navigation' : 'Open navigation') : (sidebarHidden ? 'Show navigation' : 'Hide navigation')} aria-expanded={small ? mobile : !sidebarHidden} aria-controls="clinahir-admin-sidebar" title={small ? (mobile ? 'Close navigation' : 'Open navigation') : (sidebarHidden ? 'Show navigation' : 'Hide navigation')} onClick={() => small ? setMobile(value => !value) : setSidebarHidden(value => !value)}>{small ? <Menu size={21}/> : sidebarHidden ? <PanelLeftOpen size={19}/> : <PanelLeftClose size={19}/>}</button><span>Workspace</span><ChevronRight size={14}/><strong>{page === 'Website' ? 'Website content' : page}</strong></div><div className="ca-topbar-right"><span className="ca-private"><ShieldCheck size={15}/> Private workspace</span><a className="ca-website-link" href="/" target="_blank" rel="noopener noreferrer">View website <ExternalLink size={14}/></a><button className="ca-brand-profile" aria-label="Open account settings" onClick={()=>navigate('Settings')}><span className="ca-top-avatar">YM</span><span>Youssef<small>Owner</small></span><ChevronDown size={14}/></button></div></header><main className={`ca-main-content ${page === 'Overview' ? 'ca-overview-page' : ''}`}><div className="ca-page-header"><div><p className="ca-eyebrow">{page === 'Overview' ? 'OVERVIEW' : 'CLINAHIR WORKSPACE'}</p><h1>{page === 'Overview' ? 'Workspace overview' : page === 'Website' ? 'Website content' : page === 'Deliveries' ? 'Delivery center' : page === 'Activity' ? 'Workspace activity' : page}</h1><p>{descriptions[page]}</p></div>{page === 'Overview' ? <div className="ca-date-pill"><Clock3 size={16}/>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</div> : !['Website','Prospects'].includes(page) && <button className="ca-button ca-secondary" disabled={busy} onClick={() => void load()}><RefreshCw size={16} className={busy ? 'ca-spin' : ''}/> Refresh</button>}</div>
- {error && <div className="ca-notice ca-error" role="alert"><AlertCircle size={19}/><span>{error}</span><button onClick={() => void load()}>Try again</button></div>}
- {busy && <div className="ca-loading-line" role="status" aria-label="Loading workspace"/>}
- {page === 'Overview' && <div className="ca-overview">
- <div className="ca-stats ca-overview-stats">{[{ label: 'Total leads', value: data.summary.total, icon: Users, note: 'All captured requests' }, { label: 'New opportunities', value: data.summary.new, icon: MessageCircle, note: 'Ready for your first follow-up' }, { label: 'Qualified leads', value: data.summary.qualified, icon: ShieldCheck, note: 'Moving toward the right fit' }, { label: 'Clients won', value: data.summary.won, icon: CheckCircle2, note: 'Marked as won by you' }].map(({ label, value, icon: Icon, note }) => <section className="ca-stat" key={label}><span className="ca-stat-icon"><Icon size={23}/></span><strong>{number(value)}</strong><p>{label}</p><small>{note}</small></section>)}</div>
- <div className="ca-overview-banner"><div><span className="ca-banner-icon"><MessageCircle size={25}/></span><div><strong>{data.summary.new ? `${data.summary.new} new ${data.summary.new === 1 ? 'lead is' : 'leads are'} waiting for your attention.` : 'Ready for your next opportunity.'}</strong><p>Start a conversation and move things forward.</p></div></div><button className="ca-button ca-primary" onClick={() => { navigate('Leads'); setStage('new'); }}>Review new leads <ArrowRight size={18}/></button></div>
- <div className="ca-command-grid"><section className="ca-panel ca-opportunities"><div className="ca-panel-head"><div><h2>Latest opportunities <span className="ca-count-chip">{data.summary.total}</span></h2><p>The people and centers reaching out to you.</p></div><button className="ca-text-button" onClick={() => navigate('Leads')}>View all leads <ArrowRight size={16}/></button></div><LeadTable compact leads={data.leads.slice(0, 5)} onSelect={setSelected}/></section>
- <div className="ca-command-aside"><section className="ca-panel ca-next-steps"><div className="ca-panel-head"><h2>Your attention</h2></div><button onClick={() => { navigate('Leads'); setStage('new'); }}><span className="ca-step-icon"><Users size={20}/></span><span><strong>{data.summary.new} {data.summary.new === 1 ? 'lead' : 'leads'} awaiting follow-up</strong><small>New inquiries need a conversation.</small></span><ChevronRight size={17}/></button><button onClick={() => navigate('Deliveries')}><span className="ca-step-icon ca-step-delivery"><Send size={20}/></span><span><strong>{data.summary.attention ? `${data.summary.attention} ${data.summary.attention === 1 ? 'delivery needs' : 'deliveries need'} review` : 'Review connected deliveries'}</strong><small>{data.summary.attention ? 'A connected service needs your attention.' : 'Check synchronization and WhatsApp status.'}</small></span><ChevronRight size={17}/></button></section>
- <section className="ca-panel ca-command-chart"><div className="ca-panel-head"><div><h2>Lead activity</h2><p>Submissions over the last 30 days.</p></div><span className="ca-subtle-pill">30 days <Clock3 size={14}/></span></div><Chart rows={data.analytics}/></section></div></div></div>}
- {page === 'Leads' && <section className="ca-panel ca-leads-directory"><div className="ca-panel-head"><div><h2>Inbound leads</h2><p>Requests captured through your website.</p></div><span className="ca-subtle-pill">{number(data.total)} records</span></div><div className="ca-lead-toolbar"><div className="ca-search"><Search size={18}/><input aria-label="Search leads" placeholder="Search center, contact or phone…" value={search} onChange={e => { setSearch(e.target.value); setPageIndex(0); }}/></div><div className="ca-actions"><select aria-label="Filter leads by stage" value={stage} onChange={e => { setStage(e.target.value); setPageIndex(0); }}><option value="">All stages</option>{stages.map(s => <option key={s}>{s}</option>)}</select><button className="ca-button ca-secondary" onClick={exportCsv} disabled={!data.leads.length}><ArrowDownToLine size={16}/> Export page</button></div></div><div className="ca-table-caption"><strong>{number(data.total)} {stage || 'total'} leads</strong><span>Click a center to view details and follow up</span></div><LeadTable leads={data.leads} onSelect={setSelected}/><div className="ca-pagination"><span>Page {pageIndex + 1} · 25 leads per page</span><div><button className="ca-icon-button" aria-label="Previous leads page" disabled={!pageIndex || busy} onClick={() => setPageIndex(n => n - 1)}><ChevronLeft size={18}/></button><button className="ca-icon-button" aria-label="Next leads page" disabled={(pageIndex + 1) * 25 >= data.total || busy} onClick={() => setPageIndex(n => n + 1)}><ChevronRight size={18}/></button></div></div></section>}
- {page === 'Prospects' && <ProspectsWorkspace onToast={setToast}/>}
- {contentVisited && <div hidden={page !== 'Website'}><ContentEditor onToast={message => { setToast(message); void load(); }}/></div>}
- {page === 'Analytics' && <><div className="ca-stats ca-stats-three">{[['Page views', views], ['Demo CTA clicks', clicks], ['Saved demo requests', conversions]].map(([label, value]) => <section className="ca-stat" key={label}><p>{label}</p><strong>{number(Number(value))}</strong><small>Last 30 days · event counts, not unique visitors</small></section>)}</div><div className="ca-overview-grid"><section className="ca-panel"><div className="ca-panel-head"><div><h2>Requests over time</h2><p>Saved leads are the conversion source of truth.</p></div></div><Chart rows={data.analytics}/></section><section className="ca-panel"><div className="ca-panel-head"><div><h2>Acquisition sources</h2><p>All-time lead attribution</p></div></div>{data.sources.length ? <div className="ca-sources">{data.sources.map(source => <div key={source.source}><div><strong>{source.source}</strong><span>{number(Number(source.count))}</span></div><div className="ca-progress"><i style={{ width: `${Number(source.count) / Math.max(1, data.summary.total) * 100}%` }}/></div></div>)}</div> : <Empty icon={BarChart3} title="No attribution yet" body="Source information appears with your first captured leads."/>}</section></div><div className="ca-notice"><ShieldCheck size={18}/><span>Test leads are included. Privacy opt-outs and blocked tracking can affect event counts. These figures do not identify individual visitors.</span></div></>}
- {page === 'Deliveries' && <><div className="ca-integration-grid">{[{ name: 'Daily Command', body: 'Lead and prospect synchronization', ready: data.integrations.dailyCommand, icon: Activity }, { name: 'WhatsApp demos', body: 'Automatic demo message delivery', ready: data.integrations.whatsappEnabled && data.integrations.whatsappConfigured, icon: MessageCircle }, { name: 'Scheduled retries', body: data.heartbeat ? `Last completed ${date(data.heartbeat)} at ${time(data.heartbeat)}` : 'No completed heartbeat recorded', ready: Boolean(data.heartbeat && Date.now() - Date.parse(data.heartbeat) < 27 * 3600000), icon: Clock3 }].map(({ name, body, ready, icon: Icon }) => <section className="ca-panel ca-integration" key={name}><span className="ca-stat-icon"><Icon size={23}/></span><h2>{name}</h2><p>{body}</p><Badge value={ready ? 'configured' : 'needs setup'}/></section>)}</div><section className="ca-panel"><div className="ca-panel-head"><div><h2>Daily Command deliveries</h2><p>Fix the cause before requeuing blocked or exhausted requests.</p></div></div>{data.leads.length ? <div className="ca-table-scroll"><table className="ca-table"><thead><tr><th>Center</th><th>Sync status</th><th>Attempts</th><th>Last result</th><th>Action</th></tr></thead><tbody>{data.leads.map(l => <tr key={l.external_id}><td><strong>{l.company_name}</strong></td><td><Badge value={l.daily_command_status}/></td><td>{l.daily_command_attempts}</td><td>{l.daily_command_last_error || '—'}</td><td>{['blocked', 'exhausted'].includes(l.daily_command_status) ? <button className="ca-text-button" onClick={() => setReplay({ id: l.external_id, channel: 'daily_command' })}>Requeue <RefreshCw size={14}/></button> : <span className="ca-muted">—</span>}</td></tr>)}</tbody></table></div> : <Empty icon={Send} title="No deliveries to review" body="Daily Command status appears alongside captured leads."/>}</section><section className="ca-panel"><div className="ca-panel-head"><div><h2>WhatsApp queue</h2><p>Accepted means the provider received the request. It does not confirm delivery.</p></div></div>{data.whatsapp.length ? <div className="ca-table-scroll"><table className="ca-table"><thead><tr><th>Lead reference</th><th>Status</th><th>Attempts</th><th>Last result</th><th>Action</th></tr></thead><tbody>{data.whatsapp.map(job => <tr key={job.external_id}><td className="ca-mono">{job.external_id.slice(0, 16)}…</td><td><Badge value={job.status}/></td><td>{job.attempts}</td><td>{job.last_error || '—'}</td><td>{['blocked', 'exhausted'].includes(job.status) ? <button className="ca-text-button" onClick={() => setReplay({ id: job.external_id, channel: 'whatsapp' })}>Requeue <RefreshCw size={14}/></button> : job.status === 'review' ? <span className="ca-muted">Review in provider first</span> : '—'}</td></tr>)}</tbody></table></div> : <Empty icon={MessageCircle} title="No WhatsApp jobs yet" body="The queue will appear after the database migration and new demo submissions."/>}</section><p className="ca-hint">Tables show the latest 25 records. Requeued jobs wait for the scheduled processor; this button does not send a message immediately.</p></>}
- {page === 'Activity' && <section className="ca-panel"><div className="ca-panel-head"><div><h2>Your workspace history</h2><p>Latest 50 admin changes. Contact information is not copied into this log.</p></div></div>{data.audit.length ? <div className="ca-activity-list">{data.audit.map(item => <div key={item.id}><span><Activity size={17}/></span><div><strong>{item.action.replaceAll('.', ' · ').replaceAll('_', ' ')}</strong><small>{item.target === 'website' ? 'Public website' : `Lead ${item.target.slice(0, 16)}…`}</small></div><time>{date(item.created_at)}<small>{time(item.created_at)}</small></time></div>)}</div> : <Empty icon={Activity} title="A fresh chapter" body="Published changes, lead updates and delivery requeues will be recorded here."/>}</section>}
- {page === 'Settings' && <div className="ca-settings-grid"><section className="ca-panel"><div className="ca-panel-head"><div><h2>Owner account</h2><p>Your private access to Clinahir.</p></div><ShieldCheck size={20}/></div><div className="ca-settings-body"><label>Login email<input value={user} readOnly/></label><div className="ca-setting-row"><span>Authentication<small>Supabase Auth · email and password</small></span><Badge value="protected"/></div><div className="ca-setting-row"><span>Session duration<small>Up to one hour. Sign in again when it expires.</small></span><Clock3 size={18}/></div><p className="ca-hint">Change your password privately in Supabase Authentication. The website never stores or displays your password.</p><button className="ca-button ca-secondary" onClick={() => void logout()}><LogOut size={16}/> Sign out of this workspace</button></div></section><section className="ca-panel"><div className="ca-panel-head"><div><h2>Connected services</h2><p>Configuration status, with credentials kept private.</p></div></div><div className="ca-settings-body">{[['Daily Command', data.integrations.dailyCommand], ['WhatsApp credentials', data.integrations.whatsappConfigured], ['WhatsApp sending enabled', data.integrations.whatsappEnabled], ['Cron authentication', data.integrations.cron]].map(([label, ready]) => <div className="ca-setting-row" key={String(label)}><span>{label}</span><Badge value={ready ? 'configured' : 'not configured'}/></div>)}<p className="ca-hint">Manage server credentials in Vercel. Website contact details and social links are editable under Website content.</p><button className="ca-button ca-secondary" onClick={() => navigate('Website')}><Globe2 size={16}/> Edit website details</button></div></section><section className="ca-panel ca-settings-wide"><div className="ca-panel-head"><div><h2>Operational notes</h2><p>A few essentials to keep things running smoothly.</p></div></div><div className="ca-operations-notes"><div><Clock3 size={20}/><h3>Daily processing</h3><p>The scheduler runs at 03:00 UTC. Due retries can wait until the next run. Increase cadence before higher traffic.</p></div><div><ShieldCheck size={20}/><h3>Private by design</h3><p>Lead records are read through authenticated server endpoints. Public visitors cannot access this workspace.</p></div><div><Globe2 size={20}/><h3>Content and code</h3><p>Manage website text and public links here. Layout, new sections, domain and server configuration remain code or hosting changes.</p></div></div></section></div>}
- <footer className="ca-workspace-footer"><span>© {new Date().getFullYear()} Clinahir</span><span><LockKeyhole size={12}/> Your workspace. Your next move.</span></footer></main></div>
- {toast && <div className="ca-toast" role="status"><CheckCircle2 size={19}/>{toast}<button className="ca-icon-button" aria-label="Dismiss notification" onClick={() => setToast('')}><X size={15}/></button></div>}{selected && <LeadDetail lead={selected} onClose={() => setSelected(null)} onSave={() => { setToast('Lead updated.'); void load(); }}/>}{replay && <Modal title="Requeue this delivery?" onClose={() => setReplay(null)}><div className="ca-modal-body"><p>Confirm you have fixed the underlying issue{replay.channel === 'whatsapp' ? ' and checked that the message was not already sent' : ''}. The same lead ID will be preserved.</p><div className="ca-dialog-actions"><button className="ca-button ca-secondary" onClick={() => setReplay(null)}>Cancel</button><button className="ca-button ca-primary" disabled={replaying} onClick={async () => { setReplaying(true); try {
-        await adminApi('replay', replay);
-        setReplay(null);
-        setToast('Delivery queued for the next processor run.');
-        await load();
+      }
+    } finally {
+      if (sequence === loadSequence.current) setBusy(false);
     }
-    catch (e) {
-        setError((e as Error).message);
-        setReplay(null);
+  }
+
+  useEffect(() => {
+    if (!user) return;
+    const timer = setTimeout(() => void loadData(), 200);
+    return () => clearTimeout(timer);
+  }, [user, search, stage, pageIndex]);
+
+  function navigate(next: AdminPage) {
+    setPage(next);
+    setSearch('');
+    setStage('');
+    setPageIndex(0);
+  }
+
+  async function handleLogout() {
+    try {
+      await adminApi('logout', {});
+      setUser(null);
+      setData(emptySnapshot);
+    } catch (e) {
+      setError((e as Error).message);
     }
-    finally {
-        setReplaying(false);
-    } }}><RefreshCw size={16}/> Requeue delivery</button></div></div></Modal>}</div>;
+  }
+
+  // Initial session checking screen
+  if (checking) {
+    return (
+      <div className="min-h-screen bg-[#F6F8F7] flex flex-col items-center justify-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-[#0A3A2A] text-white flex items-center justify-center font-bold text-lg shadow-md">
+          C
+        </div>
+        <div className="flex items-center gap-2 text-slate-500 text-xs font-medium">
+          <LoaderCircle size={15} className="animate-spin text-emerald-700" />
+          <span>Verifying security session…</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Unauthenticated login view
+  if (!user) {
+    return (
+      <LoginPage
+        onLogin={(email) => {
+          setUser(email);
+          setError('');
+        }}
+      />
+    );
+  }
+
+  return (
+    <AdminShell
+      currentPage={page}
+      onNavigate={navigate}
+      userEmail={user}
+      onLogout={handleLogout}
+      newLeadsCount={data.summary.new}
+    >
+      {/* Toast Notification Pill */}
+      {toast && (
+        <div
+          role="status"
+          className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-semibold shadow-2xl flex items-center gap-3 border border-slate-800 animate-in fade-in slide-in-from-bottom-3 duration-200"
+        >
+          <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+          <span>{toast}</span>
+          <button
+            onClick={() => setToast('')}
+            className="text-slate-400 hover:text-white ml-1"
+          >
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {/* Dynamic Page Router */}
+      {page === 'Overview' && (
+        <OverviewPage
+          data={data}
+          onNavigate={navigate}
+          onSelectLead={(lead) => {
+            setSearch(lead.company_name);
+            navigate('Leads');
+          }}
+          onFilterStage={(st) => {
+            setStage(st);
+            navigate('Leads');
+          }}
+        />
+      )}
+
+      {page === 'Leads' && (
+        <LeadsPage
+          leads={data.leads}
+          totalCount={data.total}
+          search={search}
+          onSearchChange={setSearch}
+          stage={stage}
+          onStageChange={setStage}
+          pageIndex={pageIndex}
+          onPageChange={setPageIndex}
+          isLoading={busy}
+          onRefresh={loadData}
+          onToast={setToast}
+        />
+      )}
+
+      {page === 'Prospects' && <ProspectsPage onToast={setToast} />}
+
+      {page === 'Website' && <WebsitePage onToast={setToast} />}
+
+      {page === 'Analytics' && <AnalyticsPage data={data} />}
+
+      {page === 'Deliveries' && (
+        <DeliveriesPage data={data} onRefresh={loadData} onToast={setToast} />
+      )}
+
+      {page === 'Activity' && <ActivityPage data={data} />}
+
+      {page === 'Settings' && (
+        <SettingsPage
+          userEmail={user}
+          data={data}
+          onLogout={handleLogout}
+          onNavigate={navigate}
+        />
+      )}
+    </AdminShell>
+  );
 }

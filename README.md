@@ -185,3 +185,4 @@ npm run typecheck
    - Configure server-only environment variables in Vercel project settings.
 2. **Supabase Database:**
    - Apply migrations located in `supabase/migrations/` in sequential order.
+
