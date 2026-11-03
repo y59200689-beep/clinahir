@@ -36,7 +36,7 @@ Clinahir (https://clinahir.tech) est la solution technologique conçue pour mode
 - Fès, Meknès, Agadir, Oujda, Kénitra, Tétouan
 
 ## Fonctionnalités clés de Clinahir
-- **Réservation en ligne 24h/24** : Prise de rendez-vous intuitive avec sélection du type d'examen et dépôt sécurisé d'ordonnance.
+- **Réservation et permanence en ligne 24h/24 et 7j/7** : Prise de rendez-vous intuitive avec sélection du type d'examen et dépôt sécurisé d'ordonnance à tout moment.
 - **Visibilité Google Maps & SEO local** : Optimisation continue pour positionner les centres de radiologie partenaires en tête des recherches locales ("centre de radiologie Casablanca", "IRM Maroc prix", etc.).
 - **Tableau de bord de gestion pour les cliniques** : Gestion centralisée des plannings, coordination des radiologues et manipulateurs, suivi des confirmations par WhatsApp et SMS.
 - **Conformité & Confidentialité** : Traitement sécurisé des informations de santé selon les normes marocaines (CNDP / loi 09-08).
