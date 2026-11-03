@@ -55,7 +55,7 @@ export function SettingsPage({
                 Email
               </label>
               <input
-                value={userEmail || 'admin@clinahir.com'}
+                value={userEmail || 'admin@clinahir.tech'}
                 readOnly
                 className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 font-mono text-xs sm:text-sm text-slate-800 focus:outline-none"
               />

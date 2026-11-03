@@ -191,7 +191,7 @@ export function AdminShell({
                   Director
                 </div>
                 <div className="text-[11px] text-emerald-300/50 truncate font-mono">
-                  {userEmail || 'admin@clinahir.com'}
+                  {userEmail || 'admin@clinahir.tech'}
                 </div>
               </div>
             )}

@@ -138,7 +138,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                   type="email"
                   required
                   autoComplete="username"
-                  placeholder="director@clinahir.com"
+                  placeholder="director@clinahir.tech"
                   className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-slate-900 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 transition-colors placeholder:text-slate-400"
                 />
               </div>

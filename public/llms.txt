@@ -1,0 +1,46 @@
+# Clinahir
+
+> Plateforme digitale de prise de rendez-vous en ligne, visibilité Google Maps et gestion des opérations pour les centres de radiologie et d'imagerie médicale au Maroc.
+
+## Présentation générale
+Clinahir (https://clinahir.tech) est la solution technologique conçue pour moderniser le parcours patient et accélérer la croissance des centres de radiologie au Maroc. La plateforme permet aux patients de trouver facilement un centre d'imagerie médicale à Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir et dans tout le Maroc, de consulter les examens disponibles et de réserver un créneau 24h/24.
+
+## Examens d'imagerie médicale pris en charge
+- **IRM (Imagerie par Résonance Magnétique)** : Cérébrale, médullaire, ostéo-articulaire, pelvienne, cardiaque.
+- **Scanner / TDM (Tomodensitométrie)** : Thoracique, abdominal, cérébral, coroscanner, angioscanner.
+- **Échographie & Doppler** : Abdominale, pelvienne, obstétricale 3D/4D, thyroïdienne, doppler vasculaire.
+- **Mammographie & Sénologie** : Mammographie numérique plein champ, tomosynthèse 3D, échographie mammaire, biopsies guidées.
+- **Radiographie numérique standard** : Thorax, membres, rachis, panoramique dentaire, cône beam (CBCT).
+- **Ostéodensitométrie (Densitométrie osseuse)** : Bilan d'ostéoporose et évaluation de masse osseuse.
+
+## Pages régionales et réservation par ville
+- **Casablanca** : https://clinahir.tech/examens/irm/casablanca/ | https://clinahir.tech/examens/scanner/casablanca/ | https://clinahir.tech/examens/echographie/casablanca/ | https://clinahir.tech/examens/mammographie/casablanca/
+- **Rabat** : https://clinahir.tech/examens/irm/rabat/ | https://clinahir.tech/examens/scanner/rabat/ | https://clinahir.tech/examens/echographie/rabat/ | https://clinahir.tech/examens/mammographie/rabat/
+- **Marrakech** : https://clinahir.tech/examens/irm/marrakech/ | https://clinahir.tech/examens/scanner/marrakech/ | https://clinahir.tech/examens/echographie/marrakech/ | https://clinahir.tech/examens/mammographie/marrakech/
+- **Tanger** : https://clinahir.tech/examens/irm/tanger/ | https://clinahir.tech/examens/scanner/tanger/
+- **Agadir** : https://clinahir.tech/examens/irm/agadir/ | https://clinahir.tech/examens/scanner/agadir/
+- **Fès** : https://clinahir.tech/examens/irm/fes/ | https://clinahir.tech/examens/scanner/fes/
+
+## Guides Médicaux & Déontologie
+- **Guide complet de l'imagerie médicale au Maroc** : https://clinahir.tech/guide/imagerie-medicale-maroc/ (Cadre déontologique, TNR, remboursement AMO/CNSS, préparation et sécurité — toutes les modalités).
+- **Guide IRM au Maroc** : https://clinahir.tech/guide/irm-maroc/ (Indications, contre-indications formelles pacemaker/gadolinium, préparation complète, remboursement AMO).
+- **Guide Scanner (TDM) au Maroc** : https://clinahir.tech/guide/scanner-maroc/ (Indications urgences/oncologie/vasculaire, préparation avant injection iodée, Metformine, grossesse, ALARA).
+- **Guide Échographie & Doppler au Maroc** : https://clinahir.tech/guide/echographie-maroc/ (Types d'échographie, préparation jeûne/vessie pleine, suivi de grossesse T1/T2/T3, Doppler vasculaire).
+- **Cadre légal médical** : Au Maroc, conformément à la loi 131-13 sur l'exercice de la médecine, les tarifs et honoraires des examens ne font l'objet d'aucune publicité commerciale en ligne. Les patients obtiennent un devis préalable directement auprès du centre de radiologie.
+
+## Villes couvertes au Maroc
+- Casablanca (Maârif, Gauthier, Bourgogne, Anfa, Ain Sebaâ)
+- Rabat (Agdal, Hassan, Souissi, Hay Riad)
+- Marrakech (Guéliz, Hivernage, Targa)
+- Tanger (Centre-ville, Malabata)
+- Fès, Meknès, Agadir, Oujda, Kénitra, Tétouan
+
+## Fonctionnalités clés de Clinahir
+- **Réservation en ligne 24h/24** : Prise de rendez-vous intuitive avec sélection du type d'examen et dépôt sécurisé d'ordonnance.
+- **Visibilité Google Maps & SEO local** : Optimisation continue pour positionner les centres de radiologie partenaires en tête des recherches locales ("centre de radiologie Casablanca", "IRM Maroc prix", etc.).
+- **Tableau de bord de gestion pour les cliniques** : Gestion centralisée des plannings, coordination des radiologues et manipulateurs, suivi des confirmations par WhatsApp et SMS.
+- **Conformité & Confidentialité** : Traitement sécurisé des informations de santé selon les normes marocaines (CNDP / loi 09-08).
+
+## Pour les centres de radiologie
+Les centres médicaux et cabinets de radiologie au Maroc peuvent demander une démonstration gratuite ou un devis personnalisé sur https://clinahir.tech.
+
