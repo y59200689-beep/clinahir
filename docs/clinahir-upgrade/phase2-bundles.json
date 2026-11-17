@@ -1,0 +1,291 @@
+{
+  "scope": "Local production-build byte counts, not field Core Web Vitals",
+  "chunks": [
+    {
+      "name": "index-DFzEOBTo.js",
+      "bytes": 198810,
+      "gzipBytes": 62866
+    },
+    {
+      "name": "AdminApp-C7LVLqns.js",
+      "bytes": 133498,
+      "gzipBytes": 38761
+    },
+    {
+      "name": "use-reduced-motion-DNnedekG.js",
+      "bytes": 130984,
+      "gzipBytes": 42781
+    },
+    {
+      "name": "AppointmentEditor-CGrejCXf.js",
+      "bytes": 125503,
+      "gzipBytes": 39626
+    },
+    {
+      "name": "MarketingDetails-BAQF4qxU.js",
+      "bytes": 104280,
+      "gzipBytes": 26624
+    },
+    {
+      "name": "DemoDashboard-B1Ve3l66.js",
+      "bytes": 44531,
+      "gzipBytes": 13976
+    },
+    {
+      "name": "App-tCNwWYtW.js",
+      "bytes": 35446,
+      "gzipBytes": 12885
+    },
+    {
+      "name": "schema-D3LnESbM.js",
+      "bytes": 25544,
+      "gzipBytes": 8959
+    },
+    {
+      "name": "ProspectsPage-CcU4HfdS.js",
+      "bytes": 17733,
+      "gzipBytes": 4826
+    },
+    {
+      "name": "SettingsPage-U7Vuc7OP.js",
+      "bytes": 16758,
+      "gzipBytes": 4793
+    },
+    {
+      "name": "AppointmentsPage-CnZn45j6.js",
+      "bytes": 16555,
+      "gzipBytes": 5452
+    },
+    {
+      "name": "SupportPage-C2SO83hf.js",
+      "bytes": 14685,
+      "gzipBytes": 4938
+    },
+    {
+      "name": "ActivityLogPage-Baq1CMLa.js",
+      "bytes": 12960,
+      "gzipBytes": 4484
+    },
+    {
+      "name": "ProfileDirectory-CrNfxZp3.js",
+      "bytes": 12550,
+      "gzipBytes": 4507
+    },
+    {
+      "name": "LeadsPage-WHvLZ_Cw.js",
+      "bytes": 11708,
+      "gzipBytes": 3605
+    },
+    {
+      "name": "AgendaPage-RUVOP9ZM.js",
+      "bytes": 11350,
+      "gzipBytes": 3997
+    },
+    {
+      "name": "MessagesPage-HeBEdJcO.js",
+      "bytes": 9899,
+      "gzipBytes": 3272
+    },
+    {
+      "name": "WebsitePage-BYQUnUTE.js",
+      "bytes": 9742,
+      "gzipBytes": 3340
+    },
+    {
+      "name": "PostsPage-CAKy2W5I.js",
+      "bytes": 9628,
+      "gzipBytes": 3645
+    },
+    {
+      "name": "DeliveriesPage-pzg-omtY.js",
+      "bytes": 8660,
+      "gzipBytes": 2219
+    },
+    {
+      "name": "OverviewPage-k0ihRBOd.js",
+      "bytes": 8648,
+      "gzipBytes": 2494
+    },
+    {
+      "name": "ActivityChart-CroMNyBA.js",
+      "bytes": 6967,
+      "gzipBytes": 2213
+    },
+    {
+      "name": "x-CeSC5NpZ.js",
+      "bytes": 5174,
+      "gzipBytes": 1741
+    },
+    {
+      "name": "SettingsPage-CaB2qTam.js",
+      "bytes": 4575,
+      "gzipBytes": 1424
+    },
+    {
+      "name": "AnalyticsPage-B-UfoU-b.js",
+      "bytes": 3856,
+      "gzipBytes": 1703
+    },
+    {
+      "name": "AdminDrawer-BAtgooDi.js",
+      "bytes": 2712,
+      "gzipBytes": 1341
+    },
+    {
+      "name": "ActivityPage-Bq4QitCW.js",
+      "bytes": 2699,
+      "gzipBytes": 1180
+    },
+    {
+      "name": "teamActivity-D8QecvHF.js",
+      "bytes": 1613,
+      "gzipBytes": 829
+    },
+    {
+      "name": "earth-11DMlOdc.js",
+      "bytes": 1572,
+      "gzipBytes": 629
+    },
+    {
+      "name": "StatusPill-CACYrORP.js",
+      "bytes": 1330,
+      "gzipBytes": 703
+    },
+    {
+      "name": "eye-mVzvBAWh.js",
+      "bytes": 1043,
+      "gzipBytes": 479
+    },
+    {
+      "name": "users-wiSdySG1.js",
+      "bytes": 1014,
+      "gzipBytes": 460
+    },
+    {
+      "name": "shield-check-Cy7tdmrQ.js",
+      "bytes": 967,
+      "gzipBytes": 493
+    },
+    {
+      "name": "chevron-right-BS-sCJDr.js",
+      "bytes": 938,
+      "gzipBytes": 367
+    },
+    {
+      "name": "Modal-DbH302eO.js",
+      "bytes": 866,
+      "gzipBytes": 525
+    },
+    {
+      "name": "star-aR1hufbU.js",
+      "bytes": 673,
+      "gzipBytes": 423
+    },
+    {
+      "name": "StaffPage-hbP51T_e.js",
+      "bytes": 602,
+      "gzipBytes": 352
+    },
+    {
+      "name": "file-text-g0P4O4ZY.js",
+      "bytes": 586,
+      "gzipBytes": 374
+    },
+    {
+      "name": "save-pPpNRxe8.js",
+      "bytes": 528,
+      "gzipBytes": 350
+    },
+    {
+      "name": "phone-bnwQN7GX.js",
+      "bytes": 523,
+      "gzipBytes": 353
+    },
+    {
+      "name": "refresh-cw-BlOE4enH.js",
+      "bytes": 522,
+      "gzipBytes": 344
+    },
+    {
+      "name": "PatientsPage-C8_VtR_K.js",
+      "bytes": 494,
+      "gzipBytes": 317
+    },
+    {
+      "name": "DoctorsPage-ClQzhL8X.js",
+      "bytes": 493,
+      "gzipBytes": 314
+    },
+    {
+      "name": "circle-alert-C9rtnHam.js",
+      "bytes": 471,
+      "gzipBytes": 321
+    },
+    {
+      "name": "map-pin-D09IOS4J.js",
+      "bytes": 460,
+      "gzipBytes": 349
+    },
+    {
+      "name": "external-link-B2Mi_WJu.js",
+      "bytes": 452,
+      "gzipBytes": 323
+    },
+    {
+      "name": "message-circle-CpQmivkE.js",
+      "bytes": 442,
+      "gzipBytes": 331
+    },
+    {
+      "name": "upload-D5R8sx6u.js",
+      "bytes": 431,
+      "gzipBytes": 314
+    },
+    {
+      "name": "circle-x-XVJ6m1L5.js",
+      "bytes": 429,
+      "gzipBytes": 311
+    },
+    {
+      "name": "mail-BG1QGLW7.js",
+      "bytes": 414,
+      "gzipBytes": 322
+    },
+    {
+      "name": "circle-check-DW9XarIx.js",
+      "bytes": 411,
+      "gzipBytes": 309
+    },
+    {
+      "name": "rotate-cw-BeVoy4_F.js",
+      "bytes": 402,
+      "gzipBytes": 308
+    },
+    {
+      "name": "clock-3-Duiiu_v5.js",
+      "bytes": 370,
+      "gzipBytes": 289
+    },
+    {
+      "name": "clock-DpE4bwCf.js",
+      "bytes": 370,
+      "gzipBytes": 289
+    },
+    {
+      "name": "search-C8iFq-sh.js",
+      "bytes": 370,
+      "gzipBytes": 289
+    },
+    {
+      "name": "arrow-up-right-7fW5IFV4.js",
+      "bytes": 368,
+      "gzipBytes": 283
+    },
+    {
+      "name": "conflicts-CMuE9cAC.js",
+      "bytes": 287,
+      "gzipBytes": 208
+    }
+  ],
+  "over500KiB": []
+}

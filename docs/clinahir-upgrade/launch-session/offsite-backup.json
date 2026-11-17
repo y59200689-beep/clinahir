@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-11-16T14:13:50.743Z",
+  "driveAccount": "babdoukkalaradiologie@gmail.com",
+  "approvedByOwner": true,
+  "folderUrl": "https://drive.google.com/drive/folders/18_BWG8NWnSiWSc_pgcocxkLFHaHIWbzA",
+  "fileUrl": "https://drive.google.com/file/d/1MqTrVv7jNKOoJbd9OCqdjBcEZUqxq0oY/view",
+  "scope": "Existing verified synthetic backup uploaded encrypted, independently downloaded and decrypted with separately stored Keychain key; no key uploaded",
+  "checks": {
+    "offsiteCipherChecksum": true,
+    "decryptedBackupChecksum": true
+  },
+  "status": "passed"
+}

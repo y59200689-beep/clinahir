@@ -1,0 +1,16 @@
+{
+  "passed": [
+    "English profile creation, validation, editing, archive and undo survive navigation",
+    "New doctor and patient assignment, conflict prevention and profile-calendar synchronization",
+    "French demo profile create/edit/archive/restore and appointment validation",
+    "French unauthorized login error, owner session and every admin route",
+    "French lead edits preserve machine stage values and French prospect review persists",
+    "French snapshot outage shows actionable failure and retry recovers",
+    "Admin French and English switch without reloading or changing content-editor locale",
+    "English admin route parity and accessible control names",
+    "Mobile and tablet admin layouts, focus containment and Escape navigation",
+    "Fresh browser context has no profile edits or admin session"
+  ],
+  "errors": [],
+  "success": true
+}

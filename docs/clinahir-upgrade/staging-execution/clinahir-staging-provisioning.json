@@ -1,0 +1,11 @@
+{
+  "executedAt": "2026-11-16T01:08:12.947Z",
+  "organization": "ictxrvikmelaingrsqzq",
+  "name": "clinahir-staging",
+  "scope": "new isolated Free/Nano project only; no existing project changes",
+  "plan": "free",
+  "quotedPlanMonthlyUSD": 0,
+  "httpStatus": 400,
+  "status": "blocked",
+  "reason": "The following organization members have reached their maximum limits for the number of active free projects within organizations where they are an administrator or owner: [account owner] (2 project limit). To continue, these users will need to either delete, pause or upgrade one or more of these projects."
+}

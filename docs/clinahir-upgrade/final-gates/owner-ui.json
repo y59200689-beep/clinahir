@@ -1,0 +1,44 @@
+{
+  "scope": "Production browser artifact, synthetic fixture transport; not live MFA or human enrollment",
+  "groups": [
+    "MFA en keyboard, validation, reflow and success",
+    "Owner password en private fragment removal, validation and success",
+    "MFA fr keyboard, validation, reflow and success",
+    "Owner password fr private fragment removal, validation and success"
+  ],
+  "axe": [
+    {
+      "name": "mfa-enroll-en",
+      "violations": []
+    },
+    {
+      "name": "mfa-code-en",
+      "violations": []
+    },
+    {
+      "name": "mfa-error-en",
+      "violations": []
+    },
+    {
+      "name": "owner-password-en",
+      "violations": []
+    },
+    {
+      "name": "mfa-enroll-fr",
+      "violations": []
+    },
+    {
+      "name": "mfa-code-fr",
+      "violations": []
+    },
+    {
+      "name": "mfa-error-fr",
+      "violations": []
+    },
+    {
+      "name": "owner-password-fr",
+      "violations": []
+    }
+  ],
+  "status": "passed"
+}

@@ -1,8 +1,10 @@
+import { environmentFailure } from '../../server/environment.js';
 import { serverConfig } from '../../server/config.js';
 import { retryRequest } from '../../server/http.js';
 import { SupabaseLeadStore } from '../../server/supabase.js';
 import { processWhatsApp } from '../../server/whatsapp.js';
 async function handle(request:Request):Promise<Response>{
+ const failure = environmentFailure(process.env, request); if (failure) return failure;
  try {
   const store=new SupabaseLeadStore(process.env.SUPABASE_URL ?? '',process.env.SUPABASE_SERVICE_ROLE_KEY ?? '');
   const response=await retryRequest(request,store,serverConfig(process.env));

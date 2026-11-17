@@ -1,0 +1,121 @@
+{
+  "executedAt": "2026-11-16T10:22:17.950Z",
+  "scope": "Real protected staging API and durable controlled CRM only; no live CRM, WhatsApp or clinical data",
+  "checks": [
+    {
+      "name": "server identity remains staging",
+      "passed": true
+    },
+    {
+      "name": "queue contains only synthetic acceptance leads",
+      "passed": true
+    },
+    {
+      "name": "owner signs in for failure and CMS acceptance",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver mode outage",
+      "passed": true
+    },
+    {
+      "name": "outage still acknowledges durable website capture",
+      "passed": true
+    },
+    {
+      "name": "outage leaves saved lead pending with bounded error",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver mode accepted-but-unacknowledged",
+      "passed": true
+    },
+    {
+      "name": "accepted-but-unacknowledged still acknowledges durable website capture",
+      "passed": true
+    },
+    {
+      "name": "accepted-but-unacknowledged leaves saved lead pending with bounded error",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver mode timeout",
+      "passed": true
+    },
+    {
+      "name": "timeout still acknowledges durable website capture",
+      "passed": true
+    },
+    {
+      "name": "timeout leaves saved lead pending with bounded error",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver mode healthy",
+      "passed": true
+    },
+    {
+      "name": "owner reads staged CMS",
+      "passed": true
+    },
+    {
+      "name": "bilingual draft saves",
+      "passed": true
+    },
+    {
+      "name": "stale CMS version rejected",
+      "passed": true
+    },
+    {
+      "name": "synthetic bilingual content publishes only to staging",
+      "passed": true
+    },
+    {
+      "name": "fresh public content API exposes published staging document",
+      "passed": true
+    },
+    {
+      "name": "both published locale headlines persist",
+      "passed": true
+    },
+    {
+      "name": "concurrent authenticated staging retry processors complete",
+      "passed": true
+    },
+    {
+      "name": "retry synchronizes cli_c2f848c6-a78e-44f0-ba2d-5b98e16afb6f",
+      "passed": true
+    },
+    {
+      "name": "independent durable receiver reports one receipt cli_c2f848c6-a78e-44f0-ba2d-5b98e16afb6f",
+      "passed": true
+    },
+    {
+      "name": "retry synchronizes cli_e762a686-6d4f-458f-a71b-b240fb5e65ae",
+      "passed": true
+    },
+    {
+      "name": "independent durable receiver reports one receipt cli_e762a686-6d4f-458f-a71b-b240fb5e65ae",
+      "passed": true
+    },
+    {
+      "name": "retry synchronizes cli_b50ca1b0-e214-4a97-a188-5e534903f7be",
+      "passed": true
+    },
+    {
+      "name": "independent durable receiver reports one receipt cli_b50ca1b0-e214-4a97-a188-5e534903f7be",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver mode healthy",
+      "passed": true
+    }
+  ],
+  "syntheticExternalIds": [
+    "cli_c2f848c6-a78e-44f0-ba2d-5b98e16afb6f",
+    "cli_e762a686-6d4f-458f-a71b-b240fb5e65ae",
+    "cli_b50ca1b0-e214-4a97-a188-5e534903f7be"
+  ],
+  "status": "passed",
+  "sessionCleanup": "logged_out"
+}

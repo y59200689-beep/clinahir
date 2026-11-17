@@ -1,0 +1,15 @@
+{
+  "executedAt": "2026-11-17T12:38:39.677Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "status": "applied_and_verified",
+  "providerVersion": "20261117123734",
+  "providerName": "clinahir_production_upgrade",
+  "candidateSha256": "795effede714ae0a5d7cfacb1b94939ccc658353232c902ec9933bba94ff72b3",
+  "transaction": "Provider apply_migration transaction; stripped only reviewed BEGIN/COMMIT wrapper, preserving body and baseline guard",
+  "leadRowsPreserved": 6,
+  "legacyLeadDigest": "79128dc01498fccabcdb023fdcc218e1",
+  "applicationTables": 8,
+  "allApplicationTablesRls": true,
+  "whatsappJobsCreatedByMigration": 0,
+  "oldHistoryPreserved": true
+}

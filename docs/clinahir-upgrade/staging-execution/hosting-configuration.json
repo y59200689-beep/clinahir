@@ -1,0 +1,32 @@
+{
+  "executedAt": "2026-11-16T10:11:23.453Z",
+  "projectRef": "fsfqgionuuxykpoxhrdm",
+  "hostingProjectId": "prj_ncLXnX0fRpThugNz33klNz4Sskq3",
+  "productionCrm": "Owner confirmed no production CRM configured on 2026-11-16",
+  "automationAccessConfigured": true,
+  "receiverFixture": {
+    "sha256": "210c7162cadea13a5c71349e2078028cebc1fdf3b749011d32117676127309ec",
+    "scope": "private synthetic receipt/control schema and service-role-only RPC; outside seven application migrations"
+  },
+  "environmentKeys": [
+    "CLINAHIR_ENV",
+    "VITE_APP_ENV",
+    "CLINAHIR_STAGING_ORIGIN",
+    "CLINAHIR_STAGING_SUPABASE_REF",
+    "CLINAHIR_PRODUCTION_SUPABASE_REF",
+    "SUPABASE_URL",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "CLINAHIR_ADMIN_EMAIL",
+    "CLINAHIR_ADMIN_USER_ID",
+    "CRON_SECRET",
+    "DAILY_COMMAND_URL",
+    "CLINAHIR_STAGING_CRM_ORIGIN",
+    "CLINAHIR_PRODUCTION_CRM_CONFIGURED",
+    "CLINAHIR_INTEGRATION_SECRET",
+    "WHATSAPP_ENABLED",
+    "VITE_SENTRY_ENABLED",
+    "CLINAHIR_STAGING_RECEIVER_ENABLED",
+    "STAGING_PROTECTION_BYPASS"
+  ],
+  "status": "configured_not_deployed"
+}

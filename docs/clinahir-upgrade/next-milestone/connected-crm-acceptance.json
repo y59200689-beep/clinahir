@@ -1,0 +1,57 @@
+{
+  "executedAt": "2026-11-16T11:23:29.762Z",
+  "scope": "Actual protected Clinahir website API → separate real Daily Command sandbox → independent reads of both databases; no mocked receiver or production writes",
+  "checks": [
+    {
+      "name": "Clinahir remains hosting-protected",
+      "passed": true
+    },
+    {
+      "name": "deployed connector identifies staging",
+      "passed": true
+    },
+    {
+      "name": "concurrent website submissions durably acknowledged",
+      "passed": true
+    },
+    {
+      "name": "both website responses retain one external ID",
+      "passed": true
+    },
+    {
+      "name": "exactly one Clinahir lead persists",
+      "passed": true
+    },
+    {
+      "name": "Clinahir records real CRM acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "independent CRM database read succeeds",
+      "passed": true
+    },
+    {
+      "name": "exactly one real CRM row independently confirms delivery",
+      "passed": true
+    },
+    {
+      "name": "CRM receipt belongs only to synthetic destination owner",
+      "passed": true
+    },
+    {
+      "name": "business fields and intent survive actual system mapping",
+      "passed": true
+    },
+    {
+      "name": "old simulated receiver is disabled in new staging deployment",
+      "passed": true
+    },
+    {
+      "name": "durable WhatsApp queue remains unsent while disabled",
+      "passed": true
+    }
+  ],
+  "syntheticExternalId": "cli_1304cc8a-6f62-4149-9048-d673c898853a",
+  "crmLeadId": "b5a9b883-8b70-430b-a410-e01a105f61f9",
+  "status": "passed"
+}

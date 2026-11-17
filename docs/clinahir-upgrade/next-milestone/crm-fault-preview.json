@@ -1,0 +1,7 @@
+{
+  "executedAt": "2026-11-16T11:28:01.640Z",
+  "projectId": "prj_rBqHhiFWZyiB9s19F4vJ4oxzQ6fF",
+  "scope": "Separate sandbox-only fault Preview; deliberately invalid database credential overrides this deployment only; healthy project environment and live CRM untouched",
+  "status": "deployed",
+  "url": "https://clinahir-crm-sandbox-6ak88elnr-paraoonline.vercel.app"
+}

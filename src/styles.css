@@ -53,6 +53,8 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
+.deferred-section { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.marketing-loading { padding: 2rem; text-align: center; }
 
 html {
   scroll-behavior: smooth;
@@ -68,82 +70,35 @@ html {
   html { scroll-behavior: auto; }
 }
 
-/* The lower landing page carries the refined dark glass language. */
-.marketing-proof {
-  background: #0d1411;
-}
-.marketing-proof > div {
+/* Refined Apple-grade glass language & micro-interactions */
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
   background: #ffffff;
-  border: 1px solid var(--border);
-  box-shadow: 0 16px 40px rgb(0 0 0 / 8%);
+  border: 2px solid #01bc7c;
+  box-shadow: 0 4px 12px rgba(1, 188, 124, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.marketing-process {
-  background: #0e1713;
-  color: white;
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 18px rgba(1, 188, 124, 0.6);
 }
-.marketing-process > div > h2 { color: white; }
-.marketing-process > div > div.grid > article {
-  min-height: 250px;
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-top: 2px solid var(--brand-primary);
-  border-radius: 20px;
-  padding: 24px;
-  background: rgb(255 255 255 / 4%);
-  backdrop-filter: blur(16px);
-  transition: background-color .2s ease, border-color .2s ease;
-}
-.marketing-process > div > div.grid > article:hover {
-  background: rgb(255 255 255 / 7%);
-  border-color: rgb(255 255 255 / 18%);
-}
-.marketing-process > div > div.grid > article p { color: rgb(255 255 255 / 70%); }
-.marketing-fit {
-  background: var(--surface-muted);
-}
-.marketing-fit article {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-.marketing-fit article:hover {
-  box-shadow: 0 12px 32px rgb(0 0 0 / 8%);
-}
-.marketing-fit article:nth-child(2) {
-  background: #11211a;
-  border-color: rgb(255 255 255 / 12%);
-  color: white;
-}
-.marketing-fit article:nth-child(2) p { color: rgb(255 255 255 / 70%); }
-.marketing-fit article:nth-child(2) p:last-child { color: #72e1b4; border-color: rgb(255 255 255 / 16%); }
-.marketing-about {
-  position: relative;
-  overflow: hidden;
-  background: #0d1411;
-}
-.marketing-about > div { position: relative; }
-.marketing-form {
-  background: #0a130f;
-  color: white;
-}
-.marketing-form > div > div > p:not(:first-child) { color: rgb(255 255 255 / 78%); }
-.marketing-form > div > div > div { background: rgb(255 255 255 / 8%); color: rgb(255 255 255 / 85%); border: 1px solid rgb(255 255 255 / 14%); backdrop-filter: blur(16px); }
-.marketing-form form {
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
   background: #ffffff;
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  box-shadow: 0 20px 48px rgb(0 0 0 / 12%);
+  border: 2px solid #01bc7c;
+  box-shadow: 0 4px 12px rgba(1, 188, 124, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-@media (max-width: 767px) {
-  .marketing-process > div > div.grid > article {
-    min-height: 0;
-    padding: 20px;
-  }
-  .marketing-process > div > div.grid > article > span { margin-bottom: 16px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marketing-process > div > div.grid > article,
-  .marketing-fit article { transition: none; }
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 18px rgba(1, 188, 124, 0.6);
 }
 
 .mobile-prototype {
@@ -170,3 +125,29 @@ html {
 #interactive-demo .text-white\/50 { color: rgb(255 255 255 / .76); }
 #interactive-demo .text-white\/40 { color: rgb(255 255 255 / .72); }
 #interactive-demo .text-white\/60 { color: rgb(255 255 255 / .82); }
+
+/* Upgrade primitives: explicit focus, contained dialogs, accessible navigation. */
+:where(button, a, input, select, textarea):focus-visible { outline: 3px solid #079b77; outline-offset: 3px; }
+.demo-modal { width: min(32rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 1px solid #66877a; border-radius: 1.25rem; padding: 1.5rem; background: #182e26; color: white; box-shadow: 0 24px 80px #0006; }
+.demo-modal::backdrop { background: #06130dbb; }
+.skip-link { position: fixed; top: 1rem; left: 1rem; transform: translateY(-200%); z-index: 1000; background: white; color: #111; padding: .8rem 1rem; border-radius: .5rem; }
+.skip-link:focus { transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.admin-modal { width: min(30rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 1px solid #e2e5eb; border-radius: 1rem; padding: 1.5rem; background: white; color: #20232b; box-shadow: 0 24px 80px #0003; }
+.admin-modal::backdrop { background: #0f172a66; }
+.app-recovery { max-width: 36rem; margin: 12vh auto; padding: 2rem; font-family: system-ui, sans-serif; color: #20232b; }
+.app-recovery h1 { font-size: 1.6rem; }
+.app-recovery button { margin-top: 1rem; padding: .8rem 1rem; border-radius: .5rem; background: #16795b; color: white; }
+
+/* Preserve the demo palette while giving small labels and green actions sufficient contrast. */
+#interactive-demo .text-white\/40,
+#interactive-demo .text-white\/50 { color: rgba(255, 255, 255, .76); }
+#interactive-demo button.bg-\[\#01bc7c\] { color: #042c1e; }
+
+[data-public-site] .text-white\/40,
+[data-public-site] .text-white\/50 { color: rgba(255,255,255,.76); }
+[data-public-site] .bg-\[\#01bc7c\] { color: #042c1e; }
+
+.demo-reserved { min-height: 900px; }
+@media (max-width: 767px) { .demo-reserved { min-height: 1250px; } }

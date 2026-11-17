@@ -1,0 +1,80 @@
+{
+  "executedAt": "2026-11-16T23:32:14.092Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "backupId": "2026-11-16T23-30-09-724Z",
+  "driveArchiveId": "1rWCHixrX3u0UUGayGXqU-y5sATbC9UXN",
+  "participation": "agent-operated technical drill; no independent human custody claim",
+  "checks": [
+    {
+      "name": "independent Drive download ciphertext and plaintext digests verified",
+      "passed": true
+    },
+    {
+      "name": "fresh local restore container created",
+      "passed": true
+    },
+    {
+      "name": "container has no network and no published ports",
+      "passed": true
+    },
+    {
+      "name": "local-only restore roles prepared",
+      "passed": true
+    },
+    {
+      "name": "application SQL and private grants restored atomically",
+      "passed": true
+    },
+    {
+      "name": "full row count and digest match clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "full row count and digest match clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "full row count and digest match clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "four application relations and seven routines restored",
+      "passed": true
+    },
+    {
+      "name": "service role can read restored leads",
+      "passed": true
+    },
+    {
+      "name": "restricted roles cannot execute restored private routines",
+      "passed": true
+    }
+  ],
+  "productionChanges": false,
+  "status": "passed",
+  "containerRemoved": true
+}

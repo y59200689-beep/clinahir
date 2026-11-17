@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-11-17T13:15:23.515Z",
+  "status": "production_live_acceptance_passed",
+  "nodeTestsPassed": 127,
+  "nodeTestsFailed": 0,
+  "fullReleaseCheckCommands": 12,
+  "allReleaseCommandsPassed": true,
+  "browserGroups": 24,
+  "ownerAxeScans": 8,
+  "manualZoomPercent": 200,
+  "productionBuildPreflight": {
+    "validFictionalConfiguration": "passed",
+    "missingMfaConfiguration": "rejected"
+  },
+  "databaseRehearsalChecks": 95,
+  "productionOwner": {
+    "authUsers": 1,
+    "mfaRequired": false,
+    "passwordSetPrivately": true,
+    "needsCreationAndPrivateEnrollment": false
+  },
+  "backupAutomation": "clinahir-production-encrypted-backups",
+  "productionMigrationExecuted": true,
+  "productionDeploymentExecuted": true,
+  "productionConfigurationChanged": true,
+  "liveCrmAcceptanceExecuted": true,
+  "activationAuthorized": true,
+  "blockingInputs": [],
+  "references": {
+    "source": "release-candidate.json",
+    "migration": "migration-candidate.json",
+    "security": "security-review.json",
+    "operations": "operations.md",
+    "rollout": "rollout-review.md"
+  },
+  "limitations": [
+    "Next 03:00 UTC delivery cron run not yet observed",
+    "Desktop backup executor requires available Mac/Codex/Docker/Drive",
+    "Managed Auth/Storage excluded from approved application backup"
+  ],
+  "completionRecord": "release-completion.md",
+  "passwordRecovery": "Completed privately by owner; confirmed November 17 with fresh sign-in metadata"
+}

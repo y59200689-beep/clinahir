@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-11-16T23:29:15.932Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "scope": "Clinahir public application objects/data only; no managed Auth/Storage",
+  "productionChanges": false,
+  "checks": [
+    {
+      "name": "verified TLS and forced read-only session",
+      "passed": true
+    },
+    {
+      "name": "only approved application relations exist in public schema",
+      "passed": true
+    },
+    {
+      "name": "public routines are only Clinahir application routines",
+      "passed": false
+    }
+  ],
+  "identity": {
+    "user": "postgres",
+    "database": "postgres",
+    "readOnly": "on",
+    "ssl": false,
+    "version": "17.11",
+    "projectRef": null
+  },
+  "objects": [
+    {
+      "name": "clinahir_analytics_events",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_conversion_daily",
+      "kind": "v"
+    },
+    {
+      "name": "clinahir_lead_limits",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_leads",
+      "kind": "r"
+    }
+  ],
+  "routines": [
+    {
+      "name": "clinahir_allow_lead"
+    },
+    {
+      "name": "clinahir_capture_lead"
+    },
+    {
+      "name": "clinahir_claim_lead"
+    },
+    {
+      "name": "clinahir_finish_lead"
+    },
+    {
+      "name": "clinahir_record_analytics"
+    },
+    {
+      "name": "clinahir_replay_lead"
+    },
+    {
+      "name": "clinahir_update_timestamp"
+    },
+    {
+      "name": "rls_auto_enable"
+    }
+  ],
+  "status": "failed",
+  "failure": "public routines are only Clinahir application routines"
+}

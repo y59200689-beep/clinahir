@@ -1,0 +1,2 @@
+import {writeFile,mkdir} from 'node:fs/promises';import {verifyStagingWorkflow} from './workflow-checks.mjs';
+const report=await verifyStagingWorkflow(process.env);await mkdir('docs/clinahir-upgrade/phase3',{recursive:true});await writeFile('docs/clinahir-upgrade/phase3/staging-workflow-results.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));process.exitCode=report.status==='passed'?0:report.status==='blocked'?2:1;

@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-17T13:23:27.355Z",
+  "trigger": "manual_authorized_acceptance_not_scheduled",
+  "httpStatus": 200,
+  "result": {
+    "processed": 0,
+    "whatsapp": 0,
+    "whatsappError": false,
+    "health": [
+      {
+        "channel": "daily_command",
+        "status": "blocked",
+        "count": 1,
+        "oldest_at": "2026-10-03T10:16:55.164+00:00"
+      },
+      {
+        "channel": "daily_command",
+        "status": "synced",
+        "count": 6,
+        "oldest_at": "2026-10-03T11:56:52.973+00:00"
+      }
+    ]
+  },
+  "nextScheduledUtc": "2026-11-18T03:00:00Z",
+  "nextScheduledCasablanca": "2026-11-18T04:00:00+01:00",
+  "scheduledRunConfirmed": false,
+  "heartbeatConfirmed": true,
+  "heartbeatCompletedAt": "2026-11-17T13:23:27.261733Z",
+  "existingBlockedLegacyLeads": 1,
+  "existingBlockedLeadReplayed": false
+}

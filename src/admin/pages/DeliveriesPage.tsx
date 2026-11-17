@@ -1,3 +1,5 @@
+import Modal from '../../components/Modal';
+import { useAdminLocale } from '../i18n';
 import { useState } from 'react';
 import {
   Activity,
@@ -16,14 +18,15 @@ interface DeliveriesPageProps {
 }
 
 export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const [requeueTarget, setRequeueTarget] = useState<{ id: string; channel: string } | null>(null);
   const [isRequeueing, setIsRequeueing] = useState(false);
   const [error, setError] = useState('');
 
   const formatDate = (s: string | null) =>
-    s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Never';
+    s ? new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short' }) : 'Never';
   const formatTime = (s: string) =>
-    new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    new Date(s).toLocaleTimeString(intlLocale, { hour: '2-digit', minute: '2-digit' });
 
   async function handleConfirmRequeue() {
     if (!requeueTarget) return;
@@ -46,14 +49,11 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Deliveries
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-          CRM webhook synchronization and WhatsApp automated message status.
-        </p>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Deliveries")} </h1>
+        <p className="text-xs sm:text-sm text-slate-500 mt-0.5"> {t("CRM webhook synchronization and WhatsApp automated message status.")} </p>
       </div>
 
+<p className="text-sm text-slate-600"> {t("Configuration indicates settings are present, not verified delivery. CRM failures keep saved leads; WhatsApp acceptance is not delivery. Ambiguous sends require manual review.")} </p>
       {/* 3 Status Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] space-y-3">
@@ -62,8 +62,8 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             <StatusPill value={data.integrations.dailyCommand ? 'configured' : 'needs setup'} />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 text-sm">Daily Command CRM</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Webhook synchronization</p>
+            <h3 className="font-semibold text-slate-900 text-sm"> {t("Daily Command CRM")} </h3>
+            <p className="text-xs text-slate-500 mt-0.5"> {t("Webhook synchronization")} </p>
           </div>
         </div>
 
@@ -79,22 +79,22 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 text-sm">Meta WhatsApp API</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Outbound demo dispatch</p>
+            <h3 className="font-semibold text-slate-900 text-sm"> {t("Meta WhatsApp API")} </h3>
+            <p className="text-xs text-slate-500 mt-0.5"> {t("Outbound demo dispatch")} </p>
           </div>
         </div>
 
         <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] space-y-3">
           <div className="flex items-center justify-between">
             <Clock size={18} className="text-slate-400" />
-            <StatusPill value={data.heartbeat ? 'operational' : 'pending'} />
+            <StatusPill value={data.heartbeat && Date.now() - Date.parse(data.heartbeat) < 30 * 60 * 60 * 1000 ? 'recent run' : 'needs review'} />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 text-sm">Scheduler Heartbeat</h3>
+            <h3 className="font-semibold text-slate-900 text-sm"> {t("Scheduler Heartbeat")} </h3>
             <p className="text-xs text-slate-500 mt-0.5 font-mono">
               {data.heartbeat
                 ? `${formatDate(data.heartbeat)} ${formatTime(data.heartbeat)}`
-                : 'Pending next run'}
+                : t("Pending next run")}
             </p>
           </div>
         </div>
@@ -103,12 +103,8 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
       {/* Daily Command Queue Table */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] overflow-hidden">
         <div className="p-4 border-b border-slate-100">
-          <h3 className="text-sm font-semibold text-slate-900">
-            CRM Deliveries
-          </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Leads forwarded to external systems
-          </p>
+          <h3 className="text-sm font-semibold text-slate-900"> {t("CRM Deliveries")} </h3>
+          <p className="text-xs text-slate-500 mt-0.5"> {t("Leads forwarded to external systems")} </p>
         </div>
 
         {data.leads.length > 0 ? (
@@ -116,11 +112,11 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             <table className="w-full text-left border-collapse text-sm">
               <thead>
                 <tr className="bg-slate-50/60 text-xs font-medium text-slate-500 border-b border-slate-100">
-                  <th className="py-2.5 px-5">Clinic</th>
-                  <th className="py-2.5 px-3">Sync status</th>
-                  <th className="py-2.5 px-3 text-center">Attempts</th>
-                  <th className="py-2.5 px-4">Last response</th>
-                  <th className="py-2.5 px-5 text-right">Action</th>
+                  <th className="py-2.5 px-5"> {t("Clinic")} </th>
+                  <th className="py-2.5 px-3"> {t("Sync status")} </th>
+                  <th className="py-2.5 px-3 text-center"> {t("Attempts")} </th>
+                  <th className="py-2.5 px-4"> {t("Last response")} </th>
+                  <th className="py-2.5 px-5 text-right"> {t("Action")} </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -139,7 +135,7 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                     </td>
 
                     <td className="py-3 px-4 text-xs text-slate-500 font-mono">
-                      {lead.daily_command_last_error || 'Success'}
+                      {lead.daily_command_last_error || t("Success")}
                     </td>
 
                     <td className="py-3 px-5 text-right">
@@ -154,7 +150,7 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                           className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-slate-200 text-xs font-medium hover:bg-slate-50 text-slate-700"
                         >
                           <RefreshCw size={11} />
-                          <span>Requeue</span>
+                          <span> {t("Requeue")} </span>
                         </button>
                       ) : (
                         <span className="text-xs text-slate-400 font-mono">—</span>
@@ -166,21 +162,15 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             </table>
           </div>
         ) : (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            No deliveries recorded.
-          </div>
+          <div className="p-8 text-center text-slate-400 text-xs"> {t("No deliveries recorded.")} </div>
         )}
       </div>
 
       {/* WhatsApp Queue Table */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] overflow-hidden">
         <div className="p-4 border-b border-slate-100">
-          <h3 className="text-sm font-semibold text-slate-900">
-            WhatsApp Outbox
-          </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Meta API automated message logs
-          </p>
+          <h3 className="text-sm font-semibold text-slate-900"> {t("WhatsApp Outbox")} </h3>
+          <p className="text-xs text-slate-500 mt-0.5"> {t("Meta API automated message logs")} </p>
         </div>
 
         {data.whatsapp.length > 0 ? (
@@ -188,11 +178,11 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             <table className="w-full text-left border-collapse text-sm">
               <thead>
                 <tr className="bg-slate-50/60 text-xs font-medium text-slate-500 border-b border-slate-100">
-                  <th className="py-2.5 px-5">Lead reference</th>
-                  <th className="py-2.5 px-3">Status</th>
-                  <th className="py-2.5 px-3 text-center">Attempts</th>
-                  <th className="py-2.5 px-4">Result</th>
-                  <th className="py-2.5 px-5 text-right">Action</th>
+                  <th className="py-2.5 px-5"> {t("Lead reference")} </th>
+                  <th className="py-2.5 px-3"> {t("Status")} </th>
+                  <th className="py-2.5 px-3 text-center"> {t("Attempts")} </th>
+                  <th className="py-2.5 px-4"> {t("Result")} </th>
+                  <th className="py-2.5 px-5 text-right"> {t("Action")} </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -211,7 +201,7 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                     </td>
 
                     <td className="py-3 px-4 text-xs text-slate-500 font-mono">
-                      {job.last_error || 'Delivered'}
+                      {job.last_error || t(job.status)}
                     </td>
 
                     <td className="py-3 px-5 text-right">
@@ -226,7 +216,7 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                           className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-slate-200 text-xs font-medium hover:bg-slate-50 text-slate-700"
                         >
                           <RefreshCw size={11} />
-                          <span>Requeue</span>
+                          <span> {t("Requeue")} </span>
                         </button>
                       ) : (
                         <span className="text-xs text-slate-400 font-mono">—</span>
@@ -238,48 +228,13 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
             </table>
           </div>
         ) : (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            No WhatsApp jobs recorded.
-          </div>
+          <div className="p-8 text-center text-slate-400 text-xs"> {t("No WhatsApp jobs recorded.")} </div>
         )}
       </div>
 
       {/* Requeue Modal */}
-      {requeueTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="fixed inset-0 bg-slate-900/30"
-            onClick={() => setRequeueTarget(null)}
-          />
-          <div className="relative bg-white rounded-xl max-w-sm w-full p-5 shadow-xl border border-slate-200 space-y-3">
-            <h3 className="text-sm font-semibold text-slate-900">Requeue delivery?</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Ensure the upstream issue is resolved. The existing lead identity will be reused.
-            </p>
-            {error && <p className="text-xs text-rose-600">{error}</p>}
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <button
-                onClick={() => setRequeueTarget(null)}
-                className="px-3 py-1.5 rounded text-xs font-medium text-slate-600 hover:bg-slate-100"
-              >
-                Cancel
-              </button>
-              <button
-                disabled={isRequeueing}
-                onClick={() => void handleConfirmRequeue()}
-                className="px-3.5 py-1.5 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5"
-              >
-                {isRequeueing ? (
-                  <LoaderCircle size={14} className="animate-spin" />
-                ) : (
-                  <RefreshCw size={14} />
-                )}
-                <span>Requeue</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {requeueTarget && <Modal tone="admin" title={t('Requeue delivery?')} closeLabel={t('Close')} onClose={() => setRequeueTarget(null)}><p className="text-sm text-slate-600">{t('Ensure the upstream issue is resolved. The existing lead identity will be reused.')}</p>{error&&<p role="alert">{errorText(error)}</p>}<div className="mt-5 flex justify-end gap-3"><button type="button" onClick={()=>setRequeueTarget(null)}>{t('Cancel')}</button><button type="button" disabled={isRequeueing} onClick={()=>void handleConfirmRequeue()} className="rounded-lg bg-[#6754cf] px-4 py-2 text-white">{t('Requeue')}</button></div></Modal>}
+
     </div>
   );
 }

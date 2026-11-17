@@ -1,0 +1,27 @@
+{
+  "executedAt": "2026-11-16T10:36:13.279Z",
+  "scope": "Read-only application routine/view definitions, RLS tables/policies and private routine privileges; provider objects excluded",
+  "checks": [
+    {
+      "name": "restored views definitions and permissions match source",
+      "passed": true
+    },
+    {
+      "name": "restored tables definitions and permissions match source",
+      "passed": true
+    },
+    {
+      "name": "restored policies definitions and permissions match source",
+      "passed": true
+    },
+    {
+      "name": "restored routines definitions and permissions match source",
+      "passed": true
+    },
+    {
+      "name": "all private application routines deny both browser roles and permit service role",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

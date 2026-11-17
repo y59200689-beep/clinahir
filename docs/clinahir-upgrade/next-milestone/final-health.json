@@ -1,0 +1,31 @@
+{
+  "executedAt": "2026-11-16T11:40:55.916Z",
+  "scope": "Final alias/protection/runtime checks after failure drill; live CRM read-only",
+  "checks": [
+    {
+      "name": "Clinahir alias targets verified healthy Preview",
+      "passed": true
+    },
+    {
+      "name": "Clinahir unauthenticated hosting protection remains active",
+      "passed": true
+    },
+    {
+      "name": "CRM alias targets verified healthy Preview",
+      "passed": true
+    },
+    {
+      "name": "CRM unauthenticated hosting protection remains active",
+      "passed": true
+    },
+    {
+      "name": "healthy real CRM serves existing synthetic receipt after fault drill",
+      "passed": true
+    },
+    {
+      "name": "live CRM still exposes its existing login redirect",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

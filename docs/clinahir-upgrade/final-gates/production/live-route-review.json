@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-11-17T08:41:43.706Z",
+  "scope": "Unauthenticated read-only live routing checks only; no form submission, cron processing or data writes",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "redirect": null,
+      "robots": null,
+      "cacheControl": "public, max-age=0, must-revalidate"
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "redirect": null,
+      "robots": "noindex, nofollow",
+      "cacheControl": "public, max-age=0, must-revalidate"
+    },
+    {
+      "path": "/admin/",
+      "status": 200,
+      "redirect": null,
+      "robots": null,
+      "cacheControl": "public, max-age=0, must-revalidate"
+    },
+    {
+      "path": "/api/admin?action=snapshot",
+      "status": 401,
+      "redirect": null,
+      "robots": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "path": "/api/cron/health",
+      "status": 401,
+      "redirect": null,
+      "robots": null,
+      "cacheControl": "public, max-age=0, must-revalidate"
+    }
+  ]
+}

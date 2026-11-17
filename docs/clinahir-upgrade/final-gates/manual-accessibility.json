@@ -1,0 +1,17 @@
+{
+  "scope": "Sampled native Safari keyboard and semantic checks using local production artifacts and fictional transport; no clinical data",
+  "checks": {
+    "keyboardSkipLinkFocusesDemo": true,
+    "keyboardPatientNavigation": true,
+    "frenchProfileDialogLabels": true,
+    "modalBackgroundInert": true,
+    "escapeDismissesDialogAndRestoresPriorFocus": true,
+    "frenchChartDescriptionsLocalized": true
+  },
+  "limits": [
+    "Safari full-link keyboard navigation tested with Option-Tab, matching its current keyboard preference.",
+    "No completed numeric 200% manual zoom certification or full screen-reader audit claimed.",
+    "Owner stopped VoiceOver testing; OS switch was explicitly confirmed off. No custom VoiceOver website feature was added.",
+    "Automated mobile/tablet and focus tests are recorded separately."
+  ]
+}

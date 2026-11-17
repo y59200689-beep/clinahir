@@ -1,0 +1,19 @@
+{
+  "executedAt": "2026-11-16T11:03:12.952Z",
+  "projectRef": "wpjoszvojojuxmozkhkm",
+  "scope": "New CRM sandbox synthetic accounts and Preview-only variables",
+  "environmentKeys": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_SECRET_KEY",
+    "NEXT_PUBLIC_APP_URL",
+    "CLINAHIR_INTEGRATION_SECRET",
+    "CLINAHIR_LEADS_USER_ID",
+    "INTEGRATION_ENCRYPTION_KEY",
+    "CRON_SECRET",
+    "GMAIL_ENABLE_SEND",
+    "NEXT_PUBLIC_DEMO_MODE"
+  ],
+  "externalProviderCredentials": "absent",
+  "status": "configured"
+}

@@ -1,0 +1,19 @@
+{
+  "recordedAt": "2026-11-17T12:25:35.099Z",
+  "userInstruction": "go finish all these task in one session",
+  "context": "Direct response to remaining owner provisioning, coordinated configuration, reviewed migration/deployment and bounded live CRM acceptance tasks",
+  "scope": "Reviewed Clinahir nonclinical website/owner-admin release only; exact chosen owner and CRM recipient",
+  "sourceSha256": "c4f3da71c9464da77a9e5ef4e6b8b9f7dcbf5190d340f02fd1a91009c380646b",
+  "migrationSha256": "795effede714ae0a5d7cfacb1b94939ccc658353232c902ec9933bba94ff72b3",
+  "productionActivationAuthorized": true,
+  "whatsappAuthorized": false,
+  "clinicalWorkAuthorized": false,
+  "ownerPasswordAndMfa": "Password chosen privately; MFA enrollment optional and no longer a launch gate",
+  "rolloutPolicy": "Stage immutable production candidates without changing aliases; verify before promotion; preserve existing source leads/outbox IDs",
+  "ownerMfaPolicy": "optional; password-only sign-in authorized by explicit November 17 user instruction",
+  "additionalUserInstructions": [
+    "Authenticator optional; password-only allowed",
+    "Add Forgot password link",
+    "Approve production Site URL and exact recovery callback"
+  ]
+}

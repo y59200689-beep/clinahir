@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import {
   Users,
   MessageCircle,
@@ -25,27 +26,24 @@ export function OverviewPage({
   onSelectLead,
   onFilterStage,
 }: OverviewPageProps) {
-  const number = (n: number) => new Intl.NumberFormat('en').format(n);
+  const { t, errorText, intlLocale } = useAdminLocale();
+  const number = (n: number) => new Intl.NumberFormat(intlLocale).format(n);
   const formatDate = (s: string | null) =>
-    s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—';
+    s ? new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short' }) : '—';
   const formatTime = (s: string) =>
-    new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    new Date(s).toLocaleTimeString(intlLocale, { hour: '2-digit', minute: '2-digit' });
 
   return (
     <div className="space-y-6">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Overview
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Patient inquiries, recent activity, and integration health.
-          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Overview")} </h1>
+          <p className="text-xs sm:text-sm text-slate-500 mt-0.5"> {t("Business demo requests, recent activity, and integration health.")} </p>
         </div>
 
         <div className="text-xs font-mono text-slate-500">
-          {new Date().toLocaleDateString('en-GB', {
+          {new Date().toLocaleDateString(intlLocale, {
             weekday: 'short',
             day: 'numeric',
             month: 'short',
@@ -58,43 +56,40 @@ export function OverviewPage({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         <KpiCard
           isHero
-          title="New Inquiries"
+          title={t("New Inquiries")}
           value={number(data.summary.new)}
-          subtitle="Awaiting initial response"
+          subtitle={t("Awaiting initial response")}
           icon={MessageCircle}
           onClick={() => {
             onFilterStage('new');
-            onNavigate('Leads');
           }}
         />
 
         <KpiCard
-          title="Captured Leads"
+          title={t("Captured Leads")}
           value={number(data.summary.total)}
-          subtitle="Inbound website requests"
+          subtitle={t("Inbound website requests")}
           icon={Users}
           onClick={() => onNavigate('Leads')}
         />
 
         <KpiCard
-          title="Qualified Centers"
+          title={t("Qualified Centers")}
           value={number(data.summary.qualified)}
-          subtitle="Passed clinical review"
+          subtitle={t("Passed clinical review")}
           icon={ShieldCheck}
           onClick={() => {
             onFilterStage('qualified');
-            onNavigate('Leads');
           }}
         />
 
         <KpiCard
-          title="Clinics Won"
+          title={t("Clinics Won")}
           value={number(data.summary.won)}
-          subtitle="Onboarded partners"
+          subtitle={t("Onboarded partners")}
           icon={CheckCircle2}
           onClick={() => {
             onFilterStage('won');
-            onNavigate('Leads');
           }}
         />
       </div>
@@ -108,21 +103,17 @@ export function OverviewPage({
             </div>
             <div>
               <h3 className="font-semibold text-sm text-white">
-                {data.summary.new} {data.summary.new === 1 ? 'inquiry requires' : 'inquiries require'} follow-up
-              </h3>
-              <p className="text-xs text-emerald-300/70 mt-0.5">
-                First response within 2 hours yields the highest consultation rate.
-              </p>
+                {data.summary.new} {data.summary.new === 1 ? t("inquiry requires") : t("inquiries require")} {t("follow-up")} </h3>
+              <p className="text-xs text-emerald-300/70 mt-0.5"> {t("First response within 2 hours yields the highest consultation rate.")} </p>
             </div>
           </div>
           <button
             onClick={() => {
               onFilterStage('new');
-              onNavigate('Leads');
             }}
             className="self-start sm:self-center px-3.5 py-2 rounded-lg bg-white text-[#0A261D] hover:bg-emerald-50 text-xs font-semibold transition-colors flex items-center gap-1.5 whitespace-nowrap"
           >
-            <span>Review leads</span>
+            <span> {t("Review leads")} </span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -135,23 +126,19 @@ export function OverviewPage({
           <div className="p-5 border-b border-slate-100 flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold text-slate-900">
-                  Recent Inquiries
-                </h3>
+                <h3 className="text-sm font-semibold text-slate-900"> {t("Recent Inquiries")} </h3>
                 <span className="text-xs font-mono font-semibold text-slate-500">
                   ({data.leads.length})
                 </span>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Latest submissions from the website
-              </p>
+              <p className="text-xs text-slate-500 mt-0.5"> {t("Latest submissions from the website")} </p>
             </div>
 
             <button
               onClick={() => onNavigate('Leads')}
               className="text-xs font-medium text-emerald-800 hover:text-emerald-950 flex items-center gap-1 transition-colors"
             >
-              <span>View all</span>
+              <span> {t("View all")} </span>
               <ArrowRight size={13} />
             </button>
           </div>
@@ -161,10 +148,10 @@ export function OverviewPage({
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50/60 text-xs font-medium text-slate-500 border-b border-slate-100">
-                    <th className="py-2.5 px-5">Clinic</th>
-                    <th className="py-2.5 px-3">Stage</th>
-                    <th className="py-2.5 px-3">Source</th>
-                    <th className="py-2.5 px-5 text-right">Received</th>
+                    <th className="py-2.5 px-5"> {t("Clinic")} </th>
+                    <th className="py-2.5 px-3"> {t("Stage")} </th>
+                    <th className="py-2.5 px-3"> {t("Source")} </th>
+                    <th className="py-2.5 px-5 text-right"> {t("Received")} </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-sm">
@@ -184,7 +171,7 @@ export function OverviewPage({
                               {lead.company_name}
                             </div>
                             <div className="text-[11px] text-slate-400 truncate">
-                              {lead.contact_name || lead.phone || 'Contact'} · {lead.city}
+                              {lead.contact_name || lead.phone || t("Contact")} · {lead.city}
                             </div>
                           </div>
                         </div>
@@ -195,7 +182,7 @@ export function OverviewPage({
                       </td>
 
                       <td className="py-3 px-3 text-xs text-slate-500 font-mono">
-                        {lead.utm_source || 'Direct'}
+                        {lead.utm_source || t("Direct")}
                       </td>
 
                       <td className="py-3 px-5 text-right">
@@ -214,8 +201,8 @@ export function OverviewPage({
           ) : (
             <div className="p-10 text-center">
               <Users size={28} className="mx-auto text-slate-300 mb-2" />
-              <p className="text-xs font-medium text-slate-700">No inquiries recorded yet</p>
-              <p className="text-[11px] text-slate-400 mt-0.5">Website submissions will appear here automatically.</p>
+              <p className="text-xs font-medium text-slate-700"> {t("No inquiries recorded yet")} </p>
+              <p className="text-[11px] text-slate-400 mt-0.5"> {t("Website submissions will appear here automatically.")} </p>
             </div>
           )}
         </div>
@@ -225,26 +212,22 @@ export function OverviewPage({
           {/* Activity Chart */}
           <ActivityChart
             rows={data.analytics}
-            title="Conversion Trend"
-            subtitle="Demo submissions by day"
+            title={t("Conversion Trend")}
+            subtitle={t("Demo submissions by day")}
           />
 
           {/* Integration Health Card */}
           <div className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-slate-900">
-                  Deliveries & Outbox
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Synchronizations and workers
-                </p>
+                <h3 className="text-sm font-semibold text-slate-900"> {t("Deliveries & Outbox")} </h3>
+                <p className="text-xs text-slate-500 mt-0.5"> {t("Synchronizations and workers")} </p>
               </div>
               <button
                 onClick={() => onNavigate('Deliveries')}
                 className="text-xs font-medium text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
               >
-                <span>Manage</span>
+                <span> {t("Manage")} </span>
                 <ArrowRight size={12} />
               </button>
             </div>
@@ -253,7 +236,7 @@ export function OverviewPage({
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2.5">
                   <Activity size={15} className="text-slate-400" />
-                  <span className="font-medium text-slate-800">Daily Command CRM</span>
+                  <span className="font-medium text-slate-800"> {t("Daily Command CRM")} </span>
                 </div>
                 <StatusPill
                   value={data.integrations.dailyCommand ? 'configured' : 'needs setup'}
@@ -263,7 +246,7 @@ export function OverviewPage({
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2.5">
                   <MessageCircle size={15} className="text-slate-400" />
-                  <span className="font-medium text-slate-800">WhatsApp Dispatch</span>
+                  <span className="font-medium text-slate-800"> {t("WhatsApp Dispatch")} </span>
                 </div>
                 <StatusPill
                   value={
@@ -277,7 +260,7 @@ export function OverviewPage({
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2.5">
                   <Clock size={15} className="text-slate-400" />
-                  <span className="font-medium text-slate-800">Cron Scheduler</span>
+                  <span className="font-medium text-slate-800"> {t("Cron Scheduler")} </span>
                 </div>
                 <StatusPill
                   value={data.heartbeat ? 'operational' : 'pending'}

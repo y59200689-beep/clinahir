@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import {
   Building2,
@@ -46,6 +47,7 @@ function csvRecordCount(source: string) {
 }
 
 export function ProspectsPage({ onToast }: ProspectsPageProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const [data, setData] = useState<ProspectSnapshot>({
     prospects: [],
     total: 0,
@@ -77,7 +79,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
   const [drawerBusy, setDrawerBusy] = useState(false);
   const [drawerError, setDrawerError] = useState('');
 
-  const number = (n: number) => new Intl.NumberFormat('en').format(n);
+  const number = (n: number) => new Intl.NumberFormat(intlLocale).format(n);
 
   async function load() {
     const seq = ++loadSeq.current;
@@ -163,7 +165,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
       setFileName('');
       setConfirmSource(false);
       if (fileRef.current) fileRef.current.value = '';
-      onToast(`${result.inserted} prospects imported · ${result.duplicates} duplicates skipped.`);
+      onToast(t('Imported {{count}} prospects; {{duplicates}} duplicates skipped.', {count:result.inserted, duplicates:result.duplicates}));
       await load();
     } catch (e) {
       setError((e as Error).message);
@@ -191,12 +193,8 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Prospect Directory
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Sourced medical centers across {data.cities.length} cities.
-          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Prospect Directory")} </h1>
+          <p className="text-xs sm:text-sm text-slate-500 mt-0.5"> {t("Sourced medical centers across")} {data.cities.length} {t("cities.")} </p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -205,18 +203,18 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium text-xs transition-colors shadow-sm"
           >
             <ArrowDownToLine size={14} />
-            <span>CSV template</span>
+            <span> {t("CSV template")} </span>
           </button>
 
           <button
             onClick={() => fileRef.current?.click()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#6754cf] hover:bg-emerald-900 text-white font-medium text-xs transition-colors"
           >
             <Upload size={14} />
-            <span>Import prospects</span>
+            <span> {t("Import prospects")} </span>
           </button>
           <input
-            ref={fileRef}
+            aria-label={t("CSV file")} ref={fileRef}
             type="file"
             accept=".csv,text/csv"
             hidden
@@ -234,12 +232,11 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
               <div>
                 <h4 className="font-semibold text-slate-900 text-xs">{fileName}</h4>
                 <p className="text-[11px] text-slate-500">
-                  {number(recordsInUpload)} records detected
-                </p>
+                  {number(recordsInUpload)} {t("records detected")} </p>
               </div>
             </div>
             <button
-              onClick={() => {
+              aria-label={t('Close import')} onClick={() => {
                 setCsv('');
                 setFileName('');
               }}
@@ -256,22 +253,18 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
               onChange={(e) => setConfirmSource(e.target.checked)}
               className="mt-0.5 rounded text-emerald-700 focus:ring-emerald-600"
             />
-            <span>
-              I confirm this source permits collecting and retaining business details for commercial prospecting.
-            </span>
+            <span> {t("I confirm this source permits collecting and retaining business details for commercial prospecting.")} </span>
           </label>
 
           <div className="flex items-center justify-between pt-1">
-            <span className="text-[11px] text-slate-400">
-              Duplicates skipped. New records enter "Needs review".
-            </span>
+            <span className="text-[11px] text-slate-400"> {t("Duplicates skipped. New records enter \"Needs review\".")} </span>
             <button
               disabled={!confirmSource || importing}
               onClick={() => void importCsv()}
-              className="px-3.5 py-1.5 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
+              className="px-3.5 py-1.5 rounded-lg bg-[#6754cf] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
             >
               {importing ? <LoaderCircle size={14} className="animate-spin" /> : <Upload size={14} />}
-              <span>Import {number(recordsInUpload)} records</span>
+              <span> {t("Import")} {number(recordsInUpload)} {t("records")} </span>
             </button>
           </div>
         </div>
@@ -289,12 +282,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           }}
           className={`p-4 rounded-xl border text-left transition-colors ${
             !isFiltered
-              ? 'bg-[#0A261D] text-white border-emerald-900'
+              ? 'bg-[#6754cf] text-white border-emerald-900'
               : 'bg-white text-slate-800 border-slate-200/80 hover:border-slate-300'
           }`}
         >
           <div className="text-2xl font-semibold font-mono tabular-nums">{number(data.counts.total)}</div>
-          <p className="text-xs opacity-80 mt-1 font-medium">All prospects</p>
+          <p className="text-xs mt-1 font-medium"> {t("All prospects")} </p>
         </button>
 
         <button
@@ -304,12 +297,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           }}
           className={`p-4 rounded-xl border text-left transition-colors ${
             stage === 'review'
-              ? 'bg-[#0A261D] text-white border-emerald-900'
+              ? 'bg-[#6754cf] text-white border-emerald-900'
               : 'bg-white text-slate-800 border-slate-200/80 hover:border-slate-300'
           }`}
         >
           <div className="text-2xl font-semibold font-mono tabular-nums">{number(data.counts.review)}</div>
-          <p className="text-xs opacity-80 mt-1 font-medium">Needs review</p>
+          <p className="text-xs mt-1 font-medium"> {t("Needs review")} </p>
         </button>
 
         <button
@@ -319,12 +312,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           }}
           className={`p-4 rounded-xl border text-left transition-colors ${
             website === 'without'
-              ? 'bg-[#0A261D] text-white border-emerald-900'
+              ? 'bg-[#6754cf] text-white border-emerald-900'
               : 'bg-white text-slate-800 border-slate-200/80 hover:border-slate-300'
           }`}
         >
           <div className="text-2xl font-semibold font-mono tabular-nums">{number(data.counts.no_website)}</div>
-          <p className="text-xs opacity-80 mt-1 font-medium">No website</p>
+          <p className="text-xs mt-1 font-medium"> {t("No website")} </p>
         </button>
 
         <button
@@ -334,12 +327,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           }}
           className={`p-4 rounded-xl border text-left transition-colors ${
             stage === 'qualified'
-              ? 'bg-[#0A261D] text-white border-emerald-900'
+              ? 'bg-[#6754cf] text-white border-emerald-900'
               : 'bg-white text-slate-800 border-slate-200/80 hover:border-slate-300'
           }`}
         >
           <div className="text-2xl font-semibold font-mono tabular-nums">{number(data.counts.qualified)}</div>
-          <p className="text-xs opacity-80 mt-1 font-medium">Qualified</p>
+          <p className="text-xs mt-1 font-medium"> {t("Qualified")} </p>
         </button>
       </div>
 
@@ -350,12 +343,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           <div className="relative flex-1 max-w-sm">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
-              value={search}
+              aria-label={t("Search center, city, address or phone…")} value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPageIndex(0);
               }}
-              placeholder="Search center, city, address or phone…"
+              placeholder={t("Search center, city, address or phone…")}
               className="w-full pl-8 pr-7 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:bg-white transition-colors"
             />
             {search && (
@@ -370,14 +363,14 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
 
           <div className="flex flex-wrap items-center gap-2">
             <select
-              value={city}
+              aria-label={t("Select city")} value={city}
               onChange={(e) => {
                 setCity(e.target.value);
                 setPageIndex(0);
               }}
               className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium focus:outline-none"
             >
-              <option value="">All cities ({data.cities.length})</option>
+              <option value=""> {t("All cities (")} {data.cities.length})</option>
               {data.cities.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -386,23 +379,23 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             </select>
 
             <select
-              value={website}
+              aria-label={t("Website filter")} value={website}
               onChange={(e) => {
                 setWebsite(e.target.value);
                 setPageIndex(0);
               }}
               className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium focus:outline-none"
             >
-              <option value="">All listings</option>
-              <option value="with">Has website</option>
-              <option value="without">Missing website</option>
+              <option value=""> {t("All listings")} </option>
+              <option value="with"> {t("Has website")} </option>
+              <option value="without"> {t("Missing website")} </option>
             </select>
 
             <button
               onClick={() => void load()}
               disabled={busy}
               className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 transition-colors"
-              title="Refresh"
+              title={t("Refresh")}
             >
               <RefreshCw size={14} className={busy ? 'animate-spin' : ''} />
             </button>
@@ -415,18 +408,20 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             <table className="w-full text-left border-collapse text-sm">
               <thead>
                 <tr className="bg-slate-50/60 text-xs font-medium text-slate-500 border-b border-slate-100">
-                  <th className="py-2.5 px-5">Medical center</th>
-                  <th className="py-2.5 px-4">City</th>
-                  <th className="py-2.5 px-3">Specialty</th>
-                  <th className="py-2.5 px-3">Website</th>
-                  <th className="py-2.5 px-3">Rating</th>
-                  <th className="py-2.5 px-4">Status</th>
+                  <th className="py-2.5 px-5"> {t("Medical center")} </th>
+                  <th className="py-2.5 px-4"> {t("City")} </th>
+                  <th className="py-2.5 px-3"> {t("Specialty")} </th>
+                  <th className="py-2.5 px-3"> {t("Website")} </th>
+                  <th className="py-2.5 px-3"> {t("Rating")} </th>
+                  <th className="py-2.5 px-4"> {t("Status")} </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {data.prospects.map((p) => (
                   <tr
                     key={p.id}
+                    tabIndex={0}
+                    onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openProspectDrawer(p);}}}
                     onClick={() => openProspectDrawer(p)}
                     className="hover:bg-slate-50/70 cursor-pointer transition-colors group"
                   >
@@ -435,7 +430,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                         {p.center_name}
                       </div>
                       <div className="text-[11px] text-slate-400 font-mono">
-                        {p.phone || p.email || 'No phone listed'}
+                        {p.phone || p.email || t("No phone listed")}
                       </div>
                     </td>
 
@@ -448,7 +443,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
 
                     <td className="py-3 px-3">
                       <span className="text-xs text-slate-600">
-                        {p.category || 'Center'}
+                        {p.category || t("Center")}
                       </span>
                     </td>
 
@@ -461,11 +456,11 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                           onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-1 text-xs text-emerald-800 hover:underline"
                         >
-                          <span>Website</span>
+                          <span> {t("Website")} </span>
                           <ExternalLink size={11} />
                         </a>
                       ) : (
-                        <span className="text-xs text-rose-600">None</span>
+                        <span className="text-xs text-rose-600"> {t("None")} </span>
                       )}
                     </td>
 
@@ -487,8 +482,8 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
         ) : (
           <div className="p-12 text-center">
             <Building2 size={32} className="mx-auto text-slate-300 mb-2" />
-            <p className="text-xs font-medium text-slate-700">No prospects match</p>
-            <p className="text-[11px] text-slate-400 mt-0.5">Try clearing one of the filters above.</p>
+            <p className="text-xs font-medium text-slate-700"> {t("No prospects match")} </p>
+            <p className="text-[11px] text-slate-400 mt-0.5"> {t("Try clearing one of the filters above.")} </p>
           </div>
         )}
 
@@ -496,22 +491,21 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
         <div className="p-3.5 px-5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
           <span>
             {data.prospects.length ? number(pageIndex * 25 + 1) : 0}–
-            {number(Math.min((pageIndex + 1) * 25, data.total))} of {number(data.total)}
+            {number(Math.min((pageIndex + 1) * 25, data.total))} {t("of")} {number(data.total)}
           </span>
 
           <div className="flex items-center gap-1">
             <button
-              onClick={() => setPageIndex((n) => Math.max(0, n - 1))}
+              aria-label={t('Previous page')} onClick={() => setPageIndex((n) => Math.max(0, n - 1))}
               disabled={pageIndex === 0 || busy}
               className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 transition-colors"
             >
               <ChevronLeft size={15} />
             </button>
-            <span className="px-2 font-mono text-slate-600">
-              Page {pageIndex + 1}
+            <span className="px-2 font-mono text-slate-600"> {t("Page")} {pageIndex + 1}
             </span>
             <button
-              onClick={() => setPageIndex((n) => n + 1)}
+              aria-label={t('Next page')} onClick={() => setPageIndex((n) => n + 1)}
               disabled={(pageIndex + 1) * 25 >= data.total || busy}
               className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 transition-colors"
             >
@@ -523,7 +517,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
 
       {/* Slide-over Drawer for Prospect Review */}
       <AdminDrawer
-        title="Prospect Record"
+        title={t("Prospect Record")}
         subtitle={selected ? `ID: ${selected.id}` : undefined}
         isOpen={Boolean(selected)}
         onClose={() => setSelected(null)}
@@ -534,40 +528,38 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
               <h3 className="font-semibold text-slate-900 text-sm">{selected.center_name}</h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                {selected.city} · {selected.address || 'Address not listed'}
+                {selected.city} · {selected.address || t("Address not listed")}
               </p>
             </div>
 
             {/* Quick Details */}
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="p-2.5 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Phone</span>
-                <span className="font-mono text-slate-800">{selected.phone || '—'}</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Phone")} </span>
+                <span className="font-mono text-slate-800">{selected.phone || t("—")}</span>
               </div>
 
               <div className="p-2.5 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Email</span>
-                <span className="font-mono text-slate-800 truncate block">{selected.email || '—'}</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Email")} </span>
+                <span className="font-mono text-slate-800 truncate block">{selected.email || t("—")}</span>
               </div>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSaveProspect} className="space-y-4 pt-1">
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">
-                  Review status
-                </label>
+                <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Review status")} </label>
                 <select
-                  value={drawerStage}
+                  aria-label={t("Review status")} value={drawerStage}
                   onChange={(e) =>
                     setDrawerStage(e.target.value as Prospect['qualification_stage'])
                   }
                   className="w-full p-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none"
                 >
-                  <option value="review">Needs review</option>
-                  <option value="qualified">Qualified</option>
-                  <option value="not_a_fit">Not a fit</option>
-                  <option value="do_not_contact">Do not contact</option>
+                  <option value="review"> {t("Needs review")} </option>
+                  <option value="qualified"> {t("Qualified")} </option>
+                  <option value="not_a_fit"> {t("Not a fit")} </option>
+                  <option value="do_not_contact"> {t("Do not contact")} </option>
                 </select>
               </div>
 
@@ -581,21 +573,19 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                     onChange={(e) => setDrawerOptIn(e.target.checked)}
                     className="rounded text-emerald-700 focus:ring-emerald-600"
                   />
-                  <span>WhatsApp opt-in verified</span>
+                  <span> {t("WhatsApp opt-in verified")} </span>
                 </label>
 
                 {drawerOptIn && drawerStage !== 'do_not_contact' && (
                   <div>
-                    <label className="block text-[11px] text-slate-500 mb-1">
-                      Consent record
-                    </label>
+                    <label className="block text-[11px] text-slate-500 mb-1"> {t("Consent record")} </label>
                     <textarea
                       rows={2}
                       maxLength={500}
                       required
-                      value={drawerEvidence}
+                      aria-label={t("Consent record")} value={drawerEvidence}
                       onChange={(e) => setDrawerEvidence(e.target.value)}
-                      placeholder="Record where consent was given…"
+                      placeholder={t("Record where consent was given…")}
                       className="w-full p-2 rounded border border-slate-200 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700"
                     />
                   </div>
@@ -603,21 +593,19 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">
-                  Private notes
-                </label>
+                <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Private notes")} </label>
                 <textarea
                   rows={3}
                   maxLength={3000}
-                  value={drawerNotes}
+                  aria-label={t("Private notes")} value={drawerNotes}
                   onChange={(e) => setDrawerNotes(e.target.value)}
-                  placeholder="Clinical notes…"
+                  placeholder={t("Add internal notes…")}
                   className="w-full p-2.5 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none placeholder:text-slate-400"
                 />
               </div>
 
               {drawerError && (
-                <p className="text-xs text-rose-600 font-medium">{drawerError}</p>
+                <p className="text-xs text-rose-600 font-medium">{errorText(drawerError)}</p>
               )}
 
               <div className="flex items-center justify-end gap-2 pt-2">
@@ -625,20 +613,18 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                   type="button"
                   onClick={() => setSelected(null)}
                   className="px-3 py-1.5 rounded text-xs font-medium text-slate-600 hover:bg-slate-100"
-                >
-                  Cancel
-                </button>
+                > {t("Cancel")} </button>
                 <button
                   type="submit"
                   disabled={drawerBusy}
-                  className="px-4 py-2 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-[#6754cf] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
                 >
                   {drawerBusy ? (
                     <LoaderCircle size={14} className="animate-spin" />
                   ) : (
                     <Save size={14} />
                   )}
-                  <span>Save review</span>
+                  <span> {t("Save review")} </span>
                 </button>
               </div>
             </form>

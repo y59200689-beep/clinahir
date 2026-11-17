@@ -1,0 +1,6 @@
+{
+  "recordedAt": "2026-11-16T17:13:26.960235+00:00",
+  "productionActivation": "explicitly blocked by owner; no live deployment or configuration changes authorized",
+  "voiceOver": "temporary OS switch confirmed off; owner requested stopping this check; no custom website integration added",
+  "recoveryOperator": "Recovery Google account and downloaded checksum observed; agent-assisted restore from that download passed 34 checks and removed its container. Unassisted human participation and durable off-Mac key custody are not certified."
+}

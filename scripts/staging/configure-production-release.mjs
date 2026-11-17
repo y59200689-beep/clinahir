@@ -1,0 +1,13 @@
+import {readFile,writeFile} from 'node:fs/promises';import {hostingApi} from './hosting-cli.mjs';import {productionIssues} from '../../.integration-build/server/environment.js';
+const base='docs/clinahir-upgrade/final-gates/production',env=JSON.parse(await readFile('output/production/runtime-configuration.json','utf8')),a=JSON.parse(await readFile(base+'/release-authorization.json','utf8'));
+if(!a.productionActivationAuthorized||env.projectRef!=='jsagrvxgydvhdoxibzny'||env.CLINAHIR_LEADS_USER_ID!=='91843333-ded0-4f44-b52e-9423e5810cda'||productionIssues({...env,VERCEL_ENV:'production'}).length)throw Error('approved_exact_configuration_required');
+const source='prj_zGZICTaNNTHcLa1fhxI1WQCto7lK',crm='prj_qkHMHxMVera3Lp6yHg82GXwXSNnR';
+const sourceProject=await hostingApi('/v9/projects/'+source),crmProject=await hostingApi('/v9/projects/'+crm);
+if(sourceProject.name!=='clinahir'||crmProject.name!=='daily-command-center')throw Error('hosting_identity_mismatch');
+const report={executedAt:new Date().toISOString(),status:'running',sourceProjectId:source,crmProjectId:crm,previousSourceDeployment:sourceProject.targets?.production?.id,previousCrmDeployment:crmProject.targets?.production?.id,changes:[]};
+await writeFile(base+'/configuration-execution.json',JSON.stringify(report,null,2)+'\n');
+const keys=['CLINAHIR_ENV','VITE_APP_ENV','VITE_SENTRY_ENABLED','CLINAHIR_PRODUCTION_SUPABASE_REF','SUPABASE_URL','SUPABASE_SERVICE_ROLE_KEY','CLINAHIR_ADMIN_EMAIL','CLINAHIR_ADMIN_USER_ID','CLINAHIR_ADMIN_MFA_REQUIRED','CRON_SECRET','CLINAHIR_PRODUCTION_ORIGIN','CLINAHIR_PRODUCTION_CRM_ORIGIN','DAILY_COMMAND_URL','CLINAHIR_INTEGRATION_SECRET','WHATSAPP_ENABLED'];
+for(const [id,values] of [[source,Object.fromEntries(keys.map(k=>[k,env[k]]))],[crm,{CLINAHIR_INTEGRATION_SECRET:env.CLINAHIR_INTEGRATION_SECRET,CLINAHIR_LEADS_USER_ID:env.CLINAHIR_LEADS_USER_ID}]]){
+ for(const [key,value] of Object.entries(values)){if(!value)throw Error('missing_required_value');const sensitive=/SECRET|SERVICE_ROLE|ADMIN_EMAIL|ADMIN_USER_ID|LEADS_USER_ID/.test(key);await hostingApi(`/v10/projects/${id}/env?upsert=true`,{key,value,type:sensitive?'sensitive':'encrypted',target:['production']});report.changes.push({projectId:id,key,target:'production'});await writeFile(base+'/configuration-execution.json',JSON.stringify(report,null,2)+'\n');}
+}
+report.status='configured_for_staged_production_deployments';report.liveAliasesChanged=false;report.valuesPrinted=false;await writeFile(base+'/configuration-execution.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,fields:report.changes.length,whatsappEnabled:false}));

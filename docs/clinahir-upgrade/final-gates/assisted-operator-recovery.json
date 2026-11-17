@@ -1,0 +1,153 @@
+{
+  "runId": "f310a4b4-ebd3-471c-92e7-74c9f8ff91c7",
+  "executedAt": "2026-11-16T19:32:27.404Z",
+  "operatorEmail": "ysfkhaourimahir@gmail.com",
+  "participation": "agent rehearsal; not independent operator acceptance",
+  "scope": "Network-isolated local PostgreSQL application restore only; Auth/Storage excluded",
+  "backupId": "2026-11-16T16-27-37-031Z-11c036a4",
+  "archiveSha256": "f46823659b20d69918655dab9334712c40ba574e43844cf131d6ef90b85b02bb",
+  "checks": [
+    {
+      "name": "independent file decryption and both checksums match",
+      "passed": true
+    },
+    {
+      "name": "local restore target has no network or published ports",
+      "passed": true
+    },
+    {
+      "name": "isolated provider-like roles and permissive defaults established",
+      "passed": true
+    },
+    {
+      "name": "decrypted PostgreSQL archive parses",
+      "passed": true
+    },
+    {
+      "name": "private restore object list prepared",
+      "passed": true
+    },
+    {
+      "name": "archive converts to transactional restore SQL",
+      "passed": true
+    },
+    {
+      "name": "restore and private grant reconciliation commit atomically",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches clinahir_staging_fixture.control",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches clinahir_staging_fixture.receipts",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "restored full-row digest matches public.clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon private access denied public.clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated private access denied public.clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "service access survives private restore",
+      "passed": true
+    }
+  ],
+  "status": "passed",
+  "containerRemoved": true,
+  "durationMs": 15129,
+  "observedDownloadAccount": "ysfkhaourimahir@gmail.com",
+  "operatorDownloadChecksumVerified": true,
+  "acceptanceLimit": "Agent executed the restore from the account download; unassisted human execution is not certified."
+}

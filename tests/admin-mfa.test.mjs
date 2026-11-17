@@ -1,0 +1,25 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {adminRequest} from '../.integration-build/server/admin.js';import {fixtureEnv,createAdminFixture} from './fixtures/admin-fetch.mjs';
+const factorId='11111111-2222-4333-8444-555555555555',challengeId='22222222-3333-4444-8555-666666666666';
+const jwt=aal=>'fixture.'+Buffer.from(JSON.stringify({aal})).toString('base64url')+'.signature',primary=jwt('aal1'),secondary=jwt('aal2');
+function harness(enforced=true,alreadyEnrolled=false){
+ const env={...fixtureEnv,CLINAHIR_ADMIN_MFA_REQUIRED:enforced?'true':'false'},base=createAdminFixture();let factors=alreadyEnrolled?[{id:factorId,factor_type:'totp',status:'verified'}]:[],challenges=0;
+ const user=()=>({id:env.CLINAHIR_ADMIN_USER_ID,email:env.CLINAHIR_ADMIN_EMAIL,factors});
+ const fetcher=async(url,init={})=>{const path=new URL(url).pathname,body=init.body?JSON.parse(init.body):{},token=init.headers?.Authorization?.replace('Bearer ','');
+  if(path.endsWith('/token'))return Response.json({access_token:primary,user:user(),expires_in:3600});
+  if(path.endsWith('/user'))return [primary,secondary].includes(token)?Response.json(user()):Response.json({},{status:401});
+  if(path.endsWith('/factors')){factors=[{id:factorId,factor_type:'totp',status:'unverified'}];return Response.json({id:factorId,totp:{qr_code:'<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg">'+'<path/>'.repeat(46000)+'</svg>',secret:'SYNTHETIC-SETUP-ONLY'}});}
+  if(path.endsWith('/challenge')){challenges++;return Response.json({id:challengeId});}
+  if(path.endsWith('/verify')){if(body.code!=='123456')return Response.json({},{status:400});factors=[{id:factorId,factor_type:'totp',status:'verified'}];return Response.json({access_token:secondary,expires_in:3600});}
+  return base(url,init);
+ };
+ const call=(action,body,token=primary)=>adminRequest(new Request('https://admin.example.test/api/admin?action='+action,{method:body?'POST':'GET',headers:{Origin:'https://admin.example.test',Cookie:'clinahir_admin_session='+token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})}),env,fetcher);
+ return {call,env,challengeCount:()=>challenges};
+}
+test('owner password login can establish only an MFA-pending private cookie',async()=>{const h=harness(),r=await h.call('login',{email:h.env.CLINAHIR_ADMIN_EMAIL,password:'fixture'});assert.equal(r.status,200);const body=await r.json();assert.equal(body.mfa.required,true);assert.equal(body.mfa.enrolled,false);assert.match(r.headers.get('set-cookie'),/HttpOnly/);assert(!JSON.stringify(body).includes(primary));});
+test('AAL1 owner cannot read business data or write lead changes when MFA is required',async()=>{const h=harness();assert.equal((await h.call('snapshot')).status,403);assert.equal((await h.call('lead',{id:'cli_11111111-1111-4111-8111-111111111111',stage:'won',notes:'must not save'})).status,403);assert.equal((await h.call('mfa-state')).status,200);});
+test('enrollment is private and wrong code never upgrades authorization',async()=>{const h=harness();let r=await h.call('mfa-enroll',{});assert.equal(r.status,200);assert.match(r.headers.get('cache-control'),/no-store/);assert.match((await r.json()).qrCode,/^data:image\/svg\+xml/);r=await h.call('mfa-verify',{factorId,code:'000000'});assert.equal(r.status,401);assert.equal(r.headers.get('set-cookie'),null);assert.equal((await h.call('snapshot')).status,403);});
+test('malformed codes and another factor cannot trigger a provider challenge',async()=>{const h=harness();await h.call('mfa-enroll',{});assert.equal((await h.call('mfa-verify',{factorId,code:'123'})).status,400);assert.equal((await h.call('mfa-verify',{factorId:'99999999-9999-4999-8999-999999999999',code:'123456'})).status,403);assert.equal(h.challengeCount(),0);});
+test('verified provider AAL2 upgrades the private cookie and enables business access only for that session',async()=>{const h=harness();await h.call('mfa-enroll',{});const r=await h.call('mfa-verify',{factorId,code:'123456'});assert.equal(r.status,200);assert(r.headers.get('set-cookie').includes(encodeURIComponent(secondary)));assert(!JSON.stringify(await r.json()).includes(secondary));assert.equal((await h.call('snapshot',undefined,secondary)).status,200);assert.equal((await h.call('snapshot')).status,403);});
+test('existing verified factor requires MFA even when the optional enforcement switch is off',async()=>{const h=harness(false,true);assert.equal((await h.call('snapshot')).status,403);assert.equal((await h.call('mfa-enroll',{})).status,409);assert.equal((await h.call('snapshot',undefined,secondary)).status,200);});
+test('unverified attacker AAL2 claim is rejected by provider identity before authorization',async()=>{const h=harness();assert.equal((await h.call('snapshot',undefined,'forged.'+Buffer.from(JSON.stringify({aal:'aal2'})).toString('base64url')+'.bad')).status,401);});
+test('MFA-pending owner can still cancel through logout',async()=>{const h=harness();const r=await h.call('logout',{});assert.equal(r.status,200);assert.match(r.headers.get('set-cookie'),/Max-Age=0/);});

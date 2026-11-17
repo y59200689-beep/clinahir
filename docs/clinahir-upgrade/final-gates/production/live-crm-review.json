@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-11-17T08:41:43.199Z",
+  "id": "dpl_4TLfbhiqvmyntd8LPkktqdBQTFyd",
+  "url": "daily-command-center-ldvvx52o3-paraoonline.vercel.app",
+  "state": "READY",
+  "projectId": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+  "aliases": [
+    "daily-command-center-pink.vercel.app",
+    "daily-command-center-paraoonline.vercel.app",
+    "daily-command-center-git-main-paraoonline.vercel.app"
+  ],
+  "gitSource": {
+    "ref": "main",
+    "repoId": 1357255781,
+    "sha": "ff74c0d37686f7117f439331932b98802c647c4d",
+    "type": "github",
+    "prId": null
+  },
+  "gitMeta": {
+    "githubCommitAuthorName": "Youssef Mahir",
+    "githubCommitAuthorEmail": "mahiirmedia@gmail.com",
+    "githubCommitMessage": "Fix task board card overflow",
+    "githubCommitOrg": "y59200689-beep",
+    "githubCommitRef": "main",
+    "githubCommitRepo": "daily-command-center",
+    "githubCommitSha": "ff74c0d37686f7117f439331932b98802c647c4d",
+    "githubDeployment": "1",
+    "githubOrg": "y59200689-beep",
+    "githubRepo": "daily-command-center",
+    "githubRepoOwnerType": "User",
+    "githubCommitRepoId": "1357255781",
+    "githubRepoId": "1357255781",
+    "githubRepoVisibility": "public",
+    "githubHost": "github.com",
+    "githubCommitAuthorLogin": "mahiirmedia-source",
+    "githubCommitVerification": "unverified"
+  },
+  "scope": "Read-only current live CRM deployment metadata; no receipt writes or secret values"
+}

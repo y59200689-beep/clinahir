@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-17T13:12:16.538Z",
+  "deployments": [
+    {
+      "name": "source",
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "deploymentId": "dpl_AuvzgC644YQHG71wpGkpqPvubszu",
+      "url": "clinahir-9qahfalfz-paraoonline.vercel.app",
+      "readyState": "READY",
+      "aliases": []
+    },
+    {
+      "name": "crm",
+      "projectId": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+      "deploymentId": "dpl_GrLUHnwnFp5awX4DB66KfW1FmdFN",
+      "url": "daily-command-center-qf58bvwka-paraoonline.vercel.app",
+      "readyState": "READY",
+      "aliases": []
+    }
+  ]
+}

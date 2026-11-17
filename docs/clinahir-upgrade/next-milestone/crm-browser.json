@@ -1,0 +1,19 @@
+{
+  "executedAt": "2026-11-16T11:26:44.530Z",
+  "scope": "Actual isolated Daily Command browser login and connected lead visibility; no mocked APIs",
+  "checks": [
+    {
+      "name": "synthetic CRM owner signs in through real UI",
+      "passed": true
+    },
+    {
+      "name": "actual connected Clinahir lead visible in CRM owner workspace",
+      "passed": true
+    },
+    {
+      "name": "real CRM UI sign-out returns to login",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

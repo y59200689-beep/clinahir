@@ -1,0 +1,15 @@
+{
+  "executedAt": "2026-11-15T20:40:01.276Z",
+  "scope": "Synthetic staging lead capture and owner edits; no CMS publish, queue-wide cron or WhatsApp sends",
+  "status": "blocked",
+  "prerequisites": [
+    "staging_identity_required",
+    "dedicated_database_identity_required",
+    "protected_site_origin_required",
+    "restricted_role_accounts_required",
+    "whatsapp_must_be_disabled",
+    "separate_business_write_authorization_required",
+    "controlled_receiver_identity_required"
+  ],
+  "checks": []
+}

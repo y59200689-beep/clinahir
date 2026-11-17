@@ -1,0 +1,32 @@
+{
+  "preparedAt": "2026-11-17T09:14:04.729Z",
+  "status": "prepared_not_applied",
+  "sourceProjectRef": "jsagrvxgydvhdoxibzny",
+  "ownerEmail": "youssefmahir87@gmail.com",
+  "ownerAccountAction": "Create one unconfirmed owner Auth account with no password, no email transmission and no business allowlist until reviewed private enrollment setup",
+  "cronChange": "Replace missing unrecoverable Clinahir production CRON_SECRET; coordinate monitor/caller settings",
+  "integrationChange": "Replace the same shared secret on Clinahir and the approved Daily Command production receiver; requires coordinated rollout and acknowledgement review",
+  "proposedSecretFingerprints": {
+    "cron": "abf9782bf76c1c41c38b65e55bd21ece7fbbb6c14105fdf949ca23e55296a61f",
+    "integration": "f48392ab43aeb46635c5eeb854a5e2f8b3a4e0838feda2a384de1ecce6d765ed"
+  },
+  "valuesPrinted": false,
+  "valuesUploaded": false,
+  "requiresExplicitProductionChangeApproval": true,
+  "productionChanges": false,
+  "rollbackLimit": "Old write-only secret values are unavailable. Do not promise secret rollback. Use a staged sender/receiver change with forwarding stopped and preserve outbox IDs; old immutable deployments remain configured with their deployed environment snapshots until explicitly changed.",
+  "destination": {
+    "email": "ysfkhaourimahir@gmail.com",
+    "userId": "91843333-ded0-4f44-b52e-9423e5810cda",
+    "projectRef": "sqzkqzrvxkdbcdpwcywd",
+    "emailConfirmed": true,
+    "verifiedAgainst": "live CRM public Supabase binding and read-only Auth user metadata"
+  },
+  "crmSchema": {
+    "rls": true,
+    "ownerPolicy": "auth.uid() = user_id for USING and WITH CHECK",
+    "deduplicationIndex": "unique (user_id, source, external_id) where external_id is not null",
+    "businessRowsSelected": false
+  },
+  "nextApproval": "Create exactly the chosen Clinahir owner account without a default password or email transmission; retain activation block while preparing private enrollment. Secret replacements are local proposals only and require coordinated release approval before live application."
+}

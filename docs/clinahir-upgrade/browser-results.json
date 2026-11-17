@@ -1,0 +1,12 @@
+{
+  "passed": [
+    "Homepage and English/French language selection",
+    "Create appointment, detect conflict, edit and share calendar state",
+    "Demo form validation, visible outage, successful confirmation",
+    "Mobile homepage fits viewport",
+    "Admin unauthorized rejection, login, lead notes and stage",
+    "Admin content draft editing and delivery monitoring"
+  ],
+  "errors": [],
+  "success": true
+}

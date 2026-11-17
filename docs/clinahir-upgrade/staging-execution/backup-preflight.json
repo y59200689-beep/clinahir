@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-16T09:15:02.815Z",
+  "target": "fsfqgionuuxykpoxhrdm",
+  "mode": "read-only backup access preparation",
+  "roleQueryStatus": 201,
+  "roleCapabilities": [
+    {
+      "current_user": "postgres",
+      "rolcreaterole": true,
+      "rolbypassrls": true,
+      "rolsuper": false
+    }
+  ],
+  "poolerQueryStatus": 200,
+  "poolerMetadata": [
+    {
+      "pool_mode": "transaction",
+      "db_host": "aws-1-eu-central-1.pooler.supabase.com",
+      "db_port": 6543
+    }
+  ],
+  "keyMetadata": [
+    {
+      "name": "anon",
+      "type": "legacy",
+      "hasValue": true
+    },
+    {
+      "name": "service_role",
+      "type": "legacy",
+      "hasValue": true
+    },
+    {
+      "name": "default",
+      "type": "publishable",
+      "hasValue": true
+    },
+    {
+      "name": "default",
+      "type": "secret",
+      "hasValue": true
+    }
+  ]
+}

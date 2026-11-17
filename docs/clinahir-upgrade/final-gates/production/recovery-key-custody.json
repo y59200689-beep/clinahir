@@ -1,0 +1,8 @@
+{
+  "confirmedAt": "2026-11-16T23:45:57.673771+00:00",
+  "status": "owner_confirmed_offline_off_mac_copy_secured",
+  "evidence": "Explicit user confirmation: offline key copy secured",
+  "verificationLimit": "Owner attestation; physical medium, location and independent human recovery not inspected",
+  "backupId": "2026-11-16T23-30-09-724Z",
+  "keyUploadedToDrive": false
+}

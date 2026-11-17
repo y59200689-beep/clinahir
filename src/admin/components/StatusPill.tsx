@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 interface StatusPillProps {
   value: string;
   size?: 'sm' | 'md';
@@ -5,6 +6,7 @@ interface StatusPillProps {
 }
 
 export function StatusPill({ value, size = 'sm', className = '' }: StatusPillProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const normalized = (value || '').toLowerCase().trim();
 
   let badgeStyles = 'bg-slate-100 text-slate-700 border-slate-200/80';
@@ -40,7 +42,7 @@ export function StatusPill({ value, size = 'sm', className = '' }: StatusPillPro
       } ${badgeStyles} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${dotStyles}`} />
-      <span>{label}</span>
+      <span>{t(label)}</span>
     </span>
   );
 }

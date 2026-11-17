@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-11-15T20:00:46.681Z",
+  "mode": "read-only; no data rows requested",
+  "configuration": {
+    "SUPABASE_URL": true,
+    "SUPABASE_SERVICE_ROLE_KEY": true,
+    "CLINAHIR_ADMIN_EMAIL": true,
+    "CLINAHIR_ADMIN_USER_ID": true,
+    "DAILY_COMMAND_URL": false,
+    "CLINAHIR_INTEGRATION_SECRET": false,
+    "CRON_SECRET": false,
+    "WHATSAPP_ENABLED": false,
+    "WHATSAPP_ACCESS_TOKEN": false,
+    "WHATSAPP_PHONE_NUMBER_ID": false,
+    "WHATSAPP_API_VERSION": false,
+    "WHATSAPP_TEMPLATE_NAME": false,
+    "WHATSAPP_TEMPLATE_LANGUAGE": false,
+    "WHATSAPP_DEMO_URL": false
+  },
+  "probes": {
+    "anonymousLeadAccess": {
+      "status": 401,
+      "access": "rejected",
+      "publicKeyAvailable": false
+    },
+    "leadTableZeroRows": {
+      "status": 200,
+      "access": "reachable"
+    },
+    "contentTableZeroRows": {
+      "status": 200,
+      "access": "reachable"
+    },
+    "whatsappTableZeroRows": {
+      "status": 200,
+      "access": "reachable"
+    },
+    "auditTableZeroRows": {
+      "status": 200,
+      "access": "reachable"
+    },
+    "configuredOwner": {
+      "status": 200,
+      "access": "reachable",
+      "matchesConfiguredOwner": true
+    }
+  },
+  "limitations": [
+    "Zero-row HTTP probes establish endpoint access, not successful data persistence or installed migration history.",
+    "Without an independently configured public API key, anonymous RLS cannot be distinguished from API-gateway rejection.",
+    "No credentials were changed. No auth session, lead, CRM delivery, WhatsApp send or cron run was created."
+  ]
+}

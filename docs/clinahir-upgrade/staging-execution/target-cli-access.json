@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-11-16T09:10:07.684Z",
+  "target": "fsfqgionuuxykpoxhrdm",
+  "mode": "CLI-native API-key access check; secret output suppressed",
+  "exitCode": 0,
+  "credentialsSavedPrivately": true,
+  "topLevelFields": [
+    "keys",
+    "message"
+  ]
+}

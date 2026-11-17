@@ -1,0 +1,23 @@
+{
+  "executedAt": "2026-11-16T10:27:59.110Z",
+  "scope": "Dedicated staging alias only; rollback to protected maintenance placeholder, then restore verified Preview; no production domain or data rollback",
+  "checks": [
+    {
+      "name": "rollback retains unauthenticated hosting protection",
+      "passed": true
+    },
+    {
+      "name": "rollback exposes only protected staging maintenance placeholder",
+      "passed": true
+    },
+    {
+      "name": "forward restoration identifies staging again",
+      "passed": true
+    },
+    {
+      "name": "forward restoration retains hosting protection",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

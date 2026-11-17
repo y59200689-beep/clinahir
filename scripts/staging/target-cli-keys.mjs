@@ -1,0 +1,6 @@
+// CLI-native credential lookup for the exact owner target. Keys are never printed.
+import {spawn} from 'node:child_process';import {writeFile,mkdir} from 'node:fs/promises';
+const target='fsfqgionuuxykpoxhrdm';const c=spawn('supabase',['projects','api-keys','--project-ref',target,'--output-format','json'],{stdio:['ignore','pipe','pipe']});let stdout='',stderr='';c.stdout.on('data',d=>stdout+=d);c.stderr.on('data',d=>stderr+=d);const code=await new Promise(resolve=>c.on('close',resolve));let data;try{data=JSON.parse(stdout);}catch{}
+const report={checkedAt:new Date().toISOString(),target,mode:'CLI-native API-key access check; secret output suppressed',exitCode:code};
+if(code===0){await mkdir('output/staging',{recursive:true});await writeFile('output/staging/target-cli-keys.json',JSON.stringify(data,null,2)+'\n',{mode:0o600});report.credentialsSavedPrivately=true;report.topLevelFields=data&&typeof data==='object'?Object.keys(data):[];}else{report.errorCode=data?.error?.code??'cli_request_rejected';report.reason=String(data?.error?.message??stderr).replace(/sbp_[A-Za-z0-9_-]+/g,'[redacted]').slice(0,400);process.exitCode=1;}
+await writeFile('docs/clinahir-upgrade/staging-execution/target-cli-access.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

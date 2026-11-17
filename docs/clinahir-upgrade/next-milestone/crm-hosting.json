@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-11-16T11:01:09.477Z",
+  "name": "clinahir-crm-sandbox",
+  "scope": "Separate protected CRM sandbox hosting only; never the live Daily Command project",
+  "projectId": "prj_rBqHhiFWZyiB9s19F4vJ4oxzQ6fF",
+  "protection": "all",
+  "origin": "https://clinahir-crm-sandbox.vercel.app",
+  "bootstrap": {
+    "scope": "Static protected maintenance placeholder only; provider initial Production label; no app credentials or scheduled jobs",
+    "url": "https://clinahir-crm-sandbox-peii2xzfk-paraoonline.vercel.app"
+  },
+  "status": "protected_hosting_prepared"
+}

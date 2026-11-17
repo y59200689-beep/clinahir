@@ -1,0 +1,21 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';import assert from 'node:assert/strict';import {chromium} from 'playwright';
+const env=JSON.parse(await readFile('output/staging/hosting-env.json','utf8')),accounts=JSON.parse(await readFile('output/staging/test-accounts.json','utf8')),origin=env.CLINAHIR_STAGING_ORIGIN;
+const report={executedAt:new Date().toISOString(),scope:'Actual protected hosted UI; no mocked APIs; synthetic demo and owner account only',checks:[],pageErrors:[]};const browser=await chromium.launch();let context;
+const check=async(name,action)=>{await action();report.checks.push({name,passed:true});console.log('PASS',name);};
+try{
+ context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+ await context.route('**/*',async route=>{if(new URL(route.request().url()).origin===origin)return route.continue({headers:{...route.request().headers(),'x-vercel-protection-bypass':env.STAGING_PROTECTION_BYPASS}});return route.continue();});
+ const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',e=>report.pageErrors.push(e.name));await mkdir('output/playwright',{recursive:true});
+ await check('hosted homepage and French/English selection',async()=>{await page.goto(origin,{waitUntil:'domcontentloaded'});await page.locator('#interactive-demo').waitFor();for(const locale of ['fr','en']){await page.getByLabel('Site language / Langue du site').first().selectOption(locale);await page.waitForFunction(locale=>document.documentElement.lang===locale,locale);}await page.screenshot({path:'output/playwright/hosted-homepage.png'});});
+ const nav=name=>page.locator('#interactive-demo aside').getByRole('button',{name,exact:true}).click();
+ await check('hosted demo profile edit persists across routes and resets in a fresh context',async()=>{
+  await nav('Patients');await page.getByRole('button',{name:'New Patient',exact:true}).click();const dialog=page.getByRole('dialog');await dialog.getByLabel('Sample name',{exact:true}).fill('Synthetic Hosted Profile');await dialog.getByLabel('Sample phone').fill('0000000000');await dialog.getByRole('button',{name:'Save profile'}).click();await dialog.waitFor({state:'hidden'});await nav('Agenda');await nav('Patients');await page.getByLabel('Search profiles',{exact:true}).fill('Synthetic Hosted Profile');assert.equal(await page.locator('tr[data-profile-id]').count(),1);await page.reload();await nav('Patients');await page.getByLabel('Search profiles',{exact:true}).fill('Synthetic Hosted Profile');assert.equal(await page.locator('tr[data-profile-id]').count(),0);
+ });
+ await check('hosted mobile and tablet public layouts fit viewport',async()=>{for(const width of [390,820]){await page.setViewportSize({width,height:1000});await page.goto(origin);await page.locator('#interactive-demo').waitFor();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}await page.screenshot({path:'output/playwright/hosted-tablet.png'});});
+ await check('hosted admin owner login and persisted business screens',async()=>{
+  await page.setViewportSize({width:1440,height:1000});await page.goto(origin+'/admin');await page.locator('input[name=email]').fill(accounts.owner.email);await page.locator('input[name=password]').fill(accounts.owner.password);await page.locator('button[type=submit]').click();await page.getByRole('button',{name:/Inbound Leads/}).click();await page.getByRole('row',{name:/Synthetic/}).first().waitFor();await page.getByRole('button',{name:'Delivery Center',exact:true}).click();await page.getByRole('heading',{name:'Deliveries',exact:true}).waitFor();await page.screenshot({path:'output/playwright/hosted-deliveries.png'});
+ });
+ assert.deepEqual(report.pageErrors,[]);report.status='passed';
+}catch(e){report.status='failed';report.failure=e.name??'browser_failure';report.diagnostic=String(e.message).replaceAll(accounts.owner.email,'[synthetic account]').slice(0,700);process.exitCode=1;}
+finally{try{await context?.request.post(origin+'/api/admin?action=logout',{headers:{Origin:origin,'x-vercel-protection-bypass':env.STAGING_PROTECTION_BYPASS}});}catch{}await browser.close();}
+await writeFile('docs/clinahir-upgrade/staging-execution/hosted-browser.json',JSON.stringify(report,null,2)+'\n');console.log(report.status);

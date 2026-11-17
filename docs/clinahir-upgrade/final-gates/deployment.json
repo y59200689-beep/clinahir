@@ -1,0 +1,961 @@
+{
+  "createdAt": "2026-11-16T20:01:56.672Z",
+  "projectId": "prj_ncLXnX0fRpThugNz33klNz4Sskq3",
+  "sourceSha256": "5eefe1ee0f366b2e81258fba3db01c8668d1a015bf5b6ffdd40cd5afdc15ec20",
+  "files": [
+    {
+      "path": ".openai/hosting.json",
+      "sha256": "d532abb65cf9ae20634b464d954cb4a08a0de9f3cd3cdf7f9c3ec8948826d947"
+    },
+    {
+      "path": "api/admin.ts",
+      "sha256": "a68c6fabd08b0b27ebb64f51bf92d0788207b83a551a1f0249c3bc3db1b5b343"
+    },
+    {
+      "path": "api/analytics.ts",
+      "sha256": "16c6c23a2df142e8b724a1533ea41ace339ec648cb30408615227d171ffaf577"
+    },
+    {
+      "path": "api/content.ts",
+      "sha256": "ec70b79db7f39f2e6612e09de797124f3332d8f9b688e782d48e15e342da2aaa"
+    },
+    {
+      "path": "api/cron/health.ts",
+      "sha256": "5daa8ee5fdab2eb018e468b72c55ef5bea2678d6127493bcdc5147434e9d9088"
+    },
+    {
+      "path": "api/cron/leads.ts",
+      "sha256": "4ec7196e03d614e78a25759e1e8c69e6f76f8293193e1e2936617544b9ec44e1"
+    },
+    {
+      "path": "api/environment.ts",
+      "sha256": "da8540e0b86255f7be9019521b9a5b9f1e8415f41ab6be365c4cdd7b73b319bd"
+    },
+    {
+      "path": "api/leads.ts",
+      "sha256": "a3c4b3de6459710f287ac9da91b023554a00ec7e5647ccc90fde0c747485bfb7"
+    },
+    {
+      "path": "api/staging-crm.ts",
+      "sha256": "b973e9a14fa8821109c9bee73976a325d781caae2236a6332881c67a07a036a7"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/FAQ.tsx",
+      "sha256": "6850c384ebdef261fe4d8d4d88144ef4bbee9274d82a9903827bd9cc0098a9bd"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Features.tsx",
+      "sha256": "70b62c5a2dab6ef052844fa6f6e441566445a76d5f05e5e1a76a411750f0cb3d"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Footer.tsx",
+      "sha256": "6255b34182ced9163eefe6325577f934c2e749bbe2a57a3fae7469870145ccfa"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Hero.tsx",
+      "sha256": "1a59275b971b6d6a1ce4cb218f8754ed6b98c27dec966702ab89aedaa476a480"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/How it Works.tsx",
+      "sha256": "d81b40470cb65b545f8f019e6ea024560e8fc56acc2f0dd884fbf7c29bd150b8"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Integration.tsx",
+      "sha256": "076dec4a712e49cb8362c6707768d48acb54058c443c0ac1e698a6a61b56bad1"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Metric.tsx",
+      "sha256": "f4de3452a07e70d19d54027ef681dca3918c477b937eb8536e93c22bf2759838"
+    },
+    {
+      "path": "components/templates/ai-marketing-landing-page-kelo/Pricing.tsx",
+      "sha256": "3df5f9f8bb18dff4b250b060fbfc004c1578e053eaf09ad946bab36237b7546e"
+    },
+    {
+      "path": "index.html",
+      "sha256": "d185929a6a9d5a0ebcda642f414c4e3abe30be983262f6003574ff2e041e5ec9"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0ddbeb72b927a33eb1121e18841f2d8a599703db72df2617391f25f0f9f5eb45"
+    },
+    {
+      "path": "package.json",
+      "sha256": "fcb9a0816d069fc4bbe32376e11af88ca311d15ad5c63ddc33e9ad45c806b672"
+    },
+    {
+      "path": "postcss.config.js",
+      "sha256": "08910ce1d5cd87d2167e9c78b77262bf985b3f07dc5037ff745ecd6a759fd0c0"
+    },
+    {
+      "path": "public/examens/echographie/agadir/index.html",
+      "sha256": "195fc8487de277cc4913febc8729ec3559c0fa8a6299162eaf9713528fb514a6"
+    },
+    {
+      "path": "public/examens/echographie/casablanca/index.html",
+      "sha256": "601db5f5bf20852cffbbb7c9f1b3936e559f99703a874cd8ac41693a8ea71c30"
+    },
+    {
+      "path": "public/examens/echographie/fes/index.html",
+      "sha256": "6f2801dbf88eca1c155210a6b73eaa6cc7459e0a2e32c7567e2de78c52140ece"
+    },
+    {
+      "path": "public/examens/echographie/marrakech/index.html",
+      "sha256": "166d1a89e007de4115150c39d5aa7b8993b6dc7165bca7a428bcbe4c38512f20"
+    },
+    {
+      "path": "public/examens/echographie/rabat/index.html",
+      "sha256": "8272e6c9b55fa64789da5083694c767ba5032209ee652460a2c76f4228b099f3"
+    },
+    {
+      "path": "public/examens/echographie/tanger/index.html",
+      "sha256": "2916f4924bdc434ccc54861461058a383789d172821c3fb21a52a8478517d00a"
+    },
+    {
+      "path": "public/examens/irm/agadir/index.html",
+      "sha256": "2fdb5098ef97766e635194888efac8ac82ff5a35e6addd403aa9a11478ba46ef"
+    },
+    {
+      "path": "public/examens/irm/casablanca/index.html",
+      "sha256": "87f515b669d65356647ae0e281673941512233c8d2a60ae553463bb915159bab"
+    },
+    {
+      "path": "public/examens/irm/fes/index.html",
+      "sha256": "3886bb685d6e5ee70ded9598cc6078e373923bf8e6d0a552ede1d5cec30c0d7c"
+    },
+    {
+      "path": "public/examens/irm/marrakech/index.html",
+      "sha256": "5518facfe15045f5753e6f5e4429fe4a176831f6b6a0aea57febc050fa009abc"
+    },
+    {
+      "path": "public/examens/irm/rabat/index.html",
+      "sha256": "b9d018c09d64edb21f766030361b2d0f02cac80e097bd8af0f24fb6657a047c0"
+    },
+    {
+      "path": "public/examens/irm/tanger/index.html",
+      "sha256": "8e72ae748cfb968742668c6e9edb78760939f13364309a2c995620806f933649"
+    },
+    {
+      "path": "public/examens/mammographie/agadir/index.html",
+      "sha256": "1ff3d7a824a34f82ca4a0c08d66bb253c1a5324e1f8fc4b136c08ad25f33a5e6"
+    },
+    {
+      "path": "public/examens/mammographie/casablanca/index.html",
+      "sha256": "1292200356e3724eb7344c87601908a91cf2c5c41eae39a508c9665d8d716f13"
+    },
+    {
+      "path": "public/examens/mammographie/fes/index.html",
+      "sha256": "56b88d1d2b81dc35d4d84890cb433ed4478589f19ae83f46b56789159e27b5c5"
+    },
+    {
+      "path": "public/examens/mammographie/marrakech/index.html",
+      "sha256": "2da2d87ed4024a549052b5216fbee8ab6e0b4bb1ccc875cf45e61096e7232065"
+    },
+    {
+      "path": "public/examens/mammographie/rabat/index.html",
+      "sha256": "58a1b63f42a285cc246db52209a4712f9bdd05098ce8d671064848501241074e"
+    },
+    {
+      "path": "public/examens/mammographie/tanger/index.html",
+      "sha256": "6027b535b8ecefd4027eb7d286c299bdeff4b2b315798a8a81db65df54aa8bf1"
+    },
+    {
+      "path": "public/examens/radiographie/agadir/index.html",
+      "sha256": "0a7b9bf10d40c44eba4b2881b4def7e55331c5fd84a744e617c0c4f7fc62be2d"
+    },
+    {
+      "path": "public/examens/radiographie/casablanca/index.html",
+      "sha256": "5e3555a8d99e16ace30b954612638084328643ea924c3ee80bd7d793fc8b980d"
+    },
+    {
+      "path": "public/examens/radiographie/fes/index.html",
+      "sha256": "19fc457de1bdcb5796b08a8aac4453962705e06022e7454760398e4c545b358b"
+    },
+    {
+      "path": "public/examens/radiographie/marrakech/index.html",
+      "sha256": "e851f950d438661889f67b711f863faaf2b89e82014acf76eac25c3b7db69b34"
+    },
+    {
+      "path": "public/examens/radiographie/rabat/index.html",
+      "sha256": "2104d2c8bff632b7bf7d656140938ec5ee120907cbebf0a4c72f0c172df875e6"
+    },
+    {
+      "path": "public/examens/radiographie/tanger/index.html",
+      "sha256": "bbea5b90825c47de451cd440721966f9122502f27152fec1672ea27063ba415a"
+    },
+    {
+      "path": "public/examens/scanner/agadir/index.html",
+      "sha256": "12c150eaf3fd25ed9293b40c517966918310bab892532c60c2b2dc194de47d8e"
+    },
+    {
+      "path": "public/examens/scanner/casablanca/index.html",
+      "sha256": "47e7472ba56d93c9598f31b415a467e24c7ce39a912e6d01c4f8173419614e83"
+    },
+    {
+      "path": "public/examens/scanner/fes/index.html",
+      "sha256": "d9982052af10522efb872cb9d8103a84609de66fd7d5754a93e538a66696a683"
+    },
+    {
+      "path": "public/examens/scanner/marrakech/index.html",
+      "sha256": "c672396a66269f9e3dfbd683670e3cbee0bac9e11a631d125f7aea54983b5082"
+    },
+    {
+      "path": "public/examens/scanner/rabat/index.html",
+      "sha256": "68c947acd6051cd7511318ada319a5c91871e8a359a93ccdd615f4dd32c68604"
+    },
+    {
+      "path": "public/examens/scanner/tanger/index.html",
+      "sha256": "8a699a399139baa25f9959f311d96f6cca1dd7793061579c018372a41fc50fcd"
+    },
+    {
+      "path": "public/favicon.png",
+      "sha256": "fa1b5d78d33143fa4fe3cee05032721e8c51e3cbc8987c1355862558ca0b9353"
+    },
+    {
+      "path": "public/guide/echographie-maroc/index.html",
+      "sha256": "95e0c1e580b10dd52bf56e694c8dd4391a9416ede1b6d14d40794f7279021c0e"
+    },
+    {
+      "path": "public/guide/imagerie-medicale-maroc/index.html",
+      "sha256": "fc8fb4597ae7d081a859b13505f80982faa2f8f7c98a0c298637bb4f926ba5ea"
+    },
+    {
+      "path": "public/guide/irm-maroc/index.html",
+      "sha256": "08fda874637e45cbb9964b0044138b95b68ff97e698af75be834ce1a11fc962e"
+    },
+    {
+      "path": "public/guide/scanner-maroc/index.html",
+      "sha256": "8b2452547ff2541004382357d369c5e2bac264fa7f2761ff66282bfdf974aaad"
+    },
+    {
+      "path": "public/hero-landscape.jpg",
+      "sha256": "6d904893477b83344dfd9514ec6c16669e499b60a0d58d366e27777d3ce01fb4"
+    },
+    {
+      "path": "public/llms.txt",
+      "sha256": "22838adb58a3a98b40e0eccc5f784b7bc3a46d7c407ca5f7b8750e40b9ee788a"
+    },
+    {
+      "path": "public/programmatic-urls.json",
+      "sha256": "623a6b3505a6b7d0a63011efad884c5db1c80cd0b929f31397117f441ac3b7ed"
+    },
+    {
+      "path": "public/robots.txt",
+      "sha256": "85a064913ce6ea5627723ef3b89911c7370b7349fac5bf01c4215c6efdfc19de"
+    },
+    {
+      "path": "public/sitemap.xml",
+      "sha256": "74e35c08b3d47f533bdac8169ad0c9c63a90e63e921755c464f06816a01a1225"
+    },
+    {
+      "path": "scripts/check-delivery-health.mjs",
+      "sha256": "6abe315dc7cc6317a246ae27b7d83839768771694c9ce05b61e1345cdee56de7"
+    },
+    {
+      "path": "scripts/check-phase2.mjs",
+      "sha256": "36b96e992fb25189e42688f745cdbaeea901bf4b8e1e782d7a7e54c0700a1d0b"
+    },
+    {
+      "path": "scripts/clinahir-phase2-smoke.mjs",
+      "sha256": "7cde1cec593b3a65e7c22a7734cb0a670a6983820cf8c58eed085eb51e9fa6ca"
+    },
+    {
+      "path": "scripts/clinahir-smoke.mjs",
+      "sha256": "d2cf9f15cff5158f70b1440b80fb963c4b068f0c76dea85e010340601654c816"
+    },
+    {
+      "path": "scripts/generate-programmatic-pages.mjs",
+      "sha256": "330d6653f78fed19b929e4ebe328ab581c354571efdf299136b0b8ea13f970a8"
+    },
+    {
+      "path": "scripts/leads-dev.mjs",
+      "sha256": "f8909e91f884304bd7ad25f787623ae2194fbaabe99fada8c2ca467c87dc5f08"
+    },
+    {
+      "path": "scripts/lint-integration.mjs",
+      "sha256": "76805122162d5f0721e70cc8fc82348abbe883a58a5d433122f37f15acee7916"
+    },
+    {
+      "path": "scripts/prepare-sites-build.mjs",
+      "sha256": "b6a6adaa4fab3234676116dd1c9cb6611275ab9d92dd26f5bf402393e3744bf6"
+    },
+    {
+      "path": "scripts/prerender-public.mjs",
+      "sha256": "92665afb5d8b47bae7665c738c3e83c591562464b7d9c38dcbed37958dad7c97"
+    },
+    {
+      "path": "scripts/report-bundles.mjs",
+      "sha256": "7ecf2c6b6a4e6964cf0ee1aa939d0ee7a45cf8736ca6ad3aa8ce829db7705fe8"
+    },
+    {
+      "path": "scripts/staging-preflight.mjs",
+      "sha256": "e3051e9d9f1229385b8f404c3e3248c26476db279082fd575143547f95280053"
+    },
+    {
+      "path": "scripts/staging/access-checks.mjs",
+      "sha256": "a33b75b28a7ec0ff50dad7b7807d47ffa87f66a71c2ba9934c562138183906e7"
+    },
+    {
+      "path": "scripts/staging/account-preflight.mjs",
+      "sha256": "479ec06c4a836e3dca7b213ebec15dd972c1fbae4fa5d6a8317431da56cd509a"
+    },
+    {
+      "path": "scripts/staging/activate-owner-preview.mjs",
+      "sha256": "fafab817ffbab88a259e06a4b59beda4e7fee705b558f9ecfbf176ecc40ee61d"
+    },
+    {
+      "path": "scripts/staging/apply-reviewed-migrations.mjs",
+      "sha256": "8e87a46077c262db414980c819753c5953f6dbff6d92367444c1335c805a024c"
+    },
+    {
+      "path": "scripts/staging/audit-server.mjs",
+      "sha256": "080e3f0d1f816194c305447ac87d24aec6d0dd941fb5fb654be94c5905087126"
+    },
+    {
+      "path": "scripts/staging/audit.mjs",
+      "sha256": "7614fd2b68a39a14ad0b7975b857eb71d0cc12f32f654946ae0f054358cc5405"
+    },
+    {
+      "path": "scripts/staging/backup-crypto.mjs",
+      "sha256": "4fb15d73aaf75fa2300dd42a0acb33957173eb889a2fbaba642b3be5f510eadc"
+    },
+    {
+      "path": "scripts/staging/backup-preflight.mjs",
+      "sha256": "36e73cf289439a7b830e91a5273885882ced80c5b411e8f0b131d48b8edc4d4f"
+    },
+    {
+      "path": "scripts/staging/backup-retention.mjs",
+      "sha256": "babc45d6194507986dace650c3a4af4fe741556d645af2f05ef93c00e8692b3b"
+    },
+    {
+      "path": "scripts/staging/bootstrap-hosting.mjs",
+      "sha256": "073d6b9ce7d8da85d5157756f577fc184bd39a520a5c037ea4acf94a01984722"
+    },
+    {
+      "path": "scripts/staging/compare-recovery.mjs",
+      "sha256": "b69eee78edb4d3d648a92aa57946db484d493f05076a19d3ba10ea40c865cbf4"
+    },
+    {
+      "path": "scripts/staging/configure-crm-sandbox.mjs",
+      "sha256": "ed9e52005d99c0da1c133ec89e24f9d7bcdc9a48d1d165bc2d84525e237e021d"
+    },
+    {
+      "path": "scripts/staging/configure-hosted.mjs",
+      "sha256": "cb1fbb71a7bffbbd637152793dd4398e00dfd747e5b737185b9e5001f7efa036"
+    },
+    {
+      "path": "scripts/staging/configure-human-owner.mjs",
+      "sha256": "39a8d661d06d394378000a552ec5d166b7a2cc2a0d5aacd02212454c5745e108"
+    },
+    {
+      "path": "scripts/staging/connect-crm-sandbox.mjs",
+      "sha256": "44e08b2425abbf933f1f9afa2f0050c9d7109f620955d9d053eef229c828237a"
+    },
+    {
+      "path": "scripts/staging/create-offsite-backup.mjs",
+      "sha256": "ce08481e733c0c4845edbc2ce0df87d68df79e8198005ae946c6fbc9faf9d94b"
+    },
+    {
+      "path": "scripts/staging/crm-browser-smoke.mjs",
+      "sha256": "6a3dce736373370d7097c069ec80342b8a0fedbf1553cae08ff1f859f15c2e17"
+    },
+    {
+      "path": "scripts/staging/crm-receiver.mjs",
+      "sha256": "951a4734988b295bf52bacfbf4e89fea8efb82080477e515112fd8c85551ead3"
+    },
+    {
+      "path": "scripts/staging/decrypt-offsite-backup.mjs",
+      "sha256": "22a3a61127ce4cea6314e6aea43e2389c4a82ac592252b5d3b3a254cc27e9120"
+    },
+    {
+      "path": "scripts/staging/deploy-crm-sandbox.mjs",
+      "sha256": "c56b968a2c9c4dfabbbab1a1a9d82ef7caaab14d9a3411c849563dcbd1732379"
+    },
+    {
+      "path": "scripts/staging/deploy-snapshot.mjs",
+      "sha256": "a999a013640ec7cc592d2d880ca6833362edf48835689f8336969aeb84599fc5"
+    },
+    {
+      "path": "scripts/staging/encrypt-recovery-backup.mjs",
+      "sha256": "39a4a69edae73a30147a91b2cf34b9673980318a7a1fc9cb30b19f9f5f79b556"
+    },
+    {
+      "path": "scripts/staging/enforce-staging-tls.mjs",
+      "sha256": "fe5d992bbdd4ae4bd620d59cc2607c6d89a49e616a030c7b2efcb340af51fc24"
+    },
+    {
+      "path": "scripts/staging/final-crm-health.mjs",
+      "sha256": "ae7ddb8067bf938f1df3b3b4e4c02504a4b94f57eb519355170c279eb853190a"
+    },
+    {
+      "path": "scripts/staging/finish-recovery.mjs",
+      "sha256": "886ee24b634befe68dab28591e769a5b5efb2e79bfc4864dfcbdd762a2af6528"
+    },
+    {
+      "path": "scripts/staging/harden-crm-trigger.mjs",
+      "sha256": "68da268e1d72ae311865e20bbcadc2f268efc5fddaceda44102102e264019cd2"
+    },
+    {
+      "path": "scripts/staging/hosted-browser.mjs",
+      "sha256": "d51eb90c46896ed9be9c03dfab7312b2966f220b9f7eb27afda80530969cde6f"
+    },
+    {
+      "path": "scripts/staging/hosted-database-access.mjs",
+      "sha256": "31d1cf77f52c0a48f73ba8c2ef626fe87fb3bf9ec8f59d0122514d8582e5c068"
+    },
+    {
+      "path": "scripts/staging/hosted-failure-acceptance.mjs",
+      "sha256": "3754d9b12d3858f9bebbd4e53a2c2e2a57cc83d5cf5251b34642543bcadd9b0b"
+    },
+    {
+      "path": "scripts/staging/hosted-recovery.mjs",
+      "sha256": "1d2269f4ce4c19f926ed51eeb8a9e8391a69e4a9820685ae3c04204f574c94bd"
+    },
+    {
+      "path": "scripts/staging/hosting-cli.mjs",
+      "sha256": "c18b5e648bf0e21776307e4fa363bb270ec12e341b392ec475d48355cf77c35a"
+    },
+    {
+      "path": "scripts/staging/local-postgres-rehearsal.mjs",
+      "sha256": "faf2d81bcd96aecdc02db7c6d2197756d9ee592727b9dccbf3a168ce4777fa91"
+    },
+    {
+      "path": "scripts/staging/operator-recovery-drill.mjs",
+      "sha256": "67f3dc5e477185e2fbe07e0c16ec2a528af301c4cdec0adfedfaa442d696aa58"
+    },
+    {
+      "path": "scripts/staging/owner-ui-smoke.mjs",
+      "sha256": "9aa2bc33372488297664c2642d177bb578fe641ed9b7bd40640f3ef7c901f3e0"
+    },
+    {
+      "path": "scripts/staging/prepare-backup-role.mjs",
+      "sha256": "2e5e782dda7d40b9799e4949dd016f947c76770e7abe583d32c543516a716423"
+    },
+    {
+      "path": "scripts/staging/prepare-crm-database.mjs",
+      "sha256": "c2e03b5d2dd6a09d01d8f5cd88e42dc75afddd233aaa983748581a69f37ec6e7"
+    },
+    {
+      "path": "scripts/staging/prepare-crm-fault-preview.mjs",
+      "sha256": "88bc2becd735fabac876a21302233bdbc8d6f3486241350448d417272e790827"
+    },
+    {
+      "path": "scripts/staging/prepare-crm-hosting.mjs",
+      "sha256": "b752ebaf010894c13466ef692ac32deac2dc38f299d3def442b78a82a7dc0b85"
+    },
+    {
+      "path": "scripts/staging/prepare-human-owner.mjs",
+      "sha256": "56da2cdeda4b04729908e359761c739a9310d0e00f98382ffb3f0cd4b2709380"
+    },
+    {
+      "path": "scripts/staging/prepare-owner-handoff.mjs",
+      "sha256": "0db99e6e9e2392a9b94d678f57e2d56a1d944f93da8d617d8b2c84748c185439"
+    },
+    {
+      "path": "scripts/staging/prerender-smoke.mjs",
+      "sha256": "36eaae1f6deee9c80e3b88d403e0701b1e0ff9266e4dfbe6248fc3b7b8c25c7e"
+    },
+    {
+      "path": "scripts/staging/provision-crm-sandbox.mjs",
+      "sha256": "b7ad12570c0b642f4fb92efbacb87e424c417bf2798545ca6eae03499c076f58"
+    },
+    {
+      "path": "scripts/staging/provision-free-supabase.mjs",
+      "sha256": "19f31fe2465de0197b1c889789beb31cddcbc535bf73f46834dc6ed94fd3c7a2"
+    },
+    {
+      "path": "scripts/staging/provision-vercel.mjs",
+      "sha256": "fedf0bd738053093f9d12755f7a3e75c0578d13ae2c0f88db245a1a85f694cac"
+    },
+    {
+      "path": "scripts/staging/receiver-fixture.sql",
+      "sha256": "210c7162cadea13a5c71349e2078028cebc1fdf3b749011d32117676127309ec"
+    },
+    {
+      "path": "scripts/staging/reconcile-private-restore.sql",
+      "sha256": "517fe4c01deff26f401bd88ce44d977b19901ba0523234e0a828dd9a4caab1d9"
+    },
+    {
+      "path": "scripts/staging/record-offsite-backup.mjs",
+      "sha256": "13f177480e1ca47677d80a01e2c57b726c052427be9f271e7b8d62f257409d3f"
+    },
+    {
+      "path": "scripts/staging/recovery.mjs",
+      "sha256": "6c17e77185244ad826668ef1a32429f1a475839e666292c0e66c8379785d3f16"
+    },
+    {
+      "path": "scripts/staging/rehearse-hosting-rollback.mjs",
+      "sha256": "4d4cc5a0b756e45b2c11f5daee3867d598885a533b874e94992074db8af153f6"
+    },
+    {
+      "path": "scripts/staging/release-manifest.mjs",
+      "sha256": "56a0f40c3aff0b3af0784bcc4ecd39116d4f4aa37221183c5eaed4e5db2db1ca"
+    },
+    {
+      "path": "scripts/staging/remote-baseline-backup.mjs",
+      "sha256": "1d40fe6bd3dabb48e420c2000c9dd6710440c27c8d73a8ee0da7df7137534359"
+    },
+    {
+      "path": "scripts/staging/remote-platform.mjs",
+      "sha256": "45ac1448f73459031b7727645d5845ff99fe23035ef2a0b5e098521593aedd5f"
+    },
+    {
+      "path": "scripts/staging/review-production-readonly.mjs",
+      "sha256": "4fa28bfa8a5a5fb382e8c75e1e51d132baeb9a5d10f2b5c846cfb85f3c3d5b68"
+    },
+    {
+      "path": "scripts/staging/run-hosted-acceptance.mjs",
+      "sha256": "8683419eae8e38cb6fb78b701970444540868e982621cc1806b880156c7364de"
+    },
+    {
+      "path": "scripts/staging/scan-stage-advisors.mjs",
+      "sha256": "63232c2f2273fcfe83e2827503f8fceb0338633d5e063f2705fb311e78f803b3"
+    },
+    {
+      "path": "scripts/staging/supabase-account-preflight.mjs",
+      "sha256": "1d07eb8c71843ba7c8700e52624e3b615c653d708b07e2e60bd3698464a1b739"
+    },
+    {
+      "path": "scripts/staging/target-cli-keys.mjs",
+      "sha256": "f4dc4df7b57222c9b1fb6e97af620d261132ba1e89efdea4c33e7554c35e3a61"
+    },
+    {
+      "path": "scripts/staging/target-preflight.mjs",
+      "sha256": "14ef85881fac0ae96a3ff4371fd19fd9946d5dbcfc0c6040d68b759f96a09611"
+    },
+    {
+      "path": "scripts/staging/test-restore-privacy.mjs",
+      "sha256": "0cc2ab6bfa27823f4118c1d1d365c5b79b208c67fc8b2c6f38056ba9c32f13f3"
+    },
+    {
+      "path": "scripts/staging/verify-access.mjs",
+      "sha256": "2dc769650435c93cf44f0af81bc19d776d9343d85a1ed554a5ab9662e3af228c"
+    },
+    {
+      "path": "scripts/staging/verify-build.mjs",
+      "sha256": "2bb5fa12621303c1a83ad804f8f1aa8e92be5debb80c89da9e2ac78ec90c9eba"
+    },
+    {
+      "path": "scripts/staging/verify-connected-crm.mjs",
+      "sha256": "95668f20568f6b23ca888c42fb35a758f363fe50497c9fdfba9e03c995b94e20"
+    },
+    {
+      "path": "scripts/staging/verify-crm-sandbox.mjs",
+      "sha256": "5927d7e1296265461baaa68e2be74b0c62d274bb9c27a254cbebadac463572ba"
+    },
+    {
+      "path": "scripts/staging/verify-real-admin-mfa.mjs",
+      "sha256": "77984ba0c6c6ce8a1e0a67d420bff7f8392ea11535e27c1724abfc56be35f0f4"
+    },
+    {
+      "path": "scripts/staging/verify-real-crm-recovery.mjs",
+      "sha256": "efb6b66ce78dbf761b8d52ab7d0983c7ea0cfdd7d5726b40537554cc0222acad"
+    },
+    {
+      "path": "scripts/staging/verify-restored-permissions.mjs",
+      "sha256": "0af348091925035b292b658569167cbca97d6be50ba924fdcd4dee8c4b84842d"
+    },
+    {
+      "path": "scripts/staging/verify-restored-schema.mjs",
+      "sha256": "9983d8b2d3e0f7474be7d69c33a233aa9e925bbe664a1ae705e7bd9df5d7a900"
+    },
+    {
+      "path": "scripts/staging/verify-workflow.mjs",
+      "sha256": "0c2109ab7b5c91b2e3fb09f1a370dd53cef0157011580ca199dca8ff94ac6efd"
+    },
+    {
+      "path": "scripts/staging/workflow-checks.mjs",
+      "sha256": "51e004c5d5d8aa8e79ee1f4b198206f5d5b76dd48602237258e88947769ff308"
+    },
+    {
+      "path": "scripts/update-sitemap.mjs",
+      "sha256": "c2094158c4cda4d8355a916c161f49c86b2be3a78e91c3829eee3de90209ee97"
+    },
+    {
+      "path": "scripts/verify-admin.mjs",
+      "sha256": "0b915b4ebfc103162916ff4aa1268b9003e1d349fdb9e8e495b97a6e9d722539"
+    },
+    {
+      "path": "scripts/verify-lead-flow.mjs",
+      "sha256": "a3828a37ac5d76ebf9cc3e1fe0d17b773d0b97bff1ac6c69b40eef7504216c9b"
+    },
+    {
+      "path": "scripts/verify-staging-readonly.mjs",
+      "sha256": "30a19c9a29fa23e9ab196a629c58357f7e099c15b86ca625ede65fa5675c5010"
+    },
+    {
+      "path": "server/admin-activation.ts",
+      "sha256": "ee06fc0f7f1ff90227eb0c1c66fb27830b8d0e20ef26552605b104257a1f51d2"
+    },
+    {
+      "path": "server/admin-mfa.ts",
+      "sha256": "e16a8b471b41db18e4870ae0e0dd6e0175d3b46c7f2baa5258d8c5290385d6f1"
+    },
+    {
+      "path": "server/admin.ts",
+      "sha256": "6e041bff5337c5801c663ff7b8f658d936183f0ed69c21d771bffee59736b23b"
+    },
+    {
+      "path": "server/analytics.ts",
+      "sha256": "e9aaac654da59d86afe793c55c6998b12b897f8c3baff020ce4c9771d3b53631"
+    },
+    {
+      "path": "server/config.ts",
+      "sha256": "7c70885c06a2c05991f2ee8c4beedba6d495e9b600133e578b3c61d3b35a5102"
+    },
+    {
+      "path": "server/environment.ts",
+      "sha256": "fb08d4f4c29139d0b1e055dab756e1b7a5db4501388ebf28a1280be28a5ef826"
+    },
+    {
+      "path": "server/http.ts",
+      "sha256": "2665915ae58273c3dfc75ec1e3f407e61b8c63a4278513db3a006ff7f1f077aa"
+    },
+    {
+      "path": "server/leads.ts",
+      "sha256": "8654b51e321d12ac815c611deb50f946cb29c6ac291e470aa0daac3ef29ce160"
+    },
+    {
+      "path": "server/observability.ts",
+      "sha256": "24acb8a6beb62110e0744971e08c3f46ae96f2c530693c6097838b8948894893"
+    },
+    {
+      "path": "server/prospects.ts",
+      "sha256": "12cf0c86a44d6c03ed8712dfcad1a3cb247d3fd2432ff773c896adb0a8d5d1cf"
+    },
+    {
+      "path": "server/supabase.ts",
+      "sha256": "28a1b1e81b7e392512d6964be4a0bfd05964dcbdb76cf833b8098139b8e925c1"
+    },
+    {
+      "path": "server/whatsapp.ts",
+      "sha256": "7f3aad0545ddcb2bdc2170349d5c651b81ae26b4b3e39c41419070f99ef7dcb8"
+    },
+    {
+      "path": "src/ActivityLogPage.tsx",
+      "sha256": "1abc44d1cfd11fa9d908addb72fcc7ca82d58b9214c2d02b4d1ec447985d20d2"
+    },
+    {
+      "path": "src/admin/admin-brand.css",
+      "sha256": "8b8e85218deca23b6846fd3f94b7741730f510757f48dd1e4cfaaeb9050cefa2"
+    },
+    {
+      "path": "src/admin/admin.css",
+      "sha256": "747f3a265719dee5efb42ccc236862436bb6565a60568791f5a6cd4220ba80ee"
+    },
+    {
+      "path": "src/admin/AdminApp.tsx",
+      "sha256": "413d423220aa6db3dd0a5245e57209ccbdf862cd95d450a64fe86f621a73bfdf"
+    },
+    {
+      "path": "src/admin/components/ActivityChart.tsx",
+      "sha256": "132f4bca98dea08a3480a82defa1ab1eafea52b45935a0e5777e1dc458ee04e0"
+    },
+    {
+      "path": "src/admin/components/AdminDrawer.tsx",
+      "sha256": "ffb266b73cc925ee48da96a37f0aed64fb1717cd5a9c445f359401ecbfaa676e"
+    },
+    {
+      "path": "src/admin/components/AdminMfa.tsx",
+      "sha256": "ae812881decf7356d5132ecf77046c4547b7fe4b7fb04094be0ddc1bfc4f4d50"
+    },
+    {
+      "path": "src/admin/components/AdminShell.tsx",
+      "sha256": "674eef72aad1c7cf216ff8e14c408faa633907ae77678e96fb5419eab645e726"
+    },
+    {
+      "path": "src/admin/components/KpiCard.tsx",
+      "sha256": "296bfc00694009a8bc991583eb7c37266cdb4587625d901b113a6898ced14df4"
+    },
+    {
+      "path": "src/admin/components/StatusPill.tsx",
+      "sha256": "c99c107a9a2245b6d973432d3036f96336212bb236b9b72451de1642767ad322"
+    },
+    {
+      "path": "src/admin/csv.ts",
+      "sha256": "08d6bb819325945878e7b13bad8565570deea05d841d6b5ad89067f3b9f7f88c"
+    },
+    {
+      "path": "src/admin/i18n.tsx",
+      "sha256": "b18ac95a22cbcdd38158cbe985274a6effff1746bd150dbb2afc15e7918faff9"
+    },
+    {
+      "path": "src/admin/locales/en.json",
+      "sha256": "b434b32ec49d3a2b5b8469d6c66c06e2167443fc00364f0986c89c4a8d4db592"
+    },
+    {
+      "path": "src/admin/locales/fr.json",
+      "sha256": "ba596650f19caaaebd4e80a6660bb46c0b0fd6aef5bd9423d2413becf9a82e0c"
+    },
+    {
+      "path": "src/admin/pages/ActivityPage.tsx",
+      "sha256": "510a8d377f9dbc73443816b27e55ef87e64697c7154c745e16a9cd5ae26275d4"
+    },
+    {
+      "path": "src/admin/pages/AnalyticsPage.tsx",
+      "sha256": "4eebe0c61729ea682cc53a04d162f889fdb293122ce3b90d82ba61ffe40fded0"
+    },
+    {
+      "path": "src/admin/pages/DeliveriesPage.tsx",
+      "sha256": "c2044786def645ef4130c365baebe59f70f319bf2ce0d93fdeff269d584ac622"
+    },
+    {
+      "path": "src/admin/pages/LeadsPage.tsx",
+      "sha256": "a7bfcecd30b149d128f723ed2e746244b0247eb722754b87bf92c9fa7c6d9cd1"
+    },
+    {
+      "path": "src/admin/pages/LoginPage.tsx",
+      "sha256": "c1bfb9aba9b98e0d79e6436d925d47be6b01276c3d1bfb20c165e148a2b7f359"
+    },
+    {
+      "path": "src/admin/pages/OverviewPage.tsx",
+      "sha256": "bd5c4e938b4182302c25120e54daf5f706a049954d23f87dd1f6e68d640faa4f"
+    },
+    {
+      "path": "src/admin/pages/ProspectsPage.tsx",
+      "sha256": "93aab7c5bb48bb879f3f4046c8d5b753f4c789afbe75ed873e96f217cbc1051f"
+    },
+    {
+      "path": "src/admin/pages/SettingsPage.tsx",
+      "sha256": "0ccfe39fe270886ec49c59847c164f5f3e6104bc84785e12fa540a4d12da11aa"
+    },
+    {
+      "path": "src/admin/pages/WebsitePage.tsx",
+      "sha256": "2814b24585a99ae4ede0761c7ec21a508cf5d628f1192596234ee7b3dc5b58e1"
+    },
+    {
+      "path": "src/admin/prospects.css",
+      "sha256": "b592f9e0c6e4594ef2faa8dc6229d552742dbfe7cd46ff6f14081ac86e1427e7"
+    },
+    {
+      "path": "src/admin/translation.ts",
+      "sha256": "5485952f6141620a85c97a2e993cb0b2e3d3f9a90eab4983fb56f6f6ba287c7f"
+    },
+    {
+      "path": "src/admin/types.ts",
+      "sha256": "457e2662fb02e05031f5c01ab2a405acda3601e5684dda8a0c7cf462cc4962bb"
+    },
+    {
+      "path": "src/AgendaPage.tsx",
+      "sha256": "99a67af75ae252631021245ec2e2e522a78f9d58a6d42290f82d76de9e76a917"
+    },
+    {
+      "path": "src/analytics.ts",
+      "sha256": "21f9fe0db53557f161a9733480764d2eaac9fe4d3083b1fd8d2fdea25a368d3d"
+    },
+    {
+      "path": "src/AnimatedMetricValue.tsx",
+      "sha256": "eecbf43423fc3ae6b0ba22656484167ffc5f41d1d47de2c5ae70a518672a9986"
+    },
+    {
+      "path": "src/App.jsx",
+      "sha256": "db9049c7cc98fc29d30c4c149dcee71d33510fe33168e8b13c25210614af3828"
+    },
+    {
+      "path": "src/AppointmentsPage.tsx",
+      "sha256": "67b7ede92236f4ac166132ad0ac4874c6f2192beba647841fafb3d497ca437a5"
+    },
+    {
+      "path": "src/assets/bab-doukkala-website.jpg",
+      "sha256": "39cd183ec6f180a34daf28663790b638f29049060ddcf8cf83f5d415ee11376c"
+    },
+    {
+      "path": "src/ClientSpotlight.tsx",
+      "sha256": "103bb16a03e9fc75eb919b7fac58b6358594d5c7112150ba2e5ad332df8d95e2"
+    },
+    {
+      "path": "src/components/AppErrorBoundary.tsx",
+      "sha256": "a356a3bfa2f77f820c846797c0955c042cfb201f29d4bde8eab0ccaff4a1b2f8"
+    },
+    {
+      "path": "src/components/DeferredSection.tsx",
+      "sha256": "4e9492fb0bb937f06aa3127401caa488b0842cd4d0263fa5c7a9f7812f69513b"
+    },
+    {
+      "path": "src/components/EnvironmentBanner.tsx",
+      "sha256": "d0679a31e2523db276027303856e9b5f35d3b32c6c0f1b6302275a553e2ca24f"
+    },
+    {
+      "path": "src/components/Modal.tsx",
+      "sha256": "d7a012902dc117f8cf9d80a2a71c66f7604eaadacb49c4d0750d194173703eea"
+    },
+    {
+      "path": "src/content/client.ts",
+      "sha256": "4f2f01da2cb45da9689aa9cba3c75fb4e9dc8cbe5842f108f4d72b37eb41975c"
+    },
+    {
+      "path": "src/content/faq.ts",
+      "sha256": "2762692faa2a870e085d2166026bba7ab825f75574fd8b8a414ff774b092c25e"
+    },
+    {
+      "path": "src/content/features.json",
+      "sha256": "04352f3d8182a8c57570ecec1682bd048bca6c8e86a8913e42ac2761e55469ff"
+    },
+    {
+      "path": "src/content/landing.ts",
+      "sha256": "9888d1114d589d537dfc09a0aec645d20274f3f2d1ffde654528fc8b41a4c59e"
+    },
+    {
+      "path": "src/content/outcomes.json",
+      "sha256": "b38d9ab25436eca91aa2a6e9351f3aa57c45cad90781b6eba0d1dabcba895c22"
+    },
+    {
+      "path": "src/content/schema.ts",
+      "sha256": "c8af8d7887771e0db3693c16938d851211c403a635da6f22ef111720a492fd5a"
+    },
+    {
+      "path": "src/content/SiteContent.tsx",
+      "sha256": "eecb1da8665dd0b850ec086a7427c316f53008de989471293b1064baa71661b9"
+    },
+    {
+      "path": "src/demo/AppointmentEditor.tsx",
+      "sha256": "d8eecdfc56d73b2025b4cb7550776e96b95ab940e6c9899ea34f002e17cf8362"
+    },
+    {
+      "path": "src/demo/appointments.ts",
+      "sha256": "d7d1f35aaf1858619b978a8ad2ceb018be0f9be3ade371fda1dac0ff1fa4be5e"
+    },
+    {
+      "path": "src/demo/conflicts.ts",
+      "sha256": "b6d8d5dbad4962774489b89b91d3b5ebb643995f029bc6ce0d1e9e5d242d584f"
+    },
+    {
+      "path": "src/demo/DemoProvider.tsx",
+      "sha256": "5c7355548cdc0e95d64cc5b50a01a1806887712a7c2caf9427b71a4bbc2c3150"
+    },
+    {
+      "path": "src/demo/LazyAppointmentEditor.tsx",
+      "sha256": "d848b967038f61c992d6b1fbdac847b0d1a30190627ae8d1f31f4f80b089933a"
+    },
+    {
+      "path": "src/demo/messages.ts",
+      "sha256": "cdceb160d3d4d6ddd58bfaa8effb7e994e581902e666f689b1f85001a1aa39b6"
+    },
+    {
+      "path": "src/demo/ProfileDirectory.tsx",
+      "sha256": "1df7219a007398a0ac1e74a2738061aeaa1c78b8bd3ce49798a6f8b9f931b408"
+    },
+    {
+      "path": "src/demo/profiles.ts",
+      "sha256": "7931e6b88f8c8fbbd80b21d43cbb9af31f05089d1a6c7f92b0d9a20ce687f582"
+    },
+    {
+      "path": "src/demo/scheduling.ts",
+      "sha256": "6de9f2fb7ee97b358cdbc4604254e8905399355bd3266cd33aac675241ae8845"
+    },
+    {
+      "path": "src/DemoDashboard.tsx",
+      "sha256": "2cdcc16b24170f34696b1cebe06e9366fb16d029a0f6c067b1bf95a0eb884435"
+    },
+    {
+      "path": "src/DemoTour.tsx",
+      "sha256": "8f0d446d90374b936c787c0f70f8e6eb41f2ffe6639992fdd155c082c92a3a0d"
+    },
+    {
+      "path": "src/DoctorsPage.tsx",
+      "sha256": "32cc3475ba4cca0d4479fe9b3f644246f7e73030ae9e929a9a075c8e060c63fc"
+    },
+    {
+      "path": "src/LandingSections.tsx",
+      "sha256": "c0cc00df6724e367ff98ca862591641fafc9707431667be97fafdb85e2b5a92c"
+    },
+    {
+      "path": "src/LeadConfirmation.tsx",
+      "sha256": "ec0129de02855b1a01e57e498b840e2b2df26acb3f26f3f1962999d5dcd4c874"
+    },
+    {
+      "path": "src/leads/client.ts",
+      "sha256": "f85d9846ff302cb914b01a7bb6b47e955f04e8d255584f6fa3d08bba76619ab5"
+    },
+    {
+      "path": "src/leads/types.ts",
+      "sha256": "bcbdab9b9f94378a823407a3bcddd8e64e7680c44d00a2ec1dee590b1503e60a"
+    },
+    {
+      "path": "src/locale-intent.d.ts",
+      "sha256": "e9271abf3cf7f26918b601eb9e06d3ab2753175b97b0cb4547034c89c37d577e"
+    },
+    {
+      "path": "src/main.jsx",
+      "sha256": "b5cbaeaf1daedf4c14b359b2e2b0f23cdf31d80bb3a8f4df4df1a4f42e538fe9"
+    },
+    {
+      "path": "src/MarketingDetails.tsx",
+      "sha256": "e4e11b3dec35cdaf70eb9c301a9a642abadda929e248bbc601e2ad6441b7735c"
+    },
+    {
+      "path": "src/MessagesPage.tsx",
+      "sha256": "4c7f754ef619399ffe65ca0399bd8b3cb2ff6c5739f0d208a8e25ecc573f5237"
+    },
+    {
+      "path": "src/monitoring.ts",
+      "sha256": "73ae392f9774bb85232a44719cb50a7558284db0e5696fa952c92fe3e062464e"
+    },
+    {
+      "path": "src/PatientsPage.tsx",
+      "sha256": "d9008972b988edc5b8b561a0cca7d3240e82269099e6396f243ea02ac1556759"
+    },
+    {
+      "path": "src/PostsPage.tsx",
+      "sha256": "a0eb53c42e715d4c3d839f5a473e53f0edfe2ebc5ee8e29f412b0270b16791bc"
+    },
+    {
+      "path": "src/prerender.tsx",
+      "sha256": "f4866332642b5c926e53ea8c7b22dbb2e3bc242a995e41001e26f54b177e9850"
+    },
+    {
+      "path": "src/PrivacyNotice.tsx",
+      "sha256": "c26e74dbee29e03f4bf5d8eef99c4d690717843061bde24b08a9b8a1be6d5d47"
+    },
+    {
+      "path": "src/SettingsPage.tsx",
+      "sha256": "7f841a1f520ae7f931369c3d5e342beda81350dba35d39c0b0736828f472519a"
+    },
+    {
+      "path": "src/StaffPage.tsx",
+      "sha256": "825b25c5e4df6b2c0db10935a7d3b533d14d50f63de75a7a4c289d5c5ffc59f4"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "f3203210a160c1416f9999183a4c6683d603522e13e1b02a860f9b5fa0f040cf"
+    },
+    {
+      "path": "src/SupportPage.tsx",
+      "sha256": "513669b668eb2a3b90456ffbcec311607cbeac3bc16bcaf8de2436b333362e95"
+    },
+    {
+      "path": "src/teamActivity.ts",
+      "sha256": "e1b233458ee2c45e2c29e47960420f962be8ef8ab4e19f0345371ee11397d83a"
+    },
+    {
+      "path": "src/translations.js",
+      "sha256": "7aeaaa222b5c4bd1720d35baf50cdb407bfddc9c7a02e9b94e951d4dd10a218b"
+    },
+    {
+      "path": "tailwind.config.js",
+      "sha256": "c4c513e0ed10c90be9893d8f3e22fddb712d9562fed0edacaef53d2aa18a63a7"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "af6f4243ea697df6330c59c3f2a7166bc457677a012b858fcf5a4f6adee9e745"
+    },
+    {
+      "path": "tsconfig.tests.json",
+      "sha256": "de6142d4187d01637fd1be461045d037192346a5835d341afc184e27913ef89a"
+    },
+    {
+      "path": "vercel.json",
+      "sha256": "c987a0e7638c9b8480855462a37182976ea0d1529305d573c374d6e238e83c1a"
+    },
+    {
+      "path": "vite.config.mjs",
+      "sha256": "60e20ef993420c17030024aac9afb66c816214f4b6db79f5fccf6f58e430eb7f"
+    },
+    {
+      "path": "worker/index.js",
+      "sha256": "2dd0615a445143933d88d4271f54f5d63ee951421fcd08c5a7617bb09c564389"
+    }
+  ],
+  "status": "deployed",
+  "url": "https://clinahir-staging-h7brzbvxh-paraoonline.vercel.app"
+}

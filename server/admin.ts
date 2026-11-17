@@ -1,3 +1,6 @@
+import { environmentFailure } from './environment.js';
+import { assuranceLevel, mfaStatus, verifiedTotp, type MfaUser } from './admin-mfa.js';
+import { setupCookie, validSetup, freshEmailSession } from './admin-activation.js';
 import { createHash } from 'node:crypto';
 import { SupabaseLeadStore } from './supabase.js';
 import { validateSiteDocument } from '../src/content/schema.js';
@@ -15,7 +18,7 @@ const reply = (data: object, status = 200, headers: Record<string, string> = {})
 function cookie(request: Request, token = '', seconds = 0) { return `${cookieName}=${encodeURIComponent(token)}; HttpOnly; SameSite=Strict; Path=/api/admin; Max-Age=${seconds}${new URL(request.url).protocol === 'https:' ? '; Secure' : ''}`; }
 function tokenFrom(request: Request) { return request.headers.get('cookie')?.split(';').map(p => p.trim()).find(p => p.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1); }
 async function readBody(request: Request): Promise<Record<string, unknown>> {
-    if (!request.headers.get('content-type')?.startsWith('application/json'))
+    if (request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json')
         throw new AdminInputError('Invalid request');
     const reader = request.body?.getReader();
     if (!reader)
@@ -44,13 +47,14 @@ async function readBody(request: Request): Promise<Record<string, unknown>> {
         throw new AdminInputError('Invalid request');
     return parsed as Record<string, unknown>;
 }
-async function authCall(env: AdminEnv, path: string, fetcher: typeof fetch, body?: object, token?: string) {
+async function authCall(env: AdminEnv, path: string, fetcher: typeof fetch, body?: object, token?: string, method?: string) {
     const url = new URL(env.SUPABASE_URL!);
     if (url.protocol !== 'https:' || url.pathname !== '/' || url.username || url.password)
         throw new Error('Invalid configuration');
-    return fetcher(`${url.origin}/auth/v1/${path}`, { method: body ? 'POST' : 'GET', headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY!, 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(7000), redirect: 'error' });
+    return fetcher(`${url.origin}/auth/v1/${path}`, { method: method ?? (body ? 'POST' : 'GET'), headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY!, 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(7000), redirect: 'error' });
 }
 export async function adminRequest(request: Request, env: AdminEnv, fetcher: typeof fetch = fetch): Promise<Response> {
+    const failure = environmentFailure(env, request); if (failure) return failure;
     const url = new URL(request.url), action = url.searchParams.get('action') ?? 'session';
     if (!['GET', 'POST'].includes(request.method))
         return reply({ error: 'Method not allowed' }, 405);
@@ -60,6 +64,31 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         return reply({ error: 'Admin sign-in is not configured for this environment. Check the server-side Supabase and owner settings.' }, 503);
     try {
         const store = new SupabaseLeadStore(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, fetcher);
+        if (action === 'request-password-reset' && request.method === 'POST') {
+            const d = await readBody(request), email = typeof d.email === 'string' ? d.email.trim().toLowerCase() : '';
+            if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply({ error: 'Enter your email and password.' }, 400);
+            const ip = request.headers.get('x-vercel-forwarded-for')?.split(',')[0].trim();
+            for (const identity of [`admin-recovery:${email}`, ...(ip ? [`admin-recovery-ip:${ip}`] : [])])
+                if (!await store.allow(createHash('sha256').update(identity).digest('hex'))) return reply({ error: 'Too many attempts. Please try again later.' }, 429);
+            if (email === env.CLINAHIR_ADMIN_EMAIL.toLowerCase()) {
+                const origin = env.CLINAHIR_ENV === 'production' ? env.CLINAHIR_PRODUCTION_ORIGIN! : url.origin;
+                const response = await authCall(env, 'recover?redirect_to=' + encodeURIComponent(origin + '/admin'), fetcher, { email });
+                if (!response.ok) return reply({ error: 'Password reset is temporarily unavailable. Please try again later.' }, response.status === 429 ? 429 : 503);
+            }
+            return reply({ requested: true });
+        }
+        if (action === 'activate' && request.method === 'POST') {
+            if (!env.CRON_SECRET) return reply({ error: 'Owner setup is temporarily unavailable.' }, 503);
+            const d = await readBody(request);
+            if (typeof d.accessToken !== 'string' || d.accessToken.length > 16000 || !d.accessToken) return reply({ error: 'Owner setup link is invalid or expired.' }, 400);
+            const identityResponse = await authCall(env, 'user', fetcher, undefined, d.accessToken);
+            if (!identityResponse.ok) return reply({ error: 'Owner setup link is invalid or expired.' }, identityResponse.status >= 500 ? 503 : 401);
+            const identity = await identityResponse.json() as MfaUser;
+            if (identity.id !== env.CLINAHIR_ADMIN_USER_ID || identity.email?.toLowerCase() !== env.CLINAHIR_ADMIN_EMAIL.toLowerCase() || verifiedTotp(identity) || !freshEmailSession(d.accessToken)) return reply({ error: 'Owner setup link is invalid or expired.' }, 403);
+            const response = reply({ ownerSetup: true }, 200, { 'Set-Cookie': cookie(request, d.accessToken, 600) });
+            response.headers.append('Set-Cookie', setupCookie(request, d.accessToken, env.CRON_SECRET));
+            return response;
+        }
         if (action === 'login' && request.method === 'POST') {
             const d = await readBody(request), email = typeof d.email === 'string' ? d.email.trim().toLowerCase() : '', password = typeof d.password === 'string' ? d.password : '';
             if (!email || email.length > 254 || !password || password.length > 200)
@@ -85,7 +114,7 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
             };
             if (!session.access_token || session.user?.id !== env.CLINAHIR_ADMIN_USER_ID)
                 return reply({ error: 'This account does not have admin access.' }, 403);
-            return reply({ user: { email: session.user.email } }, 200, { 'Set-Cookie': cookie(request, session.access_token, Math.min(session.expires_in ?? 3600, 3600)) });
+            return reply({ user: { email: session.user.email }, mfa: mfaStatus(session.user, session.access_token, env.CLINAHIR_ADMIN_MFA_REQUIRED === 'true') }, 200, { 'Set-Cookie': cookie(request, session.access_token, Math.min(session.expires_in ?? 3600, 3600)) });
         }
         let token: string | undefined;
         try {
@@ -100,12 +129,56 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         const check = await authCall(env, 'user', fetcher, undefined, token);
         if(check.status===401||check.status===403)return reply({error:'Your session expired. Please sign in again.'},401,{'Set-Cookie':cookie(request)});
         if(!check.ok)return reply({error:'Authentication is temporarily unavailable. Please try again shortly.'},503);
-        const user = await check.json() as {
-            id: string;
-            email?: string;
-        };
+        const user = await check.json() as MfaUser;
         if (user.id !== env.CLINAHIR_ADMIN_USER_ID || user.email?.toLowerCase() !== env.CLINAHIR_ADMIN_EMAIL.toLowerCase())
             return reply({ error: 'Access denied.' }, 403);
+        const mfa = mfaStatus(user, token, env.CLINAHIR_ADMIN_MFA_REQUIRED === 'true');
+        if (action === 'set-password' && request.method === 'POST') {
+            if (!env.CRON_SECRET || !validSetup(request, token, env.CRON_SECRET) || verifiedTotp(user)) return reply({ error: 'Owner setup link is invalid or expired.' }, 403);
+            const d = await readBody(request);
+            if (typeof d.password !== 'string' || d.password.length < 12 || d.password.length > 200 || /[\u0000-\u001f]/.test(d.password)) return reply({ error: 'Use a password of at least 12 characters.' }, 400);
+            const changed = await authCall(env, 'user', fetcher, { password: d.password }, token, 'PUT');
+            if (!changed.ok) return reply({ error: 'Password setup could not be completed. Please try again.' }, changed.status >= 500 ? 503 : 400);
+            await authCall(env, 'logout', fetcher, {}, token).catch(() => {});
+            const response = reply({ passwordSaved: true }, 200, { 'Set-Cookie': cookie(request) });
+            response.headers.append('Set-Cookie', setupCookie(request, '', env.CRON_SECRET, true));
+            return response;
+        }
+        if (action === 'mfa-state' && request.method === 'GET') return reply({ mfa });
+        if (['mfa-enroll', 'mfa-verify'].includes(action) && request.method === 'POST') {
+            const d = await readBody(request);
+            if (!await store.allow(createHash('sha256').update(`admin-mfa:${user.id}`).digest('hex'))) return reply({ error: 'Too many attempts. Please try again later.' }, 429);
+            if (action === 'mfa-enroll') {
+                if (verifiedTotp(user)) return reply({ error: 'An authenticator is already enrolled.' }, 409);
+                for (const factor of user.factors ?? []) if (factor.factor_type === 'totp' && factor.status === 'unverified' && /^[0-9a-f-]{36}$/i.test(factor.id)) {
+                    const removed = await authCall(env, `factors/${factor.id}`, fetcher, undefined, token, 'DELETE');
+                    if (!removed.ok) return reply({ error: 'Authenticator setup is temporarily unavailable.' }, 503);
+                }
+                const response = await authCall(env, 'factors', fetcher, { factor_type: 'totp', friendly_name: 'Clinahir owner', issuer: 'Clinahir' }, token);
+                if (!response.ok) return reply({ error: 'Authenticator setup is temporarily unavailable.' }, 503);
+                const factor = await response.json() as { id?: string; totp?: { qr_code?: string; secret?: string } };
+                let qr = (factor.totp?.qr_code ?? '').trim();
+                if (qr.startsWith('<?xml') && qr.indexOf('<svg') >= 0 && qr.indexOf('<svg') < 4096) qr = qr.slice(qr.indexOf('<svg'));
+                if (!factor.id || !/^[0-9a-f-]{36}$/i.test(factor.id) || qr.length > 1048576 || !(qr.startsWith('<svg') || qr.startsWith('data:image/svg+xml'))) return reply({ error: 'Authenticator setup is temporarily unavailable.' }, 503);
+                return reply({ factorId: factor.id, qrCode: qr.startsWith('<svg') ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}` : qr, secret: factor.totp?.secret });
+            }
+            if (typeof d.factorId !== 'string' || !/^[0-9a-f-]{36}$/i.test(d.factorId) || typeof d.code !== 'string' || !/^\d{6}$/.test(d.code)) return reply({ error: 'Enter the six-digit authenticator code.' }, 400);
+            if (!user.factors?.some(f => f.id === d.factorId && f.factor_type === 'totp')) return reply({ error: 'This authenticator does not belong to your account.' }, 403);
+            const challengeResponse = await authCall(env, `factors/${d.factorId}/challenge`, fetcher, {}, token);
+            if (!challengeResponse.ok) return reply({ error: 'Authenticator verification is temporarily unavailable.' }, challengeResponse.status === 429 ? 429 : 503);
+            const challenge = await challengeResponse.json() as { id?: string };
+            if (!challenge.id || !/^[0-9a-f-]{36}$/i.test(challenge.id)) return reply({ error: 'Authenticator verification is temporarily unavailable.' }, 503);
+            const verification = await authCall(env, `factors/${d.factorId}/verify`, fetcher, { challenge_id: challenge.id, code: d.code }, token);
+            if (!verification.ok) return reply({ error: verification.status >= 500 ? 'Authenticator verification is temporarily unavailable.' : 'The authenticator code is invalid or expired.' }, verification.status >= 500 ? 503 : verification.status === 429 ? 429 : 401);
+            const session = await verification.json() as { access_token?: string; expires_in?: number };
+            if (!session.access_token || assuranceLevel(session.access_token) !== 'aal2') return reply({ error: 'Authenticator verification is temporarily unavailable.' }, 503);
+            const verified = await authCall(env, 'user', fetcher, undefined, session.access_token);
+            if (!verified.ok) return reply({ error: 'Authenticator verification is temporarily unavailable.' }, 503);
+            const identity = await verified.json() as MfaUser;
+            if (identity.id !== user.id || identity.email?.toLowerCase() !== env.CLINAHIR_ADMIN_EMAIL.toLowerCase()) return reply({ error: 'Access denied.' }, 403);
+            return reply({ user: { email: identity.email } }, 200, { 'Set-Cookie': cookie(request, session.access_token, Math.min(session.expires_in ?? 3600, 3600)) });
+        }
+        if (mfa.required && action !== 'logout') return reply({ error: 'Authenticator verification is required.', mfaRequired: true }, 403);
         if (action === 'session' && request.method === 'GET')
             return reply({ user: { email: user.email } });
         if (action === 'logout' && request.method === 'POST') {

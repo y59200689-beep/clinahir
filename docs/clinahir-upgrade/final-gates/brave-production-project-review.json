@@ -1,0 +1,75 @@
+{
+  "observedAt": "2026-11-16T21:16:38.832999+00:00",
+  "accessPath": "Owner-provided signed-in Brave session; native UI read-only inspection",
+  "organization": {
+    "id": "ictxrvikmelaingrsqzq",
+    "name": "ysfkhaourimahir@gmail.com's Org",
+    "plan": "Free"
+  },
+  "identifiedClinahirProject": {
+    "ref": "jsagrvxgydvhdoxibzny",
+    "name": "clinahir",
+    "dashboardUrl": "https://supabase.com/dashboard/project/jsagrvxgydvhdoxibzny",
+    "status": "Healthy",
+    "region": "eu-west-1",
+    "compute": "Nano",
+    "branchLabel": "main PRODUCTION",
+    "overviewBackupLabel": "No backups"
+  },
+  "previousGuardReference": "yurquokjaumjdzglioaf",
+  "liveVercelDatabaseBindingVerified": false,
+  "browserOwnershipLimit": "Organization/project access confirmed; current membership role and sealed Vercel environment values were not inspected.",
+  "securityAdvisor": {
+    "errors": 0,
+    "warnings": 0,
+    "information": [
+      {
+        "issue": "RLS Enabled No Policy",
+        "entity": "public.clinahir_analytics_events"
+      },
+      {
+        "issue": "RLS Enabled No Policy",
+        "entity": "public.clinahir_lead_limits"
+      },
+      {
+        "issue": "RLS Enabled No Policy",
+        "entity": "public.clinahir_leads"
+      }
+    ],
+    "limit": "Advisor display only; no independent anonymous/authenticated grant probes executed."
+  },
+  "visibleMigrationHistory": [
+    {
+      "version": "20261004180919",
+      "name": "clinahir_conversion_analytics"
+    },
+    {
+      "version": "20261003095511",
+      "name": "clinahir_supabase_outbox"
+    }
+  ],
+  "publicEntityList": [
+    "clinahir_analytics_events",
+    "clinahir_conversion_daily",
+    "clinahir_lead_limits",
+    "clinahir_leads"
+  ],
+  "expectedApplicationTablesNotInPublicList": [
+    "clinahir_whatsapp_jobs",
+    "clinahir_cron_runs",
+    "clinahir_site_content",
+    "clinahir_admin_audit",
+    "clinahir_prospects"
+  ],
+  "actualRecordsRead": false,
+  "sqlExecuted": false,
+  "keysRevealed": false,
+  "mutationsPerformed": false,
+  "productionActivation": "Still blocked by owner instruction",
+  "ownerConfirmedVercelBinding": {
+    "projectRef": "jsagrvxgydvhdoxibzny",
+    "confirmation": "User: vercel uses this project",
+    "recordedAt": "2026-11-16T21:20:01.620211+00:00"
+  },
+  "bindingEvidenceLimit": "Owner-confirmed; sealed runtime settings not independently inspected."
+}

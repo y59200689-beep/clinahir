@@ -1,0 +1,7 @@
+{
+  "executedAt": "2026-11-15T20:48:15.559Z",
+  "scope": "Local staging build with fictional configuration; no deployment or remote verifier invoked",
+  "exitCode": 0,
+  "bannerFound": true,
+  "secretsAbsent": true
+}

@@ -1,0 +1,206 @@
+{
+  "executedAt": "2026-11-16T16:50:22.657Z",
+  "scope": "Read-only live hosting project/configuration-name metadata only; no decrypted secrets, database rows, writes or activation",
+  "projects": [
+    {
+      "label": "Clinahir existing hosting",
+      "id": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "name": "clinahir",
+      "framework": "vite",
+      "productionDeployment": {
+        "id": "dpl_BjcY5BWyDSkg4nRtLoJTUjtpaTeV",
+        "url": "clinahir-nc9r2lowo-paraoonline.vercel.app",
+        "readyState": "READY"
+      },
+      "environmentNames": [
+        {
+          "key": "CLINAHIR_ADMIN_USER_ID",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "CLINAHIR_ADMIN_EMAIL",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "CRON_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "CLINAHIR_INTEGRATION_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "DAILY_COMMAND_URL",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "SUPABASE_SERVICE_ROLE_KEY",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "SUPABASE_URL",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        }
+      ],
+      "hiddenProductionEnvCount": 0
+    },
+    {
+      "label": "Daily Command live hosting",
+      "id": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+      "name": "daily-command-center",
+      "framework": "nextjs",
+      "productionDeployment": {
+        "id": "dpl_4TLfbhiqvmyntd8LPkktqdBQTFyd",
+        "url": "daily-command-center-ldvvx52o3-paraoonline.vercel.app",
+        "readyState": "READY"
+      },
+      "environmentNames": [
+        {
+          "key": "RADIOLOGY_REPORTS_USER_ID",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "RADIOLOGY_REPORTS_INTEGRATION_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "NEXT_PUBLIC_SUPABASE_URL",
+          "target": [
+            "production"
+          ],
+          "type": "encrypted"
+        },
+        {
+          "key": "CLINAHIR_LEADS_USER_ID",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "CLINAHIR_INTEGRATION_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "GOOGLE_DRIVE_REDIRECT_URI",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "GMAIL_REDIRECT_URI",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "GOOGLE_REDIRECT_URI",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "GOOGLE_CLIENT_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "GOOGLE_CLIENT_ID",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "OPENAI_API_KEY",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "CRON_SECRET",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "SUPABASE_SECRET_KEY",
+          "target": [
+            "production"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "NEXT_PUBLIC_APP_URL",
+          "target": [
+            "preview",
+            "production"
+          ],
+          "type": "encrypted"
+        },
+        {
+          "key": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+          "target": [
+            "production",
+            "preview"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "INTEGRATION_ENCRYPTION_KEY",
+          "target": [
+            "production",
+            "preview"
+          ],
+          "type": "sensitive"
+        },
+        {
+          "key": "OPENAI_MODEL",
+          "target": [
+            "production",
+            "preview"
+          ],
+          "type": "sensitive"
+        }
+      ],
+      "hiddenProductionEnvCount": 0
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "automationId": "clinahir-encrypted-staging-backups",
+  "status": "ACTIVE",
+  "schedule": "Daily at 09:00 in the app local timezone (Africa/Casablanca)",
+  "scope": "Dedicated synthetic staging only",
+  "notificationPolicy": "failed_runs_only",
+  "configuredThrough": "Codex automation tool; creation succeeded and view rendered its card",
+  "scheduledRunObserved": false,
+  "manualFullCycleVerified": true,
+  "retentionPolicy": "14 daily / 8 weekly / 12 monthly, plus newest two verified and pinned",
+  "permanentDeletionAllowed": false,
+  "expiredRemoteTrashMovementExercised": false,
+  "availabilityRequirements": [
+    "Mac awake",
+    "Codex available",
+    "Docker running",
+    "Keychain unlocked",
+    "Supabase and Drive access"
+  ],
+  "productionBackupClaimed": false
+}

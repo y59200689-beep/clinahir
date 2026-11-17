@@ -1,0 +1,14 @@
+{
+  "executedAt": "2026-11-17T12:29:15.670Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "ownerEmail": "youssefmahir87@gmail.com",
+  "ownerId": "06b8fd0d-1889-4010-b5aa-f182b9bae31c",
+  "created": true,
+  "passwordGenerated": false,
+  "emailSent": false,
+  "mfaEnrolled": false,
+  "status": "private_password_saved_email_confirmed_mfa_optional",
+  "productionHostingChanged": false,
+  "passwordSavedPrivately": true,
+  "mfaRequired": false
+}

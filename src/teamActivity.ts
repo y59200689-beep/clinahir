@@ -9,16 +9,6 @@ export function memberFor(item: Appointment, member: string | undefined, histori
   return member === 'center-admin' ? 'Member 04' : member;
 }
 
-export function readDemoAppointments(days: AppointmentDay[]): Appointment[] {
-  const initial = makeInitialAppointments(days);
-  try {
-    const saved = window.sessionStorage.getItem('kelo-demo-appointments-v2');
-    const parsed: unknown = saved ? JSON.parse(saved) : null;
-    if (!Array.isArray(parsed)) return initial;
-    const initialById = new Map(initial.map((item) => [item.id, item]));
-    return (parsed as Appointment[]).map((item) => ({ ...initialById.get(item.id), ...item }));
-  } catch { return initial; }
-}
 
 export type TeamStat = { name: string; actions: number; confirmed: number; share: number; averageMinutes: number | null; lastActivityAt: string | null };
 

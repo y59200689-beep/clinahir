@@ -6,6 +6,9 @@ export function leadsDev() {
       const pathname = new URL(req.url, 'http://localhost').pathname;
       if (!['/api/leads', '/api/cron/leads', '/api/analytics', '/api/admin', '/api/content'].includes(pathname)) return next();
       try {
+        const { environmentFailure } = await server.ssrLoadModule('/server/environment.ts');
+        const failure = environmentFailure(env);
+        if (failure) { res.writeHead(failure.status, Object.fromEntries(failure.headers)); res.end(await failure.text()); return; }
         const chunks = []; let size = 0;
         for await (const chunk of req) { size += chunk.length; if (size > (pathname === '/api/admin' ? 200000 : 16384)) { res.writeHead(413); res.end(); return; } chunks.push(chunk); }
         const { SupabaseLeadStore } = await server.ssrLoadModule('/server/supabase.ts');

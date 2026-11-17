@@ -731,3 +731,13 @@
   .ca-workspace.ca-sidebar-hidden .ca-main{margin-left:0}
 }
 @media(prefers-reduced-motion:reduce){.ca-sidebar-toggle,.ca-workspace .ca-sidebar,.ca-workspace .ca-main{transition:none!important}}
+
+/* Phase 2: legible secondary copy and visible keyboard focus on white admin surfaces. */
+.admin-workspace [class~="text-slate-400"] { color: #64748b; }
+.admin-workspace :where(button,a,input,select,textarea):focus-visible { outline: 3px solid #6754cf; outline-offset: 3px; }
+.admin-workspace button:disabled { cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { .admin-workspace .animate-pulse { animation: none; } }
+
+/* Phase 3 measured contrast: secondary copy on the cool canvas needs more than slate-500. */
+.admin-workspace .text-slate-400,
+.admin-workspace .text-slate-500 { color: #59677b; }

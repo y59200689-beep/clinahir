@@ -1,0 +1,140 @@
+{
+  "scope": "Three sequential cold lab runs per page; local production HTML, fictional API, external requests blocked. Proper Lighthouse mobile and desktop presets; no field data.",
+  "samples": [
+    {
+      "name": "public-mobile",
+      "run": 1,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        }
+      },
+      "score": 1,
+      "lcpMs": 1053.8286,
+      "tbtMs": 38.5,
+      "cls": 0.001510305170153146
+    },
+    {
+      "name": "public-mobile",
+      "run": 2,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        }
+      },
+      "score": 1,
+      "lcpMs": 1056.5281,
+      "tbtMs": 57,
+      "cls": 0.001510305170153146
+    },
+    {
+      "name": "public-mobile",
+      "run": 3,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        }
+      },
+      "score": 1,
+      "lcpMs": 1052.9749,
+      "tbtMs": 0,
+      "cls": 0.001510305170153146
+    },
+    {
+      "name": "admin-login-desktop",
+      "run": 1,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        }
+      },
+      "score": 1,
+      "lcpMs": 333.8689,
+      "tbtMs": 0,
+      "cls": 0
+    },
+    {
+      "name": "admin-login-desktop",
+      "run": 2,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        }
+      },
+      "score": 1,
+      "lcpMs": 327.1047,
+      "tbtMs": 0,
+      "cls": 0
+    },
+    {
+      "name": "admin-login-desktop",
+      "run": 3,
+      "lighthouseVersion": "13.6.0",
+      "settings": {
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        }
+      },
+      "score": 1,
+      "lcpMs": 338.2951,
+      "tbtMs": 0,
+      "cls": 0.008795900534103843
+    }
+  ],
+  "status": "measured",
+  "medians": [
+    {
+      "name": "public-mobile",
+      "lcpMs": 1053.8286,
+      "tbtMs": 38.5,
+      "cls": 0.001510305170153146
+    },
+    {
+      "name": "admin-login-desktop",
+      "lcpMs": 333.8689,
+      "tbtMs": 0,
+      "cls": 0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-11-17T13:02:44.064Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "scope": "Explicit private configuration; read-only service access and chosen owner metadata only",
+  "checks": [
+    {
+      "name": "existing service credential can access exact production application API without selecting rows",
+      "passed": true
+    },
+    {
+      "name": "chosen production owner already exists",
+      "passed": true
+    },
+    {
+      "name": "owner MFA matches explicit optional policy",
+      "passed": true
+    }
+  ],
+  "productionChanges": false,
+  "serviceHttpStatus": 200,
+  "authMetadataHttpStatus": 200,
+  "owner": {
+    "matchingChosenEmail": 1,
+    "exists": true,
+    "verifiedTotp": false,
+    "id": "06b8fd0d-1889-4010-b5aa-f182b9bae31c",
+    "emailConfirmed": true,
+    "mfaRequired": false
+  },
+  "missingInputs": [],
+  "status": "private_prerequisites_verified"
+}

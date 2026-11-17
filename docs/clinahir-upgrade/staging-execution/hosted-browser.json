@@ -1,0 +1,24 @@
+{
+  "executedAt": "2026-11-16T10:24:44.951Z",
+  "scope": "Actual protected hosted UI; no mocked APIs; synthetic demo and owner account only",
+  "checks": [
+    {
+      "name": "hosted homepage and French/English selection",
+      "passed": true
+    },
+    {
+      "name": "hosted demo profile edit persists across routes and resets in a fresh context",
+      "passed": true
+    },
+    {
+      "name": "hosted mobile and tablet public layouts fit viewport",
+      "passed": true
+    },
+    {
+      "name": "hosted admin owner login and persisted business screens",
+      "passed": true
+    }
+  ],
+  "pageErrors": [],
+  "status": "passed"
+}

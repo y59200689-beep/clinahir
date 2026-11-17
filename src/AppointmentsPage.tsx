@@ -1,54 +1,16 @@
+import { actingMember } from './demo/profiles';
+import { hasConflict } from './demo/conflicts';
 import AnimatedMetricValue from './AnimatedMetricValue';
 import { useEffect, useMemo, useState, type DragEvent, type FormEvent, type ReactNode } from 'react';
 import { CalendarDays, CalendarX, CheckCircle2, Clock3, GripVertical, List, Phone, Search, Stethoscope, UserPlus, X } from 'lucide-react';
 
-type Status = 'pending' | 'confirmed' | 'cancelled' | 'expired' | 'no-answer';
-export type Appointment = { id: number; patient: string; phone: string; date: string; time: string; service: string; doctor: string; status: Status; receivedAt?: string; firstActionAt?: string; handledBy?: string; confirmedBy?: string };
-
+export { makeInitialAppointments, demoConfirmer } from './demo/appointments';
+export type { Appointment, AppointmentDay } from './demo/appointments';
+import { doctors, services, type Status, type Appointment, type AppointmentDay } from './demo/appointments';
+import { useDemo } from './demo/DemoProvider';
+import AppointmentEditor from './demo/LazyAppointmentEditor';
 const today = '2026-09-29';
-const firstNames = ['Luciano', 'Yasmine', 'Salma', 'Amine', 'Nadia', 'Karim', 'Meryem', 'Rachid', 'Sara', 'Omar', 'Imane', 'Youssef', 'Leila', 'Hassan', 'Fatima', 'Adam'];
-const lastNames = ['Verutti', 'Bennani', 'El Idrissi', 'Alaoui', 'Mansouri', 'Tazi', 'Fassi', 'Chraibi', 'Berrada', 'Amrani', 'Lahlou', 'Khalil', 'Saidi'];
-const services = ['Ultrasound', 'MRI', 'Radiography', 'CT scan', 'Mammography'];
 const frenchServices: Record<string, string> = { Ultrasound: 'Échographie', MRI: 'IRM', Radiography: 'Radiographie', 'CT scan': 'Scanner', Mammography: 'Mammographie' };
-const doctors = ['Dr. Meryem El Ghaidi', 'Dr. Karim Bennani', 'Dr. Salma Tazi', 'Dr. Amine Fassi'];
-export type AppointmentDay = { date: string; count: number };
-
-export function demoConfirmer(index: number): string {
-  const slot = index % 10;
-  return slot < 4 ? 'Member 01' : slot < 7 ? 'Member 02' : slot < 9 ? 'Member 03' : 'Member 04';
-}
-
-function makeAppointment(index: number, date: string, status: Status): Appointment {
-  const receivedAt = `${date}T08:00:00.000Z`;
-  const responseMinutes = [170, 200, 230, 260, 290][index % 5];
-  return {
-    id: index + 1,
-    patient: `${firstNames[index % firstNames.length]} ${lastNames[Math.floor(index / firstNames.length) % lastNames.length]}`,
-    phone: '0000000000',
-    date,
-    time: `${String(9 + index % 9).padStart(2, '0')}:00`,
-    service: services[index % services.length],
-    doctor: doctors[index % doctors.length],
-    status,
-    receivedAt,
-    firstActionAt: status === 'pending' || status === 'expired' ? undefined : new Date(Date.parse(receivedAt) + responseMinutes * 60_000).toISOString(),
-    handledBy: status === 'pending' || status === 'expired' ? undefined : demoConfirmer(index),
-    confirmedBy: status === 'confirmed' ? demoConfirmer(index) : undefined,
-  };
-}
-
-export function makeInitialAppointments(days: AppointmentDay[]): Appointment[] {
-  let index = 0;
-  const historical = days.flatMap(({ date, count }) => Array.from({ length: count }, () => {
-    const current = index++;
-    const bucket = (current * 37) % 208;
-    const status: Status = bucket < 172 ? 'confirmed' : bucket === 172 ? 'pending' : bucket < 176 ? 'cancelled' : bucket < 202 ? 'expired' : 'no-answer';
-    return makeAppointment(current, date, status);
-  }));
-  // The dashboard shows 23 upcoming appointments separately from historical activity.
-  const upcoming = Array.from({ length: 23 }, (_, offset) => makeAppointment(index + offset, `2026-10-${String(offset + 1).padStart(2, '0')}`, 'confirmed'));
-  return [...historical, ...upcoming];
-}
 
 const copy = {
   en: {
@@ -82,13 +44,10 @@ const maskedPhone = '**********';
 
 export default function AppointmentsPage({ language, dateRange, rangeStart, rangeEnd, appointmentDays, dateControl, onResetDate }: { language: 'en' | 'fr'; dateRange: string; rangeStart: string; rangeEnd: string; appointmentDays: AppointmentDay[]; dateControl: ReactNode; onResetDate: () => void }) {
   const t = copy[language];
-  const [appointments, setAppointments] = useState<Appointment[]>(() => {
-    if (typeof window === 'undefined') return makeInitialAppointments(appointmentDays);
-    try {
-      const saved = window.sessionStorage.getItem('kelo-demo-appointments-v2');
-      return saved ? JSON.parse(saved) as Appointment[] : makeInitialAppointments(appointmentDays);
-    } catch { return makeInitialAppointments(appointmentDays); }
-  });
+  const { appointments, setAppointments, doctors, patients, staff } = useDemo();
+  const [feedback, setFeedback] = useState<{error:boolean;message:string}|null>(null);
+  const [editing, setEditing] = useState<Appointment | null>(null);
+  const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<Status | 'all' | 'upcoming'>('all');
   const [view, setView] = useState<'list' | 'agenda'>('list');
@@ -96,8 +55,9 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
   const [draggedId, setDraggedId] = useState<number | null>(null);
   const [dropStatus, setDropStatus] = useState<Status | null>(null);
 
-  useEffect(() => { window.sessionStorage.setItem('kelo-demo-appointments-v2', JSON.stringify(appointments)); }, [appointments]);
 
+
+  useEffect(() => setPage(0), [search, statusFilter, rangeStart, rangeEnd]);
   const visibleAppointments = appointments;
   const dateAppointments = useMemo(() => visibleAppointments.filter((item) => item.date >= rangeStart && item.date <= rangeEnd), [visibleAppointments, rangeStart, rangeEnd]);
   const counts = useMemo(() => ({
@@ -107,13 +67,13 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
     cancelled: dateAppointments.filter((item) => item.status === 'cancelled').length,
     expired: dateAppointments.filter((item) => item.status === 'expired').length,
     noAnswer: dateAppointments.filter((item) => item.status === 'no-answer').length,
-    upcoming: visibleAppointments.filter((item) => item.status === 'confirmed' && item.date > today).length,
+    upcoming: visibleAppointments.filter((item) => ['pending', 'confirmed'].includes(item.status) && item.date > today).length,
   }), [dateAppointments, visibleAppointments]);
 
   const filtered = useMemo(() => (statusFilter === 'upcoming' ? visibleAppointments : dateAppointments).filter((item) => {
     const query = search.trim().toLocaleLowerCase();
     const matchesSearch = !query || [item.patient, item.phone, item.service, frenchServices[item.service], item.doctor].some((value) => value.toLocaleLowerCase().includes(query));
-    const matchesStatus = statusFilter === 'all' || (statusFilter === 'upcoming' ? item.status === 'confirmed' && item.date > today : item.status === statusFilter);
+    const matchesStatus = statusFilter === 'all' || (statusFilter === 'upcoming' ? ['pending', 'confirmed'].includes(item.status) && item.date > today : item.status === statusFilter);
     return matchesSearch && matchesStatus;
   }).sort((a, b) => {
     const aUpcoming = a.date > today;
@@ -144,20 +104,13 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
     { status: 'no-answer' as Status, label: t.noAnswer, icon: Phone, color: 'text-violet-300', border: 'border-violet-300/35', badge: 'bg-violet-300/10', top: 'bg-violet-400' },
   ];
 
-  function saveAppointment(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    setAppointments((current) => [{
-      id: Math.max(...current.map((item) => item.id)) + 1,
-      patient: String(form.get('patient')).trim(), phone: String(form.get('phone')).trim(),
-      date: String(form.get('date')), time: String(form.get('time')), service: String(form.get('service')), doctor: String(form.get('doctor')), status: 'pending', receivedAt: new Date().toISOString(),
-    }, ...current]);
-    setSearch(''); onResetDate(); setStatusFilter('all'); setNewOpen(false);
-  }
-
   function moveAppointment(id: number, status: Status) {
-    if (!appointments.some((item) => item.id === id)) return;
-    setAppointments((current) => current.map((item) => item.id === id ? { ...item, status, firstActionAt: item.firstActionAt ?? new Date().toISOString(), handledBy: item.handledBy ?? 'Member 04', confirmedBy: status === 'confirmed' ? item.confirmedBy ?? 'Member 04' : item.confirmedBy } : item));
+    const current = appointments.find(item => item.id === id);
+    if (!current || current.status === status) return;
+    if (['pending','confirmed'].includes(status) && (hasConflict(appointments, { ...current, status }, id) || (current.date >= today && (doctors.find(profile => profile.id === current.doctorId)?.active === false || patients.find(profile => profile.id === current.patientId)?.active === false)))) { setFeedback({error:true,message:language === 'fr' ? 'Créneau occupé ou profil archivé. Modifiez le rendez-vous avant de changer son statut.' : 'This slot is occupied or its profile is archived. Edit the appointment before changing its status.'}); return; }
+    const actor = actingMember(staff);
+    setFeedback({error:false,message:language==='fr'?'Statut du rendez-vous mis à jour.':'Appointment status updated.'});
+    setAppointments((current) => current.map((item) => item.id === id ? { ...item, status, firstActionAt: item.firstActionAt ?? new Date().toISOString(), handledBy: item.handledBy ?? actor, confirmedBy: status === 'confirmed' ? item.confirmedBy ?? actor : item.confirmedBy } : item));
   }
 
   function dropAppointment(event: DragEvent<HTMLElement>, status: Status) {
@@ -172,7 +125,8 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
   const buttonQuiet = `${buttonBase} border-transparent bg-transparent text-white/55 hover:bg-white/10 hover:text-white`;
   const buttonActive = `${buttonBase} border-white/35 bg-white/25 text-white shadow-sm font-semibold`;
 
-  return <div className="space-y-5 min-w-0 text-left">
+  return <div data-i18n-managed className="space-y-5 min-w-0 text-left">
+    {feedback && <p role={feedback.error ? "alert" : "status"} className="rounded-xl border border-white/20 bg-white/10 p-3 text-sm">{feedback.message}</p>}
     <div className="relative z-30 flex flex-wrap items-center justify-between gap-3">
       <h1 className="text-2xl font-bold">{t.title}</h1>
       <div className="flex items-center gap-3">
@@ -195,9 +149,9 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
       {tabs.map((tab) => <button key={tab.value} type="button" onClick={() => setStatusFilter(tab.value)} className={`${statusFilter === tab.value ? 'bg-white/15 text-white' : 'text-white/55 hover:bg-white/5 hover:text-white'} rounded-xl px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors`}>{tab.label}<span className="ml-2 rounded-full bg-white/10 px-2 py-0.5 text-white/75">{tab.count}</span></button>)}
     </div>
     {view === 'list' ? <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-x-auto">
-      <table className="w-full min-w-[780px] text-left text-sm"><thead className="bg-white/5 text-white/60 text-xs font-medium"><tr>{[t.patient, t.phone, t.date, t.time, t.service, t.doctor, t.status].map((label) => <th key={label} className="px-3 py-4 font-semibold">{label}</th>)}</tr></thead><tbody>
-        {filtered.map((item) => <tr key={item.id} className="border-t border-white/10 text-white/75 hover:bg-white/5"><td className="px-4 py-4 font-medium text-white whitespace-nowrap">{maskPatient(item.patient)}</td><td className="px-4 py-4">{maskedPhone}</td><td className="px-4 py-4 whitespace-nowrap">{formatDate(item.date, language)}</td><td className="px-4 py-4">{item.time}</td><td className="px-4 py-4 whitespace-nowrap">{language === 'fr' ? frenchServices[item.service] : item.service}</td><td className="px-4 py-4 min-w-[140px]">{maskedDoctor}</td><td className="px-4 py-4"><span className={`rounded-full px-2 py-1 text-xs whitespace-nowrap ${item.status === 'confirmed' ? 'bg-emerald-400/15 text-emerald-200' : item.status === 'pending' ? 'bg-amber-400/15 text-amber-200' : 'bg-white/10 text-white/60'}`}>{item.status === 'no-answer' ? t.noAnswer : t[item.status]}</span></td></tr>)}
-      </tbody></table>{filtered.length === 0 && <p className="p-8 text-center text-sm text-white/55">{t.empty}</p>}
+      <table className="w-full min-w-[780px] text-left text-sm"><thead className="bg-white/5 text-white/60 text-xs font-medium"><tr>{[t.patient, t.phone, t.date, t.time, t.service, t.doctor, t.status, language === 'fr' ? 'Actions' : 'Actions'].map((label) => <th key={label} className="px-3 py-4 font-semibold">{label}</th>)}</tr></thead><tbody>
+        {filtered.slice(page * 25, (page + 1) * 25).map((item) => <tr key={item.id} className="border-t border-white/10 text-white/75 hover:bg-white/5"><td className="px-4 py-4 font-medium text-white whitespace-nowrap">{maskPatient(item.patient)}</td><td className="px-4 py-4">{maskedPhone}</td><td className="px-4 py-4 whitespace-nowrap">{formatDate(item.date, language)}</td><td className="px-4 py-4">{item.time}</td><td className="px-4 py-4 whitespace-nowrap">{language === 'fr' ? frenchServices[item.service] : item.service}</td><td className="px-4 py-4 min-w-[140px]">{maskedDoctor}</td><td className="px-4 py-4"><span className={`rounded-full px-2 py-1 text-xs whitespace-nowrap ${item.status === 'confirmed' ? 'bg-emerald-400/15 text-emerald-200' : item.status === 'pending' ? 'bg-amber-400/15 text-amber-200' : 'bg-white/10 text-white/60'}`}>{item.status === 'no-answer' ? t.noAnswer : t[item.status]}</span></td><td className="px-3 py-4"><button type="button" className="underline underline-offset-4" onClick={() => setEditing(item)}>{language === 'fr' ? 'Détails / modifier' : 'Details / edit'}</button></td></tr>)}
+      </tbody></table><div className="flex items-center justify-between gap-3 p-4 text-xs text-white/80"><button type="button" disabled={page === 0} onClick={() => setPage(value => value - 1)} className="rounded-lg border border-white/20 p-2 disabled:opacity-40">{language === 'fr' ? 'Précédent' : 'Previous'}</button><span role="status">{filtered.length ? page * 25 + 1 : 0}–{Math.min((page + 1) * 25, filtered.length)} / {filtered.length}</span><button type="button" disabled={(page + 1) * 25 >= filtered.length} onClick={() => setPage(value => value + 1)} className="rounded-lg border border-white/20 p-2 disabled:opacity-40">{language === 'fr' ? 'Suivant' : 'Next'}</button></div>{filtered.length === 0 && <p className="p-8 text-center text-sm text-white/55">{t.empty}</p>}
     </div> : <div className="min-w-0 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-3" aria-label={t.agenda}>
       <div className="flex min-w-max items-stretch gap-3">
         {agendaColumns.filter((column) => statusFilter === 'all' || statusFilter === 'upcoming' || statusFilter === column.status).map((column) => {
@@ -225,8 +179,6 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
         })}
       </div>
     </div>}
-    {newOpen && <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onMouseDown={(event) => { if (event.target === event.currentTarget) setNewOpen(false); }}><form onSubmit={saveAppointment} className="w-full max-w-md rounded-2xl border border-white/20 bg-[#1c2824]/70 backdrop-blur-2xl p-6 shadow-2xl space-y-3"><div className="flex items-center justify-between"><h2 className="text-lg font-semibold">{t.new}</h2><button type="button" onClick={() => setNewOpen(false)} aria-label={t.close}><X size={20} /></button></div>
-      <input required name="patient" placeholder={t.patient} className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm" /><input required name="phone" placeholder={t.phone} className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm" /><div className="grid grid-cols-2 gap-2"><input required name="date" type="date" defaultValue={today} className="min-w-0 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm" /><input required name="time" type="time" defaultValue="09:00" className="min-w-0 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm" /></div><select name="service" className="w-full rounded-lg border border-white/15 bg-[#1c2824] px-3 py-2 text-sm">{services.map((service) => <option key={service} value={service}>{language === 'fr' ? frenchServices[service] : service}</option>)}</select><select name="doctor" className="w-full rounded-lg border border-white/15 bg-[#1c2824] px-3 py-2 text-sm"><option>{maskedDoctor}</option></select><button type="submit" className="w-full rounded-lg bg-cyan-600 px-3 py-2 font-semibold text-sm hover:bg-cyan-500">{t.save}</button>
-    </form></div>}
+    {(newOpen || editing) && <AppointmentEditor language={language} appointment={editing} onClose={() => { setNewOpen(false); setEditing(null); }} onSaved={item => { setFeedback({error:false,message:language==='fr'?'Rendez-vous enregistré.':'Appointment saved.'}); setSearch(''); onResetDate(); setStatusFilter(item.date > today ? 'upcoming' : 'all'); }} />}
   </div>;
 }

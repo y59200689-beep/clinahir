@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-11-16T23:29:49.660Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "scope": "Clinahir public application objects/data only; no managed Auth/Storage",
+  "productionChanges": false,
+  "checks": [
+    {
+      "name": "verified TLS and forced read-only session",
+      "passed": true
+    },
+    {
+      "name": "only approved application relations exist in public schema",
+      "passed": true
+    },
+    {
+      "name": "public routines are only Clinahir application routines",
+      "passed": true
+    },
+    {
+      "name": "read-only production application export completed",
+      "passed": true
+    },
+    {
+      "name": "source data digests stable across export",
+      "passed": true
+    },
+    {
+      "name": "archive catalog readable",
+      "passed": true
+    },
+    {
+      "name": "provider routines excluded from application SQL archive",
+      "passed": true
+    },
+    {
+      "name": "authenticated encryption round trip verified",
+      "passed": true
+    },
+    {
+      "name": "ciphertext disk checksum verified",
+      "passed": true
+    }
+  ],
+  "identity": {
+    "user": "postgres",
+    "database": "postgres",
+    "readOnly": "on",
+    "ssl": false,
+    "version": "17.11",
+    "projectRef": null
+  },
+  "objects": [
+    {
+      "name": "clinahir_analytics_events",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_conversion_daily",
+      "kind": "v"
+    },
+    {
+      "name": "clinahir_lead_limits",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_leads",
+      "kind": "r"
+    }
+  ],
+  "routines": [
+    {
+      "name": "clinahir_allow_lead"
+    },
+    {
+      "name": "clinahir_capture_lead"
+    },
+    {
+      "name": "clinahir_claim_lead"
+    },
+    {
+      "name": "clinahir_finish_lead"
+    },
+    {
+      "name": "clinahir_record_analytics"
+    },
+    {
+      "name": "clinahir_replay_lead"
+    },
+    {
+      "name": "clinahir_update_timestamp"
+    },
+    {
+      "name": "rls_auto_enable"
+    }
+  ],
+  "id": "2026-11-16T23-30-09-724Z",
+  "status": "encrypted_export_verified",
+  "archivePath": "output/production/clinahir-production-2026-11-16T23-30-09-724Z.sql.aesgcm",
+  "keyPath": "output/production/keys/2026-11-16T23-30-09-724Z.key",
+  "plaintextSha256": "c30f822fd09fc2a9dbb646564cecfcfcaeb75cff5a56450f609beb45d0c63466",
+  "encryptedSha256": "f395b651e2fc84c5fe55805629a0a46c1981a476063c78d8b021e283bbc46d53",
+  "bytes": 21995,
+  "tables": [
+    {
+      "name": "clinahir_analytics_events",
+      "rows": 21,
+      "digest": "de333c466bda93cdadade0a64cc68153"
+    },
+    {
+      "name": "clinahir_lead_limits",
+      "rows": 1,
+      "digest": "5573d9101958f1c2604666a46e6a324d"
+    },
+    {
+      "name": "clinahir_leads",
+      "rows": 6,
+      "digest": "79128dc01498fccabcdb023fdcc218e1"
+    }
+  ],
+  "keyCustody": "private local file only; owner-held offline custody not yet confirmed"
+}

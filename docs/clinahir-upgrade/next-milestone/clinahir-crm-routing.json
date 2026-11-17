@@ -1,0 +1,16 @@
+{
+  "executedAt": "2026-11-16T11:12:33.366Z",
+  "scope": "Future Clinahir staging Preview environment only; no production settings changed",
+  "changedKeys": [
+    "DAILY_COMMAND_URL",
+    "CLINAHIR_STAGING_CRM_ORIGIN",
+    "CLINAHIR_INTEGRATION_SECRET",
+    "STAGING_CRM_PROTECTION_BYPASS",
+    "CLINAHIR_STAGING_RECEIVER_ENABLED",
+    "CLINAHIR_PRODUCTION_CRM_CONFIGURED",
+    "CLINAHIR_PRODUCTION_CRM_ORIGIN"
+  ],
+  "crmOrigin": "https://clinahir-crm-sandbox.vercel.app",
+  "productionCrmOriginUsage": "Guard reference only; no production credentials or delivery routing",
+  "status": "configured_for_new_preview"
+}

@@ -1,0 +1,4595 @@
+{
+  "createdAt": "2026-11-16T11:04:21.348Z",
+  "sourceRevision": "ff74c0d37686f7117f439331932b98802c647c4d",
+  "projectId": "prj_rBqHhiFWZyiB9s19F4vJ4oxzQ6fF",
+  "scope": "Actual pinned Daily Command app; isolated sandbox Preview only; production cron schedules removed and no external provider credentials",
+  "files": [
+    {
+      "path": "next.config.ts",
+      "sha256": "4d691015aa3a4769493e3a7dcdb9f1cb513f56fbc7ebc99fdb4ca965091c6921"
+    },
+    {
+      "path": "package.json",
+      "sha256": "6641b1809b38b2456f8393528dc293a8a155ba7d91e8cdf08e130101f6a6af51"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "89d160635200324fdb49d2b866e20a340d23965463222df8d3d7c09ded6cfa14"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "859e428e9745e2661c1f21a7ca35be06533c8332a78cb7325623fdade28e4ae6"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "public/excalidraw/fonts/Assistant/Assistant-Bold.woff2",
+      "sha256": "e0cdd332ce039770e93ec44336b6db65f931940f42b0342aad35a06e7f991d29"
+    },
+    {
+      "path": "public/excalidraw/fonts/Assistant/Assistant-Medium.woff2",
+      "sha256": "81a9f280ce6a790f20ca8cd521183caa430f1f7fdc0752c36ef1cc6dc828ac57"
+    },
+    {
+      "path": "public/excalidraw/fonts/Assistant/Assistant-Regular.woff2",
+      "sha256": "76945f09225aae65bdbd204cb4ac40d4caa4ff67150e5074bab1a04d1b778fc3"
+    },
+    {
+      "path": "public/excalidraw/fonts/Assistant/Assistant-SemiBold.woff2",
+      "sha256": "bba47a7d1b185a4a2e0d265ec82aeac5dbc2dc9cb0f482a2ff57cbdfe4e5045d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Cascadia/CascadiaCode-Regular.woff2",
+      "sha256": "5bce041e0fcce617e35efbc335b1372d27a84acb65fb464c65ff80ab3424a885"
+    },
+    {
+      "path": "public/excalidraw/fonts/ComicShanns/ComicShanns-Regular-279a7b317d12eb88de06167bd672b4b4.woff2",
+      "sha256": "fa930fceb529a4b51ba3055d590302722c27704f6a6357495873950136b1e2ea"
+    },
+    {
+      "path": "public/excalidraw/fonts/ComicShanns/ComicShanns-Regular-6e066e8de2ac57ea9283adb9c24d7f0c.woff2",
+      "sha256": "782f24081b810b8de9f04da055007ce4f1445c18abbf096c831f8888d65935c1"
+    },
+    {
+      "path": "public/excalidraw/fonts/ComicShanns/ComicShanns-Regular-dc6a8806fa96795d7b3be5026f989a17.woff2",
+      "sha256": "61c376d32e1773588f6163599aed24fe0387b5a5cb622bd200455f20c2b36a87"
+    },
+    {
+      "path": "public/excalidraw/fonts/ComicShanns/ComicShanns-Regular-fcb0fc02dcbee4c9846b3e2508668039.woff2",
+      "sha256": "ee641c2e35730c3e6e3826855f1b6cc3b343a017c3e216e4e4a2e47010c53ad1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-349fac6ca4700ffec595a7150a0d1e1d.woff2",
+      "sha256": "a0637cff365c7344d2f7a15905a1f74dceaf56b5ac2ff913d150358bed6921f0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-3f2c5db56cc93c5a6873b1361d730c16.woff2",
+      "sha256": "18ea9be1dd6b5a67b057f44eba8e34cb290f88308c272bcf35c79c1a220d0d7b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-41b173a47b57366892116a575a43e2b6.woff2",
+      "sha256": "c96649a5f96e2faa9143ee94e5b590b5afb08092f8d67c67f09cef332d66e4a7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-623ccf21b21ef6b3a0d87738f77eb071.woff2",
+      "sha256": "b004007be100261e58188cf8a0f7e850e997702f35d57110915995cd880e49f1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-a88b72a24fb54c9f94e3b5fdaa7481c9.woff2",
+      "sha256": "e4423b318e11432aff2e6e865e300b7ca270f92321a3f56632268fede01c1b48"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-b9dcf9d2e50a1eaf42fc664b50a3fd0d.woff2",
+      "sha256": "b424d16da4398be3e9852857a54ff70e043c8e2ec5c4444dbf7f88d7469b9859"
+    },
+    {
+      "path": "public/excalidraw/fonts/Excalifont/Excalifont-Regular-be310b9bcd4f1a43f571c46df7809174.woff2",
+      "sha256": "4fb8ad69be9aeac5664d99e5aa3a68a27ea40c98943b80387f7cd55c034fcc93"
+    },
+    {
+      "path": "public/excalidraw/fonts/Liberation/LiberationSans-Regular.woff2",
+      "sha256": "006a2b28cbbeeaec937d1b367d0949f5f48ef4b2e7b4e1d8dc7a799d2d639be8"
+    },
+    {
+      "path": "public/excalidraw/fonts/Lilita/Lilita-Regular-i7dPIFZ9Zz-WBtRtedDbYE98RXi4EwSsbg.woff2",
+      "sha256": "2b6568c7a0f16300bc6c8d292bd426c361fcdb40699c2cbfab2bd3e9e6993dea"
+    },
+    {
+      "path": "public/excalidraw/fonts/Lilita/Lilita-Regular-i7dPIFZ9Zz-WBtRtedDbYEF8RXi4EwQ.woff2",
+      "sha256": "8d6cd0f298738a92ca9bf6e13f54a9191afd06ce04ea00ebbf24499c017191b7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Nunito/Nunito-Regular-XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTA3j6zbXWjgevT5.woff2",
+      "sha256": "e512f2d7c9fe062b1acf8f6ea64d4bfd89a77d26728150977627e445c7b6e937"
+    },
+    {
+      "path": "public/excalidraw/fonts/Nunito/Nunito-Regular-XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTk3j6zbXWjgevT5.woff2",
+      "sha256": "3e7f76fcc8798b8bba4d6bcc06bdb0d788f6e89706c1d6e64ac81d65ca683c14"
+    },
+    {
+      "path": "public/excalidraw/fonts/Nunito/Nunito-Regular-XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTo3j6zbXWjgevT5.woff2",
+      "sha256": "7928f47b21192cb6fdb2f46b71a474a3bd2fd608945c5ad7d7ed6bde8b0ae24c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Nunito/Nunito-Regular-XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTQ3j6zbXWjgeg.woff2",
+      "sha256": "6d1626aac658786e37e78e0adce3ffffddbd75abc923d72e45a7168bd80053da"
+    },
+    {
+      "path": "public/excalidraw/fonts/Nunito/Nunito-Regular-XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTs3j6zbXWjgevT5.woff2",
+      "sha256": "5117398298dd0dba3c95a406ff12fbeb88289fa4e913e3a5cf482cafe7f7071a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Virgil/Virgil-Regular.woff2",
+      "sha256": "2279cf7daf1c42a3a53b2c1437ad72f0050efb67ac263e0245f67612fd766714"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-019d66dcad46dc156b162d267f981c20.woff2",
+      "sha256": "7404ad8086cf238269c6f6aa3ecb754dac903c7b28be88d1f683b9eab7c463e6"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-04b718e5623574919c8b0dea5f301444.woff2",
+      "sha256": "cfdf67b97d5eee43f06d4fd6c8d8a1136d66e3391c3500341cef41bf39672559"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-069e77aac84590e2e991d0a0176d34f2.woff2",
+      "sha256": "9a8e521a24e531cbeadfbd2750108c48aef9c0f13b0c0840e2cc9fae3257aed4"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-06c77b8c66e51ed6c63ccb502dd8b8af.woff2",
+      "sha256": "cc2e553954218cc43f5f6f7cf54136d4d0a4317b88d670ae1940797545bdec61"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-08e0dc436ad0ad61ba5558db0674d762.woff2",
+      "sha256": "101960c709c4a146a181f002808861249fe13ede28fc2d9cff24175715191abc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-093b9ef39a46ceae95a1df18a0a3a326.woff2",
+      "sha256": "819bbcac2468e1b44363442bca0a7a894883c32ce5cf9b28f707d94304a8a3ed"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-095c169f3314805276f603a362766abd.woff2",
+      "sha256": "7f05badb0edb31118c69aa6f9bd20b13e737b5719f816617d342a50dc51c9506"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-09850c4077f3fffe707905872e0e2460.woff2",
+      "sha256": "4cd090f380a82950208e5ff0b83b63f82d9a998881dfa12a8b8a8e6c7fd298bf"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0986d134c05864f5025962eef9f994a0.woff2",
+      "sha256": "76cdc801e75369e01fe0907f0e603a699dccf1fa0d880a717b8dceb0c8751806"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0b5d723fdc4e249c140f0909e87d03b4.woff2",
+      "sha256": "4a5ab634a6839e983344645d82d31d85a1786fd4e81d344f8544181158a86c45"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0f626226ba1272e832aea87bafd9720e.woff2",
+      "sha256": "c261de5643a0b6fdfeb3fa6c43548dc6270f19756532c2953a4c8f74a1bb670d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0f7fb1e0d5015bb1371343153ecf7ce3.woff2",
+      "sha256": "7d92022e9005636c778ebccb89ca8ab3a17c7d99e17201c422ce833e4d4e0e04"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0fa55a080fcd0f9dc2e0b0058b793df8.woff2",
+      "sha256": "a3531eb15218eca282196405dca5e502a0b0ce14d82824ee5c3104e241f12c56"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-0facdf1ea213ba40261022f5d5ed4493.woff2",
+      "sha256": "4692019d3f011ff2b8c012ef4d5bcb9d649259bb3e68b8d5eded06fd5f6948ff"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-10a7ae9a371830a80c3d844acf1c02d7.woff2",
+      "sha256": "343e81a0225cf0848a0c5c3df11589aba1386a8ea954fa549dd8749384e54c15"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-112c051027b2d766c19a519f6ee1f4f7.woff2",
+      "sha256": "64d5521ca4b191e41422c2a1e775aae43a831a720a96c64b42d70a2229e1bec7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-11c345711937f0ba4b8f7b6b919c8440.woff2",
+      "sha256": "cb5cc5380aa885e6ea2d9502f15673ffe1e96d08a8e240cadc8a9a9e727a85d2"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-12b52b58eb3df36804b9a654ec9ee194.woff2",
+      "sha256": "d10137e035185e36212a9ec70ea8c2b0b10f30b175f9543f57412a6f48abfddf"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-13ae07ed2e272d26d59bc0691cd7117a.woff2",
+      "sha256": "4f0db89e7086b5eef3a83dc41d81ee3d46f9d7ae761e150e5689684e95ceb022"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-13d2887ec8ee73c43acdabc52a05af7b.woff2",
+      "sha256": "b8a3f1ac2323db2a1ef228f021be3d13b1190ed7c1f4af6b0d50d0c4d454adbc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-145aa02cdd91946e67dc934e1acffe75.woff2",
+      "sha256": "96f696dd01f2534ceca68a6c9795f927c7c1dd276f7e97069cc7d76d85c9156c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-15dc6d811c9cd078f9086a740d5a1038.woff2",
+      "sha256": "b62e88759e83e6898a7c7588f8587d064aba185b9e6b9b79c15c22c7b195225f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-173945821411c09f70c95f98d590e697.woff2",
+      "sha256": "ef5693cd230dcc67a120cf627d59d9b66acab7b8f356f9a36c3a1e2edf479f0a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-1b611157cd46bb184d4fa4dae2d6a2b8.woff2",
+      "sha256": "5b79154058f247d013a6561ba070b044911b3206e872ce8a2476392245f9de27"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-1e6fd68f1f3902ce48ce8c69df385622.woff2",
+      "sha256": "7a1db91b8de7dee60467eafa390af5aa6e8ad313e6b6fb62c31e7a03ea26f385"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-1ee544f0f1dac422545c505baa788992.woff2",
+      "sha256": "4c478c0638b0ede25838805d6f99badcc57fbf022e44562c9194c0c75118f1c1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-1fdc0c67ed57263a80fd108c1f6ccf24.woff2",
+      "sha256": "cdc443c022e8300966f91ec8b3185953579979dd5bffbcc66b498fe6b71e6c39"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-203b0e569e3b14aac86a003dc3fa523e.woff2",
+      "sha256": "ddfc3cd617e83e271190a01fcfeb8625cd5ff9c105ca362c8804b7f762e595b2"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-20cc1bbf50e7efb442756cb605672c1f.woff2",
+      "sha256": "27dce6f37362f4ad1495da86e9aa9ec808237d41d69d3f2f13d54ccbfe504c83"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-20e7bf72fa05de9adf7dbcc7bf51dde6.woff2",
+      "sha256": "d9742a018d17fea1da72556502ef20d02b5cb80ddd571e539b60ce26cd19d4df"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-21430ee05a1248901da8d0de08744d47.woff2",
+      "sha256": "d7d7130ac4a5ce5cf5f0a01f408267133cde16ef2966dfb35a9fc5a37f762cf8"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-23686f7f29da6e8008c36dd3a80c83d6.woff2",
+      "sha256": "ab60b69500468e81eb3a6796b8e23560699e2de1be596956bd1832256fae9d44"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-23ad2d71b280f00b1363b95b7bea94eb.woff2",
+      "sha256": "e8dec71d8ede1b9b9f3d7325e1ea31432474a83095719bd2149852fef4794ed5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-23f228f3999c01983860012330e4be08.woff2",
+      "sha256": "20a7232989878afcad6de84b68872facaf96fb85c6827f0457d532c1cbf6bbcc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-24476a126f129212beb33f66853ea151.woff2",
+      "sha256": "c0c147e916a32a86306f2f9864982d87fdf41b6a0c3d1ed77c2aabd2ed772a94"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-24a21c1e4449222e8d1898d69ff3a404.woff2",
+      "sha256": "e49f1063fddb7928f50c6490912df4bce1042795bd372ce0673cc0d87beec559"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-25b7f38e18f035f96cb5e547bd2bd08c.woff2",
+      "sha256": "a6ec4baa25d737b49526c152b69a98e66373e3ab2a337ca1c7a895d7a6d8b45b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-29cec36cd205b211da97acabaa62f055.woff2",
+      "sha256": "9ab470df6c456a0a376521f52fc8a857849ad15c640b6c8fae020fbdeb0cde0b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2a26d20a23b00898ce82f09d2ee47c3f.woff2",
+      "sha256": "d85471a49823e8757af9c1c7d920fbfb4ccdb9660e06f7b43ea2b2325b438d0f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2adbc89c11e65905393d3dfc468b9d5b.woff2",
+      "sha256": "896a9145f32c6db6eb6ccdff9986859f08e349f505628dd9eeff2139def675cc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2b7441d46298788ac94e610ffcc709b6.woff2",
+      "sha256": "d0493edd4b70aab6e7c4d78be1d5976d2fb0113c486f20bc2114d8d0f8256f5d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2b77e8ebfb2367ab2662396a60e7d320.woff2",
+      "sha256": "6cba567589067e182dd06054fa24e52ce5e8ac8d07278861125e3b6f6d2d2a31"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2cf96d082d35ea3d8106851223ad0d16.woff2",
+      "sha256": "714626f97e78b4ee72f935408a48508e9f9855399429ba23dc0c9ef0f4074368"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2d43040e86ff03ba677f6f9c04cd0805.woff2",
+      "sha256": "cb1ac8f87c3e4c2e3dd925480e2b6c659100acd59266e957065708c5c46d7385"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-2e33e8dc771ef5e1d9127d60a6b73679.woff2",
+      "sha256": "13941783dc59754f2bcdcd3c54e7bb665e433fc1ffe1cafa0e273ddcd4f62dbe"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-33432927cd87d40cfe393c7482bf221f.woff2",
+      "sha256": "9b2a6cb479d1b3d2966a5beb93ba63f30d6b05e83c2985b3f9aab447d802a4b5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-353f33792a8f60dc69323ddf635a269e.woff2",
+      "sha256": "aee4567e54a8428067774cbcc9ca8faf2d9bbb10d0a780a374c950d286e1d8d3"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-36925dfe329a45086cbb7fc5c20d45ac.woff2",
+      "sha256": "542fd6f0fb2eabcd2cfd79b0cecafb376691aa74afcfbf718c8d26160d0cd9ab"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3717077e38f98d89eae729b6c14e56dc.woff2",
+      "sha256": "34718d3ab2e153ea66994f9b20475c76bcbe61c73dcef6b7d4096f0eec2eef6b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3756e81d3e149cf6099163ee79944fec.woff2",
+      "sha256": "9db5961935f12cad41726aa81c08c9783b6c71ecaaf7dfea1e4b8f5768defb4d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-395c35dd584b56b0789f58a0559beaf1.woff2",
+      "sha256": "8d6bb509725a27cd4cde2daaf743be8ec74114ad3719add4c805cd1c2fdd0f13"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3c9de2ae0ea4bc91a510942dfa4be8d2.woff2",
+      "sha256": "9c4e535e741d6a13ec36bb2909058db1321919cb14561e661c62be8f0ffda7f9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3cc70dbb64df5b21f1326cc24dee2195.woff2",
+      "sha256": "71a3287e8998e47016b5159ae03f636939516b4f5b251ee71f0c5a5212e4df6b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3e1f8f654357353bf0e04ba5c34b5f7f.woff2",
+      "sha256": "8c3887fce9435759019e1ecba3ee315164d0f8a598ce24b94c8bfecebbb724a4"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3e63ed8162808a9e425ed80a8bc79114.woff2",
+      "sha256": "cfafe77006c4bbd7ece2231a735f8c219a3faa6831d4d5733ab14bd91779157a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-3eaa538115d76932653c21d8dc28f207.woff2",
+      "sha256": "04a7b1244c272a46ca740937e1a3e790e8ff142d6fcf53934be0e4a167eacdc9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4095eb84ef3874e2600247bee0b04026.woff2",
+      "sha256": "6ab6ac356c313d98d26c9a23e9b1d5239330974b090d8aba8184ce99c24fcf16"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-41521fade99856108931b4768b1b2648.woff2",
+      "sha256": "2c096e4a843896d2d735c8f19b8e2e8e1293202d2e0a41adfab16995e32ae07e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-450da755d5bcb70906e1295e559b9602.woff2",
+      "sha256": "e07fdcb886eb2f90a49b22e3d369eb1f480fdef7c509249d0437ba95af3aedc6"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-452225341522a7942f0f6aab1a5c91a3.woff2",
+      "sha256": "a432715f6fed8499a420cb44acfe8f71e600afe0aa340ff2e63b741fa05f6fae"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4535823663ad81405188a528d8f2b1a2.woff2",
+      "sha256": "f3c72f094659af2e6fbdbb0e5dba91089c4f5990d479dd9bbe5fa5ae4f95ab41"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4806e761d750087c2d734fc64596eaff.woff2",
+      "sha256": "29aa32e6f5a6f5cee931aed56aaedb8d974b2913c71591c605ce5729842497ba"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4a0fdb40036e87b40aa08dd30584cb85.woff2",
+      "sha256": "9be1f8a2fd341f5058d483304063535b6ac5be04294846c89a0a946f7fb33f9d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4a38cc3e9cf104e69ba246d37f8cf135.woff2",
+      "sha256": "b3aebf243c2be02360a1452ba3b0090d223faf7a76fde5f7495bf25cedfda5a1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4aca6a43e59aceee2166b0c7e4e85ef1.woff2",
+      "sha256": "cdf1f8c3ff1154762aa390d8babe5ee12450d7ad5cdc3a0b8e58a66dcb75b8ea"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4bfaa8ffa64c5ee560aa2daba7c9cbd3.woff2",
+      "sha256": "0405baa428ee4175650f5ea85196d2e2950c3749da32c902f94381ee69b3b72c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4dc6d5f188d5c96d44815cd1e81aa885.woff2",
+      "sha256": "a206f427ff843dbdeaddc1509a92d7b69faebc24871c3138d94baf9b1922b335"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4ddc14ed3eb0c3e46364317dfc0144a3.woff2",
+      "sha256": "033809b0d9848a6161681c8e9c5e7ee2bf10e0b639feb800eba43f87dd32a5c2"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4ee10ae43505e2e0bc62656ced49c0fa.woff2",
+      "sha256": "a70dd8aa91b85b3a92f4edec64307dbeba67a3e829300abf38bb9ca206c318c5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-4f50e5136e136527280bc902c5817561.woff2",
+      "sha256": "59f4770cf5df29b54036ca5f42e6eafdd70d2dd28acbdcea6e8275c30d2208f0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-51502f1206be09c565f1547c406e9558.woff2",
+      "sha256": "27f0dd9bee1139710abf7ab0f51c0e37df058bef7f2e41a5f8f919dc0ce54fa7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-51a0e808bbc8361236ac521a119758a3.woff2",
+      "sha256": "6f7d20f47fee620a9b6cfac10202ee7350a21667bacd5398084d6781841e9d4c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-52a84a22fd1369bffeaf21da2d6158dc.woff2",
+      "sha256": "bb00bece144c8b55b92445e0bcf013c64eb7250588ebcd8d33d4e972feceba1d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5330a2119a716e4e7224ed108b085dac.woff2",
+      "sha256": "c3d926f24f41fa042951f940854f7094b394929ba2b393c1ad0f69b8ac1e18d7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-543fa46ace099a7099dad69123399400.woff2",
+      "sha256": "dc52bcf986f21c5ecf4f95614edc3fb086008bc4589a606a5545d7be83c6aae7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-544fc28abe2c5c30e62383fd4dac255f.woff2",
+      "sha256": "1822913d0e7128a0d6b8affd019c551f06023368ef8608aa3a9718320d16011c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-54acdfc2166ad7fcbd074f75fd4a56ba.woff2",
+      "sha256": "7c5ee14e16e509b359baef1bc7aed848475cf6286bd449a56e9afaaa0b5d8c5d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5572b3513ba8df57a3d5d7303ee6b11b.woff2",
+      "sha256": "3faaa516fc74d539ca46940b392648c9e3cc4c031e9ad52242aa8b54f7d9e2f8"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-56467a5c8840c4d23a60b2f935114848.woff2",
+      "sha256": "0535fd40943797bebaab03292f269eeb09b9844e28ee0a9b20bafcfe6d6f253c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-56a32a7689abd0326e57c10c6c069bb4.woff2",
+      "sha256": "0861a51a85640834a936afe816dc9262712a3b5fceb9d268c3ef013131b7f1c9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-57862b464a55b18c7bf234ce22907d73.woff2",
+      "sha256": "2ab06e5e9dc995faad6240b1b1f6edee7e8865ecfd24aa041dad0bf71aab94f9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-583d166e56ba0de4b77eabb47ef67839.woff2",
+      "sha256": "fbc085efd02787634c45076cfcd3f9a943919b1fd491953bd3199338d3655681"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5882ffa04f32584d26109137e2da4352.woff2",
+      "sha256": "0bca2dd7bf9c581d3b9aa2485571f919272790e346a37ead6522d169b9af2d4a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-58fd02350d0bc52cf1ca3bb32ce9766e.woff2",
+      "sha256": "3f843a854c82af7042965ae7f00b6f8698a05e87bbce715cbe087a3ec47899ff"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5935a5775af3d5c6307ac667bd9ae74e.woff2",
+      "sha256": "c54f2d93aa1b89e19903c4abc3008742613dcc52b45055a058ec13de99d3a91f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-59e9ff77b0efaf684bc09274fb6908c9.woff2",
+      "sha256": "57426b72fb5d6a406df24e2b60c9b3f8d09c095aade40ae55c23972e5b7d9e1c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5a1ce3117cfe90c48e8fb4a9a00f694d.woff2",
+      "sha256": "164d468fbdee79c04b3898c7e62959de3ff43729c407ba60f0f8f27974352292"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5a45d991244d4c7140217e1e5f5ca4f4.woff2",
+      "sha256": "b7bc4c809953df9d0ed98cf11a9542ba959ed3c66a94d3090bb466395f945184"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5a7fac4b8b23a6e4e5ba0c9bf1756c91.woff2",
+      "sha256": "2802ab8038ff5266fe6303d79665f0b6cf370361aa67b22639e10e1f4634726b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5b0ed6971aaab9c8ad563230bd5471a7.woff2",
+      "sha256": "ec7e47923ed16e54d1a25bf22ad0638846be78be6e8f46009649d9cf7727e58b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-5d2898fbc097a7e24c6f38d80587621e.woff2",
+      "sha256": "9473d9ba649a6a614fb877bc6051590cb19da98e54ef6104d25f31f1ff52ed55"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-603aefd23e350ba7eb124273e3c9bcf1.woff2",
+      "sha256": "cdd0e13364c932bb3cb2c9ae58369716ce47c8d55cbabe86585bf742e710fb5e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-60a3089806700d379f11827ee9843b6b.woff2",
+      "sha256": "d964d94147e46e90fd06f0e271a19aacde808acfffb23e66b896be7fcb359544"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-60a41c7e1c68f22424e6d22df544bc82.woff2",
+      "sha256": "0534b52a8dbb84d43b13773bba5cd15bb6d256aa4fb96c58a435ebe391904f66"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-642b26e2e5f5fb780b51b593dbc8c851.woff2",
+      "sha256": "961bf60030e7c8b4f5395cd8b748c6979d967b7629e6c582d68e5c11b5d2dfc8"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-66493ba5a8367f2928812f446f47b56a.woff2",
+      "sha256": "3b759c89aca9110eddc48220362b6e1113bf8e390f40ddeaccade9bec603028e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-670ba603758d94268e8606f240a42e12.woff2",
+      "sha256": "1c0d75c27b530030e64e77d99967230f71d4ea9db40ecdc2e10a6f1eaf1f150d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-671a2c20b1eb9e4ef8a192833940e319.woff2",
+      "sha256": "3dd77c6fa69a4f80de93433e2868e457b7d04d68662d8d042e6348e7b6ffaf15"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-684d65f1793cac449dde5d59cb3c47fb.woff2",
+      "sha256": "079d03e554628ed20a18018875b1bb5681ae892dd56604074969619ebd9f36f2"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-69c09cc5fa3e55c74fc4821f76909cc3.woff2",
+      "sha256": "dde445e5fe69c7ab363f034df157c89750b421f31e52757f7a642be3c5644f2a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-6ae5b42180ad70b971c91e7eefb8eba2.woff2",
+      "sha256": "dc1eea8f0592ee505adb539566a9cebefa81ece39c3e70624afd06af0e323729"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-6e092f71c1e634059ada0e52abadce67.woff2",
+      "sha256": "9b771d7ec93aab9efc47096f33c16c724d57a462b99d54735080759cc56e749d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-6f3256af8454371776bc46670d33cc65.woff2",
+      "sha256": "4d1cd583547d080c6b94552d1473685c60e6a96340c74a659616e16cdde6bbae"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-6fe5c5973cc06f74b2387a631ea36b88.woff2",
+      "sha256": "7142a02b00a992b9a57b75c05ddfaa28956c11f554fb9f1e3fe0333285dd6791"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-70c2eb8d64e71a42a834eb857ea9df51.woff2",
+      "sha256": "89474028dcdfc03b27f45d5adc112d9d53a4d810c7e8f0ebf95f599b50ae84ed"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-70e811fd7994e61f408c923de6ddd078.woff2",
+      "sha256": "e6818bb44f7d47d16cd8935ed9f5b29b8f10ac0e80043f85957b80501f85bcd9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7197d6fda6cba7c3874c53d6381ca239.woff2",
+      "sha256": "66b77ead39e2479ee3bf4911920fb5cf39217c6b60e3cd84080c7fe429432430"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-72252d73220fa3cd856677888cee1635.woff2",
+      "sha256": "1e34a49b238d61c6a723e79c2957f309687bcca89eeaebe99221883f302b80a2"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-72536a3d71b694a0d53dd90ddceae41e.woff2",
+      "sha256": "4058683136a7bf8ebaadc59aaba8644044eff3b91776f6b0206954bf805a3132"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-726303e0774b4e678bff8c2deb6ca603.woff2",
+      "sha256": "1ad344f682254b66d56187f673f817fe1ac8117d59cb26614796ebba9f2494aa"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-733171b4ffcd17ea1fe1c0ba627173bf.woff2",
+      "sha256": "af32f1c4a193d9866655c866d4067b190b121fdc538b380cd45e99f172b4355b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-739bc1a567439c7cffcd1614644593d2.woff2",
+      "sha256": "9bbdcb718fa1010f13c0a6058cca89d75774371e766eb1edf319ac25dc057f0b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-73e309718fd16cea44b4d54a33581811.woff2",
+      "sha256": "6507fb8092efc309d9fdcc301fab6c90330b89931e7007fe7ed7fd1e722a738b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7494dc504ae00ee9cd0505f990f88c5d.woff2",
+      "sha256": "df7f6131e265282b00981c86f4c8d0fbae08c8fa3b3464909609abdafebe5d03"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-74e2263a91439c25b91d5132ce9f4d62.woff2",
+      "sha256": "322645e0e2737aed64e43e45e97276930f67ce5aa1bfe845eb6090b27b0acc29"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-761d05e3cd968cf574166867998ef06a.woff2",
+      "sha256": "5da4dd830dbcb73f6228469f49b12a1cc3db1edf00e5875e3f530ba62c907538"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7718fe60986d8b42b1be9c5ace5ccf25.woff2",
+      "sha256": "ed029431ebadd93a1ffae89347ced2b6835ed92703613d10f3dcd3d37c3ce19b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-774d4f764a1299da5d28ec2f2ffe0d69.woff2",
+      "sha256": "6238cf7ea6f5e88177688f281f55c8d427f0110ca56a0786d8577ab748fb5f8e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-79d494361ae093b69e74ee9dbe65bfd4.woff2",
+      "sha256": "6f78f52b32b85a686bae2602b6f4bd9197e508140a87c23eb38ced0fa501808e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-79f007c1c6d07557120982951ea67998.woff2",
+      "sha256": "ecd5160dfe937d1e8271e2c7efe45569c2d3f53c94f5d7acaf600434c758a423"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7a07ddc0f0c0f5f4a9bad6ee3dda66b5.woff2",
+      "sha256": "e1443444d7865b4650e51da424a02e2b58a75ce1d3b5d125b9d4424c0cc5cff7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7ab2bed91166a9dca83a5ebfbe2a7f38.woff2",
+      "sha256": "3d692c33792626f84eaf48e73fb2c9dfd237ffd3a5b8a882d0f1e4a7301949c7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7ccce86603f80a099ddb0cb21d4ae3e3.woff2",
+      "sha256": "ba4c2f8e126245571624eb841623e3a13a394fba39fc215c60786e786d4e4f35"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7e4bde7e9c7f84cd34d8a845e384c746.woff2",
+      "sha256": "934ad4e8abe120c1dba1ff0427a04bfa431ecf61e8402d93965fdfc000198e66"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7e929f262f30c8ee78bf398150b1a7cd.woff2",
+      "sha256": "03de58036f102830f522035221d660524c01ff4ad4240d6273d6cb0aa8ccbccc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7eb9fffd1aa890d07d0f88cc82e6cfe4.woff2",
+      "sha256": "ccf132ae51caa20dd14896b26c829b3e45f676d933bcf91f8068bf658a4f2860"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-7f855356ab893b0d2b9c1c83b8116f0e.woff2",
+      "sha256": "1060f535a62ceaa15c3709cc71d5ba65aa7b25ca9f175b039b692a2f36427c3a"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-829615148e6357d826b9242eb7fbbd1e.woff2",
+      "sha256": "4252a1dcca7da24ba065620e30429e9a2de3ee8b5ec7cbfb672c8a008779fefc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-866fa7613df6b3fd272bcfd4530c0bb9.woff2",
+      "sha256": "a4a710432761544ce376c443375cd3c30212a7eac28fe3e02c38fb6a51b30808"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-87599f94b6cc129d505b375798d0d751.woff2",
+      "sha256": "3cb8e87a420ef7412eac2b1e7acd90557e3133f5926ab23b307cdd35d3293f7c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-8c2f33cee3993174f7e87c28e4bf42ee.woff2",
+      "sha256": "6b01fcbbd25e0588b009efee8aa02c56315c13b071e42f27b3a1b9ded83b9f4b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-8d3bcabb847b56243b16afe62adaaf21.woff2",
+      "sha256": "5a27b08a7634da4e22ef40981ff0b4376a5c667fe6d315013c8283660bb3c175"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-8de5b863cb50dfefdd07cb11c774d579.woff2",
+      "sha256": "8dc7c9aa8d7932d8a62b0d7e556cb7a94c1bb1728a84d50a7952d75b9f159ae0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-8e9f97f01034820170065b2921b4fb5e.woff2",
+      "sha256": "e053872045b6e69fa2b374386a30985985700925ea09831eb411299d61cc48a5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-8f476c4c99813d57cbe6eca4727388ad.woff2",
+      "sha256": "018d866b5eef3c096a75a56f53df14e4f3ed2b69fc546178b61095736a0cf92e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-903bb6865f3452e2fda42e3a25547bc5.woff2",
+      "sha256": "4f9d77b306f63f69dc23f187858c688f20590a582f4d614f8934b8fcb31cc01b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-91ddb2969bf2d31ba02ad82998d1314c.woff2",
+      "sha256": "b1c7f6ba934a56bb9ef3c85602de346d594654798004ebfed86cb68fdec23a9f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-938d90c10ff8c20386af7f242c05d6b0.woff2",
+      "sha256": "3d4cb06a72e43dcee4114ca345cfbb93c3a037cc27164cad3ecd979b0affc62c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-93fc8f28a33234bcadf1527cafabd502.woff2",
+      "sha256": "950ff7a9d636ca4b7684833ff898ca7b4c3d21072c322dd6ca482825aaf6f06d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-95429962233afd82db1c27df1500a28c.woff2",
+      "sha256": "63474c129283d98a4426f2af09ce89e7e0fc0a8bf897a5423c3230d513a2816d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-9544732d2e62d1a429674f8ee41b5d3a.woff2",
+      "sha256": "b67f74ffa8e1b8ea3b4617c3fa4c68408ec54e34cc532ec71031adc8b15c3343"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-9592bfc861f07bcb8d75c196b370e548.woff2",
+      "sha256": "aae1aaab500a71b28d1ec96380b49ccaf7550d06b57db71e75737d17715f5261"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-95bfd249da4902577b4b7d76ebdd0b44.woff2",
+      "sha256": "ce77aebaeee894d03a85f1d9ccecdb3447ab27f77eb8e3f685c961464119c5ef"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-968cffdc8ee679da094e77ebf50f58ef.woff2",
+      "sha256": "7af27211f5491341d85b051445a7ddbc9e28bec438b8124a18783708fef68667"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-97f7f48ce90c9429bf32ae51469db74d.woff2",
+      "sha256": "b61251e62c3ecd8d556201f75e5d46e48f1e7619e67ecad2c36690e8d5a9ed4f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-982b630266d87db93d2539affb1275c6.woff2",
+      "sha256": "64ffc06d05e0eb263f161fc3ab45747bc09c916c92195450600576b0867a43cf"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-98f2ad84457de7f3740d9920b8fa8667.woff2",
+      "sha256": "20e0422c76332e759d6daabb96bfa9ccdc02be80b17e9928e3873683ae5b9995"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-99a16ef6a64934d5781933dbd9c46b2e.woff2",
+      "sha256": "8bdc8f9731f8730a61043729f403e06e6b9bcfed2fb65e71f7fc421ae51b37b7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-9cfb2a77a4e45025105ad29a1748b90d.woff2",
+      "sha256": "8a83a1c27c1dc42db2653f37bb39fb95e3bb8180e99ea372766366c995248cee"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-9d81066dd2b337c938df6e90380a00dc.woff2",
+      "sha256": "3e7444c5704402da829c61e1cdeee82c1867939590d9b25290793c58de548867"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-9eb5a99df4e76ac3363453ac9ca288b1.woff2",
+      "sha256": "c464198e0903b1025c20e23e6df719933adbcea5f5e3b68fa67bd388e66dc738"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a004ddfcb26e67bd6e678c8ed19e25ce.woff2",
+      "sha256": "429f417980fd11df51d1b7c6e2481e65e2f1a2bf3f16531b3d189556b22be20d"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a0ca5df4258213d7fc9fce80f65ce760.woff2",
+      "sha256": "4577ce8d2f2161ddcbb02f1154a9899bc55a77d3a715a3650261c56839153ee6"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a1f916d6039285c4ffb900cd654e418f.woff2",
+      "sha256": "355bbd7b9ccfe3501325f51a8b14fcbac0a784b72b5629f7e54d28ab00060ea9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a203b91dad570bf05a58c3c3ddb529bf.woff2",
+      "sha256": "664f032ffd3d67ac08c988cb9df5ed9e14ef1bd29b599085aae5ce019535b8f4"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a365e82ed54697a52f27adcea1315fe8.woff2",
+      "sha256": "7431d7c929b66ddef73132026c17ba2bdd1c749a2733b12b15a2bd53da10cee9"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a4c34be6d42152e64b0df90bc4607f64.woff2",
+      "sha256": "85c4fb4d97312f0260a0db861ddcd8e1f14cc031db4c0fa8bfff098114eed1a1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-a7accba310e821da5505f71c03b76bdb.woff2",
+      "sha256": "a630539dbb8b53eeef26d3c14c65e8aa65056e6ee70ed55d02bad8c6e2cc34b1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-aa0d470430e6391eca720c7cfa44446f.woff2",
+      "sha256": "9e7d4e67d3026e623581bbb8ffb9767e5cc8ae4208ea1ad9589e1c877a396ae0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-aa5c9ca6cf4fba00433b7aa3fa10671a.woff2",
+      "sha256": "a612a4deee08c188d304a75acfaa1a5f606ec0e959ee36572585a21d63a05767"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-ac9ceb44437becc3e9c4dbfebab7fc2d.woff2",
+      "sha256": "88cdb98b8b47719cb34de6d927db93102845979729309ed7c9d81c2eca267d18"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b1220a3c61f85cc0408deedb4c5f57a2.woff2",
+      "sha256": "0c5b4365bec5a439a325347b8e373ce2d733e69a31227d9be1a6bfb1a81f8339"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b358f7a51ece39a3247942b1feabdb29.woff2",
+      "sha256": "da427d935e5286ddb7bc67bbddb53f19f21b1b22a08eb18b81202d6a0d7104ff"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b57aaedfd8ebdf3931f25119dc6a5eb2.woff2",
+      "sha256": "489368f841681abe8c4a10d8c04eb1f3dd7ca0431866ee6d998738cb5d953e94"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b5c1596551c256e0e9cf02028595b092.woff2",
+      "sha256": "53ddc8aec903cc6923e7bea4290f8c22748d8a9d3fef9310c8db45144b8602f5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b6d128682ee29e471486354d486a1b90.woff2",
+      "sha256": "6fec9175d81ae947476b6e3d23d8a952b3f6f2abf3a236a16d3b2030aec8ee2f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b6fd38ca30869792244804b04bc058da.woff2",
+      "sha256": "729394216762fa8e54dcf7d8a6623812c68ee868fa423cb150eb730fa142d5fe"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b7d203b051eff504ff59ddca7576b6a9.woff2",
+      "sha256": "012348fc81bad86733c10d93edc49b31fa98d161162a7b9c7cbe2d02f184e684"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-b96d9226ce77ec94ceca043d712182e6.woff2",
+      "sha256": "55f3829b501cf10b929c86d8703be025941489012ae3a237a0f7d4bde532e316"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-ba3de316d63c7e339987b16f41a0b879.woff2",
+      "sha256": "204c98c6d957da9076afe9318003ced09bd3b44a4ce8365b555337fdd574a04b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-bafff7a14c27403dcc6cf1432e8ea836.woff2",
+      "sha256": "16a0b6a3f5462fc87a5043bb89dfaeab6070f9b15bf7bb33d74c6f1f0e945d7e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-bd77e3c7f9e0b072d96af37f73d1aa32.woff2",
+      "sha256": "762f6b930564a70639a89c41e38b55e4fe93753fe30063aee0577ee6a57b14ed"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-be549ab72f0719d606a5c01e2c0219b6.woff2",
+      "sha256": "51f88e333f2a5b2ed3b6670c7b7ff122d16e6b0a09d0297ae4dec70de721bcf3"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c16ed9740b85badf16e86ea782a3062f.woff2",
+      "sha256": "2650a650f03c1d5736cc0f1d774f778639d4df2eee805766ec69410108996344"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c1f94158256bb1f3bf665b053d895af9.woff2",
+      "sha256": "0d5a4da13c00111ae6e921de8a5d3e7e407773ceb415771997a9e08d490fc603"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c40533fdf4cc57177b12803598af7e59.woff2",
+      "sha256": "bf57ac6c74823d2193e4fd637e0fef9f3cf65867dc573bf287cab541eee2862e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c4a687ac4f0c2766eefc9f77ed99cddf.woff2",
+      "sha256": "fbd978baf163d2cf637804b525e7df206e0657d217d3d4339aa204ec584460a0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c69f61a4ab18d0488c8d1fc12e7028e8.woff2",
+      "sha256": "1d7f8daeee505d3f7830d0c0c74af7af68abc2a0b01b2e92147a85239b72249f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c8b71798409ccc126ee264a00aadcf21.woff2",
+      "sha256": "5e78c653a12851d95e2754fd01052e65c952fa2cc603e6e40a7c1a104fe366e8"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-c99eda15fc26a2941579560f76c3a5cf.woff2",
+      "sha256": "234ca0a3ee22640185863709a91ed8574ee10cdc97103c74913ef9e7aae8b399"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cb17fc3db95f6d139afc9d31a8e93293.woff2",
+      "sha256": "366d1d64220e84149380d851590fa86decac06ab04af7b5d6b84b1593fbc03a7"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cbaaefaaf326668277aa24dfa93c4d28.woff2",
+      "sha256": "d912c56af1eb36e3cf58ee3fd05a54cfaa2474d721bf6ebbeafde0163c10d6b3"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cd145ce4a0ea18469358df53c207bc1b.woff2",
+      "sha256": "3ef057732d62da9572e373f78d282b218e0f5cb8e003d275adaef15abd2d2cbf"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cdbce89e82cc1ab53a2decbf5819278f.woff2",
+      "sha256": "fc2ac910be82739b996e39063360efcccc5b82f4c99a048d8655885afc3ef933"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-ce4884f96f11589608b76b726a755803.woff2",
+      "sha256": "ea1d4e3f3fa68c9193a72d5df249986350e892091e3edac9025baf7e1759cdee"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cf2cc71752631e579e35b0e423bf2638.woff2",
+      "sha256": "ce5a8058ed21535db620e89a942f8d4fe33968cbb4557c26c4521c536d5e8c66"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cf6ff4e0f491ca0cf3038187a997b9b4.woff2",
+      "sha256": "996fd1d3fe4f0783b30ffec0912ea858cadf71a077eef41bcbb6f488aa1853ed"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-cfb211578629b7e8153b37240de6a9d5.woff2",
+      "sha256": "d07bdf1bc149ae52b05fff010bf5a5c97da67d7bd612cd7975939102446da207"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-d0cf73942fea1c74edbdf0b3011f4656.woff2",
+      "sha256": "e802ce5eb6306d4272a9188ba65c41423894ccaa71e679d1b8f53df3acf7298f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-d2666cbed13462c5dc36fa2f15c202ca.woff2",
+      "sha256": "6d157af83341041b1110824b12bcad95a1267c6088aadb7cfebc1fee77c81a27"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-d3716376641d615e2995605b29bca7b6.woff2",
+      "sha256": "9b9fa9f96d1ed9160912efab73c4883324225fe1096e6aa6c6f5a534fcac292b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-dac48066b5883d8b4551fc584f0c2a3e.woff2",
+      "sha256": "50fd052c2e0b0ebf8f304eae64965486d1721da85fbbce115683055f05785bf0"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-dbea1af6dcd9860be40c3d18254338f5.woff2",
+      "sha256": "4bb0a8345e803f659aca813aadca25703c16bfddf5d89b82ddcec2a50e338471"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e11567fd2accf9957cd0d3c2be937d87.woff2",
+      "sha256": "dc6a09381a42ce3aa802d029bc61ed01b4302f0303a1defa8234f130dafa5428"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e2ead7ea7da0437f085f42ffc05f8d13.woff2",
+      "sha256": "b4648f5ae511c1d0d4b2aa75a72a547e8436aaa5f1ca15c042e722a9fa8c77f4"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e3fcf5180fd466c8915c4e8069491054.woff2",
+      "sha256": "29a56eb3d183f71ddb753f000c8bd902d1b9a35ca08ff2d403c6af19934661fa"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e480d9c614742d05f0e78f274f1e69e6.woff2",
+      "sha256": "0ceef1123d1f46d7c9434f5d7f1d3896ba4d1f1b0fe0076383d920ea8da94ec5"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e4bca6cfa53e499cae0a6be4894a90e9.woff2",
+      "sha256": "3cc764666e9c2c6483c73c911b3823d74ee680bae209fb3ddee6b976c599f9f1"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e51ef413167c6e14e0c0fdcc585f2fc9.woff2",
+      "sha256": "931c27e602508ea6d712803d5647dabb164438140e309fd0be4f15917943f480"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e5f453bb04da18eed01675eeebd88bf8.woff2",
+      "sha256": "ab6c969a6b7c481d03f26f68e77eec932b55232608c9b86d710c48f5c200f259"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-e656f091b9dc4709722c9f4b84d3c797.woff2",
+      "sha256": "b90cfb35e64c7f9f5b7e1fb48d0c396c44f757349e5669e64a25d98806d642fc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-ec181b795ac1fb5a50d700b6e996d745.woff2",
+      "sha256": "6b18e2adafaad34cf0544c53915d65af94806ab621f5de6a60f718ef60c9cb1e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-ee8bae97908d5147b423f77ad0d3c1bb.woff2",
+      "sha256": "6ccb9581b563074b1e101d2f5ed1efe5c1c53e2406f23139543a139f81a4ae5f"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f0f13b5c60e0af5553bd359f5513be1b.woff2",
+      "sha256": "75eac42c2d875a86029c0a684b728abb0dc8baa56e503aaaacb1c457f0a01aa6"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f2b54d4e7be0eaefe1c2c56836fa5368.woff2",
+      "sha256": "da1a8fde33ea6a56d70b5c87b1a4030c3fe663772effcbe45019fde0b336d3dc"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f56414bf9bced67990def8660e306759.woff2",
+      "sha256": "ffb6a7253b90f6f82b90619935ab41e063db09686921f6dace943f5ec183b16b"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f5d079153c99a25b9be5b8583c4cc8a7.woff2",
+      "sha256": "b8ec5b4516ddc269a99f306b9d63ff0bdecd37a800736cd0eab28f254291b15e"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f6032fc06eb20480f096199713f70885.woff2",
+      "sha256": "937b4d5222bb42c0e190a3f40a1aa9f984edcaa9e8d275e9d4bf1d88ef74754c"
+    },
+    {
+      "path": "public/excalidraw/fonts/Xiaolai/Xiaolai-Regular-f8ee5d36068a42b51d0e4a1116cfcec1.woff2",
+      "sha256": "ae083037bfb691cf96205e109a287255f87a45a90848fe2a63cb0b3e7af3e904"
+    },
+    {
+      "path": "public/file.svg",
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "public/globe.svg",
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "public/icon-192.png",
+      "sha256": "72f442bda6e55d8a7d1e0cdfd90888d0e6a5a70c524b88c299dc6279769cbbdc"
+    },
+    {
+      "path": "public/icon-512.png",
+      "sha256": "69422911ae0522da3c4b4264864fdd3416faf676365ee3ab633b6485eb1b3a0b"
+    },
+    {
+      "path": "public/icon.svg",
+      "sha256": "3d244c32e0f114d4f6009d04f3550ab5dc9775f7c98327c7559ca9b62bccad7d"
+    },
+    {
+      "path": "public/images/business/overview-background.png",
+      "sha256": "f874dd49ec9ee55a9b5da92ca2b020374dcfe1880a96346861617a8969303c44"
+    },
+    {
+      "path": "public/images/finance/planning-cards.png",
+      "sha256": "94852879cc03bd14d81a58922f2d6139275f63ea6ac766a3b1498222456f112f"
+    },
+    {
+      "path": "public/images/fitness/hevy.png",
+      "sha256": "652b9a1098fdb288047412f075cfe0d8449bca496a9ecf58bd1b7fe772b3755c"
+    },
+    {
+      "path": "public/images/fitness/mountain-banner.png",
+      "sha256": "f5374fc17cc88f888aa61151d09e7f99468f250a0fd8bc06938ebac706bd7efa"
+    },
+    {
+      "path": "public/images/fitness/myfitnesspal.png",
+      "sha256": "4b3eb05fb489fa33c2e4103733a2f02be8759cc24639c80eac30752620b19f22"
+    },
+    {
+      "path": "public/images/fitness/pacer.png",
+      "sha256": "2b53095d9eccf43dad2085af1620ac6312fc32bfc2b086265c1df346c93566dc"
+    },
+    {
+      "path": "public/images/fitness/shoe-purple.svg",
+      "sha256": "9092d273efca66694f0e3ba97a1f6b8ec90d25560d90921c26238a9c4d392cfd"
+    },
+    {
+      "path": "public/images/fitness/shoe.svg",
+      "sha256": "9092d273efca66694f0e3ba97a1f6b8ec90d25560d90921c26238a9c4d392cfd"
+    },
+    {
+      "path": "public/images/fitness/SOURCES.md",
+      "sha256": "81944086328f771804faed7ed97a1cb0a1c834c13416db6aa304a8ba731a70df"
+    },
+    {
+      "path": "public/images/fitness/strava.png",
+      "sha256": "55ccf3f4f6b91a0385cdb6db0ab29414448aab96277a0039cead4686538e7d0d"
+    },
+    {
+      "path": "public/images/life/coast.png",
+      "sha256": "7bed3107786616fbd62c5dc5e5ac813cfc4ba8b64dd4b4fa9d8d79334dfbfffb"
+    },
+    {
+      "path": "public/images/life/documents.png",
+      "sha256": "2edfabfa77739553131346f7b61a43455af3c3b10bb1bff627bd88df4520b088"
+    },
+    {
+      "path": "public/images/life/travel-bay.png",
+      "sha256": "c8d6b1472680b4df88b05ffed9e9291e7ad8bcb34647616404707cce17c90795"
+    },
+    {
+      "path": "public/images/mission-summit-v2.png",
+      "sha256": "88048d29a5e0351702a252a89962f14b07bb4dd17ae2cd392fded3c3fe48ccec"
+    },
+    {
+      "path": "public/images/mission-summit.png",
+      "sha256": "871db4850b898a20266bcee1fbe8d917d6f72963db8f93d50cd1b49b528458fb"
+    },
+    {
+      "path": "public/images/today-mountains.png",
+      "sha256": "9047f183db3a8730e80ebf03ccdce82a40b70dcfe1ad1e835f57fdc5d01d9ded"
+    },
+    {
+      "path": "public/images/trips/barcelona.png",
+      "sha256": "347780ac00c8268999bf0f73a396a9536c4a1d4f5afb525b3c6f348563f39032"
+    },
+    {
+      "path": "public/images/trips/istanbul.png",
+      "sha256": "ed2e1eb0b193a35c79e629ef1fb1d319a1c8bf9fdb3f7a949828c4eb02eea045"
+    },
+    {
+      "path": "public/images/trips/lisbon.png",
+      "sha256": "188396f3046272b1f047d0eddc8e26f152655f9113cbf9657be907a784913053"
+    },
+    {
+      "path": "public/images/trips/marrakech.png",
+      "sha256": "43f6b44409422c80459e1c09ec83ea9472414f54919a6371df9b2cafe9565915"
+    },
+    {
+      "path": "public/images/trips/paris.png",
+      "sha256": "7a2c3007e82e16864e564e5f15226b55477e41d32cda6a59fd762004baf32c8a"
+    },
+    {
+      "path": "public/images/trips/toubkal.png",
+      "sha256": "d000d0893acde9df5b5495edb4059d6e27a8453a3fddd6d4d393fd30f30dfcb5"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "sha256": "11dd17e86542fdff9219ec8a7b56850bd042107580e412ce2c5c05d6fc671209"
+    },
+    {
+      "path": "public/next.svg",
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc"
+    },
+    {
+      "path": "public/vercel.svg",
+      "sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4"
+    },
+    {
+      "path": "public/window.svg",
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    },
+    {
+      "path": "src/app/(workspace)/[domain]/[id]/page.tsx",
+      "sha256": "c59d0739fa9797622cd0d5a1864eaaff68eded2009259c77d64f87b2d68b6a0e"
+    },
+    {
+      "path": "src/app/(workspace)/[domain]/page.tsx",
+      "sha256": "9195f9036566f3d960404a939e579415d118cfec56b362057db0fe21a2afeaf6"
+    },
+    {
+      "path": "src/app/(workspace)/analytics/page.tsx",
+      "sha256": "68193e5ca9358cba286f8ca61dfc78271da0608381f175a208d33a5c05a30175"
+    },
+    {
+      "path": "src/app/(workspace)/approvals/page.tsx",
+      "sha256": "9aa2b170ceb84e3d2a980ef1b4dc737944bf7c36e1806017871d5c9699c6ac32"
+    },
+    {
+      "path": "src/app/(workspace)/assets/page.tsx",
+      "sha256": "1ebe7a9ab655fecf4b22d0006c71f0cecab37244eeb636b75210a28000fd315f"
+    },
+    {
+      "path": "src/app/(workspace)/automations/page.tsx",
+      "sha256": "f40bfa8af7435788d941126e889f6666d4c47458e7e29b7e1c0f5aa134c84775"
+    },
+    {
+      "path": "src/app/(workspace)/business-pulse/businesses/page.tsx",
+      "sha256": "fec464bcca7bcaa69a1c906d80c2a2e75c23f94d0a0916b772c26a89fd55174e"
+    },
+    {
+      "path": "src/app/(workspace)/business-pulse/kpis/page.tsx",
+      "sha256": "0b73d109c4342e5d8b97bd11fba3fe9c003eb6af306ec1e179c89a870c1a9de8"
+    },
+    {
+      "path": "src/app/(workspace)/business-pulse/observations/page.tsx",
+      "sha256": "4207e4b1677e98de8ed56ada762f9fbe9f03fc5042905859a6391836f8774ee2"
+    },
+    {
+      "path": "src/app/(workspace)/business-pulse/page.tsx",
+      "sha256": "66e80c6589d34c32006f9f8200dfe7f78da046e03ca6951823ddd0e5b6112646"
+    },
+    {
+      "path": "src/app/(workspace)/business/page.tsx",
+      "sha256": "fa3fc2bc779dc22394d3f48dcdcad9642170212ea4594d5fc685b334fe76db77"
+    },
+    {
+      "path": "src/app/(workspace)/changes/page.tsx",
+      "sha256": "8409aa111ce6c204425a2b3e2da3be1ef9108ea24b5133de6fb81d9069020c3d"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/approvals/page.tsx",
+      "sha256": "5d177d19c650f7e30e14dd9984885384b89df3e300e5f6bbc349da3dd86f71e0"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/automation-opportunities/page.tsx",
+      "sha256": "3cf9be8a9e1ea144491e29bfc63bdba2af90b99e672bab136d829c2ad3e9e41c"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/brief/page.tsx",
+      "sha256": "5cca6fa7e56481a8764d84c73a4ab99dfe3c7794766b717ea4e61d7d0844b38e"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/escalations/page.tsx",
+      "sha256": "7ce63d5510fffbf08ee68dd93535221541718a02465fc2aca737740bf2cac4d5"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/executions/page.tsx",
+      "sha256": "951324984e3425e26c1a3ffd222f7ea09a4922887ac1a03e5a8cf0e6000f4ad0"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/history/page.tsx",
+      "sha256": "1ef4d5d62feffd5786436c3f4629ee1d115ae0b366ed57109fb8fdee5083c3d6"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/inbox/page.tsx",
+      "sha256": "6b1a583d713e6eb5d7af26969a4d64580a6233ba6ef62d202a768ba0773e0414"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/page.tsx",
+      "sha256": "1ca539c9736571442a3cc7950d1317d4bea639e8b4d64c762483efd9c6d43e05"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/plans/[id]/page.tsx",
+      "sha256": "0c9ac0c630e03d60dfcbf96a221f39fd47c8276e4499e5ff759f8aacf5a4a6ca"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/plans/page.tsx",
+      "sha256": "81795869a17df926188fddc5d9a00e790e2708df9d7c3a83e0abb3e0fc017ab8"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/review/page.tsx",
+      "sha256": "a2a3aa89fe3e8d5bf929336571d4ba5b9944a6c13051748b9b6962f09bf89ddc"
+    },
+    {
+      "path": "src/app/(workspace)/chief-of-staff/templates/page.tsx",
+      "sha256": "c694969107957fb44712b2f2c455c7d00fbecb64d2f75323bbd8604c45dbecd1"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/audits/page.tsx",
+      "sha256": "c32875394c0b7646f839ec323ae4e395bb2324face5e650550202b86d1249401"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/brands/page.tsx",
+      "sha256": "c4cb724350c90a567faa8ce1bac84108a73e3214c3817084ab91bd7b5e8245dd"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/categories/page.tsx",
+      "sha256": "6c73cd5d9974969aacf88631924741dd577d3864b0ae8d20458433acb35c043f"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/inventory/page.tsx",
+      "sha256": "01d57f06c29ef6c2f6488606e379a96fc7fbe7a64bb3e16dc92070d95c02b046"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/movements/page.tsx",
+      "sha256": "7302f9037bae60e92811a38ebe8a9bf4e3878d280020331c73077d5033581631"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/page.tsx",
+      "sha256": "20dbda5365efcccf9abb552978e90b3faa44a1f2b94700f3f670561a0bb0a320"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/products/page.tsx",
+      "sha256": "1ebde71160be1551dcac064804e8950d4c3384c52d94f15806986523228d3263"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/purchase-review/page.tsx",
+      "sha256": "050491899cd11b6318349098850a905ea401722879d5a4c1deb66601ea60d772"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/purchasing/page.tsx",
+      "sha256": "af7336616e0f061f32351ea2552b34fd3706531e57875af7cece9a1c67266ba4"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/replenishment/page.tsx",
+      "sha256": "71ce713d9bdae750de27b9ac82d6b7da68308c8dacb45cdfbd290286d30aa1d0"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/review/page.tsx",
+      "sha256": "5b61749241a53d034c7688cce7af1c568c1b0e35f3a5c9777aef22b3028cdc79"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/risks/page.tsx",
+      "sha256": "65ccb9fb9a7765edb730d9a1cfc33e488d7397103a243937878304f9f643141b"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/slow-stock/page.tsx",
+      "sha256": "2b78ea3a4370e0bc1fa73e39bd88cfd648fa280c40bf1c53055a389e17dba301"
+    },
+    {
+      "path": "src/app/(workspace)/commerce/suppliers/page.tsx",
+      "sha256": "bfa421f3c498ea01a706a88906fae25ab5cfefcfc7cb04061612710792b64327"
+    },
+    {
+      "path": "src/app/(workspace)/commitments/page.tsx",
+      "sha256": "f15cd3cdc9197694c7b2d0aefea9951c7487e467c2d04b56ebcf3bb842c204ff"
+    },
+    {
+      "path": "src/app/(workspace)/communication/page.tsx",
+      "sha256": "9287f8a4c7e33e279cea44ee62779d0de7cbc3d6555796ecddb5cbd5ba93443d"
+    },
+    {
+      "path": "src/app/(workspace)/content/page.tsx",
+      "sha256": "74265ca64fe897dba43089d0cbdc55cda2a277d8cdc94bbadc350a19a3102494"
+    },
+    {
+      "path": "src/app/(workspace)/control-tower/page.tsx",
+      "sha256": "e3fa273326a4bdc72f8a8d63fb1acf7a2a7865d38875c9104cab5944cadf7c2b"
+    },
+    {
+      "path": "src/app/(workspace)/decisions/page.tsx",
+      "sha256": "7f6d164645a7eaaa1e3b344cfc82800a88c3c458d5d455e3fa92d3f262ad562c"
+    },
+    {
+      "path": "src/app/(workspace)/dependencies/page.tsx",
+      "sha256": "9ad38246869d21f12e414ecedd8ac9507c20862381ce60acfbf7df062ef35686"
+    },
+    {
+      "path": "src/app/(workspace)/documents/page.tsx",
+      "sha256": "d13a319d6e3c4635a0ec6e51e858659a6bec0c9261e6689d9797028c478931ed"
+    },
+    {
+      "path": "src/app/(workspace)/executive/assumptions/page.tsx",
+      "sha256": "a9cfd4fe260ba509f7b67e6ae8d9dc25bb37022f992cc1a875b9ac52febf929d"
+    },
+    {
+      "path": "src/app/(workspace)/executive/attention/page.tsx",
+      "sha256": "cbc6b4f487d9fec37fb1c7b9fc363ee2337bf7f19ed39dfc4b832dfbf0808b7e"
+    },
+    {
+      "path": "src/app/(workspace)/executive/brief/daily/page.tsx",
+      "sha256": "eb6a1bd5b15e1ce7582583e7e3cceb67556f1757579f3eb5f0d593c5351cfddf"
+    },
+    {
+      "path": "src/app/(workspace)/executive/changes/page.tsx",
+      "sha256": "0b382d8fa5a0a3bb8602df4c6287c93727ab4940ae4d69bafe76f566d6d6c2c0"
+    },
+    {
+      "path": "src/app/(workspace)/executive/decisions/[decisionId]/brief/page.tsx",
+      "sha256": "03d2075fbcd784107e758afbf4b599a6368be9e3e93cbef99f4e5ad00ae6508d"
+    },
+    {
+      "path": "src/app/(workspace)/executive/decisions/page.tsx",
+      "sha256": "72b802768d5ad42584f6eecd8dd9550cf6fac3b4f2d24f01e5c04df7356efe33"
+    },
+    {
+      "path": "src/app/(workspace)/executive/opportunities/page.tsx",
+      "sha256": "cb0a6cd66a9cb63288569d751b1d2a2107b5e319f9b3f80b69b4473e85c76f83"
+    },
+    {
+      "path": "src/app/(workspace)/executive/page.tsx",
+      "sha256": "975098b955f0679045e30fed92fe87c358f267fae7e93778cbd27e40356e85b0"
+    },
+    {
+      "path": "src/app/(workspace)/executive/plan-vs-reality/page.tsx",
+      "sha256": "d372f959a1daa3f198de8d01f052cdb6e77eb9a07b62ccb4091f6281547a9143"
+    },
+    {
+      "path": "src/app/(workspace)/executive/reports/[id]/page.tsx",
+      "sha256": "d0d764d3134967df2cabf1e08fa51e581c82457880466f03a8db654702d0e3b7"
+    },
+    {
+      "path": "src/app/(workspace)/executive/reports/page.tsx",
+      "sha256": "8665f291dec7ba6008fe990d8405982f0d97e8cd0c7ddded1f3c547b8e8b72fc"
+    },
+    {
+      "path": "src/app/(workspace)/executive/risks/page.tsx",
+      "sha256": "a257a466ff6d389c2ad859f8d7a72e1bbdae278398d86a327b9ab0d5891009ec"
+    },
+    {
+      "path": "src/app/(workspace)/experiments/page.tsx",
+      "sha256": "d329042eb953f90b9703615daa7ca402a6aaa2d5fda9b4ccb590eed99bdf5993"
+    },
+    {
+      "path": "src/app/(workspace)/files/page.tsx",
+      "sha256": "4055d9848173e73fa9ee81d5bebd78f28bb7c1ad3ee5b8d15d3a28f56cfdf0fb"
+    },
+    {
+      "path": "src/app/(workspace)/finance/clients/page.tsx",
+      "sha256": "67324bbdb4d4116764c8456517a0cb57a1dd0ddd98ef603de278edbaa8b82db9"
+    },
+    {
+      "path": "src/app/(workspace)/finance/expenses/page.tsx",
+      "sha256": "289be8786f39a0294d99800a7c16bb9bf1108bfb8d38e777cfd6b57e4295a47b"
+    },
+    {
+      "path": "src/app/(workspace)/finance/invoices/page.tsx",
+      "sha256": "19cbba63bd75f42050268fe267a1acf97905539863125fc42036823a63c52f11"
+    },
+    {
+      "path": "src/app/(workspace)/finance/page.tsx",
+      "sha256": "1ea1efeec91504e41d07a6aa3ff389441ef8406d25e63ac53fc52d49dbb3bc28"
+    },
+    {
+      "path": "src/app/(workspace)/finance/projects/page.tsx",
+      "sha256": "7db2ca6ea912a7b4a59593dd958afa748772ca0c214219c06258641deb6a1b8b"
+    },
+    {
+      "path": "src/app/(workspace)/finance/subscriptions/page.tsx",
+      "sha256": "6fca67dfa19d6044f257bd75554f6ea4799d09859d6bbd5e2aa3662560c8fa63"
+    },
+    {
+      "path": "src/app/(workspace)/financial-control/[[...view]]/page.tsx",
+      "sha256": "17197824794e2c16072234bbd2e9c2f12ebca30f8e880b0e9f81c7e96d9fa1e7"
+    },
+    {
+      "path": "src/app/(workspace)/fitness/exercises/page.tsx",
+      "sha256": "093ddb34e43122d11453f2d1bd00a0580c8a6a8b22b471ecaef1dbf2bc00db20"
+    },
+    {
+      "path": "src/app/(workspace)/fitness/page.tsx",
+      "sha256": "af7efead86bf52bafd6849d1fbbc95b1322a2cf339e9488d5e6c1cdb55cf4b29"
+    },
+    {
+      "path": "src/app/(workspace)/fitness/plans/page.tsx",
+      "sha256": "7b042aad32f642e9f81da9c3a5952b386793284ff21f27a81c4826df314fb897"
+    },
+    {
+      "path": "src/app/(workspace)/fitness/recovery/page.tsx",
+      "sha256": "75ad4d2fd5ba2d20061372610eec77e2da8f9b66db36e9c732a683a4758e8274"
+    },
+    {
+      "path": "src/app/(workspace)/fitness/workouts/page.tsx",
+      "sha256": "72546062052a8df8f8cb0f6c286919a277c07c5c9fc7a8d3ca219b24d6ce0cdc"
+    },
+    {
+      "path": "src/app/(workspace)/focus/page.tsx",
+      "sha256": "112c1a8a3078356f3a4c945274dd1b1348bb7ad7edf6ef4f1ffbe80f0d64c8b4"
+    },
+    {
+      "path": "src/app/(workspace)/forecasts/page.tsx",
+      "sha256": "c1bf8d751c665675f19f392b0b729c15e5bc0b2e8946f418bfb2e09561f243d3"
+    },
+    {
+      "path": "src/app/(workspace)/founder/development/page.tsx",
+      "sha256": "3d8af5a0ef96290a8da9baac5ba197de0c92fcadf7a5ec8304003d794d730982"
+    },
+    {
+      "path": "src/app/(workspace)/founder/marketing/page.tsx",
+      "sha256": "eb6fcb59ebb315078a3eab9d4b328da7e1dbb23dd7dbb7e7f9505b270a99ac0c"
+    },
+    {
+      "path": "src/app/(workspace)/founder/page.tsx",
+      "sha256": "ac73d91feb070ec0ee7355b8dd672bd78f1d829c7b58a59fb3cdbf32f5d1486f"
+    },
+    {
+      "path": "src/app/(workspace)/founder/products/page.tsx",
+      "sha256": "7970c371757d3473c2ed0ba015ad596f25f81523e2a72c4f4c53ed874ab3d45b"
+    },
+    {
+      "path": "src/app/(workspace)/founder/supplier-orders/page.tsx",
+      "sha256": "6a6192ad58a8fe1ee19ebd0ab0f9c8f02d1cd9aa3534d2e4426fe0ae7478715a"
+    },
+    {
+      "path": "src/app/(workspace)/growth/experiments/page.tsx",
+      "sha256": "d4bbf4fd16b9e0f2b87b083913ffacbdf5de8d7b4fbb5b089de5592869da8476"
+    },
+    {
+      "path": "src/app/(workspace)/growth/forecast/page.tsx",
+      "sha256": "fd87f2950e7c5156b89e56b5b5fe3a62836d6d4bb7ed6e412bcb4661a5a968ff"
+    },
+    {
+      "path": "src/app/(workspace)/growth/mission/page.tsx",
+      "sha256": "a2bf2fef346d08d74fa6a0c85db9caec75e4b680edf8f33b637a6d42aa2ad54c"
+    },
+    {
+      "path": "src/app/(workspace)/growth/page.tsx",
+      "sha256": "f817da2594fc7bc1a24fef4c8f4191342916fbeedffb7bad563b1436f7801e2f"
+    },
+    {
+      "path": "src/app/(workspace)/growth/pipeline/page.tsx",
+      "sha256": "bca4f166c96c88d5abeb5c3cbbd1cfdd90802e56bffef6203489ba6631d2349d"
+    },
+    {
+      "path": "src/app/(workspace)/growth/playbooks/page.tsx",
+      "sha256": "6bcbf50dcba805a316a593f28aad216b8c2612d3d9bec5707078ed13d1a24c19"
+    },
+    {
+      "path": "src/app/(workspace)/growth/reviews/page.tsx",
+      "sha256": "ceb7f87f4c21f4f2faf2f9626068aeb0544d8e70201677941e901dbe47caa8a0"
+    },
+    {
+      "path": "src/app/(workspace)/ideas/page.tsx",
+      "sha256": "70c8658c7726ae42a76a7d2a1a1b257ed97079d43acc786a1de14479884e52fa"
+    },
+    {
+      "path": "src/app/(workspace)/infrastructure/access/page.tsx",
+      "sha256": "2b9e999caee48d788c1f143f6fa2b07c6dc3c0a1120f254d2489e7a8eda21f77"
+    },
+    {
+      "path": "src/app/(workspace)/infrastructure/health/page.tsx",
+      "sha256": "241b4ec6cd356f9fb8dfc613190f5406570a21f18cb005f5babbe7088665603c"
+    },
+    {
+      "path": "src/app/(workspace)/infrastructure/page.tsx",
+      "sha256": "79111b83224847ab17f587b755d8124ed4aaf43fd8ce4c714e5066be543b17c8"
+    },
+    {
+      "path": "src/app/(workspace)/issues/[id]/page.tsx",
+      "sha256": "88028c80ccff606a11442a5ec327cf6ef0d3ebb1084ab14ab89ea0ec7445da82"
+    },
+    {
+      "path": "src/app/(workspace)/issues/page.tsx",
+      "sha256": "522e63788eb168f4b98a7f3e08a63bb8bedb11d10329989c345855ad54ed93ca"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/briefs/[id]/page.tsx",
+      "sha256": "dcf2794449778f93b6444de15f514cfc01d8c517f64572876c6b3c02f6419311"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/briefs/page.tsx",
+      "sha256": "346f5861b859419d550b935878ff70161fa7fd66cb197bf5e3f7e0f7a488d530"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/collections/[id]/page.tsx",
+      "sha256": "a47b0c6cb88eca04737300a184e1fc3b02f770c790885c3e937dab007b2d3150"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/collections/page.tsx",
+      "sha256": "2c342741a7c0de1a6c9c55b7e77036f4feba79a56985716d465a5ef487969f91"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/findings/[id]/page.tsx",
+      "sha256": "02499e9b083906d08176c95cbb26349b3dba1f5f62ce2aba2e4d922b059f97e5"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/page.tsx",
+      "sha256": "06af52221de3903075bd7aa875d245f30fd6480897389a6acfc53b0c66a2cd10"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/review/page.tsx",
+      "sha256": "8aa8faac6ac8e729c9def16c3c8838617c68ee22abe0680591e4b66cdefe99c0"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/sources/[id]/page.tsx",
+      "sha256": "f9baad59998403e2cebc663303dc6a2c6416d98143d210fbb796209585c8c838"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/topics/[id]/page.tsx",
+      "sha256": "170b7dd25ed7b32d34b9c90a83255eff429cf05eafbe34daf2fb351dffc2266a"
+    },
+    {
+      "path": "src/app/(workspace)/knowledge/watch/page.tsx",
+      "sha256": "6a90f40686620f2b4f4c12fc65291c1175f2eaf60e5424acd9aeded8095a7832"
+    },
+    {
+      "path": "src/app/(workspace)/layout.tsx",
+      "sha256": "f3cbb0d84c53bbb521fe45bfcc406d70eec743307024a448ff6ace6cd79bb5d7"
+    },
+    {
+      "path": "src/app/(workspace)/leads/page.tsx",
+      "sha256": "7426d5bbfe4b062d0a1623de32559c5ece3d1a8265dfc1ad7c492f5d8bd14314"
+    },
+    {
+      "path": "src/app/(workspace)/learning/actions/page.tsx",
+      "sha256": "758111e0f14133eb00d2b998d5dbe30f75e7f7a544242bb686e76a33473f3511"
+    },
+    {
+      "path": "src/app/(workspace)/learning/decisions/page.tsx",
+      "sha256": "4f2cd734fbdd12bcb3ce47fd81b52e4c5417d3a546e67ce86f136ff25479bdeb"
+    },
+    {
+      "path": "src/app/(workspace)/learning/forecasts/page.tsx",
+      "sha256": "ead102a90051ca99e0e6286c636ef7012c7a6249bc401341fed48e7025a0b0bd"
+    },
+    {
+      "path": "src/app/(workspace)/learning/lessons/[id]/page.tsx",
+      "sha256": "b49540240e905b6e873495df8b92e34f148c04c9ad442a1c8ac240f12df8b8d9"
+    },
+    {
+      "path": "src/app/(workspace)/learning/lessons/page.tsx",
+      "sha256": "05eb542017448035ee39bd403fc133a64393a2186ccdbe31177b48960097df29"
+    },
+    {
+      "path": "src/app/(workspace)/learning/memory/page.tsx",
+      "sha256": "b6af5449d786258489e8a46b5adc7c86b75d44f74be8b666b6d2ebe909c0634a"
+    },
+    {
+      "path": "src/app/(workspace)/learning/page.tsx",
+      "sha256": "4759317ccf22f35ecdb6109a4ff8a66a1bbc000786fb521efaf7c82667a0efbf"
+    },
+    {
+      "path": "src/app/(workspace)/learning/patterns/[id]/page.tsx",
+      "sha256": "a570188f090dcb1ce5cf933d9949ef8dd1a1cf020311d2d88e6b352cab23ffb7"
+    },
+    {
+      "path": "src/app/(workspace)/learning/patterns/page.tsx",
+      "sha256": "aab1160bd0470e72647392df5e009d8c425ba12146e76d06bc22768b25ed932e"
+    },
+    {
+      "path": "src/app/(workspace)/learning/retrospectives/[id]/page.tsx",
+      "sha256": "f7d1c6ff39848465af0c54ecfdcdc9376891c0bff89c9bda750a0f750e036ecb"
+    },
+    {
+      "path": "src/app/(workspace)/learning/retrospectives/page.tsx",
+      "sha256": "1207ed7ecb598b7176dbc35e3619763f83dbd6f3e4116498b487eed1092014d1"
+    },
+    {
+      "path": "src/app/(workspace)/learning/review/monthly/page.tsx",
+      "sha256": "edc69fcdf3ca160a0ea4bf54a253a8a72d98eea20de0dedf870821da1f1d29c6"
+    },
+    {
+      "path": "src/app/(workspace)/learning/review/page.tsx",
+      "sha256": "200861c63a51606952466826812229a03117bcb0d636eb6371d3214746d07a44"
+    },
+    {
+      "path": "src/app/(workspace)/learning/review/quarterly/page.tsx",
+      "sha256": "9297098536a1b28b7df5432535907c2155e4464d6d55171f902229d1ad32e7bd"
+    },
+    {
+      "path": "src/app/(workspace)/learning/rules/[id]/page.tsx",
+      "sha256": "27bce084b697c970bbe987e87d481fb6e70b23dceffb5ef911494700aa0da793"
+    },
+    {
+      "path": "src/app/(workspace)/learning/rules/page.tsx",
+      "sha256": "0b706f278c563d381894bb3ee08855392eec8b621984a6a3094f61915422cd62"
+    },
+    {
+      "path": "src/app/(workspace)/life/documents/page.tsx",
+      "sha256": "dd57668c3e6b563a9aafe3236e0ce0842d073772de079d8a846c0e0a7ee70e3b"
+    },
+    {
+      "path": "src/app/(workspace)/life/page.tsx",
+      "sha256": "d39169875b07b2ee00d968a6faff36072deb71bbdcadbd09e16fba0037fcaf59"
+    },
+    {
+      "path": "src/app/(workspace)/life/wealth/page.tsx",
+      "sha256": "abf2cf9aa9e38790e16e23a6db647d11501f12fa40fc94e69408436b33f47be8"
+    },
+    {
+      "path": "src/app/(workspace)/meeting/[id]/capture/page.tsx",
+      "sha256": "527205a92bb7e12956d13497ff65ab0137f104dea236f8e0c673b0ee2f5203a3"
+    },
+    {
+      "path": "src/app/(workspace)/meeting/[id]/page.tsx",
+      "sha256": "509a70e13d5db8f4d17be1b56d88712ce7246e8594da88de5146b43406b016b5"
+    },
+    {
+      "path": "src/app/(workspace)/memory/page.tsx",
+      "sha256": "d3f01759bced263eb6581fc6554511752ad0d72ce8d0621adedaf6680214a51e"
+    },
+    {
+      "path": "src/app/(workspace)/operations/calendar/page.tsx",
+      "sha256": "76539672cbe39f02ffb9b6dca9c219542f855d56faa96f013cd3ede0b0d0c9b7"
+    },
+    {
+      "path": "src/app/(workspace)/operations/page.tsx",
+      "sha256": "29df923449e46aa9282d4ea911b17eedf37fff465d07c32430d8351f1d4f510a"
+    },
+    {
+      "path": "src/app/(workspace)/operations/processes/page.tsx",
+      "sha256": "61c879d8c1007bcd85ba6697c48b76fcd4e7e2d0fa842ffcf977b11987695ad3"
+    },
+    {
+      "path": "src/app/(workspace)/operations/quality/page.tsx",
+      "sha256": "1e556c1067577bee8a22d38a284b19cfd13fa7c20204cbebbeab5dd5392451b2"
+    },
+    {
+      "path": "src/app/(workspace)/operations/review/page.tsx",
+      "sha256": "c8203c6befff2f755c0d3fa0289f6d45a8804999c38ac957bff2afc0acb0957a"
+    },
+    {
+      "path": "src/app/(workspace)/operations/runbooks/page.tsx",
+      "sha256": "9412b9df7081ef69a76fc80ace8ac15d141d2f962984b5e6211f55edd46f7d1c"
+    },
+    {
+      "path": "src/app/(workspace)/operations/runs/[id]/page.tsx",
+      "sha256": "2abde9f4392916c8692999785c06e067d65cf03799dd924285710ee94925cad0"
+    },
+    {
+      "path": "src/app/(workspace)/operations/runs/page.tsx",
+      "sha256": "46a99e3005e6f4dc2aaa5c008307b59ed3545ceb691fce257bad58901032beff"
+    },
+    {
+      "path": "src/app/(workspace)/operations/sops/[id]/page.tsx",
+      "sha256": "d1bf8e03a2fb39aeeb6264ed26ee90807e3d55452d8a5ee0220cea10aaf06de0"
+    },
+    {
+      "path": "src/app/(workspace)/operations/sops/page.tsx",
+      "sha256": "1024c153c01eb79e2bba1bd714aaa1442489178a4ba7bbbe5d486a848bc9f2ff"
+    },
+    {
+      "path": "src/app/(workspace)/operations/systems/page.tsx",
+      "sha256": "f405a7d361c118f670de17db95497ccca7e5c6c9b47915ce64ebaea95ddd457d"
+    },
+    {
+      "path": "src/app/(workspace)/pipeline/page.tsx",
+      "sha256": "adc6d0d150b348ff4c519b870d0b400acc7201b54253a79dddae739a0124a2f7"
+    },
+    {
+      "path": "src/app/(workspace)/plan/90-days/page.tsx",
+      "sha256": "e34561d81ed3a1f84f349deb60ec97cf99cee05886405aa26568b62256703ab8"
+    },
+    {
+      "path": "src/app/(workspace)/plan/month/page.tsx",
+      "sha256": "9178df5357c2edd6f285d186eae2416983cc50d622f9a2b2c4f45d9ddb2c17bc"
+    },
+    {
+      "path": "src/app/(workspace)/plan/page.tsx",
+      "sha256": "9be8593bd50c3f932c2b13ac8d9f470b3a202b2a1c91dc7b3b6fd8e491c3ce8d"
+    },
+    {
+      "path": "src/app/(workspace)/plan/quarter/page.tsx",
+      "sha256": "eee0259243724b643ef81abc0658566be0b833494bb3fba2cb5e0ce1443aa037"
+    },
+    {
+      "path": "src/app/(workspace)/plan/week/page.tsx",
+      "sha256": "c76776a1515b73d07087030e6f639527ed2cf2a8823f7110dc0fc7177d7c5ad4"
+    },
+    {
+      "path": "src/app/(workspace)/planning/page.tsx",
+      "sha256": "4a84ca344aa31e1631ed51af28d89c73dbf1fb5d4de887d57f23321e685fddf6"
+    },
+    {
+      "path": "src/app/(workspace)/portfolio/page.tsx",
+      "sha256": "4a4e4f2ab4d09c6ff0999d718d9c8e4ffdde5716222f9b32524aae0e13707f99"
+    },
+    {
+      "path": "src/app/(workspace)/projects/[id]/brainstorm/page.tsx",
+      "sha256": "acdce267b615065e2e4fe050e9356abdaef55bc468bcf7d327c56b40db8ead4b"
+    },
+    {
+      "path": "src/app/(workspace)/prompts/page.tsx",
+      "sha256": "0d8f5e13eee9aa6464bf3833814e6bc4484412920833816dd291ebd17228e945"
+    },
+    {
+      "path": "src/app/(workspace)/proposals/page.tsx",
+      "sha256": "5c6879da7df76b345362a36d032a0554d12783488d3c50ca3e313f656d0dd276"
+    },
+    {
+      "path": "src/app/(workspace)/relationships/page.tsx",
+      "sha256": "5cd60b17a9c5d8aa3c186521d5696fe03cb3c6c688115ba108a9f48843cda6d6"
+    },
+    {
+      "path": "src/app/(workspace)/review/evening/page.tsx",
+      "sha256": "cbd49e4d62053da3b7208048671cf1662d080521e27cea16ccdb41a2faf5191f"
+    },
+    {
+      "path": "src/app/(workspace)/review/monthly/page.tsx",
+      "sha256": "6caaac1289a7b117389060996d4ee31a75ab64b2d60a95d6347fdae9b131abf1"
+    },
+    {
+      "path": "src/app/(workspace)/review/quarterly/page.tsx",
+      "sha256": "4f0ed6278bc22a4ea19ec015aed1ecd89be2b1da094de3de02ba1f9414a1112e"
+    },
+    {
+      "path": "src/app/(workspace)/review/weekly/page.tsx",
+      "sha256": "ec6144c8889dd71e2eb0aac503f402fd8565a83b6051045e2b96e5c1116fdbb9"
+    },
+    {
+      "path": "src/app/(workspace)/risks/page.tsx",
+      "sha256": "3d94de10eb7d16acbe8b567cbf28d4f7fee00222b4c0afb2bdea45a2faa84522"
+    },
+    {
+      "path": "src/app/(workspace)/risks/register/page.tsx",
+      "sha256": "8aca8ab44f5fd19a7947990231465e3dbddedd553a5e36459a79faf2926a78b8"
+    },
+    {
+      "path": "src/app/(workspace)/services/page.tsx",
+      "sha256": "9179ac0b1d4fad01b81ce6ba908ac9be0a882ff84b73e60144b936c3e90e08f6"
+    },
+    {
+      "path": "src/app/(workspace)/settings/appearance/page.tsx",
+      "sha256": "24a7985337c1eb1cf8cbf6db8e289468e22270c239dfa3f63be6c25d650ee877"
+    },
+    {
+      "path": "src/app/(workspace)/settings/business/page.tsx",
+      "sha256": "f8f164865a34a0ca2e44070c1dd3c294944009981dff457f4e0ec8b7e12e274b"
+    },
+    {
+      "path": "src/app/(workspace)/settings/chief-of-staff/page.tsx",
+      "sha256": "9ceae886603c29e97d20ee6b76b870d9cfbb3bb9e3b85883957f70d01360207d"
+    },
+    {
+      "path": "src/app/(workspace)/settings/integrations/page.tsx",
+      "sha256": "b92b1a9084d352a3a1da4d8d0cbea9eb20b4fd8a0119e9501f1e20e609134cde"
+    },
+    {
+      "path": "src/app/(workspace)/settings/layout.tsx",
+      "sha256": "522e8d2c78e7f48ee3b55d3942270559fb89c0a25af053bee8ab43a4ff00a5e4"
+    },
+    {
+      "path": "src/app/(workspace)/settings/notifications/page.tsx",
+      "sha256": "da87354b4fc07d2fd28d1aab14b87beaf0c0a82422b7a177294c6104d3bff2f9"
+    },
+    {
+      "path": "src/app/(workspace)/settings/page.tsx",
+      "sha256": "8024d00f19764b6fc0f52c4ffa946a7f98024af7d755cb5c2505aa778c478cf8"
+    },
+    {
+      "path": "src/app/(workspace)/settings/preferences/page.tsx",
+      "sha256": "7ef7c3a39644fe9c9b6c36bf3684a1f552c38663b92b8839ab4f67387aac4f8a"
+    },
+    {
+      "path": "src/app/(workspace)/settings/security/page.tsx",
+      "sha256": "95da367ce1585c440e2a735df1220da5a0e852d691535b50d8a7c66a913e1ebf"
+    },
+    {
+      "path": "src/app/(workspace)/settings/workspace/page.tsx",
+      "sha256": "44931ffbb4715f7ff26d7e6b5a3e7d4a11b28e8314f0035e3864c8afa35316e7"
+    },
+    {
+      "path": "src/app/(workspace)/state/page.tsx",
+      "sha256": "f38987adf7ac3e5249c7328e75cdb6db30e2fb752ad63db2d0f67fe27c23ab46"
+    },
+    {
+      "path": "src/app/(workspace)/state/review/page.tsx",
+      "sha256": "6ceba13912e3458eddd804ba55effe736f050f81e1c3a61a935807c237a6c221"
+    },
+    {
+      "path": "src/app/(workspace)/strategy/scenarios/page.tsx",
+      "sha256": "ce617fd6f34230a9072cd06cf5c124ecead13c6ddc3a90a7be14f13e2c32b823"
+    },
+    {
+      "path": "src/app/(workspace)/success/check-ins/page.tsx",
+      "sha256": "fc5d3fab4cc4cb4e9e196a8142a404e7cb3f76c8ff2aa73633b58a69f957758c"
+    },
+    {
+      "path": "src/app/(workspace)/success/clients/[id]/page.tsx",
+      "sha256": "4ae50426f486f9c4a3b3e6f553a7ed7f03665ece94b48cafe541ee9abe81139f"
+    },
+    {
+      "path": "src/app/(workspace)/success/journey/page.tsx",
+      "sha256": "6a0f2c2db1ee216cb74561d198fdc3f585809b4d8952c1edc1cfbded86ec4e94"
+    },
+    {
+      "path": "src/app/(workspace)/success/page.tsx",
+      "sha256": "03d763224227292856d85f8fe6c6d3896feb0f7cc0d7d8b94ded59feed3a64cd"
+    },
+    {
+      "path": "src/app/(workspace)/success/portfolio/page.tsx",
+      "sha256": "5956d9522cf392a1f884e2251a91ea3d12d1446ba6fb2c0ffb82cd5530c1ff89"
+    },
+    {
+      "path": "src/app/(workspace)/success/renewals/page.tsx",
+      "sha256": "81c07e4f29dc4e99c005468b2255a9ea081180cb5bb65d70462527079c5a5f84"
+    },
+    {
+      "path": "src/app/(workspace)/success/review/page.tsx",
+      "sha256": "2d4a3f89612f254f08f8e422ba905064a33de8fcc4e3953d62d81bc1774ee646"
+    },
+    {
+      "path": "src/app/(workspace)/success/risks/page.tsx",
+      "sha256": "35c3ea5a860edae61dba66202e3c8b7971b0dbd62c7c14b4e67d61d4072c030f"
+    },
+    {
+      "path": "src/app/(workspace)/team/1on1/page.tsx",
+      "sha256": "f6b2c1bffe5f1ee711a1375f5b445da27683e2c95a0493815e75af6c54c2ad70"
+    },
+    {
+      "path": "src/app/(workspace)/team/capacity/page.tsx",
+      "sha256": "f5821ad797cf07647cc41131877408e37a51143994068b262e3d428a93e93636"
+    },
+    {
+      "path": "src/app/(workspace)/team/delegations/page.tsx",
+      "sha256": "6b7b605134391137c8a43535493d9e3b9e88c6a58fc0e05f37d20b56d5f77239"
+    },
+    {
+      "path": "src/app/(workspace)/team/ownership/page.tsx",
+      "sha256": "69d1252b3d9d1a80acc54c32698b4a5b0f185cec99e86ea3e84aaf7c9f567098"
+    },
+    {
+      "path": "src/app/(workspace)/team/page.tsx",
+      "sha256": "011a77d35645592d8f600850f6694a576f4a37948d628f4a17d4bad0d1b2cf1b"
+    },
+    {
+      "path": "src/app/(workspace)/team/people/[id]/page.tsx",
+      "sha256": "32d84dad6a013fbae25f7fc8c83b7c1aa52971eed18cec9f9bc127f0c7515984"
+    },
+    {
+      "path": "src/app/(workspace)/team/people/page.tsx",
+      "sha256": "b25f2e29d67b6dd4795caee3c677b563f010dacc60c4598c5e29217d9d605f74"
+    },
+    {
+      "path": "src/app/(workspace)/team/responsibilities/page.tsx",
+      "sha256": "18d2bce006c32cc461f684bf7f21c86797ce7ea7710a962da862f83175b4ad7d"
+    },
+    {
+      "path": "src/app/(workspace)/team/review/page.tsx",
+      "sha256": "837c9037d4e3e2c42c9d886870222191769457f8e33ccbf46c0586d6545f7f90"
+    },
+    {
+      "path": "src/app/(workspace)/team/risks/page.tsx",
+      "sha256": "1cbec8cb0e160cd88ce80ddbea74a15e7f2d9a652e477e195b4f150bf4777455"
+    },
+    {
+      "path": "src/app/(workspace)/today/page.tsx",
+      "sha256": "a13df52a86f4af334d8ab82d51c2f7f504cdfdb73ceb14f754d31a173635d0c6"
+    },
+    {
+      "path": "src/app/(workspace)/travel/[id]/page.tsx",
+      "sha256": "37a40cd4b6150c236dd8a2042e8a3e1ce418a79ab8b180548ffee68a15156e53"
+    },
+    {
+      "path": "src/app/(workspace)/travel/mobility/page.tsx",
+      "sha256": "e14d413191af5c8c6c43fef5a37e50038709567011d4e95ec0a928aae553352f"
+    },
+    {
+      "path": "src/app/(workspace)/travel/page.tsx",
+      "sha256": "dc9b0417712e3b28807fad092578e2a018ff78f8c8837f14314e3158a06e1802"
+    },
+    {
+      "path": "src/app/(workspace)/waiting/manage/page.tsx",
+      "sha256": "cde105d9ffbe264dacc92d4fe79fa3a7dd1f4dd10e129bab10d9a314d2580eb6"
+    },
+    {
+      "path": "src/app/(workspace)/waiting/page.tsx",
+      "sha256": "bf13a5b3d500f9973466f034560a5735c16b8b2cab4060bfe6053b1eb9d6f563"
+    },
+    {
+      "path": "src/app/api/analytics/route.ts",
+      "sha256": "75d30be8a65c137c691f6f40cdffb4bf4a21e28fd407c7c6bc33b10e1c18a08b"
+    },
+    {
+      "path": "src/app/api/approvals/route.ts",
+      "sha256": "88673a2f8739027a055e74799fb3fe25499c6a124ff69daac056403df77ce3e5"
+    },
+    {
+      "path": "src/app/api/assistant/route.ts",
+      "sha256": "6ac2bf761e8051bb6b29193f3d05774ef2d8f7426bb9f4259edab848c98d2082"
+    },
+    {
+      "path": "src/app/api/attachments/[id]/route.ts",
+      "sha256": "9cd92ba222b227ea88ced1adf1d52a8a984c7ee2848d9c1f6d5b011a5b17d4a7"
+    },
+    {
+      "path": "src/app/api/attachments/route.ts",
+      "sha256": "9daf2dc0dd75dc0e2ec0c9367e78e27a29f379a35280f03e1ba6e4692e858015"
+    },
+    {
+      "path": "src/app/api/automations/[id]/history/route.ts",
+      "sha256": "94ce5bf79ac2cc7e3de3a67fda1884324d6f43d968020116af003c06ae38c80a"
+    },
+    {
+      "path": "src/app/api/automations/route.ts",
+      "sha256": "9a1d712c3263117a83e77ffb33544ff9495f242732ef1b75ab151d2611802695"
+    },
+    {
+      "path": "src/app/api/automations/run/route.ts",
+      "sha256": "ff4c739a3e79647125c21ecdec9c10faa492ad8355f3e6aa0a32e925ff20dff5"
+    },
+    {
+      "path": "src/app/api/brainstorm/[id]/route.ts",
+      "sha256": "9665adfab1d3f1a3a00f69897aefd0a10becdfed3268da3c3b1de054d684d614"
+    },
+    {
+      "path": "src/app/api/brainstorm/route.ts",
+      "sha256": "4ae29927f1a44e10825ba868f9520ccfb3a61d9b4c0c4ccfb3d632ea5c2f4f35"
+    },
+    {
+      "path": "src/app/api/business-pulse/route.ts",
+      "sha256": "abcbb96c673fc088be7cadd89d08307e8b5ba95574207e20654226501f58fbde"
+    },
+    {
+      "path": "src/app/api/business/[resource]/route.ts",
+      "sha256": "70a9389dcee901020fe523930fe0855a35d00fb1a37894ea9988109417a74dd0"
+    },
+    {
+      "path": "src/app/api/business/communication/[entity]/[id]/route.ts",
+      "sha256": "237e8c1a71e918a35a3c3e329fc05308b127c7115d2ded5b91778ab32ae94024"
+    },
+    {
+      "path": "src/app/api/business/opportunities/[id]/convert/route.ts",
+      "sha256": "fc64987ae64287e0420bc445f4517dce89a9becfa29d8b6bc55a5c031b583c16"
+    },
+    {
+      "path": "src/app/api/business/overview/route.ts",
+      "sha256": "17750f01206e511db4ef7799d460bc756ca0798b11deb020891a483f947a9229"
+    },
+    {
+      "path": "src/app/api/business/reactivation/route.ts",
+      "sha256": "f4f7ad528b98bc3bfbcf7f2bbdcbaacacdee6d76b4155fbf12f6b438dc619141"
+    },
+    {
+      "path": "src/app/api/calendar/conflicts/route.ts",
+      "sha256": "9f62a57a7bbd925cef6d21516c4f49cc05e2a71cfb17a6546af4c4a06bcebc1c"
+    },
+    {
+      "path": "src/app/api/capture/route.ts",
+      "sha256": "90c03b45cad89ea82fd8c575bfe69c0ee136cbc86ab605f643590a4d4cd304b9"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/approvals/[id]/approve/route.ts",
+      "sha256": "0d92f325bbfc6f1e2e5f84baa093554de08ee5206bd083758708d13979678b0f"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/approvals/[id]/reject/route.ts",
+      "sha256": "90de1df05c85d2937a3bc473336053dace285a1bad8eab2fd32b2592db5992e1"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/approvals/route.ts",
+      "sha256": "82526e6d398043ca0e2da12ad8bccbcf4ab34a2571329172d9ba96286cce74ee"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/escalations/route.ts",
+      "sha256": "b092d7f4876a073b523341326a062ec4192026f2f4544c0b323ea7e88ce1928e"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/executions/[id]/retry/route.ts",
+      "sha256": "7eba4165875845085501492f05503db3dd4363bf2a9429b748ee8b2cea2d6174"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/executions/[id]/rollback/route.ts",
+      "sha256": "9df56453b8f6739f30278cfcc5c2eabba89538ff5d29824fcd313e5422fb5aba"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/executions/route.ts",
+      "sha256": "0f7e49ed4ec28338a6c470e1dd4a33613eb8a8a8c27d4a5a63dc009478f9dd0d"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/history/route.ts",
+      "sha256": "eea6d5a533c1d9507b27a566ba61ad058d47a61c412e6f43d5c1fda08a13df8d"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/opportunities/route.ts",
+      "sha256": "cea2ebdd0f833ba4386daf70c00e8036db37f8815e38324f8325535b1f257805"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/overview/route.ts",
+      "sha256": "d37172e1352c3d1d8348ab0e9cd1d243475d115710c150f5cd51026f9d883654"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/plans/[id]/route.ts",
+      "sha256": "5927b1012cc93ccd7a8497763c299e3d22474ab2aa4a4d53d70f475c333ecc64"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/plans/route.ts",
+      "sha256": "e998a27b9c26f44e45a5d9078e6cab786edab356ce5811587ddc45c984cd71d4"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/proposals/route.ts",
+      "sha256": "84bbbcdbb6ee36af7eed3b59af719cae556830bcc5de429c632e6f3577251033"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/settings/route.ts",
+      "sha256": "d13e84824b1e9f6830816091566c200c609c1339a564654ab6cb5e8aa8bd07cf"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/templates/[id]/instantiate/route.ts",
+      "sha256": "d7b7eaac807c3a0b0bb7b80b3c49a20fa7c018e3a66d6a14d976d1ca3fcd995c"
+    },
+    {
+      "path": "src/app/api/chief-of-staff/templates/route.ts",
+      "sha256": "65c42272513649aa6975fc4b7e18c1f770e186e753c0b8323fc00f3b893662c4"
+    },
+    {
+      "path": "src/app/api/clients/[id]/business/route.ts",
+      "sha256": "da5e36260e3deb30331ff474e16dbb0abfcaefeff554c7a1b82d18a96175b6d1"
+    },
+    {
+      "path": "src/app/api/clients/[id]/draft-followup/route.ts",
+      "sha256": "7408df703dab71e7fa25137b27775fcb52e9228757c6c4a74419478d97f426d5"
+    },
+    {
+      "path": "src/app/api/clients/[id]/route.ts",
+      "sha256": "6287f0b4882521c567384f61a6940aa45c7b115d55f5af032a4d2c7cd83286ea"
+    },
+    {
+      "path": "src/app/api/commerce/adjustments/route.ts",
+      "sha256": "c6a40304c1c4ca29cf0ef9315432ff2dce322499ca6dc2fb02b63b597db9906e"
+    },
+    {
+      "path": "src/app/api/commerce/audits/[id]/lines/route.ts",
+      "sha256": "3ef15ea0072f874ad5434e354b7ae6ef0624dbfe5a73bb1a65ac25b7902d7e49"
+    },
+    {
+      "path": "src/app/api/commerce/audits/[id]/route.ts",
+      "sha256": "e6bddd404248a994dd79c0f606a7a302fb6e699895e28d43ebaddd90fef08660"
+    },
+    {
+      "path": "src/app/api/commerce/audits/route.ts",
+      "sha256": "df9b41368eeceafb8830f8ba39abf91bdad71cb563122c8b4cb0ba8c9a27e512"
+    },
+    {
+      "path": "src/app/api/commerce/brands/route.ts",
+      "sha256": "029a0acbbe1120fbe1ffb57c51e2985d3546ddbc57cdb40ef9e0c9bb00a168f1"
+    },
+    {
+      "path": "src/app/api/commerce/categories/route.ts",
+      "sha256": "2d71ae034f917a29526b1a8cf3954966d91663c57159e355d83c590e59c0c38d"
+    },
+    {
+      "path": "src/app/api/commerce/discrepancies/[id]/route.ts",
+      "sha256": "e1be3c1ed00b8e25c2160b43d1c7987d66fcc7494f1fbac4a321030876bc9334"
+    },
+    {
+      "path": "src/app/api/commerce/discrepancies/route.ts",
+      "sha256": "e440c07944944deec19d0d43ff5369e98839f9c30ec44334593aff7fa4fe1931"
+    },
+    {
+      "path": "src/app/api/commerce/inventory/route.ts",
+      "sha256": "2285020b04ca2d4691aeb71317cbcf01342853fa5325787a47954a98d3588ffe"
+    },
+    {
+      "path": "src/app/api/commerce/movements/route.ts",
+      "sha256": "2109b5f9810201a1f810079b79e106b0dd69a5370b540a1aa09b4134e2968de9"
+    },
+    {
+      "path": "src/app/api/commerce/orders/[id]/route.ts",
+      "sha256": "32b29b35794d92d69372aedd6e1ed34e06ebe3499c976cb4ab58ada55fe66cad"
+    },
+    {
+      "path": "src/app/api/commerce/orders/route.ts",
+      "sha256": "eebb3f16b9e9d41ed5ad9741cc2faf6ff8bb4daa352c8df588d91ad01203857b"
+    },
+    {
+      "path": "src/app/api/commerce/overview/route.ts",
+      "sha256": "0d187eeeea031d8bb6036f1bc3f28b498c62575a6969512bd931164fa401ad01"
+    },
+    {
+      "path": "src/app/api/commerce/policies/route.ts",
+      "sha256": "4126705c01f053e75b104f25231af433267ead9df559f89a326ae726d44587c5"
+    },
+    {
+      "path": "src/app/api/commerce/products/[id]/route.ts",
+      "sha256": "791b2526215e00c2e96fc8bbff3bffc6f787eee151d9ddfd999275a9c4a703ed"
+    },
+    {
+      "path": "src/app/api/commerce/products/route.ts",
+      "sha256": "085ba7cf1d2c9f61d24ef8849dc5c664e94d731885c7a0bcd4b17235b1350999"
+    },
+    {
+      "path": "src/app/api/commerce/purchase-review/route.ts",
+      "sha256": "9bc68799e1778ec6b49ee718537d00a22643f75122a32a173a724c3460c5f25d"
+    },
+    {
+      "path": "src/app/api/commerce/purchasing/route.ts",
+      "sha256": "9d0f7d5f15a0d160165ae1dc6d550e8a4e7f3ac74914570afd71f93ff2201c20"
+    },
+    {
+      "path": "src/app/api/commerce/replenishment/route.ts",
+      "sha256": "1ab26f9f9049c86255d126eff5c9d4c00f8a2262effe3e72bb977207a3b02f5a"
+    },
+    {
+      "path": "src/app/api/commerce/review/route.ts",
+      "sha256": "237f45c0d871165be445b32a34352d33f79fcc7c674ea3a2e643b9b0ffe0f19d"
+    },
+    {
+      "path": "src/app/api/commerce/risks/route.ts",
+      "sha256": "718a9505a60499a97908b1742278e15fc9aa41cf7e4a994d94cb52d3f6d12b32"
+    },
+    {
+      "path": "src/app/api/commerce/scenarios/route.ts",
+      "sha256": "18d8a28f59db00ceb0153f5439fb5be527d14916be38be4de7cd628f13df3daf"
+    },
+    {
+      "path": "src/app/api/commerce/slow-stock/route.ts",
+      "sha256": "5118c802fd4d608ff5a07d8b2f21de380c32bd0458ca7ac073f54312df7efdf8"
+    },
+    {
+      "path": "src/app/api/commerce/suppliers/[id]/route.ts",
+      "sha256": "7a8408a4adffaa5f4faeb26f998d52b6dfd7a6008752debaa0e284ac38c1499c"
+    },
+    {
+      "path": "src/app/api/commerce/suppliers/route.ts",
+      "sha256": "bcaabb5aae812aec783a164238f4f911734b7f1b90509aaefa62680ccbdd6019"
+    },
+    {
+      "path": "src/app/api/communication/extract/route.ts",
+      "sha256": "878de3b4015ab17a1b06eb291bb8f4aed634438fe2003518c16073b88282d61e"
+    },
+    {
+      "path": "src/app/api/communication/route.ts",
+      "sha256": "df6d4f4e3d19e7d86ca87baaf20305fabd3415333f7c126dffec919127d7a61a"
+    },
+    {
+      "path": "src/app/api/content/[id]/assets/[assetId]/route.ts",
+      "sha256": "fd75f73e418047159b5f7ed7642d3558c2e2236d38066197596f336d13bc637d"
+    },
+    {
+      "path": "src/app/api/content/[id]/assets/upload/route.ts",
+      "sha256": "88ef13ff5cc0ba865b7114fdd6cc91a5387a70eaaf9050e5aaa252ed66591b00"
+    },
+    {
+      "path": "src/app/api/content/[id]/route.ts",
+      "sha256": "7008edca32d30a33577910175a137629a7d5bc4afde2d94298c4b8ee031a44f9"
+    },
+    {
+      "path": "src/app/api/content/route.ts",
+      "sha256": "b5afb10819209478c51cb66a2f5c9c64e997a7ba7e344346eaf91873cae228c6"
+    },
+    {
+      "path": "src/app/api/cron/integrations/route.ts",
+      "sha256": "6ae5569b1003fd54c829a703790a293c6e7e990a8249a8ac0fb8b0a699ff5773"
+    },
+    {
+      "path": "src/app/api/cron/radiology-growth/route.ts",
+      "sha256": "292cc4c00f96eaae710fdf4622a8a39ad438db08bcf3d825e9f5e8edbd6724ea"
+    },
+    {
+      "path": "src/app/api/currency/rate/route.ts",
+      "sha256": "255d4664809767b4555c0dc71245afc8bd919f5f956976446375b4b6fe01ea6e"
+    },
+    {
+      "path": "src/app/api/daily-state/route.ts",
+      "sha256": "1d85c9cda6418f5e8514da92ce0f644370e450cc31a4217719eb92d409f8216e"
+    },
+    {
+      "path": "src/app/api/decisions/[id]/route.ts",
+      "sha256": "22c7b6d28d3fcebad8aa87818a90472ffdd6aff98bae658a7670cf1320f45bcd"
+    },
+    {
+      "path": "src/app/api/decisions/[id]/supersede/route.ts",
+      "sha256": "5c015fda4308c6e27a49dda03f1750957a91fe531c5eaf1e83e7d9bbcc319708"
+    },
+    {
+      "path": "src/app/api/dependencies/route.ts",
+      "sha256": "4991afcc9788f5eefbe733645055ca50efc1d7dc47c6c69c9ec527fa76d1c2c7"
+    },
+    {
+      "path": "src/app/api/email-threads/[id]/route.ts",
+      "sha256": "c4ca60e308e74a69b906a982e2868cffc9d74f5eb237c598d38a4fc7d1b8a671"
+    },
+    {
+      "path": "src/app/api/entities/[domain]/[id]/route.ts",
+      "sha256": "4f6652c7d3b5af13fafd885ec3fa74d2cc452a58b9f44d2e74d3ea50cd1c5c69"
+    },
+    {
+      "path": "src/app/api/entities/[domain]/route.ts",
+      "sha256": "b7668183d42eddd009128f19a03472266cc6567cfd6769ef6e570c2923ee18eb"
+    },
+    {
+      "path": "src/app/api/executive/assumptions/[id]/route.ts",
+      "sha256": "7b28bde0167c533493ef16c1079d3f9fd3021e8f3d6c42ef9fa04f8993080f1d"
+    },
+    {
+      "path": "src/app/api/executive/assumptions/route.ts",
+      "sha256": "c2401766b3d2098c36d1e5e26475d5b8b7c300ea827d2f50c8bf2b23cb23e539"
+    },
+    {
+      "path": "src/app/api/executive/attention/route.ts",
+      "sha256": "e1dcc05365c1523ba6e5a689c8a481015be641eb934839a5c82475a3b3adb19a"
+    },
+    {
+      "path": "src/app/api/executive/brief/route.ts",
+      "sha256": "2f4437ffd6eecc90fe9a04e829726d63bf250bdfc1c0e320bf4a284eb1fdfed4"
+    },
+    {
+      "path": "src/app/api/executive/changes/route.ts",
+      "sha256": "e141b81c0c51b08f85ffa5640140b3cd9c813b5d28a594eee8e38af1c44f5e5e"
+    },
+    {
+      "path": "src/app/api/executive/decisions/[id]/brief/route.ts",
+      "sha256": "3241b21d71a8fabd495492172eda921713854540258348096f8b5f77370c63df"
+    },
+    {
+      "path": "src/app/api/executive/decisions/route.ts",
+      "sha256": "29a5b8a873899aba0d823c2368b5d70cdd2d86bee76e07fe2b8b239c1429393e"
+    },
+    {
+      "path": "src/app/api/executive/dismiss/route.ts",
+      "sha256": "cb121734ff9fedca042e00641f1af898f1b350678285aa7ea9bb38b16fc1ed7a"
+    },
+    {
+      "path": "src/app/api/executive/opportunities/route.ts",
+      "sha256": "fbe2c0e2e4dfee921dd7d7b9c018dbd864579a47e96d8e066c40b87c0517f1b0"
+    },
+    {
+      "path": "src/app/api/executive/overview/route.ts",
+      "sha256": "0e8c1c24cb21fe96e9783c0ee90ff0d0acf79e421afd9f82e725a29336ffef09"
+    },
+    {
+      "path": "src/app/api/executive/plan-vs-reality/route.ts",
+      "sha256": "a672efbbd2ee911de32ad5978bf08b3b5c7dd0ff5079d0c12720ecb3d295bcec"
+    },
+    {
+      "path": "src/app/api/executive/priorities/route.ts",
+      "sha256": "7154fc504d0f6078fa4dcf94184da00d701fc0411686808c8552fe39bbf3d82b"
+    },
+    {
+      "path": "src/app/api/executive/reports/[id]/route.ts",
+      "sha256": "34cd80f559f150c80a07646ec4766ed4e0bae99266f3d2a58ce1174852f5f627"
+    },
+    {
+      "path": "src/app/api/executive/reports/history/route.ts",
+      "sha256": "e9075ab79dfe257988a4ffa7e1542602e4ab778043d3833f6afeffb0a9ae9399"
+    },
+    {
+      "path": "src/app/api/executive/reports/route.ts",
+      "sha256": "6206446fede82b793c591f1f5aa2a47c6bdb9ecdd427dbbb32302c2fdb95bf62"
+    },
+    {
+      "path": "src/app/api/executive/risks/route.ts",
+      "sha256": "e0222ef49237bbf8e5c278307dbfeaecd0e91334c42b758befd91b3392d5b017"
+    },
+    {
+      "path": "src/app/api/executive/snapshots/route.ts",
+      "sha256": "a0bb76e0b57122a7d4dd295f5fdca13061a3d3a4e715164ff8ec9da8abf536a1"
+    },
+    {
+      "path": "src/app/api/external-files/route.ts",
+      "sha256": "da90d36b04e07e5bae3dac4697b386661a37cc3419cdee044448f5156d14372d"
+    },
+    {
+      "path": "src/app/api/finance/route.ts",
+      "sha256": "3e4c5a7dddd2e937cc8faaae3ba62f31e3e9447571e983002845d382ef2fbcc7"
+    },
+    {
+      "path": "src/app/api/financial-control/[resource]/[id]/route.ts",
+      "sha256": "10959051392b61585ca2c9b5b1c64fd90b760161e6ed9825be89bc5e595a1edb"
+    },
+    {
+      "path": "src/app/api/financial-control/[resource]/route.ts",
+      "sha256": "d8cc6d3849a42a3d57b2d2da59a58069b217ed69d23810133202a7070870986d"
+    },
+    {
+      "path": "src/app/api/financial-control/options/route.ts",
+      "sha256": "9ff07eeb2c5a1a84a94252758e5f058af807f531f6dddf81aebb0f70caa51d90"
+    },
+    {
+      "path": "src/app/api/financial-control/route.ts",
+      "sha256": "c65ba2ea1778b7d7ee94f50304e7cb3f2d06499a585c441ca1816378bfd1d8fb"
+    },
+    {
+      "path": "src/app/api/fitness/exercises/route.ts",
+      "sha256": "33e39123c27c7eaa96dcbc21c4ea94a18c258270925e27c87ab513742908eb0e"
+    },
+    {
+      "path": "src/app/api/fitness/route.ts",
+      "sha256": "4b0f791627ea8092077579462e2d5a42c7c3add8977822aa1a62176749211cab"
+    },
+    {
+      "path": "src/app/api/fitness/routines/route.ts",
+      "sha256": "3233bb88778f926fd5af5586f0ecd2bf90333df8b09f9a0c46c9cae4ee1e657f"
+    },
+    {
+      "path": "src/app/api/fitness/sync-all/route.ts",
+      "sha256": "541cb86fdf7e25dd7c27f12996264a49709f5079ff8f6a3fa3db8b09c7f4568f"
+    },
+    {
+      "path": "src/app/api/fitness/workouts/route.ts",
+      "sha256": "29b4e3612eac0aa1076982efd8b5cf16e9c3424a910fa534cfd4a56a8732ad37"
+    },
+    {
+      "path": "src/app/api/focus/route.ts",
+      "sha256": "57c61df40e81ea192574ce97297359a87f5686ce1b75841d90139094dee54127"
+    },
+    {
+      "path": "src/app/api/founder-briefing/route.ts",
+      "sha256": "f32706ae33fe03d1a9bf8ea52c8e73b5e42270f9fde0f5deb6a7951da63d7b5d"
+    },
+    {
+      "path": "src/app/api/founder-continuity/route.ts",
+      "sha256": "7b5681c7c345183f97822537c64eb4b883da4283986633319d798cae718dd0a2"
+    },
+    {
+      "path": "src/app/api/founder-personal/route.ts",
+      "sha256": "ac8b977b9b84f673fd61f5c2c727983ac983c0288b014c5dd5f5f13086584682"
+    },
+    {
+      "path": "src/app/api/founder-review/route.ts",
+      "sha256": "683cc3ec431af25b2a3bded90cc8101d9c81363894e24a9f2b9a13c025dc08b6"
+    },
+    {
+      "path": "src/app/api/founder-state/route.ts",
+      "sha256": "28bc08403925c55676460d9d17b86e56165c058a2e08f617feba693a3cb0e6b3"
+    },
+    {
+      "path": "src/app/api/founder-strategy/route.ts",
+      "sha256": "0a2e20cb7a03e9c72a6eeef4b06200314e9bafd880ac84131019f88577e4046f"
+    },
+    {
+      "path": "src/app/api/founder-workflows/[kind]/[id]/route.ts",
+      "sha256": "1ead258774696143a141f02053682fc3e4a20a28ff9fee1746102ee2257e1b93"
+    },
+    {
+      "path": "src/app/api/founder/[resource]/[id]/route.ts",
+      "sha256": "e03fa45b80d0a452599e1c356c816b7644a70faa374511fa041a228f23323b39"
+    },
+    {
+      "path": "src/app/api/founder/[resource]/route.ts",
+      "sha256": "a5e51f9ce417075a37062a4a731133c25e17c8b1c3774f5e7e2013af711c2caa"
+    },
+    {
+      "path": "src/app/api/founder/development/route.ts",
+      "sha256": "9a6362bd21d3290ab2dd06b1547b0b808d1f69a01a7e2ac1969b9d638efe8b8a"
+    },
+    {
+      "path": "src/app/api/founder/marketing/route.ts",
+      "sha256": "c805652a67d110dc2a95dc25a6ff9adaad87b8747659964c0d6360debad22f7a"
+    },
+    {
+      "path": "src/app/api/founder/products/route.ts",
+      "sha256": "e94c82e5279f98ffef15f4237afde11d20549490935e692d762fdde587aab7f9"
+    },
+    {
+      "path": "src/app/api/founder/route.ts",
+      "sha256": "5b083b4f3348d0efdf8a5e4b49ee323a23a2cf139ef3598601e623dbbf41b599"
+    },
+    {
+      "path": "src/app/api/founder/supplier-orders/[id]/route.ts",
+      "sha256": "371b15fe77f36517d28aa0edc758495b8fb4feb31ff91735a1a172f939023fcd"
+    },
+    {
+      "path": "src/app/api/founder/supplier-orders/route.ts",
+      "sha256": "2fb5f54db96f8c00a697d72c3a7473ec551afc02208e4833586b2568ce8ac344"
+    },
+    {
+      "path": "src/app/api/growth/actions/route.ts",
+      "sha256": "faeff9594772f40083cb485c3f3528979b8d353cc134a2cb8644e2a1429185ed"
+    },
+    {
+      "path": "src/app/api/growth/channels/route.ts",
+      "sha256": "90ea0852f078097a736721dc85209bb05ea122208db8a0b721d3fc7f750e5c42"
+    },
+    {
+      "path": "src/app/api/growth/expansion/route.ts",
+      "sha256": "f8215dd4c20864f01adc8e9c67c223c18b34305634a1cc037f640538d9bf0024"
+    },
+    {
+      "path": "src/app/api/growth/experiments/[id]/route.ts",
+      "sha256": "cdb793ce90d7c1d8b5ccf686e42b3374b9e26eca35f63ce270986074746336b4"
+    },
+    {
+      "path": "src/app/api/growth/experiments/route.ts",
+      "sha256": "04ee54222650cb99e6c2c5c8bca1af6a19ef097a94ab9aedf28f43d9718ba022"
+    },
+    {
+      "path": "src/app/api/growth/forecast/route.ts",
+      "sha256": "197b77bc17e66af9af35d899e19f36fa69ab94a5cddc5b60ec1f18a03a56e951"
+    },
+    {
+      "path": "src/app/api/growth/mission/clients/route.ts",
+      "sha256": "0ebf5215fa031fa1fb91a40477ed109835af00b93b9d81b988fbbc3484393350"
+    },
+    {
+      "path": "src/app/api/growth/mission/logs/route.ts",
+      "sha256": "f2daeaf261abff0111e29b979f189ba9882325972244c1ef3fb3b55155975692"
+    },
+    {
+      "path": "src/app/api/growth/mission/records/route.ts",
+      "sha256": "c1ec28a37371612a4720ede776a9d5d5166c6bdd68a8a823bf79798a0bdf07f5"
+    },
+    {
+      "path": "src/app/api/growth/mission/settings/route.ts",
+      "sha256": "a7a1633687fc8a658753c50e7e10ce337edea7953ed62cec2ac3488e27a7aa2e"
+    },
+    {
+      "path": "src/app/api/growth/offers/route.ts",
+      "sha256": "b84d62d33a13f00b46b9b09b6ca0d3898b9609f4637476e57315b459d51e739c"
+    },
+    {
+      "path": "src/app/api/growth/overview/route.ts",
+      "sha256": "3b93de31f2465c551bc85f1745df2fcb442ed7b72e7c6300de4f831de149bfa9"
+    },
+    {
+      "path": "src/app/api/growth/pipeline/route.ts",
+      "sha256": "02728d2843cc5777c89c7e020091bcc55674033e16a46226ba1d693d0665d203"
+    },
+    {
+      "path": "src/app/api/growth/playbooks/[id]/route.ts",
+      "sha256": "3306f487413c2da3931d1dfd777bbf97d64310d0a1fc3a40877edb416f58e6a2"
+    },
+    {
+      "path": "src/app/api/growth/playbooks/route.ts",
+      "sha256": "ddbd91576819e8640c72752a95de6e03fe6a84b2ee96cb481e21ef303c4070b9"
+    },
+    {
+      "path": "src/app/api/growth/reviews/route.ts",
+      "sha256": "02c3e6ecfcbc4d1aeb425502a50c8d788e1d96282334b453b68e020bf7c7001e"
+    },
+    {
+      "path": "src/app/api/growth/targets/route.ts",
+      "sha256": "e280891c62d08ebf34ea7070e70fd251ccf87b1c77ff71cbabc5267cdd64ef27"
+    },
+    {
+      "path": "src/app/api/insights/route.ts",
+      "sha256": "fd2cb4e97d563299381b34209e294297c55aefdd103e0677c13a04d31150195d"
+    },
+    {
+      "path": "src/app/api/integrations/[provider]/callback/route.ts",
+      "sha256": "a3a05d2e12c8bc052c724633e77a84e76102608e7513c765a9565753c07a6801"
+    },
+    {
+      "path": "src/app/api/integrations/[provider]/connect/route.ts",
+      "sha256": "97097d66dd2847203bbe740c6b0abd066e5c10b76e4a51ca2c22759e15343059"
+    },
+    {
+      "path": "src/app/api/integrations/[provider]/route.ts",
+      "sha256": "d180f101d8bfee3aada6f29fb72f24a47adbfccc649df404822007752a04a882"
+    },
+    {
+      "path": "src/app/api/integrations/clinahir/leads/route.ts",
+      "sha256": "a7d054d14fbdb974d5ddd80e999d6e6d44286e77a9b9ded36634ea2f26dcb73b"
+    },
+    {
+      "path": "src/app/api/integrations/google/callback/route.ts",
+      "sha256": "d07295127900f0e23026406d4ef0353f9583b0ae634a04f5c4305c5b0408b357"
+    },
+    {
+      "path": "src/app/api/integrations/google/connect/route.ts",
+      "sha256": "5d402c3a78aaaad3c4ff9c092db6b35d67242667b2618cb6116a7e3d18be2b95"
+    },
+    {
+      "path": "src/app/api/integrations/google/route.ts",
+      "sha256": "d7f50b680b2e291302b1f7b158e8cd5a3a0d0d85a60b0c5ce9fb021850bbef63"
+    },
+    {
+      "path": "src/app/api/integrations/myfitnesspal/route.ts",
+      "sha256": "721e06e8981739f7e765fbb045a590f6ae7bc299e141c02d8fe434ecefef1328"
+    },
+    {
+      "path": "src/app/api/integrations/pacer/route.ts",
+      "sha256": "15757961613a57c603659ff730fbc7eb89baf5193271003f16a0ba6c2bee80c3"
+    },
+    {
+      "path": "src/app/api/integrations/radiology-growth/reports/route.ts",
+      "sha256": "eea68ba07a11d6f3d38e072c8d61ab73f46fc5c79edfa5a92418d075049150d2"
+    },
+    {
+      "path": "src/app/api/intelligence/entity/[type]/[id]/route.ts",
+      "sha256": "3cd8324e817d2c6c6ba018b5de31b7478937d4f4f86152c59184eedda95dd3b0"
+    },
+    {
+      "path": "src/app/api/intelligence/feedback/route.ts",
+      "sha256": "8782204ada9f7672581161d5d274f58e650a119e8fdda1ae3c624e374c5280fd"
+    },
+    {
+      "path": "src/app/api/intelligence/meeting/[id]/route.ts",
+      "sha256": "29bc9f1804c56c47968d7130fbc848514d90a4d9ab96eadc09072259cf461642"
+    },
+    {
+      "path": "src/app/api/intelligence/memory/[id]/route.ts",
+      "sha256": "6c0eabdd571b083d7c81e28235f8c8d01e12064a2712d781f63f66a5e04e7cec"
+    },
+    {
+      "path": "src/app/api/intelligence/memory/route.ts",
+      "sha256": "f3a055eda41a13f1b8ef58f098e0a6815eded7b5be7d1345a5126a3cc193c2f7"
+    },
+    {
+      "path": "src/app/api/intelligence/overview/route.ts",
+      "sha256": "2680300eaa51555d2c6b09a70e82d148d304f7ecda50e9c75dc8138e9d63084f"
+    },
+    {
+      "path": "src/app/api/intelligence/plan/route.ts",
+      "sha256": "492b8bdc20dc46e4200a51fb6d3d84a10d7640f7db205d5bf8b3150c04a72058"
+    },
+    {
+      "path": "src/app/api/intelligence/review/evening/route.ts",
+      "sha256": "5318d42ee02494985214b417707a72047708b8594d7da2ba40ebbcb23d709e55"
+    },
+    {
+      "path": "src/app/api/intelligence/review/strategic-period/route.ts",
+      "sha256": "efa9c2e31bdc9380f372997104472450c66fec6f50a219486cfecc8a22222aef"
+    },
+    {
+      "path": "src/app/api/intelligence/review/weekly/route.ts",
+      "sha256": "f44f3b1d0c31e930fac723fa0bc4c6c6bd56590dab24fcbba04370f923842635"
+    },
+    {
+      "path": "src/app/api/knowledge/[resource]/[id]/route.ts",
+      "sha256": "f4e29c94a352a5886e27996ed78cc8cdec916b041c7b9e0e8d2f9fbbcae594dd"
+    },
+    {
+      "path": "src/app/api/knowledge/[resource]/route.ts",
+      "sha256": "d49077e7546d4009a746d47a035ba739158acd21352e255032357a8d5ad0c513"
+    },
+    {
+      "path": "src/app/api/knowledge/decisions/[id]/route.ts",
+      "sha256": "0d27215e9ad38c1d994b9581c2fe17941a8ac1e437b7717a3e1a538ebf3ddf6e"
+    },
+    {
+      "path": "src/app/api/knowledge/entity-options/route.ts",
+      "sha256": "1074a2632ead1922994662f923da864b2322bdf6f51558b54525633497fcc81e"
+    },
+    {
+      "path": "src/app/api/knowledge/notes/route.ts",
+      "sha256": "666f8e28604ae822f9a1e5213ce499cf73755f66f06cc70ea568f81163419cd0"
+    },
+    {
+      "path": "src/app/api/knowledge/questions/[id]/findings/route.ts",
+      "sha256": "dd95ae2e327afc403ef1d8c3ec3a5101ea2b5c1db96513bcfcadb7f274719d55"
+    },
+    {
+      "path": "src/app/api/knowledge/route.ts",
+      "sha256": "6e19acc3ea112709e4337fda8bca66c1af90c730e8cecaac7e5bd65b061a8a7b"
+    },
+    {
+      "path": "src/app/api/knowledge/topics/[id]/route.ts",
+      "sha256": "8d8f55a55330c4193a46e220b8543dcf917c53a6ed31dc412c1434832d967359"
+    },
+    {
+      "path": "src/app/api/learning/actions/route.ts",
+      "sha256": "f8243fd1528ad580c029c89833628eb5eea5df0f3c3f53018b36e26336538395"
+    },
+    {
+      "path": "src/app/api/learning/decisions/route.ts",
+      "sha256": "4728d508ec5e35440eab42b7a3e61ac6558ec745431d2be18010a9f3aca765c8"
+    },
+    {
+      "path": "src/app/api/learning/feedback/route.ts",
+      "sha256": "d185574faa62da022fa16534328ef1639d7e24eb1292b1d281f547730c344740"
+    },
+    {
+      "path": "src/app/api/learning/forecasts/route.ts",
+      "sha256": "9e7859bb07e54f3786efd0a184f962c26c22ac95939b1cd0230b7791ac9c858f"
+    },
+    {
+      "path": "src/app/api/learning/lessons/[id]/route.ts",
+      "sha256": "47796f84ec382a0f9e48aae594d15ce7f27d476d5d819d85df3009047c71dd12"
+    },
+    {
+      "path": "src/app/api/learning/lessons/route.ts",
+      "sha256": "4670b827ec1a762549faf6486dd3f41d25ec361fbedd15c393688e975386a106"
+    },
+    {
+      "path": "src/app/api/learning/memory/route.ts",
+      "sha256": "9d95c0dcc5d36941ef94e0a82838458439bbd73dcdd131cfa4e59684360281f1"
+    },
+    {
+      "path": "src/app/api/learning/overview/route.ts",
+      "sha256": "17f04ebea812bfebc16ae1fe9f5873fccf33a13cba70ba83f42d3ec296b77862"
+    },
+    {
+      "path": "src/app/api/learning/patterns/[id]/route.ts",
+      "sha256": "8e64d17da0b06749ab8fd35b479896212bcc9c0bf3d9cd3f64cf6e62575b56f8"
+    },
+    {
+      "path": "src/app/api/learning/patterns/route.ts",
+      "sha256": "228f6e8c80a71111f3cbe58bee9d61d8adf5c423bf772154bc2c32b5e8a05a4c"
+    },
+    {
+      "path": "src/app/api/learning/retrospectives/[id]/route.ts",
+      "sha256": "81ec9c9622d57372c43a7bbe3e695487c7b028f4d0da7e6b28c243dac14daa4b"
+    },
+    {
+      "path": "src/app/api/learning/retrospectives/route.ts",
+      "sha256": "1129c076d17df92ebdd3d3c3b6f726b5faf2e4cf907635ed3b7cc51e65e5f1d1"
+    },
+    {
+      "path": "src/app/api/learning/review/monthly/route.ts",
+      "sha256": "787b0ec5fe585747b487ca25b2abfa4b15f622aa36922c409b9e2cef46166b07"
+    },
+    {
+      "path": "src/app/api/learning/review/quarterly/route.ts",
+      "sha256": "eb55155f583701b82b780f758cb04b29165d0ec687b0b50bbd9c577244203b40"
+    },
+    {
+      "path": "src/app/api/learning/rules/[id]/route.ts",
+      "sha256": "7293a01a827139af4aee00248443e81915a1d5e2ac21e4a3b564fd9fd12ded6b"
+    },
+    {
+      "path": "src/app/api/learning/rules/route.ts",
+      "sha256": "f6b370c2e491b1dfa5b40b17a815679b26ca0312e61447cfad369aac0d7ce5bd"
+    },
+    {
+      "path": "src/app/api/life/[resource]/[id]/route.ts",
+      "sha256": "5ed3af3d5afe0b635c2baa671c9a065a7be7234d38490cdcebb8e4f921141e52"
+    },
+    {
+      "path": "src/app/api/life/[resource]/route.ts",
+      "sha256": "4301e39a9c665de6788971d86faea0020e87df03b650a9ad085e3868fc58cf5d"
+    },
+    {
+      "path": "src/app/api/life/profile/route.ts",
+      "sha256": "d7b2b76e32bdaa1dd659c78687e17988706dd9a3820b73a8214327ca2d20fedd"
+    },
+    {
+      "path": "src/app/api/life/route.ts",
+      "sha256": "692b02dbf483f447029272b9a8ef790b2b7b7fc325864ded926d4467fe80c373"
+    },
+    {
+      "path": "src/app/api/life/trips/[id]/route.ts",
+      "sha256": "45863d989b4baa0ef763ad5f7d914190936de2deb5f95ef46e0e6c1355cd223c"
+    },
+    {
+      "path": "src/app/api/meetings/[id]/capture/route.ts",
+      "sha256": "3d41fb7e2cca4d93efea72c55c5476c71f20a6e33559ce447a8dbef7a3d29766"
+    },
+    {
+      "path": "src/app/api/notifications/route.ts",
+      "sha256": "554fd14474f63cd875727323f395908c996e8719f780e35574af8c0be9809ecd"
+    },
+    {
+      "path": "src/app/api/operating/[resource]/[id]/route.ts",
+      "sha256": "faedaba644a61da124745438701d7b2b1352e93a24c878098bb8602c94175a30"
+    },
+    {
+      "path": "src/app/api/operating/[resource]/route.ts",
+      "sha256": "5bc7eb4d8ff04a365acb2001e022bf84b1ee0e3ebb4efe0876f45cc8e6ae50d7"
+    },
+    {
+      "path": "src/app/api/operations/dependencies/route.ts",
+      "sha256": "00611fa4c6e5c9e2c83c7d709d98f59078c95b03e1af842a67477d1f73384bad"
+    },
+    {
+      "path": "src/app/api/operations/improvements/[id]/route.ts",
+      "sha256": "9ec5c6c3f2f7381a3ca4647cf5624902125a95a4ce53559950d0cd249585be24"
+    },
+    {
+      "path": "src/app/api/operations/links/route.ts",
+      "sha256": "73c69dcd446de57a29d442d53623883ff463cf0b23d3f4814a78153193a1dcc7"
+    },
+    {
+      "path": "src/app/api/operations/overview/route.ts",
+      "sha256": "a40d6d5c8f08cde124d123a3e07c570be6b72a90aed09862492030b7e03497df"
+    },
+    {
+      "path": "src/app/api/operations/processes/[id]/route.ts",
+      "sha256": "3e50f3148a4ea7525ea7192f937e00eb2c485102dc00f1810d884e05c4e2e210"
+    },
+    {
+      "path": "src/app/api/operations/processes/route.ts",
+      "sha256": "4f3d58d09861d6cd80403ae3cfe13715607b3395a4c7176f4c4dcee970305801"
+    },
+    {
+      "path": "src/app/api/operations/quality/incidents/[id]/route.ts",
+      "sha256": "16864a3dc0fe8ccee0955faabb5cac4e681e1f232a8f9a6c1e8c51e6a6ddb3bb"
+    },
+    {
+      "path": "src/app/api/operations/quality/route.ts",
+      "sha256": "9cd5af80d83674918fd27a55ba541df2071d3a55584fc1eaa3aca10454620b45"
+    },
+    {
+      "path": "src/app/api/operations/review/route.ts",
+      "sha256": "dc877b3fef27a6e4ce4bc971238771d7246c7f0410c33e9344001a35f02649a9"
+    },
+    {
+      "path": "src/app/api/operations/runbooks/route.ts",
+      "sha256": "da2fe38ff3cfa281f62ab6f31f59e96ef357160f442062753764a4477aca435d"
+    },
+    {
+      "path": "src/app/api/operations/runs/[id]/checklist/route.ts",
+      "sha256": "eb44b4d7821d63dd16ec13703e489a82083fbdb108c8dc764684063e1baad417"
+    },
+    {
+      "path": "src/app/api/operations/runs/[id]/handoffs/route.ts",
+      "sha256": "ad98e36323b0a870b2cb11710a3b9b6b274d7d6a21d30bd973962be9866ba3ce"
+    },
+    {
+      "path": "src/app/api/operations/runs/[id]/route.ts",
+      "sha256": "b168cc3ca7a6fd2c7300de2c3d964f3590757feb3df5429bc8c3ff7fff7fe037"
+    },
+    {
+      "path": "src/app/api/operations/runs/[id]/steps/route.ts",
+      "sha256": "cd9b33020e8f9ea6cd072aa638ae8ce5ab78199f85a4893ab5052ffc498d16ed"
+    },
+    {
+      "path": "src/app/api/operations/runs/route.ts",
+      "sha256": "e5dc1d07517922c9a38a1402b8f47163a939128aea028560cddbdd1761e60eba"
+    },
+    {
+      "path": "src/app/api/operations/sops/[id]/route.ts",
+      "sha256": "a43a99a6b1260c443d00460568737a6adedbe71ca5cc7d2ba649a31364db2884"
+    },
+    {
+      "path": "src/app/api/operations/sops/[id]/versions/route.ts",
+      "sha256": "ef0227216a3cd2744359973a3177972887ba909c200b33210e0dc7aa4f06f69c"
+    },
+    {
+      "path": "src/app/api/operations/sops/route.ts",
+      "sha256": "8e436fcda1e7dba0f8d396898f83420b041527bb64b3cbcc9bc0759fd9a1aa33"
+    },
+    {
+      "path": "src/app/api/operations/systems/route.ts",
+      "sha256": "6db40609aec3c50f0083c0d12929294a8845b45120e585362d9dcaeef55107d1"
+    },
+    {
+      "path": "src/app/api/payments/route.ts",
+      "sha256": "9c106e9aec610409c59dbbe1e116643c9014f923a540dada7c7889dae468ad8e"
+    },
+    {
+      "path": "src/app/api/postmortem-actions/[id]/route.ts",
+      "sha256": "d3ddc2920612ba4454a0b68208ca05b5f0dcc501bd4645dce70ea13acd0520dd"
+    },
+    {
+      "path": "src/app/api/projects/[id]/business/import-proposal/route.ts",
+      "sha256": "86f82daf149d6cffda5de92effe13733ecc47cedc27471f9470379f5570c87df"
+    },
+    {
+      "path": "src/app/api/projects/[id]/business/route.ts",
+      "sha256": "a14f7b81acbad6a209fe88dff4290d6d0067c3910c7953608372e0ac7e85cc87"
+    },
+    {
+      "path": "src/app/api/projects/[id]/github/route.ts",
+      "sha256": "c195dac4d2ce62b2972326ce27ea44d1c1faeffcdc95bbc54c361029633aff73"
+    },
+    {
+      "path": "src/app/api/projects/[id]/route.ts",
+      "sha256": "efb0ef1f19a15763eb327432bc31bfa7b29ccc1a4e27f533aa36a14a1b7b0448"
+    },
+    {
+      "path": "src/app/api/prompts/[id]/route.ts",
+      "sha256": "6a5fe24bd9a9eff6576d74b1fc9ab8ac9cf1d8a770e73d3db6046417fc18cf9b"
+    },
+    {
+      "path": "src/app/api/search/route.ts",
+      "sha256": "0b29654e38dedf1aded8ef34a2b21cc1a6f49a526c8e0b690a5635a06dd85ae7"
+    },
+    {
+      "path": "src/app/api/services/[id]/analytics/route.ts",
+      "sha256": "a02d78646632c0b682bda0710efdb4fc33b02c4dc8683ee393ea22e2620e1759"
+    },
+    {
+      "path": "src/app/api/settings/profile/route.ts",
+      "sha256": "afccc4061a81988922053001adc8290152c109a993888de3de8c3a6bded4a66a"
+    },
+    {
+      "path": "src/app/api/strategy/[resource]/[id]/route.ts",
+      "sha256": "37b519da92fc11e0db577d04d845625e7ede3b8b3ff1dfd0ad8723220b9c4e57"
+    },
+    {
+      "path": "src/app/api/strategy/[resource]/route.ts",
+      "sha256": "90074dae5165ff0fc732721970c42951ee02f93e33ceebbd9cc437707b118b47"
+    },
+    {
+      "path": "src/app/api/strategy/90-days/route.ts",
+      "sha256": "a96e8bfed54fde153ba1a38817e6382368f8d6d1ae4a0d5d1278f9885ff74c39"
+    },
+    {
+      "path": "src/app/api/strategy/period-plan/route.ts",
+      "sha256": "fc546b9939161b803cb1803ad73ad17673176a566bfff75cddf46838e6e550a9"
+    },
+    {
+      "path": "src/app/api/strategy/portfolio/route.ts",
+      "sha256": "009e51dfba7efc8b11ddcc31ca12476ff1a46450a8fecc12027ba394514aec1d"
+    },
+    {
+      "path": "src/app/api/strategy/route.ts",
+      "sha256": "675e522cf09ba24ddecebfcb9a26a26d2057ec4e7f8db9c829dac1b515dd145d"
+    },
+    {
+      "path": "src/app/api/strategy/scenarios/route.ts",
+      "sha256": "4bb08d730e4b20388d2e14d1ac4aa865af73cfdc5d6e6d79d1c43b5f3490b6a7"
+    },
+    {
+      "path": "src/app/api/strategy/sources/route.ts",
+      "sha256": "3f8432449bcf58013a32f782240cd40c319812c98818e113b71e8a44e62b0c0a"
+    },
+    {
+      "path": "src/app/api/strategy/week/route.ts",
+      "sha256": "aa19eb87545aee006af8870216bb51dc2bdbfd2fbe5fc69d7505b135c4144699"
+    },
+    {
+      "path": "src/app/api/success/check-ins/[id]/route.ts",
+      "sha256": "1339f9f9636a1c930d43c89b39dc938dd4230ddaf1510a7ff986871bbdbd5491"
+    },
+    {
+      "path": "src/app/api/success/check-ins/route.ts",
+      "sha256": "9b3f6ddc1b432a22731f445c39dfeacc418840b3c12fadaf9e6da000f5c12134"
+    },
+    {
+      "path": "src/app/api/success/clients/[id]/route.ts",
+      "sha256": "86a8dbf8b980b77860c885c9a6e7f7cd6cb9ac3904b7d18941d25fb9109b934f"
+    },
+    {
+      "path": "src/app/api/success/commitments/[id]/route.ts",
+      "sha256": "27d866e8665e72fa747ea24922fd21e7dca492e847772925c9b3d767a2737327"
+    },
+    {
+      "path": "src/app/api/success/commitments/route.ts",
+      "sha256": "f85e12fdc8bcda0c3aa24591f383b1d4a8a656a0991a4317498eb8fcf8c157ab"
+    },
+    {
+      "path": "src/app/api/success/issues/[id]/route.ts",
+      "sha256": "26e37937bfc13ddd4ca7ee836a72754cb1fa4691aca7a96af121e3ff0823cb3c"
+    },
+    {
+      "path": "src/app/api/success/issues/route.ts",
+      "sha256": "8b77510fd2c4002582d79f38b89aa0e873151dd59a3ba2417bae340cc3ac81ae"
+    },
+    {
+      "path": "src/app/api/success/journey/route.ts",
+      "sha256": "a2aedba18eff7ebaa775569ad0a99a61e1266e6149b4da7446a46966242e4abc"
+    },
+    {
+      "path": "src/app/api/success/milestones/route.ts",
+      "sha256": "5373b25419dc32b08e5bad3348bc0ba07636f1e20f50fe8d5a55af139064a423"
+    },
+    {
+      "path": "src/app/api/success/outcomes/[id]/route.ts",
+      "sha256": "6aeee7e403e7f6b0e49db49b4360ab25dcb38a8344f34375018e2937217b8421"
+    },
+    {
+      "path": "src/app/api/success/outcomes/route.ts",
+      "sha256": "d0b222ba99de67004a259cd2edd9a100bff04411dcc6d4590d2c0b9600a99d8b"
+    },
+    {
+      "path": "src/app/api/success/overview/route.ts",
+      "sha256": "c8c402e178825fd258a42d3cf12ce51790a5e5732b6dd04d4d45dc03f6819afc"
+    },
+    {
+      "path": "src/app/api/success/plans/[id]/route.ts",
+      "sha256": "3a3e63c0d5a0db22ab7929d4e8c7b1fff59ca6817776468d7cc4c5f262716b50"
+    },
+    {
+      "path": "src/app/api/success/plans/route.ts",
+      "sha256": "eecda7e84224d74ec6d7c76acea7111ae65839dfb8457968f8d0970878f4d16a"
+    },
+    {
+      "path": "src/app/api/success/portfolio/route.ts",
+      "sha256": "4d7be60a8817c2c820acfb8f4184a92ebb0d1d4d848a02ec80eab3c4c2e5db8d"
+    },
+    {
+      "path": "src/app/api/success/recovery/[id]/route.ts",
+      "sha256": "9899a1b2a45661a490601e072976652801f5cc8a798547f2ccb691d039ec09a2"
+    },
+    {
+      "path": "src/app/api/success/recovery/route.ts",
+      "sha256": "035ffd589841fd74c6b524428362e89b5a3cccb8585d6a12297e06f9207f56cc"
+    },
+    {
+      "path": "src/app/api/success/renewals/[id]/route.ts",
+      "sha256": "fc319ed7f2aba2c20e431b31b61b4658c189a0392e448a3d3e5f5e556bafca86"
+    },
+    {
+      "path": "src/app/api/success/renewals/route.ts",
+      "sha256": "8fece3385120548de4b1f54362dfd8f5068c0e776cfa72a60007c76fa6515dc9"
+    },
+    {
+      "path": "src/app/api/success/reviews/route.ts",
+      "sha256": "d063304e13661fa5bc36f81e257794c2995ab01f5a44e0a65ed25ece3362c31a"
+    },
+    {
+      "path": "src/app/api/success/risks/[id]/route.ts",
+      "sha256": "2aba39276835ae49fd65c66337c79f97734cf1eea53829a92e0adfecb6f9b78b"
+    },
+    {
+      "path": "src/app/api/success/risks/route.ts",
+      "sha256": "bf16a8dd9fb3cf694ed2a3749be3fc1f46a22eb589f5df30f9547db59c220710"
+    },
+    {
+      "path": "src/app/api/success/signals/route.ts",
+      "sha256": "3a9f8b37a8f3fc712bd53634217ccf3709f03d1261e8276a06f29032c4b4c749"
+    },
+    {
+      "path": "src/app/api/success/waiting/route.ts",
+      "sha256": "9b244fd6f834f95e1b2c1f3847e5fcc513c80d6c2fbd81f4be3c07dc1f4d6e12"
+    },
+    {
+      "path": "src/app/api/tasks/[id]/progress/route.ts",
+      "sha256": "6f33c1ccc913abbd5a857bedf1f03e2f1bcd462600513d6836007d7eb4321893"
+    },
+    {
+      "path": "src/app/api/tasks/route.ts",
+      "sha256": "2dce8d61a50fded05ad666a424c8a5d53198fdd20b3361a0c3c75dbe8e0437db"
+    },
+    {
+      "path": "src/app/api/team/1on1/route.ts",
+      "sha256": "ae4b13ae8ed98e3d4d209d5c7f24a5fa2ecf5cfc0002f5ec8c3c4e9b1edbcec6"
+    },
+    {
+      "path": "src/app/api/team/availability/route.ts",
+      "sha256": "d0242f6000ba1d1cf0ce7036c18e6903bcaa32897fd337b562176cadb2b237b5"
+    },
+    {
+      "path": "src/app/api/team/capacity/route.ts",
+      "sha256": "04c682765528ba1201cfc05b6a110975848de88bec756f17f8c31761ab8a1bf8"
+    },
+    {
+      "path": "src/app/api/team/commitments/[id]/route.ts",
+      "sha256": "37f64288c3dbf67ca1c1e26a9fd9cc8024dab8e47270ad01b7085e2d7e38e9af"
+    },
+    {
+      "path": "src/app/api/team/commitments/route.ts",
+      "sha256": "d61333cf11c0b04dfc31e83f51414cd6b389641b7b6a189883cbca6e27987d96"
+    },
+    {
+      "path": "src/app/api/team/delegations/[id]/reassign/route.ts",
+      "sha256": "c409091d3be00695b5e2156b7de15ca5f07d5270264222d581948007ca18a16d"
+    },
+    {
+      "path": "src/app/api/team/delegations/[id]/route.ts",
+      "sha256": "72b0ebf2628c4ce438abe78533cf49e9a56d60a34349e23eb84b55684fe13e90"
+    },
+    {
+      "path": "src/app/api/team/delegations/route.ts",
+      "sha256": "0b0db63b52ace8018f93efed1ccbb3bf991dca71ec9ec997eb8c14805787dc1e"
+    },
+    {
+      "path": "src/app/api/team/escalations/[id]/route.ts",
+      "sha256": "293bfab1c6b320598891bf8fcdc10fe69c01a801fd00a056b858f6d4aaa22e0a"
+    },
+    {
+      "path": "src/app/api/team/escalations/route.ts",
+      "sha256": "668d62e44e1af4131cbb2d1f9d6b5310644d7e5f5b16e337896d8a51cc50f94f"
+    },
+    {
+      "path": "src/app/api/team/handoffs/route.ts",
+      "sha256": "9d28f5842b00a11538f690a3a7ec34af08421e3b197689a748e84eba47447038"
+    },
+    {
+      "path": "src/app/api/team/overview/route.ts",
+      "sha256": "b1b71f1a59d766267cb74dc8aa3642619d78689d0c24bcd07ea323c7ea2fa12c"
+    },
+    {
+      "path": "src/app/api/team/ownership/route.ts",
+      "sha256": "1523e1b749ef965264dbb9a463ed715e5d0b02d0ac971908d6dd2e2d98e82045"
+    },
+    {
+      "path": "src/app/api/team/people/[id]/route.ts",
+      "sha256": "304fc0de765eee4e431aac5b2576944d9c0abf3f6f37e5fc5b4478681293082f"
+    },
+    {
+      "path": "src/app/api/team/people/[id]/timeline/route.ts",
+      "sha256": "70f039155fc1a4df3610a53605d93489d663daa628d5924fac31f6e8cf975815"
+    },
+    {
+      "path": "src/app/api/team/people/[id]/workload/route.ts",
+      "sha256": "2207812937ace17c0f6ff2a75e6174c46aca466e5557daa38d903b50f3f16504"
+    },
+    {
+      "path": "src/app/api/team/people/route.ts",
+      "sha256": "9ee7e7ada513d1afccb9962cfa2f9d5beafd489aaaddfd876651460d53fe5119"
+    },
+    {
+      "path": "src/app/api/team/responsibilities/[id]/route.ts",
+      "sha256": "b0158b2e5ae8482cc68188656b8d3bad6791793caec60cee17fde73df35f0dfe"
+    },
+    {
+      "path": "src/app/api/team/responsibilities/route.ts",
+      "sha256": "7f4db0db3e9821ff76c5dff785a296c12f5bfb4bd84054582f1342a57201e9e7"
+    },
+    {
+      "path": "src/app/api/team/review/route.ts",
+      "sha256": "5844b6f79819af42fe42f8f917faa63f88cf01bb8cc60e2db3a641078d23f6e8"
+    },
+    {
+      "path": "src/app/api/team/risks/route.ts",
+      "sha256": "ba090d05e12f18e305dfec5a5710211259f96b7c442ba522c173121956f37e88"
+    },
+    {
+      "path": "src/app/api/team/roles/[id]/route.ts",
+      "sha256": "22e2a7c2399dd717fda3396fa29aabfc0d79ad477e3d23eb59a8f054ee29d047"
+    },
+    {
+      "path": "src/app/api/team/roles/route.ts",
+      "sha256": "19b0885b513d7df17536a10224032685d50b551ae1c5423646d1cdd75129aa14"
+    },
+    {
+      "path": "src/app/api/today/mission/route.ts",
+      "sha256": "941aa190b0d9b8dc5e30ebcfb5d56ee0b3240d1ad8e209a4141be3d16c649696"
+    },
+    {
+      "path": "src/app/api/today/route.ts",
+      "sha256": "2047563af9050b69cf2006b7f92f321124fa3aef6301bf70b012b668d3f21ee6"
+    },
+    {
+      "path": "src/app/apple-icon.png",
+      "sha256": "90ab442e9fff6500d2792a5760211a32a949a0b8fcb917fe777da9b5bb65e45f"
+    },
+    {
+      "path": "src/app/auth/callback/route.ts",
+      "sha256": "50126e4d178eb41de9e2ee5209a7aed54b2308c37d07c9b0a2b58cc4924e082f"
+    },
+    {
+      "path": "src/app/dark-workspaces.css",
+      "sha256": "858299ba9018bf0cacfa65b106e31bfebdb15017f2cd933999f46cc3d3ca9723"
+    },
+    {
+      "path": "src/app/favicon.ico",
+      "sha256": "41ded14e938bed724ec2a223509bb76621319004813e01f8eb824d198963e0a4"
+    },
+    {
+      "path": "src/app/focus-treatment.css",
+      "sha256": "14fe30915a35adc47d45df3e9825d32672fcafc36ba92dfa50859f6a7c5599d4"
+    },
+    {
+      "path": "src/app/founder-os.css",
+      "sha256": "5d75438d5ee8b091f87b6d0346ae31f34dcb8f1f7a8131b5c1a9f3960eafef8c"
+    },
+    {
+      "path": "src/app/glass-buttons.css",
+      "sha256": "1d4190db3508f0ba8e784315a35a25ff8ef8edc2de98af5befca24c78b65a9f6"
+    },
+    {
+      "path": "src/app/globals.css",
+      "sha256": "bd21fe69afea88d82c6a438ecec57e3f114b82f3610bc7014ee6b4f8663cf1ed"
+    },
+    {
+      "path": "src/app/icon.png",
+      "sha256": "c6f2ffdee48004be2584964c6e4f5f3f3370faef782926b5687a0929e4a01c5d"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "38f761e7fc2f46dbe794754a08ea85906eed1901c09eff9ff339d6716a7b6fc2"
+    },
+    {
+      "path": "src/app/login/page.tsx",
+      "sha256": "e6a053a3069e2944d25facd48c60a848f71037bdf6b7dafa9595f473b35e2e52"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "sha256": "81539d8e549c35fd756737f9447a5adb69529cb0ea5bf26885121075ab932053"
+    },
+    {
+      "path": "src/app/premium-workspaces.css",
+      "sha256": "7a093b2279067162fcbeafa278a292c43ae7e455a150e0e726fab9db58bfa0cf"
+    },
+    {
+      "path": "src/app/product-system.css",
+      "sha256": "1811066c50322ae2b3fdebe1397458f36c3614cea9700445c3e7e605992c55ab"
+    },
+    {
+      "path": "src/app/search-controls.css",
+      "sha256": "4ca1bd9bca31218f0e87f3156047a55fabfa57a8d3f6ddb54671215a715dbeec"
+    },
+    {
+      "path": "src/app/teamhub-redesign.css",
+      "sha256": "70e384e46d713e887800ac6dc583c9204628eb6e618943ac754184c22cc189e4"
+    },
+    {
+      "path": "src/components/app-shell.tsx",
+      "sha256": "3c029e2d782eddb5b9480fbf0274e74a57d556027fbdca5834bb53554aeee5ae"
+    },
+    {
+      "path": "src/components/attachment-section.tsx",
+      "sha256": "1be354c550c14dee28fde587a3d73a69e0e57eaccb18c3fa5b84a5e0c4ae5c6c"
+    },
+    {
+      "path": "src/components/command-palette.tsx",
+      "sha256": "8e470a6b8adf76c3fad52f41daeef54106ab77bb7c1812f65627561244038046"
+    },
+    {
+      "path": "src/components/icons.tsx",
+      "sha256": "51c31ef6fcd9683d32e9c5226331c5220bf466ee3adcac09203e8667449c8d9c"
+    },
+    {
+      "path": "src/components/icons/running-icon.tsx",
+      "sha256": "31809f809caff4906a5cc16d16740969e7f88075c887231fcde9cde8dd564fbf"
+    },
+    {
+      "path": "src/components/icons/swimming-icon.tsx",
+      "sha256": "dddceb64981b860a4e0c40c686e788057661705024b09f221d74d902f12b01ec"
+    },
+    {
+      "path": "src/components/icons/TABLER-LICENSE",
+      "sha256": "b740a1d46122672da62833e97f7e7c8a13fa85cbc7445b584b297cc00dde93db"
+    },
+    {
+      "path": "src/components/inbox-badge.tsx",
+      "sha256": "85ea11a982731f63cf616cc16e24e112acab5e75bd2fc07205f36ecc1b45a659"
+    },
+    {
+      "path": "src/components/quick-capture.tsx",
+      "sha256": "cec38c5df0e91ddb5aa5e134054826a3bb32e32c52ef94472ee593d0db3f64d0"
+    },
+    {
+      "path": "src/components/toast-provider.tsx",
+      "sha256": "beacc1dbb831d7798c18967fadce43d71e3b3e6dc1c4440d7237fe96a267b110"
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "sha256": "ec5f7c2bcdfb936a180271cbb323cc74cd2283f8a86a8d32223bb363b109b341"
+    },
+    {
+      "path": "src/components/ui/currency-select.tsx",
+      "sha256": "68c6ac7ebd76360b0035ab0471df0f1e8148b3cf241397d1fc1d3fc168379e0b"
+    },
+    {
+      "path": "src/components/ui/date-picker.tsx",
+      "sha256": "b39a352a92758f671ec34b6d029ac370658afa5ffe8ec7a061e8f0ff7ee428ed"
+    },
+    {
+      "path": "src/components/ui/modal.tsx",
+      "sha256": "36853f5c13f473cd031a17b8d439d6bad0d9a98fa07adebcb758df01d4a1fa86"
+    },
+    {
+      "path": "src/components/ui/search-input.tsx",
+      "sha256": "8b9ec30b6cf99f327d35a0b32d17d5d23de09e919f3f3b9390db338e192a8176"
+    },
+    {
+      "path": "src/components/ui/styled-select.css",
+      "sha256": "cf550e326f5f1328d40d8d6fcf127c30f5c645c2d794c5fce4f48791a0d97678"
+    },
+    {
+      "path": "src/components/ui/styled-select.tsx",
+      "sha256": "6d81a475eec09d614c3c59135d531b00ecdb2f31c506fb266544d887a66ff416"
+    },
+    {
+      "path": "src/components/ui/validated-form.tsx",
+      "sha256": "af9b5b6141b43a7570e98c6b72b032d30060d227e8fc1ccbc7d2f545205c9623"
+    },
+    {
+      "path": "src/components/workspace-tabs.tsx",
+      "sha256": "c3d07ef10925b24743600c34875136abbce23728acb9e4fac5a9fa654ee9ea21"
+    },
+    {
+      "path": "src/data/exercises/catalog.json",
+      "sha256": "c9e131c90e7199abf79ddf818d5b76e9ff68be69f38dfbdb50a0433332df8ab1"
+    },
+    {
+      "path": "src/data/exercises/LICENSE",
+      "sha256": "99230e0c2e74c54386e31e7282fc4d939ca14942df542b706fcd9fa71c3187fa"
+    },
+    {
+      "path": "src/data/exercises/NOTICE.md",
+      "sha256": "2b078c9ff73670bbcd4503703eb6be624250193b33655948799acc635a11557b"
+    },
+    {
+      "path": "src/data/exercises/provenance.json",
+      "sha256": "66ad4896700d5c4b9d04ce52ad7fbca76f02384bceb1d8dae5c68b1a297101cc"
+    },
+    {
+      "path": "src/features/brainstorm/board-list.tsx",
+      "sha256": "ef2feb71c26f44c475af2de7bfedbf27312a53e9f3e9b6b5300148eaff88353b"
+    },
+    {
+      "path": "src/features/brainstorm/brainstorm.css",
+      "sha256": "d07bbfde7c6aa8ebb7bcfc5676d33f25abbf6125ffb00cdccea1c15a60867018"
+    },
+    {
+      "path": "src/features/brainstorm/editor.tsx",
+      "sha256": "fec5bb07671825c477ce18ed9181be1ebe432efbd2239726125fa1a5239651b1"
+    },
+    {
+      "path": "src/features/brainstorm/workspace.tsx",
+      "sha256": "c5fa3290d75d67cafa3acf6c52fe202d60939a9e416da44300eb03661afde550"
+    },
+    {
+      "path": "src/features/business/business-communication.tsx",
+      "sha256": "59f35cc9428f57d499ef29c00977be9ce6aabdb6be5038affa598eb37ec1541d"
+    },
+    {
+      "path": "src/features/business/business-dashboard.css",
+      "sha256": "960c472d20a01b6e2358f2216c052af4ef9191b6082bae5242d965d55827630e"
+    },
+    {
+      "path": "src/features/business/business-dashboard.tsx",
+      "sha256": "547434e809db0db6a24f87e8810e2300355c92fd7591446235f627c126f67f75"
+    },
+    {
+      "path": "src/features/business/business-workspace.tsx",
+      "sha256": "17d90eeb1e744f822057903952953669ae1047b04b2254d5f8023a8601e77fec"
+    },
+    {
+      "path": "src/features/business/client-business.tsx",
+      "sha256": "24d8af28bcd891732aed38eeff4bde44234be32c55382271c5be0c78d212cd6b"
+    },
+    {
+      "path": "src/features/business/leads-dashboard.css",
+      "sha256": "b725f022b1101a1172011162c19a9c79a9ce5275564c7ab89aae6e91cae0faf2"
+    },
+    {
+      "path": "src/features/business/leads-dashboard.tsx",
+      "sha256": "f4cd80eab94ea04f951f211d8a7c658ba3d8669875a1d262de6ee2d232f89e64"
+    },
+    {
+      "path": "src/features/business/leads-import.tsx",
+      "sha256": "0ddc09a12cbdfcce0be6c20262a736918d25bc2354e8a0665175fcc7df7c5f8b"
+    },
+    {
+      "path": "src/features/business/leads-insights.tsx",
+      "sha256": "2503dbc29775314171e6b515a6cf44d0eacffbbd3f0c34337e4390e3724a8904"
+    },
+    {
+      "path": "src/features/business/pipeline-dashboard.css",
+      "sha256": "f89c134a26356e95664eb7528c2184bf20bde69b48365fd2b738b170f5e5e8ad"
+    },
+    {
+      "path": "src/features/business/pipeline-dashboard.tsx",
+      "sha256": "784c837a7a4c124b82a48b0d172f3a0949c76d91144ac20a7fa6aae70d02a2a4"
+    },
+    {
+      "path": "src/features/business/project-business.tsx",
+      "sha256": "a63f64e390455f3e71b8c89a0b0510c94e44a73e9606f93c9a7f2c1bc626e0ef"
+    },
+    {
+      "path": "src/features/business/reactivation-candidates.tsx",
+      "sha256": "4e96894aac2ee93e392a1deefdba1cc37cc51d6724d936b3d0ad9e6e7526847f"
+    },
+    {
+      "path": "src/features/business/service-analytics.tsx",
+      "sha256": "c837f8ce1ed54dd187e2880cf45151b8a9d9b87a7608c6ac32d16337b6146406"
+    },
+    {
+      "path": "src/features/calendar/calendar-conflicts.tsx",
+      "sha256": "aeb7d8a9a30177c466a61bb11337325c3635dcc9f083862e5a3f75b69aa015b6"
+    },
+    {
+      "path": "src/features/calendar/calendar-dashboard.css",
+      "sha256": "62da8d1e2b376c5d399e0b1a89d4622b24e125cb1ed6da02baf6f90e12497c51"
+    },
+    {
+      "path": "src/features/calendar/calendar-dashboard.tsx",
+      "sha256": "91aa541145cc16d651572c77e91edf7d8a59bd16e72325336c9e14b30cb90e74"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-approvals-view.tsx",
+      "sha256": "e01cd4a0bdacfcc3e2ed2a75665a8b96dfdc8647f97e3f22538c657defc36c84"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-escalations-view.tsx",
+      "sha256": "6025ba295fabd325729246f1873146e11a0aba4a20439e71df7c6bc3d3aa846a"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-executions-view.tsx",
+      "sha256": "c072a24f5a0261d76de6d4f9ce644b9634c2937bcf86442e6951cc7f6958aa2f"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-history-view.tsx",
+      "sha256": "4752990183cda1b8a6ea1ab74469c441a2e733211bc78a048f3300fa3bd55481"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-inbox-view.tsx",
+      "sha256": "39ebaabb866098fcfdfc5effccc6a1920e7651393230e8491b7d70746a105f55"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-plan-detail-view.tsx",
+      "sha256": "4676ce4bb343e851035e4d0479bdf1b0a41cc850109a9f3fb219da0de7ee64fe"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-plans-view.tsx",
+      "sha256": "6129dfac5280ee24026901e541f62998abd63436c05c6e60708f20e8b960a78b"
+    },
+    {
+      "path": "src/features/chief-of-staff/action-templates-view.tsx",
+      "sha256": "029499772f6da21a39a579b2021e637e538f2a6a9a739cc721c9371bcc3a5adc"
+    },
+    {
+      "path": "src/features/chief-of-staff/automation-opportunities-view.tsx",
+      "sha256": "10d28d0f8a0b636e89fbef681fcc880d65d0bf7db800e22d1e694f249401d828"
+    },
+    {
+      "path": "src/features/chief-of-staff/chief-of-staff-brief-view.tsx",
+      "sha256": "b34271cb540ab20117468d58320d37453389ab0f93c577a99a107eab4d06845d"
+    },
+    {
+      "path": "src/features/chief-of-staff/chief-of-staff-home.tsx",
+      "sha256": "c4dff7f13c729d0be124eea15bd3b19dcbec88c4e8c85e7ceb25d9f44ba24cab"
+    },
+    {
+      "path": "src/features/chief-of-staff/chief-of-staff-review-view.tsx",
+      "sha256": "36533c32f1b1ffbe27f6c6e4e5b03e46f96ee0b6138916e15214897c38551a4a"
+    },
+    {
+      "path": "src/features/chief-of-staff/chief-of-staff-settings-view.tsx",
+      "sha256": "912f4810fd38b6c0daf90d9fc24fce9a24633ba1fab74ae6adffee68b36f86c3"
+    },
+    {
+      "path": "src/features/chief-of-staff/chief-of-staff.css",
+      "sha256": "19ff49edfb009b6513748b3721acf42e75977479e3dded245f4de2779859039b"
+    },
+    {
+      "path": "src/features/commerce/brands-categories-view.tsx",
+      "sha256": "402d6f811cc92c85043976bf9ae07085cf37f08992f413c59ec7306b56c429bf"
+    },
+    {
+      "path": "src/features/commerce/commerce-home.tsx",
+      "sha256": "96311066339416f213adf9e78c9d24a70de5e4ab6761aa275e5da50bd3f3a632"
+    },
+    {
+      "path": "src/features/commerce/commerce-review-view.tsx",
+      "sha256": "7d3c2fa352e8e12d529e5ab96ca87dce7a2fb205f5feb9877fe4b612d0130e98"
+    },
+    {
+      "path": "src/features/commerce/commerce-risks-view.tsx",
+      "sha256": "973a6007514b398eb915627055ab3d9f7765644ee72ae54f1f94838c0ec706fd"
+    },
+    {
+      "path": "src/features/commerce/discrepancies-audits-view.tsx",
+      "sha256": "e8726d59530f477c5fac4e84ac0818d2043ecc4ef302d1b97ebe92a55309337b"
+    },
+    {
+      "path": "src/features/commerce/inventory-view.tsx",
+      "sha256": "c92f5ac4f85399a5bc258b088cb8c731e16f4c2986b206bb81537eae84134771"
+    },
+    {
+      "path": "src/features/commerce/movements-view.tsx",
+      "sha256": "06b1e826d17963fdd7eb7e5144e817805081e2312212483b41cc93c78c070298"
+    },
+    {
+      "path": "src/features/commerce/products-performance-view.tsx",
+      "sha256": "2bbc5c8dd71c9f887d4357cad41739a3c7582e57f7c3a4e9ce8d362b640f0a4a"
+    },
+    {
+      "path": "src/features/commerce/purchase-review-view.tsx",
+      "sha256": "009b80af886e736e2a8fd0d4d132ffa4791d363b448f6df57139b60e7c8b389a"
+    },
+    {
+      "path": "src/features/commerce/purchasing-view.tsx",
+      "sha256": "82e22a82d38d20cc34cb6f487d41a9fb6bf8a88e71905b2acd58c09b8e9864bd"
+    },
+    {
+      "path": "src/features/commerce/reorder-badge.tsx",
+      "sha256": "a2ff710148bc8f146175a76801d754da136f5e2199f82751741620a72ce52f23"
+    },
+    {
+      "path": "src/features/commerce/replenishment-view.tsx",
+      "sha256": "fa7ac99c10c6fb25fa9ed2109b7d0163bcea7207cc074e3a77327c9bbb1018b7"
+    },
+    {
+      "path": "src/features/commerce/slow-stock-view.tsx",
+      "sha256": "b864b6790d557d24ecaffde29d72d57f04e1cdabe772798cc3c982f627de2fe1"
+    },
+    {
+      "path": "src/features/commerce/stockout-badge.tsx",
+      "sha256": "22e934025cdd732c0f7cd0032ce42771d49b735fcc4f84d161fa9820dc8a7d6f"
+    },
+    {
+      "path": "src/features/commerce/suppliers-view.tsx",
+      "sha256": "cb3b10800676eb54c9fc9b977aa26009d1f72398ab6a2dc7b9048bbf75825692"
+    },
+    {
+      "path": "src/features/domains/client-dashboard.css",
+      "sha256": "992f5c72ef4b18adb4cb7370727dd08080119489a1d3fef2dbd21665111f1f36"
+    },
+    {
+      "path": "src/features/domains/client-dashboard.tsx",
+      "sha256": "167d123bccb95cf812734e14796f015a8dcfe0789b36d2b357df3c85abcf9a8e"
+    },
+    {
+      "path": "src/features/domains/detail-page.tsx",
+      "sha256": "1352bb34be73e5483ec14075885c63188467a3a0cf9dccf5648fb92cdc2c7a59"
+    },
+    {
+      "path": "src/features/domains/domain-page.tsx",
+      "sha256": "1ac13626e5ec6f531a427b3c788ffd76df46a2a93f5dcd643c249226ddf73186"
+    },
+    {
+      "path": "src/features/domains/goals-dashboard.css",
+      "sha256": "5cb2fac41fbc9caa84176e74dac9341cc335388c5064210e0f444c9251305145"
+    },
+    {
+      "path": "src/features/domains/goals-dashboard.tsx",
+      "sha256": "329f42654e97dc789c60269c7caf6a02dd1a36efb6757a255002bf8b434e1b90"
+    },
+    {
+      "path": "src/features/domains/project-dashboard.css",
+      "sha256": "344cd0370d1b00fc9a4fbe7a14860065b2876ec3911f73ab8a51508332c363be"
+    },
+    {
+      "path": "src/features/domains/project-dashboard.tsx",
+      "sha256": "1aed22ca225760fde51ee0a1876e62ddf089f075a6008fd4e1fe37829cb04cdd"
+    },
+    {
+      "path": "src/features/domains/task-board-design.css",
+      "sha256": "960f61106aad63e9da7fc4e89b08419753fb60134d90251773e3914992aa697f"
+    },
+    {
+      "path": "src/features/domains/task-detail-reference.css",
+      "sha256": "4a2fe0aa93ca71093ecfce502150cb631c291dc202d99c55c9b150ffec73ccc4"
+    },
+    {
+      "path": "src/features/domains/task-list-design.css",
+      "sha256": "b1ea863a5ae10413bd9ee594d3475d993f361226d59e62a4a062407e61257e5f"
+    },
+    {
+      "path": "src/features/executive/decision-brief-view.tsx",
+      "sha256": "eae9e92eca311bfff2ad166a314f5bd22f54b4462a913bc0b7073389fc458297"
+    },
+    {
+      "path": "src/features/executive/executive-assumptions-view.tsx",
+      "sha256": "3376a14e6873ead7cd6a996348455c872b7495add7aa8d4a5dea4fc016cd4076"
+    },
+    {
+      "path": "src/features/executive/executive-attention-view.tsx",
+      "sha256": "63dffa28a5e060189dbd20cc2291e60e76cfdd94ce44c9756d96c9a77ecafee2"
+    },
+    {
+      "path": "src/features/executive/executive-changes-view.tsx",
+      "sha256": "e114d784cb77649c68fca88f176e7c9daae24fb69ae56dfe3e1b18eb0aecb198"
+    },
+    {
+      "path": "src/features/executive/executive-daily-brief-view.tsx",
+      "sha256": "e578ccc83b24eedef25e2e8e53e55cc5d4166457c4619ae51f12011d51040229"
+    },
+    {
+      "path": "src/features/executive/executive-decisions-view.tsx",
+      "sha256": "219943320c6096723257fe0b6dc74ac288430a926594515d28a6e07fa947040b"
+    },
+    {
+      "path": "src/features/executive/executive-home.tsx",
+      "sha256": "9e7a00afe8d44dd7ab770c5a8a719867b79a900d3eebdbfb9fb7c588f1817077"
+    },
+    {
+      "path": "src/features/executive/executive-opportunities-view.tsx",
+      "sha256": "a09a9f84649522252ea031fb9386a090dbb8d3b703b41dd14775677e4abdf086"
+    },
+    {
+      "path": "src/features/executive/executive-plan-vs-reality-view.tsx",
+      "sha256": "20175584721ef1b6fac08a3e6ae96862cfb0055dd9367b0710bcdbd33d0b3cc5"
+    },
+    {
+      "path": "src/features/executive/executive-reports-view.tsx",
+      "sha256": "0c2927ccbc8a1d4a63e3c8c619c6ba0c82db2480e7fb796af12cde98086ec327"
+    },
+    {
+      "path": "src/features/executive/executive-risks-view.tsx",
+      "sha256": "5795016991667c10b48b4c7b4503167b7d57ae75d7a4c4002a58e65ec2db4fac"
+    },
+    {
+      "path": "src/features/executive/executive.css",
+      "sha256": "e021269d37362fff9c459c4b15fb3f479e6b0d0f0ce00a69b92d6af535572c00"
+    },
+    {
+      "path": "src/features/executive/report-detail.css",
+      "sha256": "7fe12f3fb9007d95a4f0007210452d0256494de1bf796dd6622a09ad624b1bb9"
+    },
+    {
+      "path": "src/features/files/files-page.css",
+      "sha256": "a904cb50738ba523cfce1d8f5403b7b27b9a5f6198c0276d45db4656923cdcea"
+    },
+    {
+      "path": "src/features/files/files-page.tsx",
+      "sha256": "a8f1b0647a22734727557058b7a3e2a6e571ed400cd281adfb7771bc05ceaf21"
+    },
+    {
+      "path": "src/features/financial-control/cash-planning-dashboard.css",
+      "sha256": "5a071d9bc920ebf7310852ddf8c87fec19f4a1927260c4d0d26d7ed18b0d8725"
+    },
+    {
+      "path": "src/features/financial-control/cash-planning-dashboard.tsx",
+      "sha256": "2fb91cc95600201dce9d2b3d8ff4fdc5b204e052ffefd27a2d7f42108c3fb1e0"
+    },
+    {
+      "path": "src/features/financial-control/financial-control.css",
+      "sha256": "0730b4fe46442502c5823a6678b50baae99e09ab99f21ccbbb5bc33819a4d00f"
+    },
+    {
+      "path": "src/features/financial-control/financial-fields.ts",
+      "sha256": "df572c7d6ae29beb0123016c6651d8f4a0b12369825f8c815cf5335c68735826"
+    },
+    {
+      "path": "src/features/financial-control/financial-workspace.tsx",
+      "sha256": "db0cb0a0369469783d7a2a4f762c19474dd788f2ee40b9236cad1d21d9f01072"
+    },
+    {
+      "path": "src/features/fitness/daily-fitness-quote.tsx",
+      "sha256": "4e8e4bbefb13ed1c461cd6376a9680fcf6ab82e70bd50f98528ba3f64b88cf46"
+    },
+    {
+      "path": "src/features/fitness/exercise-library.css",
+      "sha256": "07ae8aa467da25a28a5a51aeea253808e95c740e6d01db853af2dca307f1afd7"
+    },
+    {
+      "path": "src/features/fitness/exercise-library.tsx",
+      "sha256": "fc9c815b3f9ef3c3cfdd40716330ac31e82a618b99d840020c5042b130b79f68"
+    },
+    {
+      "path": "src/features/fitness/fitness-dashboard.css",
+      "sha256": "2e4582838eb3a8f0a94a7bd70206c052e7794f383e535a8c6046b82677cdbd3d"
+    },
+    {
+      "path": "src/features/fitness/workout-workspace.css",
+      "sha256": "342c849d7529cc15a1c22d6cadd39186711e2fbb564e09b738e8b8f3bf3e24bc"
+    },
+    {
+      "path": "src/features/fitness/workout-workspace.tsx",
+      "sha256": "44085c321ccb3d398ec03b808a3e0ae9de5aec0e5c5a46166fcdee668e4cef3f"
+    },
+    {
+      "path": "src/features/focus/focus-timer.css",
+      "sha256": "1279eb5dffa041fd5c628c9d5514256e2fb4c4367b0fb217e16033e6a6a1e94f"
+    },
+    {
+      "path": "src/features/focus/focus-timer.tsx",
+      "sha256": "60e77ea3bb6ea8eb75e815c57bf0c06d98e6884f11fdea64be97ef7122dee304"
+    },
+    {
+      "path": "src/features/founder-os/business-pulse.tsx",
+      "sha256": "f23694200db880757dd39b8061dfccd52f0c09973ab910b1575534a490779d7c"
+    },
+    {
+      "path": "src/features/founder-os/communication-extractor.tsx",
+      "sha256": "5e958d5ee84c90dc385bee30f88cc42649bb8d55d90be0ec2f78ff09f4ea0732"
+    },
+    {
+      "path": "src/features/founder-os/continuity-panel.tsx",
+      "sha256": "f3d55614b73f9b6e62e53dd81633efd0324c2027b16d7abc146973f8ef71186a"
+    },
+    {
+      "path": "src/features/founder-os/daily-energy-checkin.tsx",
+      "sha256": "b28ea0774bc598d22d40b61838ffece3593f8b480aa71537dd7cd785b0cd2845"
+    },
+    {
+      "path": "src/features/founder-os/dependency-panel.tsx",
+      "sha256": "f894f35bd0d81078ce764d5e146d9dbaeea788feb145e8c447702784cb0329fc"
+    },
+    {
+      "path": "src/features/founder-os/executive-briefing.tsx",
+      "sha256": "81b87bb30c7a582532de2dc7b4f22ebe36afdf4f9fbaad09a8a944bf60584632"
+    },
+    {
+      "path": "src/features/founder-os/health-dashboard.css",
+      "sha256": "3a4d28ae28544a25785faa1cf4014820ec81f19f3a921a57f3a7b645c44445a7"
+    },
+    {
+      "path": "src/features/founder-os/health-dashboard.tsx",
+      "sha256": "44d674ee361014482d6e492fab2330bc1634ad658b2968eeca30517acc70d0b3"
+    },
+    {
+      "path": "src/features/founder-os/legacy-executive-reports.tsx",
+      "sha256": "35e6b58dabf3bfb03e3eff719442563ca873a7b7e6d83e38b1a5e99cb4e0884e"
+    },
+    {
+      "path": "src/features/founder-os/resource-workspace.tsx",
+      "sha256": "d80c9c2e1722872d281474c7ec84d9b47e9037ca4543184ddde26fa44f68b660"
+    },
+    {
+      "path": "src/features/founder-os/review-workspace.tsx",
+      "sha256": "36cf1a180c5ef8c9b7a12a1a26fc56b504038ab604051522baba1bcf251ca28b"
+    },
+    {
+      "path": "src/features/founder-os/state-view.tsx",
+      "sha256": "5aff3265e2138a14c33fc4e90172adc315d3c909b2b859d127b36c60876245c8"
+    },
+    {
+      "path": "src/features/founder-os/strategy-panel.tsx",
+      "sha256": "67d9d1ee4b9592e3fc6a9a3425e192ce8558ba7d9d1664610e7dbb079e5ec46c"
+    },
+    {
+      "path": "src/features/founder-os/wealth-panel.tsx",
+      "sha256": "b815f04578f876f161a716e3121b8afb17f7a96157a8055b6dce46d6c2015556"
+    },
+    {
+      "path": "src/features/founder-os/workflow-panel.tsx",
+      "sha256": "6321fc279b9e50503fcb3a3a1390ec136c5aebb599bcd2b0c010a9ccf5d5c70f"
+    },
+    {
+      "path": "src/features/founder/founder-dashboard.tsx",
+      "sha256": "b7f137dbcfd3fd597863ecce6f1441d9fbc124bb05e23bbb04d19abf1ed646ad"
+    },
+    {
+      "path": "src/features/founder/founder-development.tsx",
+      "sha256": "2d47daa1e7467188a4143ce76078538ec120cdddc227bc56171bcf99741b9ab8"
+    },
+    {
+      "path": "src/features/founder/founder-marketing.tsx",
+      "sha256": "4e8a135f127e21d8a12368a6674b203fce7130a085d47a7e8e8f6ff46c3f6c19"
+    },
+    {
+      "path": "src/features/founder/founder-products.tsx",
+      "sha256": "01731a1c59154b1e8943d276926fb7ae3e650674ee3909e83af678d590ec5c10"
+    },
+    {
+      "path": "src/features/founder/supplier-orders.tsx",
+      "sha256": "f878f747e150848df1ff57f690249f1141d65dd37c7890748e2248259647424c"
+    },
+    {
+      "path": "src/features/growth/growth-experiments.tsx",
+      "sha256": "5cf27a4c11f85abc47f10c42665b6fd8e44120cdc2b016b00f5f90a9941fab54"
+    },
+    {
+      "path": "src/features/growth/growth-forecast.tsx",
+      "sha256": "0adea3eccea255fa29d12268c655f765c550a807b82da5296db7354467311386"
+    },
+    {
+      "path": "src/features/growth/growth-home.css",
+      "sha256": "d47c0e5ce80641e249939a9a8621263b10e84970f24c74a904fa944c06fe766a"
+    },
+    {
+      "path": "src/features/growth/growth-home.tsx",
+      "sha256": "c6729ec77c1919f1d33027b98b4639e49c2aa2a16abc2f53ab2e8cbfea10dca5"
+    },
+    {
+      "path": "src/features/growth/growth-pipeline.tsx",
+      "sha256": "0a45a938bce252e312af8fc06cdf9928c80fddb98a32fb5a8b248b572f6dfc48"
+    },
+    {
+      "path": "src/features/growth/growth-playbooks.tsx",
+      "sha256": "b1a8c8fb1dc8ff9ef1fd932a72f588ea26a5f950f27d5f51ab323f40db905cf2"
+    },
+    {
+      "path": "src/features/growth/growth-reviews.tsx",
+      "sha256": "b3a7eb0d9250f2305367d80671fbd2cf0d43fd2385f2dbd6b9886cb5307e2967"
+    },
+    {
+      "path": "src/features/growth/mission-settings-card.css",
+      "sha256": "e93e802d5c2d7e9b4b8594f72da0261358144662e91c39f6531f9ef0f12be323"
+    },
+    {
+      "path": "src/features/growth/mission-settings-card.tsx",
+      "sha256": "85f25c5510243d0c08ceb820a0aa40cf5befa7a61f8b6ae6f3d4aa2291a9ad1f"
+    },
+    {
+      "path": "src/features/growth/revenue-mission.css",
+      "sha256": "eab9f11202a1ba24aedbb99385da098faf2d2c230d0db0913496a1717dda9d32"
+    },
+    {
+      "path": "src/features/growth/revenue-mission.tsx",
+      "sha256": "cda243713177d6776ce8ac4af28257c99f4051cd09c30388adc739b6a98a3187"
+    },
+    {
+      "path": "src/features/ideas/ideas-dashboard.css",
+      "sha256": "6ceaa846b2401cdd2d4054201ea799d77097e0b0d71349712533fe848b87a676"
+    },
+    {
+      "path": "src/features/ideas/ideas-dashboard.tsx",
+      "sha256": "ead35506b63569358eed6ca1b2f6662ab1c505e52ffe0ef3e8c2b02271969f11"
+    },
+    {
+      "path": "src/features/inbox/inbox-workbench.css",
+      "sha256": "4884a10a7db0c0a5c20a54bc4d80e533ae93649e9abe59074ea03892aa0e3503"
+    },
+    {
+      "path": "src/features/inbox/inbox-workbench.tsx",
+      "sha256": "d4db47cbf859a5f72a393505cc193ef244d47ca8c982885e3bdb79d4096f243e"
+    },
+    {
+      "path": "src/features/integrations/drive-files.tsx",
+      "sha256": "f900b41ccefb9ccbbff8d8ffb58ee69c634abb910d0885daddc1232e58f73dad"
+    },
+    {
+      "path": "src/features/integrations/github-project.tsx",
+      "sha256": "388786357ae2b23f0740bd9b9af0c872c6fc0f5a2030c0481cc3da8c4c420fcd"
+    },
+    {
+      "path": "src/features/integrations/google-calendar-card.tsx",
+      "sha256": "81b09e83d10f22260f5973ae0f7815d1de5279e9eff9564b6a12359de74fb48a"
+    },
+    {
+      "path": "src/features/integrations/hevy-card.tsx",
+      "sha256": "3f28e0c5154f14e1bf8ef16b1a3ea35a06d29d192c73c2d87d80f65fb8cbd176"
+    },
+    {
+      "path": "src/features/integrations/integration-card.tsx",
+      "sha256": "c466bfc68c2d916a849fb9f64c1d767efac311462ec0853b498f9b0331f6e132"
+    },
+    {
+      "path": "src/features/integrations/myfitnesspal-card.tsx",
+      "sha256": "74f372f78ef840016f32ad0dd49097e437a450c03e4cb257e72a0509e2cb5ad8"
+    },
+    {
+      "path": "src/features/integrations/pacer-card.tsx",
+      "sha256": "bece8a1caaa1df396f1285c1c4baaa9eab7418bfdb4255ae29874ba9bb4a3c62"
+    },
+    {
+      "path": "src/features/intelligence/intelligence-pages.tsx",
+      "sha256": "401afd3d80ffba762e662b8625b7860c130e323f6d30134a50f1b8ff0c022d7f"
+    },
+    {
+      "path": "src/features/intelligence/risks-dashboard.css",
+      "sha256": "3e700eec6926d462bed9a86fc59aa11e33870690b135578f9fa9ed91f253faf9"
+    },
+    {
+      "path": "src/features/intelligence/risks-dashboard.tsx",
+      "sha256": "86797b7318ebadb137c5cd8b98916da217f28b08f5bb9b4848bbdf65a7bb8026"
+    },
+    {
+      "path": "src/features/knowledge/decision-research-panel.tsx",
+      "sha256": "8730e1ce66aa5ed2d92855fa7c1838f4251bc4c92cfd636f26662435ce9ffbc9"
+    },
+    {
+      "path": "src/features/knowledge/knowledge-detail.tsx",
+      "sha256": "072d4aef82a934aa8ae5c035c75afd592cf1c610b57bcdb38674a29e20c1b468"
+    },
+    {
+      "path": "src/features/knowledge/knowledge-home.tsx",
+      "sha256": "3502cb8d95c54aeb6ab6b12c2b28a810fb4acc546545d86a1af2651af78f6e0e"
+    },
+    {
+      "path": "src/features/knowledge/knowledge-library.tsx",
+      "sha256": "80c96fd42dfd765f2c2a3ac46289ba9dfc28d3af27f0f62f4f6f061e97aaa4dd"
+    },
+    {
+      "path": "src/features/knowledge/knowledge-links.tsx",
+      "sha256": "baf8721549e5c05b06c514bfd963da938d55bf1e0562d31c85fb150709f13fbd"
+    },
+    {
+      "path": "src/features/knowledge/knowledge-review.tsx",
+      "sha256": "75348c8131010514eeb5d3714750dc3bcd02b2f17b9376239104e946e93b7c57"
+    },
+    {
+      "path": "src/features/knowledge/topic-detail.tsx",
+      "sha256": "c25204287e30638e9f3b5f64e3bf518765c91ea7550ffe68e5a5ea03f2535d22"
+    },
+    {
+      "path": "src/features/knowledge/watchlist.tsx",
+      "sha256": "687a7b6f2673f884b165d172e424edb6afddda44af6833a15c184a60b8f8b57c"
+    },
+    {
+      "path": "src/features/learning/learning-actions-view.tsx",
+      "sha256": "37fd8c893077f4815dc1e56537b2803b1198ecbfc66e4fb94d695da888468c80"
+    },
+    {
+      "path": "src/features/learning/learning-decisions-view.tsx",
+      "sha256": "5b78b396cca678c3b9163fe9784da4982100136c398d220bd54f3e05c907f0a1"
+    },
+    {
+      "path": "src/features/learning/learning-forecast-view.tsx",
+      "sha256": "3d2e4a0ce97919e38d966bb29e9b7b61a5c7a0a1db7da0afab8b8269f7fe128a"
+    },
+    {
+      "path": "src/features/learning/learning-home.tsx",
+      "sha256": "58b66514b265941361336e056826f4d1496971544a2c3801882b15a7bcb8f3cf"
+    },
+    {
+      "path": "src/features/learning/learning-lesson-detail-view.tsx",
+      "sha256": "8fa86321ed8cf91f6ee44ecac27c2547748aefa69b5d50c344ed097868db69df"
+    },
+    {
+      "path": "src/features/learning/learning-lessons-view.tsx",
+      "sha256": "2f56ea7d46aea994f8074487e7a41693a3396059a353724f5218247a84ee0b24"
+    },
+    {
+      "path": "src/features/learning/learning-memory-view.tsx",
+      "sha256": "27b6bbeec487f3aa07f10a38a99c1171964bb9a33b311f6c9241a5b9e31a9737"
+    },
+    {
+      "path": "src/features/learning/learning-monthly-review-view.tsx",
+      "sha256": "789b2ae9cddb3a8818b7322f632458b27284449301763669115052250ad56907"
+    },
+    {
+      "path": "src/features/learning/learning-pattern-detail-view.tsx",
+      "sha256": "32137f2c20ad13501d59eacc1662de6dc16bc1c776b9b55d6f52e36b11311c4f"
+    },
+    {
+      "path": "src/features/learning/learning-patterns-view.tsx",
+      "sha256": "448ed3fb390b5d07d67d49d669dd92a4282c155a375f420523a079d294850628"
+    },
+    {
+      "path": "src/features/learning/learning-quarterly-review-view.tsx",
+      "sha256": "af0689278e87126e15feaddd1f91d7e937d47f89c4a97f60e34a4f23938acc72"
+    },
+    {
+      "path": "src/features/learning/learning-retrospective-detail-view.tsx",
+      "sha256": "aa6846831205aa77deb616637739d1efafe643df97e09e0bfe2e27e62685cdaa"
+    },
+    {
+      "path": "src/features/learning/learning-retrospectives-view.tsx",
+      "sha256": "e6a6b0f9c7fe49d10b47aac925e2e38426cb0a009c8466793bc19dbd7db58f7b"
+    },
+    {
+      "path": "src/features/learning/learning-review-view.tsx",
+      "sha256": "814d4c46e8cd2997f55676b74052e6ef42e5e5af4afa34d3366a951dac13f16c"
+    },
+    {
+      "path": "src/features/learning/learning-rule-detail-view.tsx",
+      "sha256": "89378ad026f6b9ea800dbcf2c99a604be593a660c58317bb5c1ee2caf5336726"
+    },
+    {
+      "path": "src/features/learning/learning-rules-view.tsx",
+      "sha256": "d89a16b9b21915bed7a22cf44305025dadb408c6c65bb6a23b3ea002c4ae2f56"
+    },
+    {
+      "path": "src/features/learning/learning.css",
+      "sha256": "35d26dad6480bab0b205d69e6b9520c7f95a9dd80f42933103ae6e74cf91fc75"
+    },
+    {
+      "path": "src/features/life/documents-workspace.tsx",
+      "sha256": "db7f94eb1c23181b8229b310473476336ebec9993ea36606d8923c5304a804d7"
+    },
+    {
+      "path": "src/features/life/life-dashboard.css",
+      "sha256": "aa54f47721c8e2b9b0947f7c6fdd8c8bbd3ff6876a411c72759b1178af818f0b"
+    },
+    {
+      "path": "src/features/life/life-dashboard.tsx",
+      "sha256": "69d164f757c65d84fc09f9711259a9c09de8fec4dc6d7e5ea1d7395fc47b2103"
+    },
+    {
+      "path": "src/features/life/travel-workspace.tsx",
+      "sha256": "f9e71ebbeb7ae4d7cc50e3d1b4b8b1334de115661513c381be6347d0e74429d9"
+    },
+    {
+      "path": "src/features/life/trip-detail.tsx",
+      "sha256": "ff5174583742125a9f43623a1ecbceedea27f8c5f31d8e37d8c0932c7719dfca"
+    },
+    {
+      "path": "src/features/life/trips-dashboard.css",
+      "sha256": "d8318f82e05b18b2b505d80f2a292c667d0fe090058254fe9f4fbdee95930400"
+    },
+    {
+      "path": "src/features/life/trips-data.ts",
+      "sha256": "d701c4403bfc4e3b9929b47334509d06c12f9f1a656669add18a0def33618dcd"
+    },
+    {
+      "path": "src/features/notifications/notification-center.tsx",
+      "sha256": "c42226231e91afa7c15b73e20366689f2f717bd71d95a875ca21dc03e4c53786"
+    },
+    {
+      "path": "src/features/notifications/notification-preferences.tsx",
+      "sha256": "6a29fc2ee68e983fd7662c4bf057fd114e62080df28d4b13d08bdb376682842a"
+    },
+    {
+      "path": "src/features/operations/operations-calendar.tsx",
+      "sha256": "a028e98c9bdd434915ca8e92069f45c68f8f2f82bcf0890142afc05a7b49b80a"
+    },
+    {
+      "path": "src/features/operations/operations-home.tsx",
+      "sha256": "c2ff0eb2130e5560608f8f41d7d95d688f3a5f1df34ec4cf28a10eca24a3e946"
+    },
+    {
+      "path": "src/features/operations/operations-review.tsx",
+      "sha256": "5fb7eaafc0c7f1e4d2412bde4615b214aedcb09756ee8fc67278f8f8d55df021"
+    },
+    {
+      "path": "src/features/operations/process-list.tsx",
+      "sha256": "da2726b60e61ecf37583d5b1f41cf36808e9777f49b0157deb48dc202b45241f"
+    },
+    {
+      "path": "src/features/operations/quality-center.tsx",
+      "sha256": "0801384f9de214540b9bd8011b4b9d57491bf2872794373f386bb50c83ab8a30"
+    },
+    {
+      "path": "src/features/operations/run-detail.tsx",
+      "sha256": "42c22ca051a85f4cb8fb7af455c453f27948cc4d8267dcd9c8d61ca9a650351a"
+    },
+    {
+      "path": "src/features/operations/runbooks-view.tsx",
+      "sha256": "020b29c6e5dc62a56f7476d75cd4c5083c4727388131013646d85b5149a9102f"
+    },
+    {
+      "path": "src/features/operations/runs-list.tsx",
+      "sha256": "f7d55b771fc04c75a3036a3b0664840075291555ad00533f0e58a693a92a736a"
+    },
+    {
+      "path": "src/features/operations/sop-detail.tsx",
+      "sha256": "8779e8f629ad516c11f5ab903b3d2fd8e9ae324eb4d4a9577c6b6120186be3d1"
+    },
+    {
+      "path": "src/features/operations/sop-library.tsx",
+      "sha256": "506b73d7f8f18b6d414a2c479e11a8670de20d208482e7e4159f61c9883c4259"
+    },
+    {
+      "path": "src/features/operations/systems-registry.tsx",
+      "sha256": "76a0170dbc48c910083572742b5f8c432a342b261c711905d962a966a0ec8e7c"
+    },
+    {
+      "path": "src/features/prompts/prompts-dashboard.css",
+      "sha256": "e79fc386643e7fbe856041503f8cb2cb982b5ce89ea0e232d70b4ad029d8eb8b"
+    },
+    {
+      "path": "src/features/prompts/prompts-dashboard.tsx",
+      "sha256": "13cbf04c8632d3b22d316c598e3d61192529790787a088c8cfa537fb380a6d7b"
+    },
+    {
+      "path": "src/features/settings/personal-settings.tsx",
+      "sha256": "dafe49839689deadffdfa9a6bbfd4c91dc25d9e0e857ff189f5b31110026df31"
+    },
+    {
+      "path": "src/features/settings/settings-shell.tsx",
+      "sha256": "00bf720fc70cefa86b46134ffa45d0bf703863c8ed3971cae8755d63e733f270"
+    },
+    {
+      "path": "src/features/settings/settings.css",
+      "sha256": "ec6f6d55d3cc5d1bf1080c8e7d3b3162449c34a956110ecc6df4555cf2d8dd23"
+    },
+    {
+      "path": "src/features/strategy/control-tower.tsx",
+      "sha256": "f25b13c571347bc8a7a8aecd7364332f451a7f88b1a84add0f297a8a50821b3b"
+    },
+    {
+      "path": "src/features/strategy/strategy-pages.tsx",
+      "sha256": "a0e6a676eab8012c8cb98120c398874136cc69dc94e5e4f569ef6b87fcd37d81"
+    },
+    {
+      "path": "src/features/strategy/strategy-reviews.tsx",
+      "sha256": "b30e61ccaa3750510df6809b1e862d0830477ed4cb34fedec3f80f371d294553"
+    },
+    {
+      "path": "src/features/success/check-ins-view.tsx",
+      "sha256": "6c4c443b438127344dda99641c1fdb9b29b73b5a0d10f6ebff639c3f304e629f"
+    },
+    {
+      "path": "src/features/success/client-risks-view.tsx",
+      "sha256": "9a7cc58661a11c5607a87a793958a5cadc0a15ffa72a07e2c35608d30d5240c2"
+    },
+    {
+      "path": "src/features/success/client-success-profile.tsx",
+      "sha256": "75e0f4b943edd7a4ca8a2e2f527dc4e62acf6a21ea2ae00233da08188b36a3e5"
+    },
+    {
+      "path": "src/features/success/portfolio-health-view.tsx",
+      "sha256": "27874ecef9c99771971eadff2bd5f24f0609f89ba028dcd61fe3ed34f0a8891b"
+    },
+    {
+      "path": "src/features/success/renewals-view.tsx",
+      "sha256": "8463ba3b1d0ba31701510b860a8d1ce1574f1162cf1814f153bfe70c608d3d4f"
+    },
+    {
+      "path": "src/features/success/retention-review-view.tsx",
+      "sha256": "28e55c9ca4422d4f6499ad19e3fc788270ab16fb16944f06293bb7a8414e5709"
+    },
+    {
+      "path": "src/features/success/schema-unavailable.tsx",
+      "sha256": "99e8ccbcf9962e525cd3bcb55c4243bb474bfae6ac91d78450bc9bdd93bc65d9"
+    },
+    {
+      "path": "src/features/success/success-home.css",
+      "sha256": "28fa81b75e4e80f4a4392ca29daaf0b44049be05ab6b33affe8fc55ad73da9ef"
+    },
+    {
+      "path": "src/features/success/success-home.tsx",
+      "sha256": "0e22178768550903af253364e535910b4e01bcab539de952a823459415912111"
+    },
+    {
+      "path": "src/features/success/waiting-view.tsx",
+      "sha256": "24cedcdbc2b3bf4f3f7a84c046219a6a3a44c316391efec7857c6e8cf858b01d"
+    },
+    {
+      "path": "src/features/team/capacity-view.tsx",
+      "sha256": "c56b1f3e1470ef1f3c45708ac29080e8276138b6cdb1bf77b0b75053d8af47f9"
+    },
+    {
+      "path": "src/features/team/delegations-view.tsx",
+      "sha256": "3617ea8b7646249ec844af85c620cec858744df74b92cd0b19abcfa0ca757665"
+    },
+    {
+      "path": "src/features/team/one-on-one-view.tsx",
+      "sha256": "63e7fac87f5e3e90a200f7ae21df8942dc12ade6a039476dea4bb69f731821d4"
+    },
+    {
+      "path": "src/features/team/ownership-map.tsx",
+      "sha256": "60260c27180716a9d82eeec72ea57ca696f92c363001eaf041ef59d2ea66cb40"
+    },
+    {
+      "path": "src/features/team/people-list.tsx",
+      "sha256": "a779e83374d21414861d283f0953fa9f8be965dde3ac7d09b33f2eb3129514e3"
+    },
+    {
+      "path": "src/features/team/person-detail.tsx",
+      "sha256": "3b932a58d6cb04a58b1f14231e836e7efcc8b0cfbc23b8d63670f5bd928c7701"
+    },
+    {
+      "path": "src/features/team/responsibilities-view.tsx",
+      "sha256": "37a227cd1f34da9ccd38d484647bbf409d05b3763543c8e8d6445c0aa432e149"
+    },
+    {
+      "path": "src/features/team/team-home.css",
+      "sha256": "c34ecafca0865d351c41cce50de1592036b329f59c1e12068e10a18abf95b8a9"
+    },
+    {
+      "path": "src/features/team/team-home.tsx",
+      "sha256": "442cd345c33805087d3884dae1c546c4b4af1c9df6171afe15536d190bbea315"
+    },
+    {
+      "path": "src/features/team/team-review.tsx",
+      "sha256": "02d1b339fbe066b8c4b21b341478b8bd0965e332a3fea24b12e94a28b7779b87"
+    },
+    {
+      "path": "src/features/team/team-risks.tsx",
+      "sha256": "84471748d6fa10b9a1b2cf1e52d5c642d01a08bbf075a3a751768eeba8a5d1a9"
+    },
+    {
+      "path": "src/features/team/team-schema-unavailable.tsx",
+      "sha256": "c9631678e623120abecea5810e912878baf37f74b3e30bd6e04d2c69f7f08d57"
+    },
+    {
+      "path": "src/features/today/mission-card.css",
+      "sha256": "c7f2443fb705553ff90389334832eba483e97be26494549c23d2407c4745d38c"
+    },
+    {
+      "path": "src/features/today/mission-card.tsx",
+      "sha256": "22d0a462138cd0be697c56837254ec79174cddf4795864aba0abe8ee6c62e888"
+    },
+    {
+      "path": "src/features/today/today-dashboard.tsx",
+      "sha256": "265abb8dddc4df79bde1d1f1d6865ad805be846ddc34d387733ca465a289baa8"
+    },
+    {
+      "path": "src/features/today/today-design.css",
+      "sha256": "ad6bc42511049dd476dd1c022c62f7e06d472f78aaeff5c62c4df735287f9011"
+    },
+    {
+      "path": "src/features/v2/analytics-dashboard.tsx",
+      "sha256": "783cf9e5c0baf7aeef1f4155eb744e400e1246398a0b460132ffb232c5543c41"
+    },
+    {
+      "path": "src/features/v2/content-command-center.tsx",
+      "sha256": "aa22d38e1a9c456c7f7b4c2325547752ee5d75738c7196aa5081fdc858e2a1ed"
+    },
+    {
+      "path": "src/features/v2/content-workspace.tsx",
+      "sha256": "b5634cfc0bfb2619b399e38a6f5fe545a60315a0af3abd4d61ca44e7a26d4053"
+    },
+    {
+      "path": "src/features/v2/decision-workspace.tsx",
+      "sha256": "bd23da0ffadd0d28773f5b7b65c854fed7538de81a2adb4584b3f06e22731d9f"
+    },
+    {
+      "path": "src/features/v2/finance-breakdown.tsx",
+      "sha256": "cea2e561814bce86febeb55070f0852da352c929c6f84990c1521d05ea8c9e09"
+    },
+    {
+      "path": "src/features/v2/finance-collection.tsx",
+      "sha256": "4aa54932accb90c03c84563c7d0588d2e314310a3cc18641714d248eab0583c9"
+    },
+    {
+      "path": "src/features/v2/finance-dashboard.css",
+      "sha256": "76c84edbba2e8b606b3312c2d31e7465e977957e1944c669c0b5bbc4c1f5d7f1"
+    },
+    {
+      "path": "src/features/v2/finance-dashboard.tsx",
+      "sha256": "b7eef1e61d31f4058c56d8633c419ccf77c75085b32fe01af27d4f6e337fc352"
+    },
+    {
+      "path": "src/features/v2/fitness-dashboard.tsx",
+      "sha256": "c4dc103bf2c590a1df744e7856dad09ae53e4300879f4eef15d481363325b695"
+    },
+    {
+      "path": "src/features/v2/fitness-sync-bar.tsx",
+      "sha256": "f2f5f090806307fa667ed67ae95a66518df605ea4068aa4a2b670d2a6b8e139d"
+    },
+    {
+      "path": "src/features/v2/prompt-workspace.tsx",
+      "sha256": "944d45a07787f1b676ddb4ff33d5797ccdc39ef48e85ed82c9dc066687863484"
+    },
+    {
+      "path": "src/features/v4/action-centers.tsx",
+      "sha256": "3198df798a84fa362a611baf137e969dede3d45cf7df83995d5162a879ee2eed"
+    },
+    {
+      "path": "src/features/v4/meeting-capture.tsx",
+      "sha256": "267d0eb8e41d41e4f1d68548579e6f5401c61ce4275d0df6af70f2238a780170"
+    },
+    {
+      "path": "src/lib/ai-tools.ts",
+      "sha256": "6757730e58efde5669ecc04e776cac84bdc68cdc6f321c234cb301bbca868029"
+    },
+    {
+      "path": "src/lib/api.ts",
+      "sha256": "53412fde9988c88044af5b9bfc826791b2ce03dfd8d877b8ccbba7eee857a089"
+    },
+    {
+      "path": "src/lib/approval-execution.ts",
+      "sha256": "0b40bb9bde2fffd85822611affd25af0ff6ddfa8775b84c7d0fb898dee0585fe"
+    },
+    {
+      "path": "src/lib/attachment-policy.ts",
+      "sha256": "e04f9e5d7fe427544aa5a235cde5b1c169d4095863413cb3642b74af5ba9612c"
+    },
+    {
+      "path": "src/lib/attachments.ts",
+      "sha256": "8e7bfa64066eebaa7ec7d981a53373da4a92132d891628d93988fb810cdacca3"
+    },
+    {
+      "path": "src/lib/auth.ts",
+      "sha256": "fcc9e25600e8397f60bcb1c2e393beceb41ede985f9dc01f49d4aaf46e921092"
+    },
+    {
+      "path": "src/lib/automation-schedule.ts",
+      "sha256": "1ca30e9a8a3220933707dcb664f8e1271fa86879ed0e2945e4d541f0e759a96f"
+    },
+    {
+      "path": "src/lib/brainstorm.ts",
+      "sha256": "a981abe698a2be6323b991ed283f3607fdd14aef63de0a1ba2c764fa5554700c"
+    },
+    {
+      "path": "src/lib/business-dashboard.ts",
+      "sha256": "f6e96d0c08a5def9e98998d9c802eb8006e1f61599f12f4166c1d3aa993bbef3"
+    },
+    {
+      "path": "src/lib/business.ts",
+      "sha256": "47fea05c87df2da83802549f6a2ae87c0958d899c7b3ee365d9205ae9946c7de"
+    },
+    {
+      "path": "src/lib/calendar-conflicts.ts",
+      "sha256": "3e0fe36c86f943bf090a8c89c265cadf927402133d139d13e73e2961ccb3d7af"
+    },
+    {
+      "path": "src/lib/capture.ts",
+      "sha256": "911a0b784992ed9fb03c695976432f907e68be8641db9206a6c106dde1cacdf2"
+    },
+    {
+      "path": "src/lib/cash-planning.ts",
+      "sha256": "04fd7477b71ce94ed5a9211f264239d55351592d9f98499be7af2d218f4b82f1"
+    },
+    {
+      "path": "src/lib/chief-of-staff-ai.ts",
+      "sha256": "92304b6f86005533a0143b2f211ee773aef868094e502ac334363b6b32016b42"
+    },
+    {
+      "path": "src/lib/chief-of-staff-notifications.ts",
+      "sha256": "cb420730eb7a58d50978f16b452543892c5653d6d6290a0fc7533d051b3f22aa"
+    },
+    {
+      "path": "src/lib/chief-of-staff-server.ts",
+      "sha256": "04706676674b059db11bff6b6f9c4c841d4daf0e72bf8db02784218bd59ab938"
+    },
+    {
+      "path": "src/lib/chief-of-staff.ts",
+      "sha256": "123910e2c3591cb1e1aea4c2f0a94fee6f3e9222e87d51bb995fba6d4c74a633"
+    },
+    {
+      "path": "src/lib/commerce-server.ts",
+      "sha256": "9d072f169aa54218a9452b5717680c4a7a5cba9064f31c358a8e76b8313ed9ad"
+    },
+    {
+      "path": "src/lib/commerce.ts",
+      "sha256": "749dd72539acb91db5f0816bb671ec8f7d368870282366e3ccc048c180c67bce"
+    },
+    {
+      "path": "src/lib/currency/conversion.ts",
+      "sha256": "badc11ad129fd86a9c4b651b8f8a0b87ea927f91625773cca64b779103a601db"
+    },
+    {
+      "path": "src/lib/currency/rates.ts",
+      "sha256": "816ec5f54c2698df709fb8fb8f6671d2e9916d5d3a7646ff1a29fc165aaa0f5f"
+    },
+    {
+      "path": "src/lib/currency/route.ts",
+      "sha256": "9f24ea2be577fffddecb006c3ff15eb0e557d48094d33ad6244cf40a2c10424c"
+    },
+    {
+      "path": "src/lib/delete-leads.ts",
+      "sha256": "60f56899f4e6a97ea973680b3107b4827cb4b953851ceada9ad878ca618e33b9"
+    },
+    {
+      "path": "src/lib/domains.ts",
+      "sha256": "e7b81da904b7ee6b3897648f6348d3fffb7323df043f143def365a0905d58285"
+    },
+    {
+      "path": "src/lib/env.ts",
+      "sha256": "a4895f4fc69756309dad5c57d584c2ef451350e89656168548221b35acbab98d"
+    },
+    {
+      "path": "src/lib/executive-ai.ts",
+      "sha256": "683ae1c8b110b4a8f6e199c8b01e464433cde735231e4235186b141c8fd5ebb8"
+    },
+    {
+      "path": "src/lib/executive-notifications.ts",
+      "sha256": "c4c4f1e4e0dac487319c4441b4a1c1eaa817d3a7d9f425232fef6ae8e80e2e90"
+    },
+    {
+      "path": "src/lib/executive-server.ts",
+      "sha256": "483246235377fc94ffe52839477248b728f09d27ada9767fba7cd526f58ac918"
+    },
+    {
+      "path": "src/lib/executive.ts",
+      "sha256": "57f4d602a987e9e8f8a15685132234a023c298084b4f5a788a6c3eef56e309cd"
+    },
+    {
+      "path": "src/lib/exercise-catalog-server.ts",
+      "sha256": "600187664b041d4ed42085ae4f8e9c680e8d29ca7d0a41bfa43e4ffe6ea190e3"
+    },
+    {
+      "path": "src/lib/exercise-catalog.ts",
+      "sha256": "85af5f4c6fd025969726dc210784b5ddd0fc612d7a592d063de971bccfe431d5"
+    },
+    {
+      "path": "src/lib/finance-dashboard.ts",
+      "sha256": "bf83ac2576bcce53c39162dadf2d681e642660f5883dcdfa50924c7bd954a681"
+    },
+    {
+      "path": "src/lib/financial-ai.ts",
+      "sha256": "20342bafafcd7355d553b1ec94aa2e865ee2b210b9866408180709b4d19101d9"
+    },
+    {
+      "path": "src/lib/financial-conditions.ts",
+      "sha256": "a4fa1478e0c609143c1a6ee999c39ab2736626a28fb8487b5412f0852dadbc16"
+    },
+    {
+      "path": "src/lib/financial-control.ts",
+      "sha256": "8b769fdb38729bb1f2476b5abe2b5fa894db4b05b14fd1e4a35eb6b25b8b6340"
+    },
+    {
+      "path": "src/lib/financial-integration.ts",
+      "sha256": "041474061855bb2ef76a562303840eb836129a9912b756403abd460537ccd8ad"
+    },
+    {
+      "path": "src/lib/financial-notifications.ts",
+      "sha256": "9bad432e525a3c20e714c4415e17d30625a02ee3066eb4b79d7c1bbee69e6241"
+    },
+    {
+      "path": "src/lib/financial-schema.ts",
+      "sha256": "5fbe99787a4bab0518a8174be3b83588a9d9b1988f1122b5dd0731e3e42e5cd7"
+    },
+    {
+      "path": "src/lib/financial-server.ts",
+      "sha256": "e7faea0d12da1d2e4572614c4bacd509300374febfd70596937438d32629c04f"
+    },
+    {
+      "path": "src/lib/fitness-dashboard.ts",
+      "sha256": "a61fb69da2a84539a1409eb839564c6cfbb60a063e3a4d7bafb1626d905c43d8"
+    },
+    {
+      "path": "src/lib/focus.ts",
+      "sha256": "005f5ba14f73f86fbc2dda631bf9cdef205a71314731ccd7ece2d8a6557b2a6d"
+    },
+    {
+      "path": "src/lib/founder-os/briefing-server.ts",
+      "sha256": "fb793950bc162a149c2f6dd0505ca629a21006969d2dba94ef285c12c5cc630f"
+    },
+    {
+      "path": "src/lib/founder-os/business.ts",
+      "sha256": "a13221cc7f37476fd1cf97cd8bca1b40c19790e10edee4e3189bb7e481a35a30"
+    },
+    {
+      "path": "src/lib/founder-os/continuity.ts",
+      "sha256": "a79d929223e1d9446dd17aab4dc7e913e7cc8ba9fbf772619eae0d953598060e"
+    },
+    {
+      "path": "src/lib/founder-os/financial.ts",
+      "sha256": "7d0e5f99cb22169b1172b27d90169e2730378f69462ea9ef096a1e849fdc734c"
+    },
+    {
+      "path": "src/lib/founder-os/intelligence.ts",
+      "sha256": "f0b3681b98f48b507a88b8b672cdafc56c1833ebf77977da9198a8b6226ef16e"
+    },
+    {
+      "path": "src/lib/founder-os/kpi.ts",
+      "sha256": "314b52ee1bc889b93c6521784448e6f925e0bfc399f35616a6b0c46e9301aa02"
+    },
+    {
+      "path": "src/lib/founder-os/legacy-repository.ts",
+      "sha256": "bd24dcb1172095aad07349edadde8bca6c4a59fcfaa1faa61f4e5645ee318bfd"
+    },
+    {
+      "path": "src/lib/founder-os/legacy.ts",
+      "sha256": "4a4d7bbb687bfe28a26b782ea5968985fc511122d9da600592fda661d10e522b"
+    },
+    {
+      "path": "src/lib/founder-os/notifications.ts",
+      "sha256": "50a7aa0a4845c90ff432ad5b4a12c2f4fc2131aca5a36a93db3c118e6fe4e811"
+    },
+    {
+      "path": "src/lib/founder-os/personal.ts",
+      "sha256": "7391f5ba080435bb3a80a7668a32341728b9bec2db94789adef454f0c8a6c51b"
+    },
+    {
+      "path": "src/lib/founder-os/pulse.ts",
+      "sha256": "88cb1b90e0ad653bd6eba73bb8fb434aa7972e9f9dbec5071a6bedca5c386a00"
+    },
+    {
+      "path": "src/lib/founder-os/repository.ts",
+      "sha256": "bb115e7f57200e9c0a3d991884e4bc2b6ac7f4e043ec50f5a3adf48917e9c6e1"
+    },
+    {
+      "path": "src/lib/founder-os/resources.ts",
+      "sha256": "3c4812681ca5187da24d1cc9c1c17983a9d0d55abd3e1885c8e0d3b3b13d7cf2"
+    },
+    {
+      "path": "src/lib/founder-os/review-server.ts",
+      "sha256": "38456124eb0efbf40d051afe0874aabcff50cfe807de918ef6625792498cb98b"
+    },
+    {
+      "path": "src/lib/founder-os/review.ts",
+      "sha256": "b3ef1ab2f8823bdf5f127180b370ddcce7dd47301c7335e598a000a7b0f2d162"
+    },
+    {
+      "path": "src/lib/founder-os/server.ts",
+      "sha256": "dc4f19f6ed77a982cd6c1a6accce2911fe067895f66dcd04d39ebe68b9301583"
+    },
+    {
+      "path": "src/lib/founder-os/tier1.ts",
+      "sha256": "a23ff0ad31817ffbcb4be380005509b23c33d01c74f4166a74a429c021aa7f5a"
+    },
+    {
+      "path": "src/lib/founder-os/tier3.ts",
+      "sha256": "c4ce4446a6c355acef3e0268b42fe259a92628002e14bb5222519c495a1defa1"
+    },
+    {
+      "path": "src/lib/founder-os/workflows.ts",
+      "sha256": "3ace63a882f16899e768e8d6f0aabccfefa95fac630a4a3b3fb5ca86d664fe61"
+    },
+    {
+      "path": "src/lib/founder-sources.ts",
+      "sha256": "8e626d48ceafb17d6afdfe91463f593bca617bae2a8d95d5a1c76a6b87c6ec5c"
+    },
+    {
+      "path": "src/lib/founder.ts",
+      "sha256": "a96137231b3817ce593d5444467a8d96e1350d582bcdc18bd55f821f8f9f099d"
+    },
+    {
+      "path": "src/lib/growth-dashboard.ts",
+      "sha256": "d8b49fee7c51038fa577ca8059100c8399c73096c9356e6de6d12b5646f5d77f"
+    },
+    {
+      "path": "src/lib/growth.ts",
+      "sha256": "a0665f3818abb2b2ffab616feed9e789100d1c02215a8555c133a2439f3b85aa"
+    },
+    {
+      "path": "src/lib/ideas-dashboard.ts",
+      "sha256": "7a0e6957316d48b78e90e7946b16da756a712590a76921fe7d6cc1fdf323c386"
+    },
+    {
+      "path": "src/lib/ideas-design-preview.ts",
+      "sha256": "5c6803667c258738c61c8d763f0ea2a60cc97194cb59fcb5465c655a22f11ef2"
+    },
+    {
+      "path": "src/lib/integrations/clinahir.ts",
+      "sha256": "184998c5f336aa586639fde69b3f57128da61943c1e0489092b9023c3fa45cad"
+    },
+    {
+      "path": "src/lib/integrations/crypto.ts",
+      "sha256": "642d49d48a33db926e731d79a8293f92d19cb87263cd3dc4f991893f4dc3707d"
+    },
+    {
+      "path": "src/lib/integrations/gmail.ts",
+      "sha256": "981df0ac2985051786bd40f43f255c5f41664bd441ab817baa748e6ac95dd0ef"
+    },
+    {
+      "path": "src/lib/integrations/google-calendar.ts",
+      "sha256": "aa713142f399313822c81e495c5dd298bca5cecca283fb7fd6aba5fb8b3fd662"
+    },
+    {
+      "path": "src/lib/integrations/provider-registry.ts",
+      "sha256": "2fce215c46c30907803d191115b94f6ae02e2160c730376de32002c32f888214"
+    },
+    {
+      "path": "src/lib/integrations/radiology-report-store.ts",
+      "sha256": "df834a8d1701587f559548077db5e7bc1eb324ddd41436d8f3f8015bc8528d50"
+    },
+    {
+      "path": "src/lib/integrations/radiology-reports.ts",
+      "sha256": "2716dae3a426797cd250e82331d09c8bf3bfc81b1ab6012a48aee212e16ce5a2"
+    },
+    {
+      "path": "src/lib/integrations/sync.ts",
+      "sha256": "d4b7f871fddd705860bbab81860a06fc53e189e40d075e843ee55cdb9bd78567"
+    },
+    {
+      "path": "src/lib/integrations/tokens.ts",
+      "sha256": "f2685c206c18da47ed2e4d20f89bf20235a26d3aa540fa7066427683f9c0387a"
+    },
+    {
+      "path": "src/lib/intelligence.ts",
+      "sha256": "73c232afb2bac1fe2380d9d871718a23725a31a9c0c1113c2a28a5e7ce2ae65f"
+    },
+    {
+      "path": "src/lib/intelligence/attention-score.ts",
+      "sha256": "862b3c9e79ee2019b3212c4b4769807b8aa8612d30f864161fd1c55298915ac1"
+    },
+    {
+      "path": "src/lib/intelligence/domain-intelligence.ts",
+      "sha256": "53015ed445c59926c64dcbb31079c27ea2ff280bc93aac6637569baf3827b27c"
+    },
+    {
+      "path": "src/lib/intelligence/health.ts",
+      "sha256": "0731b4250d44c4afc4b4528e35c0ed4c36abdb82cae05f1a859baaa51947f068"
+    },
+    {
+      "path": "src/lib/intelligence/meeting.ts",
+      "sha256": "1edda24c8af4eee3a16951be082664350c6d165507c1c124c5c850e18e1ad016"
+    },
+    {
+      "path": "src/lib/intelligence/memory.ts",
+      "sha256": "9f9c2982b1677150660dcaa7ac929717c190b1c17eded31b9dd674eb573324b0"
+    },
+    {
+      "path": "src/lib/intelligence/overview.ts",
+      "sha256": "50c275fb72a7e586771ca7b0a123887f1e489a3cbeeb221eed34a9830c34d6fc"
+    },
+    {
+      "path": "src/lib/intelligence/patterns.ts",
+      "sha256": "1f675ce4a21f77add127b8de94a375fe591bfa4b7775b7a9258ca07ef3dfa7fa"
+    },
+    {
+      "path": "src/lib/intelligence/planning.ts",
+      "sha256": "5a185ce610a6f4c10a3022211db9ba06308654b03f47c77d2357dc64a9b8fd66"
+    },
+    {
+      "path": "src/lib/intelligence/recommendations.ts",
+      "sha256": "e1f927395db42722c724906f92a9a9c58e076864744be0b2483a3bca3881cd68"
+    },
+    {
+      "path": "src/lib/intelligence/reviews.ts",
+      "sha256": "9769982ba2ee6d215409943e9d7212b54f39662245a64689cb7e1ed747deba55"
+    },
+    {
+      "path": "src/lib/intelligence/risk-dashboard.ts",
+      "sha256": "9b4af83ef7c29945b0fd1b3b918e33628d0a52b886fe7106d5293d6f650945b8"
+    },
+    {
+      "path": "src/lib/intelligence/risk-engine.ts",
+      "sha256": "d3bfc0f8dc79bec4f5483a967a185d288cf0b850417f2a5353b06eaec468f3fc"
+    },
+    {
+      "path": "src/lib/intelligence/server.ts",
+      "sha256": "840263e7bc5e637566f1865133f8e0c3b573c2d400c70a972ae7fef4eb379971"
+    },
+    {
+      "path": "src/lib/intelligence/time.ts",
+      "sha256": "e5f411867f620cf7777e57fa67c8de8344a8442e3f6f38f4ae712dd909bd1297"
+    },
+    {
+      "path": "src/lib/intelligence/types.ts",
+      "sha256": "b0b3010c1a763a8d65e736063b2f4269eb97060e0dbab9f8444248b56416c2e6"
+    },
+    {
+      "path": "src/lib/intelligence/workspace.ts",
+      "sha256": "b61a1122158098a0571587971f1d41deb46265eba047debbde8ff6b858588d90"
+    },
+    {
+      "path": "src/lib/knowledge.ts",
+      "sha256": "e5ac78690923c562d626b4d2a3b7c100a31ebdf077f88d6b9ac2d7b88caec5ae"
+    },
+    {
+      "path": "src/lib/leads-csv.ts",
+      "sha256": "72935b01ad9b42bdfc897f185ded0155a92bcca51256b45df64fa4a1f1562e50"
+    },
+    {
+      "path": "src/lib/leads-dashboard.ts",
+      "sha256": "c12958f656e3df7083b020206fb29eda86ff56a3a38b675449efa55b32eb14e3"
+    },
+    {
+      "path": "src/lib/learning-ai.ts",
+      "sha256": "7e9ac69311f56dbe848f1c3710e2e5012f747b4d62b7d401854037cfedb57d91"
+    },
+    {
+      "path": "src/lib/learning-server.ts",
+      "sha256": "da1f3fd0cae21bb63d99df0891cfe97f0e7eacf9ebefe42b55dbabeb86e28f63"
+    },
+    {
+      "path": "src/lib/learning.ts",
+      "sha256": "79681384bbd98fe6ef630b8ef95559c7105c2792fdfed6d940e9a42f276351db"
+    },
+    {
+      "path": "src/lib/life.ts",
+      "sha256": "3119fc913a64f56563d37270338172029bc200d5e9d509b103b2530d4c0bfb46"
+    },
+    {
+      "path": "src/lib/meeting-capture.ts",
+      "sha256": "d451e1d4742c053bf23fe69d5bd28e7c1034cbdaa84732ed6fb4d86deb96148a"
+    },
+    {
+      "path": "src/lib/notification-producers.ts",
+      "sha256": "fd46cfc9ff5873fe1be1fd1c12dcd663c2acd999878ddf59e205063e87ef0b30"
+    },
+    {
+      "path": "src/lib/numeric-input.ts",
+      "sha256": "ee7f7138e8a6bf22ab9e0ff8bbc40294f7d2c0bc63a8f973e636b34dd3744f2b"
+    },
+    {
+      "path": "src/lib/operations.ts",
+      "sha256": "30601ad05577efc9548675eb8ccfa3c82c24e4ec0abd8edaf2a04352d223a36a"
+    },
+    {
+      "path": "src/lib/pipeline-dashboard.ts",
+      "sha256": "c155cf8fc311c76652979f5d79aa6d78a46d3d869ab92973077f5d716e6adcb2"
+    },
+    {
+      "path": "src/lib/prompts-dashboard.ts",
+      "sha256": "5e2d13b5bba9536bd26423458962cb21090613be291d08b98d604584d29d59c1"
+    },
+    {
+      "path": "src/lib/radiology-weekly.ts",
+      "sha256": "41e0421fc31d32210aaa86967cfd4ddf42fad235953df9e456a2358a3aac801d"
+    },
+    {
+      "path": "src/lib/repository.ts",
+      "sha256": "068b832f074f556c0cc2dc2855047a147ca21cdcaf8861725fde083c3086fc88"
+    },
+    {
+      "path": "src/lib/revenue-mission-activity.ts",
+      "sha256": "d4048ad8f24f9e5e4458676bcef906ef114426b1e40e9e772454e3022ee995f8"
+    },
+    {
+      "path": "src/lib/revenue-mission.ts",
+      "sha256": "df3be5fd4b04163552c58525d547fe93920eef9a40dad942d1fae8434bd1aa04"
+    },
+    {
+      "path": "src/lib/settings-profile.ts",
+      "sha256": "0cd342f41ee2a01d5c367bef01bf878da7ab5e5891e0d9fd3f6f1d2811c9f5b0"
+    },
+    {
+      "path": "src/lib/strategy-extended.ts",
+      "sha256": "c7159ca4575d93e005eb99e22bc95cc5f1f8590d166a06e11c3a0307833f918e"
+    },
+    {
+      "path": "src/lib/strategy-notifications.ts",
+      "sha256": "b57db98b9ce071b46d8a19899cbebe5f48b0df448ae87a39c4f0da380164d3ca"
+    },
+    {
+      "path": "src/lib/strategy.ts",
+      "sha256": "1ce369e8d67f625ee5391492640e32510bd042e46bfbf4d07b1254895e07f974"
+    },
+    {
+      "path": "src/lib/success-dashboard.ts",
+      "sha256": "86da6ee1493afe56a93190aae3ddc7804f6d180d71da55614d13197b0ce70693"
+    },
+    {
+      "path": "src/lib/success.ts",
+      "sha256": "cc5cc1ea926d6af5be279682120b8b489e8924f4d694aacada6cedb0f1051766"
+    },
+    {
+      "path": "src/lib/supabase/admin.ts",
+      "sha256": "475ae0b44ebeacdf345452e8606a6950ec3257bcb1432fb56b543272edb44bf2"
+    },
+    {
+      "path": "src/lib/supabase/client.ts",
+      "sha256": "ee6ad38ad022deb4720e7d7d7ba2c4b8aa829fcd960ca3bf9f0e62304666b318"
+    },
+    {
+      "path": "src/lib/supabase/server.ts",
+      "sha256": "b4d28ec6010067ac021265f6301f5a257371ee5453992ae44598554f5af92e42"
+    },
+    {
+      "path": "src/lib/task-transformations.ts",
+      "sha256": "ee0ef0791e12fc7b4526a2cd7cf3e39e7fd4d81dfee96f282b3eb502deb30217"
+    },
+    {
+      "path": "src/lib/team-dashboard.ts",
+      "sha256": "85648dca6ff5baadde740ad59ef610ac08b3e0211b40730883a4c481443eb30d"
+    },
+    {
+      "path": "src/lib/team.ts",
+      "sha256": "7c2e821e3144ad47362cb734ed02b1233866789a8a958dc124d81ec8254a4482"
+    },
+    {
+      "path": "src/lib/theme-store.ts",
+      "sha256": "947dce3ec928fea223ab7a59bd4f1f303121f0db7a76e7756912f01182e4547a"
+    },
+    {
+      "path": "src/lib/today.ts",
+      "sha256": "fdf03279a6c472463bf20c0f090342ec7c5e639d9edaab32e0f43803a5bdb4d3"
+    },
+    {
+      "path": "src/lib/types.ts",
+      "sha256": "2dff84965c7852886829676dd91fd21699e371120f1483490ac8ff92d84dbf0e"
+    },
+    {
+      "path": "src/lib/use-deferred-effect.ts",
+      "sha256": "78f5e65452aefdf6195a96af1dafc21aaf5b8f3a9fc6267bc228cb0bf28da48c"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "sha256": "124db952989bcdbc34b9811378891591ec140979ee72d8db522d19d7a3799729"
+    },
+    {
+      "path": "src/lib/v2.ts",
+      "sha256": "7c4ba8efcd9fba39799939c17cc383b330feabb39edb6185bc7ae917ae8bf27c"
+    },
+    {
+      "path": "src/lib/v4-notifications.ts",
+      "sha256": "269713f509f0a2f10d94ef10012b2b6a6082addc50e49b9ce2d96001faaaa2b1"
+    },
+    {
+      "path": "src/lib/v4.ts",
+      "sha256": "0ac4101fef9426d02742fcc6c911108b8c35b163f8f1ea74ff1e7b293ceeee70"
+    },
+    {
+      "path": "src/lib/validation.ts",
+      "sha256": "fb909bc99e03adfd1b995b0f2bd8aa6df14ffc911e8faab62d510f5b4e990912"
+    },
+    {
+      "path": "src/lib/workout-api.ts",
+      "sha256": "ebebf9b88e15e00e00eddc63a7ca98029f400a81245147b835bcde9ff58373b1"
+    },
+    {
+      "path": "src/lib/workouts.ts",
+      "sha256": "2b52589186acf669ebd8a970bc8b4829f5f6623dab19f4fe56860547ad6b4f6c"
+    },
+    {
+      "path": "src/lib/workspace-design.ts",
+      "sha256": "9fab084a001bbafa6bff86881588165948794237a06e88ea6b84cddbb939efef"
+    },
+    {
+      "path": "src/lib/workspace-mutations.ts",
+      "sha256": "8c7209723edd7c3ace2aeea6967aecc1920b4ef40023d7b6eb04676e47002dde"
+    },
+    {
+      "path": "src/proxy.ts",
+      "sha256": "59ca46ed4fe80516255f488acb5807358d516fbd2eea6fa45f3ab38f75aa78c2"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c"
+    },
+    {
+      "path": "vercel.json",
+      "sha256": "8daebda059dc2970d1212ae34f3c00eb57e2a9d79193dbeb16ea6204948e0503"
+    }
+  ],
+  "sourceSha256": "f9742593cbcfbfb82f983086e1b796277029fa95299ba7f22933fd0ee542781c",
+  "status": "deployed",
+  "url": "https://clinahir-crm-sandbox-rmums3upw-paraoonline.vercel.app"
+}

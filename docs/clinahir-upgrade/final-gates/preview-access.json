@@ -1,0 +1,46 @@
+{
+  "executedAt": "2026-11-16T20:03:10.123Z",
+  "scope": "Protected staging alias only; no production activation or human MFA enrollment",
+  "checks": [
+    {
+      "name": "dedicated staging remains fully protected",
+      "passed": true
+    },
+    {
+      "name": "new candidate is ready Preview in expected project",
+      "passed": true
+    },
+    {
+      "name": "candidate refuses unauthenticated hosting access",
+      "passed": true
+    },
+    {
+      "name": "only existing dedicated staging alias is selected",
+      "passed": true
+    },
+    {
+      "name": "dedicated staging alias moved to new Preview",
+      "passed": true
+    },
+    {
+      "name": "aliased API identifies staging",
+      "passed": true
+    },
+    {
+      "name": "anonymous admin access denied",
+      "passed": true
+    },
+    {
+      "name": "former synthetic owner cannot sign in",
+      "passed": true
+    },
+    {
+      "name": "alias still hosting-protected",
+      "passed": true
+    }
+  ],
+  "previousDeploymentId": "dpl_8yJhViTvN2qD1BF6op9aUNSJ5YNe",
+  "previousUrl": "https://clinahir-staging-1gnfrbn26-paraoonline.vercel.app",
+  "candidateUrl": "https://clinahir-staging-h7brzbvxh-paraoonline.vercel.app",
+  "status": "passed"
+}

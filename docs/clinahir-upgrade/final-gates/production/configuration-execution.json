@@ -1,0 +1,97 @@
+{
+  "executedAt": "2026-11-17T12:41:44.099Z",
+  "status": "configured_for_staged_production_deployments",
+  "sourceProjectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+  "crmProjectId": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+  "previousSourceDeployment": "dpl_BjcY5BWyDSkg4nRtLoJTUjtpaTeV",
+  "previousCrmDeployment": "dpl_4TLfbhiqvmyntd8LPkktqdBQTFyd",
+  "changes": [
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_ENV",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "VITE_APP_ENV",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "VITE_SENTRY_ENABLED",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_PRODUCTION_SUPABASE_REF",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "SUPABASE_URL",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "SUPABASE_SERVICE_ROLE_KEY",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_ADMIN_EMAIL",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_ADMIN_USER_ID",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_ADMIN_MFA_REQUIRED",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CRON_SECRET",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_PRODUCTION_ORIGIN",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_PRODUCTION_CRM_ORIGIN",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "DAILY_COMMAND_URL",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "CLINAHIR_INTEGRATION_SECRET",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+      "key": "WHATSAPP_ENABLED",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+      "key": "CLINAHIR_INTEGRATION_SECRET",
+      "target": "production"
+    },
+    {
+      "projectId": "prj_qkHMHxMVera3Lp6yHg82GXwXSNnR",
+      "key": "CLINAHIR_LEADS_USER_ID",
+      "target": "production"
+    }
+  ],
+  "liveAliasesChanged": false,
+  "valuesPrinted": false
+}

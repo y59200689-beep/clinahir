@@ -1,0 +1,19 @@
+{
+  "executedAt": "2026-11-16T01:29:56.738Z",
+  "scope": "paraoonline",
+  "name": "clinahir-staging",
+  "mode": "dedicated protected staging project only; no deployment or production changes",
+  "accountVerified": true,
+  "plan": "hobby",
+  "status": "created",
+  "project": {
+    "id": "prj_ncLXnX0fRpThugNz33klNz4Sskq3",
+    "name": "clinahir-staging",
+    "accountId": "team_TjuQw2TZ5FOq8fdj8xeiBoFz",
+    "ssoProtection": {
+      "deploymentType": "all"
+    },
+    "framework": "vite"
+  },
+  "protectionConfigured": true
+}

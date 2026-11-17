@@ -1,3 +1,5 @@
+import { useAdminLocale } from '../i18n';
+import Modal from '../../components/Modal';
 import { useState, useEffect, type ReactNode } from 'react';
 import {
   Save,
@@ -8,13 +10,14 @@ import {
   Plus,
 } from 'lucide-react';
 import { adminApi } from '../types';
-import { siteDefaults, protectedLandingFields, type SiteDocument } from '../../content/schema';
+import { siteDefaults, protectedLandingFields, validateSiteDocument, type SiteDocument } from '../../content/schema';
 
 interface WebsitePageProps {
   onToast: (msg: string) => void;
 }
 
 export function WebsitePage({ onToast }: WebsitePageProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const [doc, setDoc] = useState<SiteDocument | null>(null);
   const [version, setVersion] = useState(0);
   const [published, setPublished] = useState<string | null>(null);
@@ -72,7 +75,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
           version: number;
           published_at: string | null;
         };
-      }>('content', { content: doc, version, publish });
+      }>('content', { content: validateSiteDocument(doc), version, publish });
       setVersion(r.content.version);
       setPublished(r.content.published_at);
       setDirty(false);
@@ -101,16 +104,17 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
       if (path[0] === 'landing' && protectedLandingFields.includes(path[2])) return null;
 
       const words = key.replace(/([a-z])([A-Z])/g, '$1 $2').replaceAll('_', ' ');
-      const label = key === 'cta' ? 'Button CTA' : words.charAt(0).toUpperCase() + words.slice(1);
+      const label = key.length > 40 ? 'Content text' : key === 'cta' ? 'Button CTA' : words.charAt(0).toUpperCase() + words.slice(1);
       const isMultiline = value.length > 110 || /body|description|answer|note|message/i.test(key);
 
       return (
         <div key={path.join('.')} className="space-y-1">
           <label className="block text-xs font-medium text-slate-700">
-            {/^\d+$/.test(key) ? `Item ${Number(key) + 1}` : label}
+            {/^\d+$/.test(key) ? t('Item {{count}}', { count: Number(key) + 1 }) : t(label)}
           </label>
           {isMultiline ? (
             <textarea
+              aria-label={t(label)}
               rows={3}
               value={value}
               maxLength={6000}
@@ -119,6 +123,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
             />
           ) : (
             <input
+              aria-label={t(label)}
               value={value}
               maxLength={6000}
               onChange={(e) => change(path, e.target.value)}
@@ -137,12 +142,12 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
         >
           <div>
             <div className="font-medium text-slate-800 capitalize">
-              {path.at(-1)?.replace(/([a-z])([A-Z])/g, '$1 $2')}
+              {t(path.at(-1)!.replace(/([a-z])([A-Z])/g, '$1 $2'))}
             </div>
-            <div className="text-[11px] text-slate-400">Show on public website</div>
+            <div className="text-[11px] text-slate-400"> {t("Show on public website")} </div>
           </div>
           <input
-            type="checkbox"
+            type="checkbox" aria-label={t(path.at(-1)!.replace(/([a-z])([A-Z])/g, '$1 $2'))}
             checked={value}
             onChange={(e) => change(path, e.target.checked)}
             className="w-4 h-4 rounded text-emerald-700 focus:ring-emerald-600"
@@ -163,7 +168,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
           ) : (
             <div key={k} className="p-3.5 rounded-lg border border-slate-200 bg-slate-50/40 space-y-2.5">
               <h5 className="text-xs font-semibold text-slate-700">
-                {Array.isArray(value) ? `Entry ${Number(k) + 1}` : k.replace(/([a-z])([A-Z])/g, '$1 $2')}
+                {Array.isArray(value) ? t('Entry {{count}}', { count: Number(k) + 1 }) : t(k.replace(/([a-z])([A-Z])/g, '$1 $2'))}
               </h5>
               {renderField(val, [...path, k])}
             </div>
@@ -175,18 +180,16 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
   }
 
   const formatDate = (s: string | null) =>
-    s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Never';
+    s ? new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short', year: 'numeric' }) : 'Never';
 
   return (
     <div className="space-y-5">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Website Content
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Website Content")} </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            {dirty ? 'Draft has unsaved changes' : `Last published ${formatDate(published)}`}
+            {dirty ? t("Draft has unsaved changes") : t('Last published {{date}}', { date: formatDate(published) })}
           </p>
         </div>
 
@@ -197,16 +200,16 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium text-xs transition-colors shadow-sm disabled:opacity-50"
           >
             <Save size={14} />
-            <span>Save draft</span>
+            <span> {t("Save draft")} </span>
           </button>
 
           <button
             onClick={() => setConfirmPublish(true)}
             disabled={!doc || busy}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#6754cf] hover:bg-emerald-900 text-white font-medium text-xs transition-colors disabled:opacity-50"
           >
             {busy ? <LoaderCircle size={14} className="animate-spin" /> : <Send size={14} />}
-            <span>Publish</span>
+            <span> {t("Publish")} </span>
           </button>
         </div>
       </div>
@@ -217,7 +220,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
           className="p-3.5 rounded-lg bg-rose-50 border border-rose-200/70 text-rose-800 text-xs flex items-center gap-2"
         >
           <AlertCircle size={16} className="shrink-0 text-rose-600" />
-          <span>{error}</span>
+          <span>{errorText(error)}</span>
         </div>
       )}
 
@@ -233,11 +236,11 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                 onClick={() => setGroup(item.key)}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors text-left ${
                   isActive
-                    ? 'bg-[#0A261D] text-white font-semibold'
+                    ? 'bg-[#6754cf] text-white font-semibold'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
-                <span>{item.label}</span>
+                <span>{t(item.label)}</span>
                 <ChevronRight
                   size={13}
                   className={isActive ? 'text-emerald-300' : 'text-slate-400'}
@@ -264,9 +267,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                     ? 'bg-white text-slate-900 shadow-sm font-semibold'
                     : 'text-slate-500 hover:text-slate-800'
                 }`}
-              >
-                English
-              </button>
+              > {t("English")} </button>
               <button
                 onClick={() => setLocale('fr')}
                 className={`px-2.5 py-1 text-xs font-medium rounded transition-colors ${
@@ -274,17 +275,13 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                     ? 'bg-white text-slate-900 shadow-sm font-semibold'
                     : 'text-slate-500 hover:text-slate-800'
                 }`}
-              >
-                Français
-              </button>
+              > {t("Français")} </button>
             </div>
           </div>
 
           {/* Form Fields */}
           {!doc ? (
-            <div className="py-8 text-center text-slate-400 text-xs">
-              Loading content…
-            </div>
+            <div className="py-8 text-center text-slate-400 text-xs"> {t("Loading content…")} </div>
           ) : group === 'features' ? (
             <div className="space-y-3.5">
               {Object.entries(doc.features).map(([key, val]) => (
@@ -309,8 +306,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                   className="p-3.5 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2.5"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-slate-600">
-                      Question {index + 1}
+                    <span className="text-xs font-semibold text-slate-600"> {t("Question")} {index + 1}
                     </span>
                     <button
                       type="button"
@@ -322,9 +318,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                         )
                       }
                       className="text-xs text-rose-600 hover:underline disabled:opacity-40"
-                    >
-                      Delete
-                    </button>
+                    > {t("Delete")} </button>
                   </div>
                   {renderField(item, ['faq', locale, String(index)])}
                 </div>
@@ -345,7 +339,7 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
                 className="w-full py-2 rounded-lg border border-dashed border-slate-200 hover:border-slate-300 text-slate-600 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Plus size={14} />
-                <span>Add question</span>
+                <span> {t("Add question")} </span>
               </button>
             </div>
           ) : group === 'settings' ? (
@@ -362,36 +356,11 @@ export function WebsitePage({ onToast }: WebsitePageProps) {
       </div>
 
       {/* Confirmation Modal */}
-      {confirmPublish && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="fixed inset-0 bg-slate-900/30"
-            onClick={() => setConfirmPublish(false)}
-          />
-          <div className="relative bg-white rounded-xl max-w-sm w-full p-5 shadow-xl border border-slate-200 space-y-3">
-            <h3 className="text-sm font-semibold text-slate-900">Publish website changes?</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Updates will appear live in English and French within 30 seconds.
-            </p>
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <button
-                onClick={() => setConfirmPublish(false)}
-                className="px-3 py-1.5 rounded text-xs font-medium text-slate-600 hover:bg-slate-100"
-              >
-                Keep editing
-              </button>
-              <button
-                disabled={busy}
-                onClick={() => void save(true)}
-                className="px-3.5 py-1.5 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5"
-              >
-                {busy ? <LoaderCircle size={14} className="animate-spin" /> : <Send size={14} />}
-                <span>Publish</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {confirmPublish && <Modal tone="admin" title={t("Publish website changes?")} closeLabel={t("Close")} onClose={() => setConfirmPublish(false)}>
+        <p className="text-sm text-slate-600"> {t("Updates will appear on the public website in English and French. Review both languages before publishing.")} </p>
+        <div className="mt-5 flex justify-end gap-3"><button type="button" onClick={() => setConfirmPublish(false)}> {t("Keep editing")} </button><button type="button" disabled={busy} onClick={() => void save(true)} className="rounded-lg bg-slate-900 px-4 py-2 text-white"> {t("Publish")} </button></div>
+      </Modal>}
+
     </div>
   );
 }

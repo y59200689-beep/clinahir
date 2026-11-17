@@ -1,0 +1,40 @@
+{
+  "recordedAt": "2026-11-16T23:56:07.538Z",
+  "status": "preparation_and_isolated_rehearsal_passed",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "candidatePath": "docs/clinahir-upgrade/final-gates/production/20261116234811_clinahir_production_upgrade.sql",
+  "candidateSha256": "795effede714ae0a5d7cfacb1b94939ccc658353232c902ec9933bba94ff72b3",
+  "backupId": "2026-11-16T23-30-09-724Z",
+  "isolatedChecks": 95,
+  "allChecksPassed": true,
+  "containerRemoved": true,
+  "applicationChecks": {
+    "command": "npx tsc -p tsconfig.tests.json && node --test tests/admin-mfa.test.mjs tests/whatsapp.test.mjs tests/admin.test.mjs tests/migrations.test.mjs",
+    "passed": 30,
+    "failed": 0,
+    "scope": "compiled local fixture tests; no live Auth or Meta request"
+  },
+  "artifacts": [
+    {
+      "path": "scripts/staging/production-migration-rehearsal.mjs",
+      "sha256": "ce0cce964e1f9fb7ced01036119faedd7ece6f996d9ffe1708e4d44d26ad10ec"
+    },
+    {
+      "path": "scripts/staging/production-migration-assertions.sql",
+      "sha256": "058071f995ac1a83087c2e0aa98f43423ff0c45bb742698cc65d6249216894c1"
+    },
+    {
+      "path": "scripts/staging/production-catalog.sql",
+      "sha256": "7e161dae895f860e4131aaed7d6eaafd2fd9ccc5e80e883974d922deed206854"
+    }
+  ],
+  "productionMigrationExecuted": false,
+  "productionActivationAuthorized": false,
+  "productionPermissionsChanged": false,
+  "limitations": [
+    "Managed Auth/Storage and provider event-trigger/default-grant behavior not reproduced fully",
+    "Production owner/MFA and HTTP access acceptance remain pending",
+    "Current deployed application revision and sealed runtime config require independent review",
+    "Fresh recovery point, rollout traffic/lock window and hosted migration-history recording require release review"
+  ]
+}

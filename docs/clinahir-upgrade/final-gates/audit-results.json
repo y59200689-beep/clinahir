@@ -1,0 +1,462 @@
+{
+  "executedAt": "2026-11-16T20:03:09.115Z",
+  "scope": "Local production artifact, fictional admin transport; external requests blocked. Not field data or WCAG certification.",
+  "axe": [
+    {
+      "name": "public-en",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 3
+        },
+        {
+          "id": "aria-valid-attr-value",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 112
+        }
+      ],
+      "passes": 31
+    },
+    {
+      "name": "patients-en",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 3
+        },
+        {
+          "id": "aria-valid-attr-value",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 125
+        }
+      ],
+      "passes": 32
+    },
+    {
+      "name": "profile-dialog-en",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 1
+        }
+      ],
+      "passes": 15
+    },
+    {
+      "name": "public-fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 3
+        },
+        {
+          "id": "aria-valid-attr-value",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 112
+        }
+      ],
+      "passes": 31
+    },
+    {
+      "name": "patients-fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 3
+        },
+        {
+          "id": "aria-valid-attr-value",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 119
+        }
+      ],
+      "passes": 32
+    },
+    {
+      "name": "profile-dialog-fr",
+      "violations": [],
+      "incomplete": [],
+      "passes": 15
+    },
+    {
+      "name": "admin-login-en",
+      "violations": [],
+      "incomplete": [],
+      "passes": 21
+    },
+    {
+      "name": "admin-en-Overview",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ],
+      "passes": 21
+    },
+    {
+      "name": "admin-en-Inbound Leads",
+      "violations": [],
+      "incomplete": [],
+      "passes": 22
+    },
+    {
+      "name": "admin-en-Prospect Directory",
+      "violations": [],
+      "incomplete": [],
+      "passes": 22
+    },
+    {
+      "name": "admin-en-Website Content",
+      "violations": [],
+      "incomplete": [],
+      "passes": 20
+    },
+    {
+      "name": "admin-en-Conversion Insights",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ],
+      "passes": 19
+    },
+    {
+      "name": "admin-en-Delivery Center",
+      "violations": [],
+      "incomplete": [],
+      "passes": 21
+    },
+    {
+      "name": "admin-en-Audit Activity",
+      "violations": [],
+      "incomplete": [],
+      "passes": 19
+    },
+    {
+      "name": "admin-en-Settings",
+      "violations": [],
+      "incomplete": [],
+      "passes": 20
+    },
+    {
+      "name": "admin-fr-Vue d’ensemble",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ],
+      "passes": 21
+    },
+    {
+      "name": "admin-fr-Demandes entrantes",
+      "violations": [],
+      "incomplete": [],
+      "passes": 22
+    },
+    {
+      "name": "admin-fr-Répertoire des prospects",
+      "violations": [],
+      "incomplete": [],
+      "passes": 22
+    },
+    {
+      "name": "admin-fr-Contenu du site",
+      "violations": [],
+      "incomplete": [],
+      "passes": 20
+    },
+    {
+      "name": "admin-fr-Analyse des conversions",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 2
+        }
+      ],
+      "passes": 19
+    },
+    {
+      "name": "admin-fr-Centre des transmissions",
+      "violations": [],
+      "incomplete": [],
+      "passes": 21
+    },
+    {
+      "name": "admin-fr-Journal d’audit",
+      "violations": [],
+      "incomplete": [],
+      "passes": 19
+    },
+    {
+      "name": "admin-fr-Paramètres",
+      "violations": [],
+      "incomplete": [],
+      "passes": 20
+    }
+  ],
+  "lighthouse": [
+    {
+      "name": "public-mobile",
+      "fetchTime": "2026-11-16T20:04:09.420Z",
+      "lighthouseVersion": "13.6.0",
+      "categories": {
+        "performance": 0.95,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1057.0609,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1057.0609,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 259,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.001510305170153146,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 2241.811684778029,
+          "unit": "millisecond"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "score": 0.99,
+          "displayValue": "2.2 s"
+        },
+        {
+          "id": "total-blocking-time",
+          "title": "Total Blocking Time",
+          "score": 0.83,
+          "displayValue": "260 ms"
+        },
+        {
+          "id": "max-potential-fid",
+          "title": "Max Potential First Input Delay",
+          "score": 0.81,
+          "displayValue": "160 ms"
+        },
+        {
+          "id": "errors-in-console",
+          "title": "Browser errors were logged to the console",
+          "score": 0
+        },
+        {
+          "id": "interactive",
+          "title": "Time to Interactive",
+          "score": 0.71,
+          "displayValue": "5.4 s"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "score": 0,
+          "displayValue": "Est savings of 54 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0.5,
+          "displayValue": "Est savings of 141 KiB"
+        },
+        {
+          "id": "bf-cache",
+          "title": "Page prevented back/forward cache restoration",
+          "score": 0,
+          "displayValue": "1 failure reason"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "displayValue": "Est savings of 622 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0.5,
+          "displayValue": "Est savings of 7 KiB"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0.5,
+          "displayValue": "Est savings of 91 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "displayValue": "Est savings of 350 ms"
+        }
+      ]
+    },
+    {
+      "name": "admin-login-desktop",
+      "fetchTime": "2026-11-16T20:04:18.028Z",
+      "lighthouseVersion": "13.6.0",
+      "categories": {
+        "performance": 0.62,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 0.66
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1584.6422,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1584.6422,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 563,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 2190.695753513673,
+          "unit": "millisecond"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "score": 0.5,
+          "displayValue": "1.6 s"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "score": 0.77,
+          "displayValue": "1.6 s"
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "score": 0.54,
+          "displayValue": "2.2 s"
+        },
+        {
+          "id": "total-blocking-time",
+          "title": "Total Blocking Time",
+          "score": 0.23,
+          "displayValue": "560 ms"
+        },
+        {
+          "id": "max-potential-fid",
+          "title": "Max Potential First Input Delay",
+          "score": 0.04,
+          "displayValue": "610 ms"
+        },
+        {
+          "id": "errors-in-console",
+          "title": "Browser errors were logged to the console",
+          "score": 0
+        },
+        {
+          "id": "interactive",
+          "title": "Time to Interactive",
+          "score": 0.61,
+          "displayValue": "3.9 s"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "title": "Minimize main-thread work",
+          "score": 0,
+          "displayValue": "2.3 s"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "score": 0,
+          "displayValue": "Est savings of 122 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0.5,
+          "displayValue": "Est savings of 125 KiB"
+        },
+        {
+          "id": "is-crawlable",
+          "title": "Page is blocked from indexing",
+          "score": 0
+        },
+        {
+          "id": "bf-cache",
+          "title": "Page prevented back/forward cache restoration",
+          "score": 0,
+          "displayValue": "1 failure reason"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "displayValue": "Est savings of 467 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0.5,
+          "displayValue": "Est savings of 8 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "displayValue": "Est savings of 960 ms"
+        }
+      ]
+    }
+  ]
+}

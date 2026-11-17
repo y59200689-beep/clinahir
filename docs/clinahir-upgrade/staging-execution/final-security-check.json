@@ -1,0 +1,8 @@
+{
+  "executedAt": "2026-11-16T10:34:34.475Z",
+  "scope": "Exact known staging credential-value scan of reports and local browser artifacts; runtime source digest comparison, not a general secret audit",
+  "scannedFiles": 148,
+  "credentialMatches": 0,
+  "deployedRuntimeSourceMismatches": [],
+  "status": "passed"
+}

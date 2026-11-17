@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-11-16T23:54:44.014Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "sources": [
+    {
+      "name": "20260930000000_clinahir_base.sql",
+      "sha256": "8fb5c992c62ec95c4300c0685595787411128783bcc2fc68f7f5bb329835c1d1"
+    },
+    {
+      "name": "20261003095303_clinahir_supabase_outbox.sql",
+      "sha256": "d695a80b5f361b2c38227c1787377d00b0c4d880144cd9712a23bc1cc3b4faa2"
+    },
+    {
+      "name": "20261004180738_clinahir_conversion_analytics.sql",
+      "sha256": "a52f9e4a974738a813f15f24f92bbb21bddeed3786b6beee997c31531d217a5d"
+    }
+  ],
+  "routines": [
+    {
+      "signature": "clinahir_allow_lead(text)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_capture_lead(jsonb)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_claim_lead(text,uuid,timestamp with time zone)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_finish_lead(text,uuid,text,text,timestamp with time zone,timestamp with time zone)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_record_analytics(jsonb)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_replay_lead(text,timestamp with time zone)",
+      "localBaseRoutine": true,
+      "bodyMatchesLocal": true
+    },
+    {
+      "signature": "clinahir_update_timestamp()",
+      "localBaseRoutine": false,
+      "bodyMatchesLocal": null
+    }
+  ],
+  "migrationHistory": [
+    {
+      "version": "20261003095511",
+      "name": "clinahir_supabase_outbox"
+    },
+    {
+      "version": "20261004180919",
+      "name": "clinahir_conversion_analytics"
+    }
+  ],
+  "historyRepaired": false,
+  "structuralDecision": "Preserve legacy production UUID primary key, external_id unique key, nullable fields, default values, timestamps, update trigger, broad legacy form_type checks and existing indexes; do not replay fresh-install base."
+}

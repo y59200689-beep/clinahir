@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-11-16T15:46:24.407Z",
+  "scope": "Read-only provider metadata plus observed protected staging dashboard; no password, code, token or MFA secret retrieved",
+  "projectRef": "fsfqgionuuxykpoxhrdm",
+  "approvedOwnerId": "29a461eb-da31-4b77-8d6a-2c0b13fb9af6",
+  "emailVerified": true,
+  "verifiedTotpFactors": 1,
+  "dashboardObserved": true,
+  "ownerEmailObserved": true,
+  "mandatoryMfaConfigured": true,
+  "humanEnrollmentVerified": true,
+  "status": "passed"
+}

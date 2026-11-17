@@ -1,5 +1,22 @@
 {
- "extends": "./tsconfig.json",
- "compilerOptions": { "noEmit": false, "outDir": ".integration-build", "rootDir": ".", "module": "NodeNext", "moduleResolution": "NodeNext", "allowJs": false },
- "include": ["server/**/*.ts", "src/leads/**/*.ts", "api/**/*.ts", "src/admin/csv.ts"]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".integration-build",
+    "rootDir": ".",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": false
+  },
+  "include": [
+    "src/admin/translation.ts",
+    "src/demo/profiles.ts",
+    "src/demo/appointments.ts",
+    "src/demo/scheduling.ts",
+    "server/**/*.ts",
+    "src/leads/**/*.ts",
+    "api/**/*.ts",
+    "src/admin/csv.ts",
+    "src/monitoring.ts"
+  ]
 }

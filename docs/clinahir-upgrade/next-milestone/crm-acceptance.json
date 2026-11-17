@@ -1,0 +1,78 @@
+{
+  "executedAt": "2026-11-16T11:11:13.149Z",
+  "projectRef": "wpjoszvojojuxmozkhkm",
+  "origin": "https://clinahir-crm-sandbox.vercel.app",
+  "scope": "Actual Daily Command sandbox handler, separate hosted SQL persistence, owner/non-owner Auth and RLS; synthetic data only",
+  "checks": [
+    {
+      "name": "new CRM hosting rejects unauthenticated access",
+      "passed": true
+    },
+    {
+      "name": "real integration endpoint rejects incorrect bearer secret",
+      "passed": true
+    },
+    {
+      "name": "authenticated invalid payload rejected",
+      "passed": true
+    },
+    {
+      "name": "concurrent real receiver requests return creation plus duplicate",
+      "passed": true
+    },
+    {
+      "name": "concurrent receiver responses preserve one lead ID",
+      "passed": true
+    },
+    {
+      "name": "independent service API read succeeds",
+      "passed": true
+    },
+    {
+      "name": "exactly one CRM lead persists independently",
+      "passed": true
+    },
+    {
+      "name": "destination owner/source/status cannot be overridden by payload",
+      "passed": true
+    },
+    {
+      "name": "business fields and submission metadata persist",
+      "passed": true
+    },
+    {
+      "name": "owner authenticates in new sandbox only",
+      "passed": true
+    },
+    {
+      "name": "owner lead query authorized by RLS",
+      "passed": true
+    },
+    {
+      "name": "owner sees exactly its authorized rows",
+      "passed": true
+    },
+    {
+      "name": "nonowner authenticates in new sandbox only",
+      "passed": true
+    },
+    {
+      "name": "nonowner lead query authorized by RLS",
+      "passed": true
+    },
+    {
+      "name": "nonowner sees exactly its authorized rows",
+      "passed": true
+    },
+    {
+      "name": "non-owner cannot insert into owner workspace",
+      "passed": true
+    },
+    {
+      "name": "anonymous role cannot read stored lead",
+      "passed": true
+    }
+  ],
+  "syntheticExternalId": "cli_10b73714-bf5f-4dd7-8714-ac46df2ad21a",
+  "status": "passed"
+}

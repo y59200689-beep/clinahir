@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-16T23:42:48.524866+00:00",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "folderId": "16PUVR7LKSZl54dAEOAMyR2FePNAORbIO",
+  "owner": "babdoukkalaradiologie@gmail.com",
+  "archiveId": "1rWCHixrX3u0UUGayGXqU-y5sATbC9UXN",
+  "manifestId": "1hr0i2RWeMpUa8WIx2yv7XP-jh6MZv-Rg",
+  "uploadedContent": "ciphertext and non-secret integrity manifest only",
+  "keyUploaded": false,
+  "independentDownloadDecryptionVerified": true,
+  "sharingStatus": "verified_both_approved_accounts_reader_on_folder_and_archive",
+  "generalAccess": "restricted",
+  "offlineKeyCustody": "owner_confirmed_offline_off_mac_copy_secured",
+  "verifiedReaders": [
+    "youssefmahir87@gmail.com",
+    "ysfkhaourimahir@gmail.com"
+  ],
+  "verifiedRole": "reader",
+  "publicOrDomainAccess": false,
+  "custodyReceipt": "recovery-key-custody.json"
+}

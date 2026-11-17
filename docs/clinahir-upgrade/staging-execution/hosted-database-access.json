@@ -1,0 +1,122 @@
+{
+  "executedAt": "2026-11-16T09:57:42.103Z",
+  "projectRef": "fsfqgionuuxykpoxhrdm",
+  "scope": "Real staging Supabase Auth and PostgREST; synthetic accounts only; no application deployment claim",
+  "checks": [
+    {
+      "name": "actual independent anon key accepted by Auth",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "synthetic non-owner authenticates",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "non-owner identity matches",
+      "passed": true
+    },
+    {
+      "name": "all eight application tables have RLS",
+      "passed": true
+    },
+    {
+      "name": "anon private table read denied: clinahir_admin_audit",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_analytics_events",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_cron_runs",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_lead_limits",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_leads",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_prospects",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_site_content",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private table read denied: clinahir_whatsapp_jobs",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon private snapshot execution denied",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_admin_audit",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_analytics_events",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_cron_runs",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_lead_limits",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_leads",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_prospects",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_site_content",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private table read denied: clinahir_whatsapp_jobs",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated private snapshot execution denied",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "server service role can read staging lead table",
+      "passed": true,
+      "httpStatus": 200
+    }
+  ],
+  "status": "passed",
+  "sessionCleanup": "logged_out"
+}

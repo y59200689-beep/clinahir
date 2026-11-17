@@ -1,0 +1,221 @@
+{
+  "scope": "Local production-build byte counts, not field Core Web Vitals",
+  "chunks": [
+    {
+      "name": "App-D1dBm4mh.js",
+      "bytes": 309247,
+      "gzipBytes": 91412
+    },
+    {
+      "name": "index-BAizU_gf.js",
+      "bytes": 224838,
+      "gzipBytes": 72373
+    },
+    {
+      "name": "AppointmentEditor-Clinsq0g.js",
+      "bytes": 125468,
+      "gzipBytes": 39609
+    },
+    {
+      "name": "AdminApp-CDyjqAbU.js",
+      "bytes": 122024,
+      "gzipBytes": 36265
+    },
+    {
+      "name": "ProspectsPage-CcHPR0M3.js",
+      "bytes": 17526,
+      "gzipBytes": 4736
+    },
+    {
+      "name": "SettingsPage-BAU2Qp2V.js",
+      "bytes": 16777,
+      "gzipBytes": 4808
+    },
+    {
+      "name": "AppointmentsPage-DG4iNJhU.js",
+      "bytes": 16397,
+      "gzipBytes": 5385
+    },
+    {
+      "name": "SupportPage-8jfZQeon.js",
+      "bytes": 14571,
+      "gzipBytes": 4884
+    },
+    {
+      "name": "ActivityLogPage-DediOZmt.js",
+      "bytes": 12809,
+      "gzipBytes": 4433
+    },
+    {
+      "name": "ProfileDirectory-DTiL0XmO.js",
+      "bytes": 12540,
+      "gzipBytes": 4501
+    },
+    {
+      "name": "LeadsPage-CTB30Uuy.js",
+      "bytes": 11534,
+      "gzipBytes": 3521
+    },
+    {
+      "name": "AgendaPage-BcMbci1P.js",
+      "bytes": 11305,
+      "gzipBytes": 3977
+    },
+    {
+      "name": "x-D9VIGuht.js",
+      "bytes": 9868,
+      "gzipBytes": 2847
+    },
+    {
+      "name": "MessagesPage-Bc8bwcaV.js",
+      "bytes": 9827,
+      "gzipBytes": 3235
+    },
+    {
+      "name": "WebsitePage-BIlutd6w.js",
+      "bytes": 9536,
+      "gzipBytes": 3254
+    },
+    {
+      "name": "PostsPage-GPTff1eN.js",
+      "bytes": 9491,
+      "gzipBytes": 3577
+    },
+    {
+      "name": "DeliveriesPage-pzj7VSAV.js",
+      "bytes": 8498,
+      "gzipBytes": 2144
+    },
+    {
+      "name": "OverviewPage-D9rV5Vsm.js",
+      "bytes": 8466,
+      "gzipBytes": 2424
+    },
+    {
+      "name": "ActivityChart-BxdOXs9O.js",
+      "bytes": 6967,
+      "gzipBytes": 2212
+    },
+    {
+      "name": "SettingsPage-DQ4lEEo9.js",
+      "bytes": 4413,
+      "gzipBytes": 1351
+    },
+    {
+      "name": "AnalyticsPage-DwLVWsWh.js",
+      "bytes": 3684,
+      "gzipBytes": 1630
+    },
+    {
+      "name": "AdminDrawer-34LXszBM.js",
+      "bytes": 2712,
+      "gzipBytes": 1340
+    },
+    {
+      "name": "ActivityPage-DDzr5VIV.js",
+      "bytes": 2537,
+      "gzipBytes": 1108
+    },
+    {
+      "name": "teamActivity-CwdGQ6wO.js",
+      "bytes": 1603,
+      "gzipBytes": 819
+    },
+    {
+      "name": "StatusPill-BWDibriu.js",
+      "bytes": 1330,
+      "gzipBytes": 700
+    },
+    {
+      "name": "eye-BLzKLi6_.js",
+      "bytes": 1043,
+      "gzipBytes": 480
+    },
+    {
+      "name": "Modal-Cdm8RJpS.js",
+      "bytes": 866,
+      "gzipBytes": 525
+    },
+    {
+      "name": "upload-pPgxQLZG.js",
+      "bytes": 846,
+      "gzipBytes": 439
+    },
+    {
+      "name": "star-B76PM8pv.js",
+      "bytes": 673,
+      "gzipBytes": 424
+    },
+    {
+      "name": "file-text-D58CkmHb.js",
+      "bytes": 586,
+      "gzipBytes": 374
+    },
+    {
+      "name": "StaffPage-C_6N1BkX.js",
+      "bytes": 567,
+      "gzipBytes": 338
+    },
+    {
+      "name": "save-C1PINhwo.js",
+      "bytes": 528,
+      "gzipBytes": 351
+    },
+    {
+      "name": "refresh-cw-BO9mqpjd.js",
+      "bytes": 522,
+      "gzipBytes": 346
+    },
+    {
+      "name": "circle-alert-BpDvXdMV.js",
+      "bytes": 471,
+      "gzipBytes": 321
+    },
+    {
+      "name": "PatientsPage-CToonEXF.js",
+      "bytes": 459,
+      "gzipBytes": 302
+    },
+    {
+      "name": "DoctorsPage-DuEoF8DD.js",
+      "bytes": 458,
+      "gzipBytes": 304
+    },
+    {
+      "name": "external-link-BmFeenu-.js",
+      "bytes": 452,
+      "gzipBytes": 323
+    },
+    {
+      "name": "message-circle-D3thnQ99.js",
+      "bytes": 442,
+      "gzipBytes": 332
+    },
+    {
+      "name": "rotate-cw-0QLB6dYp.js",
+      "bytes": 402,
+      "gzipBytes": 308
+    },
+    {
+      "name": "clock-CRnJ8e64.js",
+      "bytes": 370,
+      "gzipBytes": 291
+    },
+    {
+      "name": "search-DovaaCCb.js",
+      "bytes": 370,
+      "gzipBytes": 289
+    },
+    {
+      "name": "arrow-up-right-DT_vKVXX.js",
+      "bytes": 368,
+      "gzipBytes": 283
+    },
+    {
+      "name": "conflicts-CMuE9cAC.js",
+      "bytes": 287,
+      "gzipBytes": 208
+    }
+  ],
+  "over500KiB": []
+}

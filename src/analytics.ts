@@ -2,7 +2,7 @@ export function startAnalytics(): () => void {
  // Respect browser privacy preferences. Never send form fields or raw URLs.
  if(navigator.doNotTrack==='1' || (navigator as Navigator & {globalPrivacyControl?:boolean}).globalPrivacyControl)return ()=>{};
  const send=(eventType:'page_view'|'demo_cta_click',placement:string)=>{
-  void fetch('/api/analytics',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:crypto.randomUUID(),eventType,placement,language:document.querySelector<HTMLSelectElement>('select[aria-label="Language / Langue"]')?.value==='fr'?'fr':'en'}),keepalive:true}).catch(()=>{});
+  void fetch('/api/analytics',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:crypto.randomUUID(),eventType,placement,language:document.documentElement.lang==='fr'?'fr':'en'}),keepalive:true}).catch(()=>{});
  };
  send('page_view','page');
  const clicked=(event:MouseEvent)=>{

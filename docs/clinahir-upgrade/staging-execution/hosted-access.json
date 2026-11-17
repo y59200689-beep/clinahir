@@ -1,0 +1,213 @@
+{
+  "executedAt": "2026-11-16T10:19:58.588Z",
+  "scope": "Actual staging HTTP checks only when approved; no service-role access and no business-record writes",
+  "status": "passed",
+  "prerequisites": [],
+  "checks": [
+    {
+      "name": "unauthenticated hosting access is protected",
+      "passed": true,
+      "httpStatus": 302
+    },
+    {
+      "name": "environment endpoint accessible with approved protection access",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "server identifies staging",
+      "passed": true
+    },
+    {
+      "name": "independent public API key accepted by Auth",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "anonymous private API rejected",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "invalid owner credentials rejected",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "restricted test account authenticates",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "actual non-owner account identity matches",
+      "passed": true
+    },
+    {
+      "name": "authenticated non-owner API rejected",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "anon cannot read clinahir_leads",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_lead_limits",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_whatsapp_jobs",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_cron_runs",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_site_content",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_admin_audit",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_prospects",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_analytics_events",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_delivery_health",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "anon cannot read clinahir_conversion_daily",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_leads",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_lead_limits",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_whatsapp_jobs",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_cron_runs",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_site_content",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_admin_audit",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_prospects",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_analytics_events",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_delivery_health",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authenticated-nonowner cannot read clinahir_conversion_daily",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "anon cannot execute private snapshot RPC",
+      "passed": true,
+      "httpStatus": 401
+    },
+    {
+      "name": "authenticated-nonowner cannot execute private snapshot RPC",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "staging owner signs in",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "session cookie is private and secure",
+      "passed": true
+    },
+    {
+      "name": "owner identity matches configured account",
+      "passed": true
+    },
+    {
+      "name": "owner provider identity readable",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "owner ID matches staging allowlist",
+      "passed": true
+    },
+    {
+      "name": "owner can read session",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "owner can read snapshot",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "owner can read content",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "owner can read prospects",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "logout clears browser cookie",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "logged-out bearer cannot be replayed",
+      "passed": true,
+      "httpStatus": 401
+    }
+  ]
+}

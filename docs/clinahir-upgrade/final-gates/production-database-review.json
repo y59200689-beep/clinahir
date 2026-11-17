@@ -1,0 +1,7 @@
+{
+  "executedAt": "2026-11-16T16:53:30.499Z",
+  "projectRef": "yurquokjaumjdzglioaf",
+  "scope": "Read-only project/catalog metadata; no business or patient rows, no secret values, no schema/credential changes",
+  "projectHttpStatus": 403,
+  "status": "metadata_access_unavailable"
+}

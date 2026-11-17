@@ -111,3 +111,19 @@ test('optional contact name is normalized and delivered without changing lead id
  const response=await leadRequest(req({...input,contactName:' Dr. Example '}),store,config,async(_url,init)=>{sent=JSON.parse(init.body);return new Response('{}',{status:201});});
  assert.equal(response.status,201);assert.equal(sent.contactName,'Dr. Example');assert.equal(sent.externalId,'cli_'+input.submissionId);
 });
+
+test('concurrent duplicate captures deliver once and keep the same durable identity', async () => {
+ const store=new MemoryStore(); let sends=0;
+ const fetcher=async()=>{sends++; await new Promise(resolve=>setTimeout(resolve,10));return new Response('{}',{status:200});};
+ const results=await Promise.all([captureLead(input,store,config,fetcher),captureLead(input,store,config,fetcher)]);
+ assert.equal(results[0],results[1]);assert.equal(store.records.size,1);assert.equal(sends,1);
+});
+
+test('JSON lookalike media types rejected and rate limits give retry guidance', async () => {
+ const store=new MemoryStore();
+ const bad=new Request('https://clinahir.tech/api/leads',{method:'POST',headers:{origin:'https://clinahir.tech','content-type':'application/json-malformed'},body:JSON.stringify(input)});
+ assert.equal((await leadRequest(bad,store,config)).status,415);
+ store.allow=async()=>false;
+ const limited=await leadRequest(req(),store,config);
+ assert.equal(limited.status,429);assert.equal(limited.headers.get('retry-after'),'60');
+});

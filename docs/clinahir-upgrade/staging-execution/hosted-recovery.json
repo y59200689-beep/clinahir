@@ -1,0 +1,613 @@
+{
+  "executedAt": "2026-11-16T10:26:27.722Z",
+  "sourceRef": "fsfqgionuuxykpoxhrdm",
+  "restoreRef": "xrfptjnsjckqgbvhvrwp",
+  "scope": "Hosted synthetic application database and test receiver only; Auth users, Storage objects and infrastructure excluded",
+  "checks": [
+    {
+      "name": "backup login is restricted to exact staging project",
+      "passed": true
+    },
+    {
+      "name": "independent restore target contains no application tables",
+      "passed": true
+    },
+    {
+      "name": "hosted backup readback checksum matches",
+      "passed": true
+    },
+    {
+      "name": "source did not change during export",
+      "passed": true
+    },
+    {
+      "name": "actual hosted application archive restored independently",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match clinahir_staging_fixture.control",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match clinahir_staging_fixture.receipts",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "full-row digest and count match public.clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "all restored constraints match",
+      "passed": true
+    },
+    {
+      "name": "source grants explicitly deny browser table access",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves clinahir_staging_fixture.control",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves clinahir_staging_fixture.receipts",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "permission repair preserves public.clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "actual restored anon HTTP read denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "restored authenticated role has no table SELECT and RLS remains enabled",
+      "passed": true
+    },
+    {
+      "name": "restore service role can read four synthetic leads",
+      "passed": true
+    }
+  ],
+  "backup": {
+    "bytes": 85872,
+    "sha256": "f9f3699c9492ad9d0ec7c36339f7d664396c1b040f3eed10d9425330d441db1f"
+  },
+  "restorePolicy": "Preserve target Supabase public schema/provider default ACLs and provider rls_auto_enable helper; restore application tables, routines, explicit grants, data and synthetic receiver.",
+  "manifest": {
+    "rows": [
+      {
+        "schema": "clinahir_staging_fixture",
+        "table": "control",
+        "rows": 1,
+        "digest": "74973db7a3fc455b7c8ae95259f18d80"
+      },
+      {
+        "schema": "clinahir_staging_fixture",
+        "table": "receipts",
+        "rows": 4,
+        "digest": "5e02e4b9ca26b929b232d29ab4cf4c79"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_admin_audit",
+        "rows": 3,
+        "digest": "ef6b9f5924e36d0d907303a7072fda17"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_analytics_events",
+        "rows": 8,
+        "digest": "6ce96b78a2f09cf9244760a6ded1f30f"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_cron_runs",
+        "rows": 1,
+        "digest": "3357d8ac1d4071453a7dff297f3f3012"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_lead_limits",
+        "rows": 8,
+        "digest": "1acdc518a77bb13795d590ca69ae8983"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_leads",
+        "rows": 4,
+        "digest": "0c9198e669748db8b59a46545e39b807"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_prospects",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_site_content",
+        "rows": 1,
+        "digest": "8131766c9e9122aff54a8e35bfb5ae46"
+      },
+      {
+        "schema": "public",
+        "table": "clinahir_whatsapp_jobs",
+        "rows": 4,
+        "digest": "b221a224ab11bc390bf688d667935b3b"
+      }
+    ],
+    "constraints": [
+      {
+        "nspname": "clinahir_staging_fixture",
+        "relname": "control",
+        "conname": "control_id_check",
+        "definition": "CHECK (id)"
+      },
+      {
+        "nspname": "clinahir_staging_fixture",
+        "relname": "control",
+        "conname": "control_mode_check",
+        "definition": "CHECK ((mode = ANY (ARRAY['healthy'::text, 'outage'::text, 'timeout'::text, 'accepted-but-unacknowledged'::text])))"
+      },
+      {
+        "nspname": "clinahir_staging_fixture",
+        "relname": "control",
+        "conname": "control_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "clinahir_staging_fixture",
+        "relname": "receipts",
+        "conname": "receipts_pkey",
+        "definition": "PRIMARY KEY (external_id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_admin_audit",
+        "conname": "clinahir_admin_audit_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_event_type_check",
+        "definition": "CHECK ((event_type = ANY (ARRAY['page_view'::text, 'demo_cta_click'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_language_check",
+        "definition": "CHECK ((language = ANY (ARRAY['en'::text, 'fr'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_placement_check",
+        "definition": "CHECK ((placement = ANY (ARRAY['page'::text, 'hero'::text, 'solutions'::text, 'how-it-works'::text, 'process'::text, 'about'::text, 'book-demo'::text, 'footer'::text, 'other'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_cron_runs",
+        "conname": "clinahir_cron_runs_id_check",
+        "definition": "CHECK (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_cron_runs",
+        "conname": "clinahir_cron_runs_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_identifier_check",
+        "definition": "CHECK ((identifier ~ '^[0-9a-f]{64}$'::text))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_pkey",
+        "definition": "PRIMARY KEY (identifier)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_requests_check",
+        "definition": "CHECK ((requests > 0))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_admin_stage_check",
+        "definition": "CHECK ((admin_stage = ANY (ARRAY['new'::text, 'contacted'::text, 'qualified'::text, 'won'::text, 'lost'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_city_check",
+        "definition": "CHECK (((length(TRIM(BOTH FROM city)) >= 1) AND (length(TRIM(BOTH FROM city)) <= 120)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_company_name_check",
+        "definition": "CHECK (((length(TRIM(BOTH FROM company_name)) >= 1) AND (length(TRIM(BOTH FROM company_name)) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_contact_name_check",
+        "definition": "CHECK (((contact_name IS NULL) OR (length(contact_name) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_daily_command_attempts_check",
+        "definition": "CHECK ((daily_command_attempts >= 0))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_daily_command_status_check",
+        "definition": "CHECK ((daily_command_status = ANY (ARRAY['pending'::text, 'synced'::text, 'blocked'::text, 'exhausted'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_email_check",
+        "definition": "CHECK (((email IS NULL) OR ((length(email) <= 254) AND (POSITION(('@'::text) IN (email)) > 1))))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_external_id_check",
+        "definition": "CHECK ((external_id ~ '^cli_[0-9a-f-]{36}$'::text))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_form_type_check",
+        "definition": "CHECK ((form_type = 'demo'::text))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_landing_page_check",
+        "definition": "CHECK (((landing_page ~~ '/%'::text) AND (landing_page !~~ '//%'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_message_check",
+        "definition": "CHECK (((message IS NULL) OR (length(message) <= 3000)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_phone_check",
+        "definition": "CHECK (((phone IS NULL) OR (length(phone) <= 40)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_pkey",
+        "definition": "PRIMARY KEY (external_id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_priority_check",
+        "definition": "CHECK (((length(priority) >= 1) AND (length(priority) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_role_check",
+        "definition": "CHECK (((length(role) >= 1) AND (length(role) <= 100)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_submission_fingerprint_check",
+        "definition": "CHECK ((submission_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_utm_campaign_check",
+        "definition": "CHECK (((utm_campaign IS NULL) OR (length(utm_campaign) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_utm_medium_check",
+        "definition": "CHECK (((utm_medium IS NULL) OR (length(utm_medium) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_leads",
+        "conname": "clinahir_leads_utm_source_check",
+        "definition": "CHECK (((utm_source IS NULL) OR (length(utm_source) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_address_check",
+        "definition": "CHECK (((address IS NULL) OR (length(address) <= 500)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_category_check",
+        "definition": "CHECK (((category IS NULL) OR (length(category) <= 120)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_center_name_check",
+        "definition": "CHECK (((length(TRIM(BOTH FROM center_name)) >= 1) AND (length(TRIM(BOTH FROM center_name)) <= 200)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_check",
+        "definition": "CHECK (((whatsapp_opt_in_at IS NULL) = (whatsapp_opt_in_evidence IS NULL)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_check1",
+        "definition": "CHECK (((qualification_stage <> 'do_not_contact'::text) OR (whatsapp_opt_in_at IS NULL)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_city_check",
+        "definition": "CHECK (((length(TRIM(BOTH FROM city)) >= 1) AND (length(TRIM(BOTH FROM city)) <= 120)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_email_check",
+        "definition": "CHECK (((email IS NULL) OR ((length(email) <= 254) AND (POSITION(('@'::text) IN (email)) > 1))))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_facebook_url_check",
+        "definition": "CHECK (((facebook_url IS NULL) OR (facebook_url ~ '^https?://'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_gap_evidence_check",
+        "definition": "CHECK (((gap_evidence IS NULL) OR (length(gap_evidence) <= 1000)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_instagram_url_check",
+        "definition": "CHECK (((instagram_url IS NULL) OR (instagram_url ~ '^https?://'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_listing_url_check",
+        "definition": "CHECK (((listing_url IS NULL) OR (listing_url ~ '^https?://'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_main_gap_check",
+        "definition": "CHECK (((main_gap IS NULL) OR (length(main_gap) <= 500)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_normalized_name_normalized_city_key",
+        "definition": "UNIQUE (normalized_name, normalized_city)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_notes_check",
+        "definition": "CHECK ((length(notes) <= 3000))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_phone_check",
+        "definition": "CHECK (((phone IS NULL) OR (length(phone) <= 40)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_qualification_stage_check",
+        "definition": "CHECK ((qualification_stage = ANY (ARRAY['review'::text, 'qualified'::text, 'not_a_fit'::text, 'do_not_contact'::text])))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_rating_check",
+        "definition": "CHECK (((rating IS NULL) OR ((rating >= (0)::numeric) AND (rating <= (5)::numeric))))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_review_count_check",
+        "definition": "CHECK (((review_count IS NULL) OR (review_count >= 0)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_source_name_check",
+        "definition": "CHECK (((length(TRIM(BOTH FROM source_name)) >= 1) AND (length(TRIM(BOTH FROM source_name)) <= 120)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_source_url_check",
+        "definition": "CHECK ((source_url ~ '^https?://'::text))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_source_use_confirmed_check",
+        "definition": "CHECK (source_use_confirmed)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_tiktok_url_check",
+        "definition": "CHECK (((tiktok_url IS NULL) OR (tiktok_url ~ '^https?://'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_website_url_check",
+        "definition": "CHECK (((website_url IS NULL) OR (website_url ~ '^https?://'::text)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_prospects",
+        "conname": "clinahir_prospects_whatsapp_opt_in_evidence_check",
+        "definition": "CHECK (((whatsapp_opt_in_evidence IS NULL) OR (length(whatsapp_opt_in_evidence) <= 500)))"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_site_content",
+        "conname": "clinahir_site_content_id_check",
+        "definition": "CHECK (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_site_content",
+        "conname": "clinahir_site_content_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_whatsapp_jobs",
+        "conname": "clinahir_whatsapp_jobs_external_id_fkey",
+        "definition": "FOREIGN KEY (external_id) REFERENCES clinahir_leads(external_id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_whatsapp_jobs",
+        "conname": "clinahir_whatsapp_jobs_pkey",
+        "definition": "PRIMARY KEY (external_id)"
+      },
+      {
+        "nspname": "public",
+        "relname": "clinahir_whatsapp_jobs",
+        "conname": "clinahir_whatsapp_jobs_status_check",
+        "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'blocked'::text, 'review'::text, 'exhausted'::text])))"
+      }
+    ]
+  },
+  "status": "passed",
+  "permissionRepair": "Target provider defaults granted anon/authenticated permissions when restore created tables. Explicitly revoked all browser table/sequence/private-function grants to match reviewed source; service_role grants retained. Required recovery step, not a backup-only certification.",
+  "preRepairFailures": [
+    {
+      "name": "restored private table grants reject both browser roles",
+      "passed": false
+    }
+  ]
+}

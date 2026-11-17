@@ -1,0 +1,16 @@
+{
+  "executedAt": "2026-11-16T09:16:31.027Z",
+  "organization": "brsuzhrspehgfpsoloyi",
+  "name": "clinahir-staging-restore",
+  "scope": "new isolated Free/Nano project only; no existing project changes",
+  "plan": "free",
+  "quotedPlanMonthlyUSD": 0,
+  "httpStatus": 201,
+  "status": "created",
+  "project": {
+    "id": "xrfptjnsjckqgbvhvrwp",
+    "name": "clinahir-staging-restore",
+    "status": "ACTIVE_HEALTHY",
+    "region": "eu-west-1"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "executedAt": "2026-11-16T11:07:51.081Z",
+  "scope": "Require database SSL on dedicated Clinahir and CRM staging projects only; no live project or credentials changed",
+  "checks": [
+    {
+      "name": "provider confirms database SSL enforcement fsfqgionuuxykpoxhrdm",
+      "passed": true
+    },
+    {
+      "name": "management database access recovers fsfqgionuuxykpoxhrdm",
+      "passed": true
+    },
+    {
+      "name": "provider confirms database SSL enforcement wpjoszvojojuxmozkhkm",
+      "passed": true
+    },
+    {
+      "name": "management database access recovers wpjoszvojojuxmozkhkm",
+      "passed": true
+    },
+    {
+      "name": "CRM session pooler connection uses certificate-verified TLS",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

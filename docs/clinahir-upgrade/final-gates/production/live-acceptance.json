@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-11-17T13:09:24.543Z",
+  "status": "passed",
+  "externalId": "cli_9c71f949-0f12-4f6b-8eab-47ca1e881ab2",
+  "checks": [
+    {
+      "path": "/api/environment",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/admin?action=session",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/cron/leads",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "fictional_submission_1",
+      "status": 201,
+      "passed": true,
+      "externalId": "cli_9c71f949-0f12-4f6b-8eab-47ca1e881ab2"
+    },
+    {
+      "name": "fictional_submission_2",
+      "status": 201,
+      "passed": true,
+      "externalId": "cli_9c71f949-0f12-4f6b-8eab-47ca1e881ab2"
+    }
+  ],
+  "realCustomerDataUsed": false,
+  "whatsappAuthorized": false,
+  "independentDatabaseVerification": {
+    "sourceRows": 1,
+    "crmRows": 1,
+    "correctRecipient": true,
+    "deliveryStatus": "synced",
+    "deliveryAttempts": 1,
+    "acknowledged": true,
+    "sentWhatsAppJobs": 0,
+    "totalSourceLeads": 7
+  },
+  "fixtureDisposition": "Retained as clearly labeled synthetic release check; no real records deleted"
+}

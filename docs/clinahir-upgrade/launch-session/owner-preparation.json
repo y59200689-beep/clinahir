@@ -1,0 +1,14 @@
+{
+  "executedAt": "2026-11-16T14:21:50.252Z",
+  "projectRef": "fsfqgionuuxykpoxhrdm",
+  "ownerEmail": "youssef…@gmail.com",
+  "recoveryEmail": "ysfk…@gmail.com",
+  "userId": "29a461eb-da31-4b77-8d6a-2c0b13fb9af6",
+  "status": "account_prepared",
+  "created": true,
+  "passwordGenerated": false,
+  "emailSent": false,
+  "adminAllowlistChanged": false,
+  "humanMfaEnrollmentVerified": false,
+  "scope": "Owner-requested staging account only; personal password and MFA enrollment remain private owner actions; recovery operator receives no business-admin grant"
+}

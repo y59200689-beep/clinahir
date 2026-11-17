@@ -1,0 +1,17 @@
+{
+  "startedAt": "2026-11-17T13:08:24.827Z",
+  "promotions": [
+    {
+      "name": "crm",
+      "url": "https://daily-command-center-qf58bvwka-paraoonline.vercel.app",
+      "status": "promoted",
+      "at": "2026-11-17T13:08:31.910Z"
+    },
+    {
+      "name": "source",
+      "url": "https://clinahir-9qahfalfz-paraoonline.vercel.app",
+      "status": "promoted",
+      "at": "2026-11-17T13:08:37.148Z"
+    }
+  ]
+}

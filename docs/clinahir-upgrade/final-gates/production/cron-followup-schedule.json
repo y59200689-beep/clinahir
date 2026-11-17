@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-11-17T13:23:25.083Z",
+  "projectCrons": {
+    "enabledAt": 1791020840799,
+    "disabledAt": null,
+    "updatedAt": 1794920914941,
+    "deploymentId": "dpl_AuvzgC644YQHG71wpGkpqPvubszu",
+    "definitions": [
+      {
+        "host": "clinahir-9qahfalfz-paraoonline.vercel.app",
+        "path": "/api/cron/leads",
+        "schedule": "0 3 * * *"
+      }
+    ]
+  },
+  "deploymentId": "dpl_AuvzgC644YQHG71wpGkpqPvubszu"
+}

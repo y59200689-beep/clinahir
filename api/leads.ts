@@ -1,8 +1,10 @@
+import { environmentFailure } from '../server/environment.js';
 import { processWhatsApp } from '../server/whatsapp.js';
 import { serverConfig } from '../server/config.js';
 import { leadRequest } from '../server/http.js';
 import { SupabaseLeadStore } from '../server/supabase.js';
 export async function POST(request: Request): Promise<Response> {
+  const failure = environmentFailure(process.env, request); if (failure) return failure;
   try {
     const store=new SupabaseLeadStore(process.env.SUPABASE_URL ?? '', process.env.SUPABASE_SERVICE_ROLE_KEY ?? '');
     const response=await leadRequest(request,store,serverConfig(process.env));

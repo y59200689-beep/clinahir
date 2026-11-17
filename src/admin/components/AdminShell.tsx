@@ -1,4 +1,6 @@
-import { useState, useEffect, type ReactNode } from 'react';
+import { AdminLanguageSwitch } from '../i18n';
+import { useAdminLocale } from '../i18n';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import {
   LayoutDashboard,
   Users,
@@ -45,12 +47,30 @@ export function AdminShell({
   newLeadsCount = 0,
   children,
 }: AdminShellProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
+  const sidebar = useRef<HTMLElement>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [currentPage]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const controls = () => Array.from(sidebar.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? []).filter(element => element.getClientRects().length);
+    controls()[0]?.focus();
+    const keyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setMobileMenuOpen(false); }
+      if (event.key !== 'Tab') return;
+      const items = controls(), first = items[0], last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener('keydown', keyboard);
+    return () => { document.removeEventListener('keydown', keyboard); previous?.focus(); };
+  }, [mobileMenuOpen]);
 
   const navGroups = [
     {
@@ -79,7 +99,7 @@ export function AdminShell({
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans flex flex-col md:flex-row antialiased">
+    <div className="admin-workspace min-h-screen bg-[#f5f5f9] text-slate-900 font-sans flex flex-col md:flex-row antialiased">
       {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
@@ -89,40 +109,37 @@ export function AdminShell({
       )}
 
       {/* Navigation Sidebar */}
-      <aside
-        className={`fixed md:sticky top-0 h-screen z-50 md:z-30 bg-[#0A261D] text-slate-200 border-r border-[#0D382B] flex flex-col transition-[width,transform] duration-200 ease-in-out ${
+      <aside ref={sidebar} aria-label={t("Business navigation")}
+        className={`fixed md:sticky top-0 h-screen z-50 md:z-30 bg-white text-slate-700 border-r border-slate-200 flex flex-col transition-[width,transform] duration-200 ease-in-out ${
           sidebarCollapsed ? 'w-16' : 'w-64'
         } ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Brand Header */}
-        <div className="h-16 px-4 border-b border-emerald-900/40 flex items-center justify-between">
+        <div className="h-16 px-4 border-b border-slate-200 flex items-center justify-between">
           <a
             href="/"
             className="flex items-center gap-2.5 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded p-1"
           >
-            <div className="w-7 h-7 rounded-md bg-emerald-500 flex items-center justify-center text-[#0A261D] font-bold text-sm">
-              C
-            </div>
+            <div className="w-7 h-7 rounded-md bg-[#6754cf] flex items-center justify-center text-white font-bold text-sm"> {t("C")} </div>
             {!sidebarCollapsed && (
-              <span className="font-semibold text-sm text-white tracking-normal">
-                Clinahir
-              </span>
+              <span className="font-semibold text-sm text-slate-900 tracking-normal"> {t("Clinahir")} </span>
             )}
           </a>
 
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="hidden md:flex w-7 h-7 rounded items-center justify-center text-emerald-300/60 hover:text-white hover:bg-emerald-900/50 transition-colors"
-            title={sidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+            className="hidden md:flex w-7 h-7 rounded items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+            title={sidebarCollapsed ? t("Expand navigation") : t("Collapse navigation")}
           >
             {sidebarCollapsed ? <PanelLeftOpen size={15} /> : <PanelLeftClose size={15} />}
           </button>
 
           <button
+            aria-label={t("Close navigation")}
             onClick={() => setMobileMenuOpen(false)}
-            className="md:hidden w-7 h-7 rounded flex items-center justify-center text-emerald-300/60 hover:text-white"
+            className="md:hidden w-7 h-7 rounded flex items-center justify-center text-slate-500 hover:text-slate-900"
           >
             <X size={16} />
           </button>
@@ -133,8 +150,8 @@ export function AdminShell({
           {navGroups.map((group) => (
             <div key={group.group}>
               {!sidebarCollapsed && (
-                <div className="px-2 mb-1.5 text-xs font-medium text-emerald-300/50">
-                  {group.group}
+                <div className="px-2 mb-1.5 text-xs font-medium text-slate-500">
+                  {t(group.group)}
                 </div>
               )}
               <div className="space-y-0.5">
@@ -145,25 +162,26 @@ export function AdminShell({
                   return (
                     <button
                       key={item.name}
+                      aria-current={isActive ? 'page' : undefined}
                       onClick={() => onNavigate(item.name)}
                       title={sidebarCollapsed ? item.label : undefined}
                       className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors ${
                         isActive
-                          ? 'bg-emerald-600/90 text-white font-semibold'
-                          : 'text-emerald-100/70 hover:bg-emerald-900/40 hover:text-white'
+                          ? 'bg-[#eeebfb] text-[#5943b6] font-semibold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                       } ${sidebarCollapsed ? 'justify-center px-1' : ''}`}
                     >
                       <Icon
                         size={16}
-                        className={isActive ? 'text-white' : 'text-emerald-300/70'}
+                        className={isActive ? 'text-[#6754cf]' : 'text-slate-500'}
                       />
                       {!sidebarCollapsed && (
                         <span className="flex-1 text-left truncate">
-                          {item.label}
+                          {t(item.label)}
                         </span>
                       )}
                       {!sidebarCollapsed && item.badge !== undefined && (
-                        <span className="px-1.5 py-0.2 text-[11px] font-mono font-bold rounded bg-emerald-400 text-[#0A261D]">
+                        <span className="px-1.5 py-0.2 text-[11px] font-mono font-bold rounded bg-[#eeebfb] text-[#5943b6]">
                           {item.badge}
                         </span>
                       )}
@@ -176,21 +194,19 @@ export function AdminShell({
         </div>
 
         {/* User Card (Pinned Bottom) */}
-        <div className="p-3 border-t border-emerald-900/40 bg-[#071F17]">
+        <div className="p-3 border-t border-slate-200 bg-slate-50">
           <div
-            className={`flex items-center gap-2.5 p-2 rounded-lg bg-emerald-950/40 border border-emerald-900/50 ${
+            className={`flex items-center gap-2.5 p-2 rounded-lg bg-white border border-slate-200 ${
               sidebarCollapsed ? 'justify-center' : ''
             }`}
           >
-            <div className="w-7 h-7 rounded bg-emerald-800 text-white font-bold text-xs flex items-center justify-center shrink-0">
-              YM
+            <div className="w-7 h-7 rounded bg-[#6754cf] text-white font-bold text-xs flex items-center justify-center shrink-0">
+              {userEmail?.slice(0, 2).toUpperCase() || t("C")}
             </div>
             {!sidebarCollapsed && (
               <div className="flex-1 min-w-0 text-left">
-                <div className="text-xs font-medium text-white truncate">
-                  Director
-                </div>
-                <div className="text-[11px] text-emerald-300/50 truncate font-mono">
+                <div className="text-xs font-medium text-slate-900 truncate"> {t("Director")} </div>
+                <div className="text-[11px] text-slate-500 truncate font-mono">
                   {userEmail || 'admin@clinahir.tech'}
                 </div>
               </div>
@@ -198,8 +214,8 @@ export function AdminShell({
             {!sidebarCollapsed && (
               <button
                 onClick={onLogout}
-                className="w-6 h-6 rounded flex items-center justify-center text-emerald-400/60 hover:text-rose-300 hover:bg-rose-950/30 transition-colors"
-                title="Sign out"
+                className="w-6 h-6 rounded flex items-center justify-center text-slate-500 hover:text-rose-300 hover:bg-rose-950/30 transition-colors"
+                title={t("Sign out")}
               >
                 <LogOut size={14} />
               </button>
@@ -209,11 +225,12 @@ export function AdminShell({
       </aside>
 
       {/* Main Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div inert={mobileMenuOpen} className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
         <header className="sticky top-0 z-20 h-14 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 px-4 sm:px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
+              aria-label={t("Open navigation")} aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden w-8 h-8 rounded border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100"
             >
@@ -222,34 +239,34 @@ export function AdminShell({
 
             {/* Breadcrumb Trail */}
             <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-              <span className="text-slate-400">Workspace</span>
+              <span className="text-slate-400"> {t("Workspace")} </span>
               <ChevronRight size={13} className="text-slate-300" />
               <span className="text-slate-800 font-semibold">
                 {currentPage === 'Overview'
-                  ? 'Overview'
+                  ? t("Overview")
                   : currentPage === 'Leads'
-                  ? 'Inbound Leads'
+                  ? t("Inbound Leads")
                   : currentPage === 'Prospects'
-                  ? 'Prospects'
+                  ? t("Prospects")
                   : currentPage === 'Website'
-                  ? 'Website'
+                  ? t("Website")
                   : currentPage === 'Analytics'
-                  ? 'Analytics'
+                  ? t("Analytics")
                   : currentPage === 'Deliveries'
-                  ? 'Deliveries'
+                  ? t("Deliveries")
                   : currentPage === 'Activity'
-                  ? 'Activity'
-                  : 'Settings'}
+                  ? t("Activity")
+                  : t("Settings")}
               </span>
             </div>
           </div>
 
           {/* Right Header Badges & Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3"><AdminLanguageSwitch />
             {/* Live Indicator */}
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200/60 text-slate-600 text-xs font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>Operational</span>
+              <span> {t("Owner workspace")} </span>
             </div>
 
             {/* Direct Link to Live Site */}
@@ -259,7 +276,7 @@ export function AdminShell({
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-1"
             >
-              <span>Live site</span>
+              <span> {t("Public website")} </span>
               <ExternalLink size={12} />
             </a>
 
@@ -267,7 +284,7 @@ export function AdminShell({
             <button
               onClick={onLogout}
               className="md:hidden w-7 h-7 rounded flex items-center justify-center text-slate-500 hover:text-rose-600"
-              title="Sign out"
+              title={t("Sign out")}
             >
               <LogOut size={15} />
             </button>
@@ -281,7 +298,7 @@ export function AdminShell({
 
         {/* Footer */}
         <footer className="border-t border-slate-200/60 px-4 sm:px-8 py-4 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Clinahir Workspace</span>
+          <span> {t("Clinahir Workspace")} </span>
           <span className="font-mono">© {new Date().getFullYear()}</span>
         </footer>
       </div>

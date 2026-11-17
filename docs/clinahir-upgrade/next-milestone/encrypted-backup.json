@@ -1,0 +1,16 @@
+{
+  "executedAt": "2026-11-16T10:45:47.516Z",
+  "status": "passed",
+  "scope": "Existing verified synthetic archive encrypted locally; key stored separately in macOS Keychain, recovered and tested",
+  "cipher": "AES-256-GCM",
+  "sourceSha256": "f9f3699c9492ad9d0ec7c36339f7d664396c1b040f3eed10d9425330d441db1f",
+  "encryptedSha256": "94837cdfb7c5dd5d115a40351df5c670b470945e2debbe32e2feb3079fde206a",
+  "mode": "600",
+  "checks": {
+    "keychainReadback": true,
+    "exactDecryption": true,
+    "tamperRejected": true,
+    "decryptedPgArchiveReadable": true
+  },
+  "limits": "Original private plaintext exports retained; no offsite retention, other-operator key recovery, RPO/RTO or full Auth/Storage restore claimed."
+}

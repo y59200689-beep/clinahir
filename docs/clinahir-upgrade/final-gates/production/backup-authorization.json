@@ -1,0 +1,57 @@
+{
+  "recordedDate": "2026-11-16",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "userInstruction": "go for the next task",
+  "authorizationContext": "Response to the proposed production backup-only, encrypted offsite storage and isolated local restore gate in backup-approval-plan.md",
+  "authorizedScope": "Existing-credential read-only catalog review and scoped export; fresh-key encryption; approved private Drive storage and reader sharing; isolated local restore verification",
+  "productionActivationAuthorized": false,
+  "productionPermissionChangesAuthorized": false,
+  "executionStatus": "backup_recovery_gate_passed",
+  "accessEvidence": {
+    "supabaseConnector": "Project identity verified: clinahir, jsagrvxgydvhdoxibzny, organization ictxrvikmelaingrsqzq; approved catalog review completed in read-only transactions",
+    "localCli": "Existing Supabase CLI Keychain credential unavailable; no credential values printed. Known local backup credential is staging-only and was not reused.",
+    "browser": "Previously verified signed-in dashboard; browser session is not an export credential",
+    "exportConnection": "Existing private credential authenticated; verify-full client TLS and explicit read-only SQL transactions used. pg_stat_ssl is pooler-to-backend metadata, not the client TLS indicator."
+  },
+  "productionExportPerformed": true,
+  "productionOffsiteUploadPerformed": true,
+  "productionDatabaseChangesPerformed": false,
+  "nextStep": "Backup and isolated application recovery gate closed. Production migration preparation/rehearsal is a separate next task; no production activation, deployment, permission change or migration is authorized by this receipt.",
+  "lastCheckedAt": "2026-11-16T23:45:57.673771+00:00",
+  "catalogReview": {
+    "status": "completed_read_only",
+    "receipt": "catalog-review-results.json",
+    "applicationTables": 3,
+    "applicationViews": 1,
+    "applicationRoutines": 7,
+    "businessRowsSelected": false
+  },
+  "productionRestorePerformed": true,
+  "preflight": {
+    "dockerEngineAvailable": true,
+    "dockerVersion": "29.9.2",
+    "productionCredentialLocationRequested": true,
+    "credentialValuesRequestedInChat": false,
+    "driveDiscovery": "Only existing recovery-backup folder found; separate production folder not created yet",
+    "recoveryKeyCustody": "pending creation and owner confirmation; no off-Mac custody claimed"
+  },
+  "backupReceipts": {
+    "encryptedExport": "encrypted-backup.json",
+    "isolatedRestore": "isolated-restore.json",
+    "driveFolderId": "16PUVR7LKSZl54dAEOAMyR2FePNAORbIO",
+    "driveArchiveId": "1rWCHixrX3u0UUGayGXqU-y5sATbC9UXN",
+    "driveManifestId": "1hr0i2RWeMpUa8WIx2yv7XP-jh6MZv-Rg",
+    "independentDownloadDecryptionVerified": true,
+    "isolatedRestoreChecksPassed": 17,
+    "containerRemoved": true
+  },
+  "backupGateClosedAt": "2026-11-16T23:45:57.673771+00:00",
+  "recoveryKeyCustody": {
+    "confirmedAt": "2026-11-16T23:45:57.673771+00:00",
+    "status": "owner_confirmed_offline_off_mac_copy_secured",
+    "evidence": "Explicit user confirmation: offline key copy secured",
+    "verificationLimit": "Owner attestation; physical medium, location and independent human recovery not inspected",
+    "backupId": "2026-11-16T23-30-09-724Z",
+    "keyUploadedToDrive": false
+  }
+}

@@ -1,0 +1,793 @@
+{
+  "checkedAt": "2026-11-16T01:03:10.248Z",
+  "organization": "ictxrvikmelaingrsqzq",
+  "mode": "read-only plan and provisioning entitlement checks",
+  "credentialAvailable": true,
+  "checks": {
+    "organization": {
+      "httpStatus": 200,
+      "details": {
+        "id": "ictxrvikmelaingrsqzq",
+        "name": "ysfkhaourimahir@gmail.com's Org",
+        "plan": "free"
+      }
+    },
+    "entitlements": {
+      "httpStatus": 200,
+      "details": {
+        "entitlements": [
+          {
+            "feature": {
+              "key": "instances.compute_update_available_sizes",
+              "type": "set"
+            },
+            "hasAccess": false,
+            "type": "set",
+            "config": {
+              "enabled": false,
+              "set": []
+            }
+          },
+          {
+            "feature": {
+              "key": "instances.read_replicas",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "instances.disk_modifications",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "instances.high_availability",
+              "type": "numeric"
+            },
+            "hasAccess": false,
+            "type": "numeric",
+            "config": {
+              "enabled": false,
+              "value": 1000,
+              "unlimited": false,
+              "unit": "projects"
+            }
+          },
+          {
+            "feature": {
+              "key": "instances.orioledb",
+              "type": "boolean"
+            },
+            "hasAccess": true,
+            "type": "boolean",
+            "config": {
+              "enabled": true
+            }
+          },
+          {
+            "feature": {
+              "key": "replication.etl",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.max_file_size",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 52428800,
+              "unlimited": false,
+              "unit": "byte"
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.max_file_size.configurable",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.iceberg_catalog",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.image_transformations",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.vector_buckets",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "storage.purge_cache",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.audit_logs_days",
+              "type": "numeric"
+            },
+            "hasAccess": false,
+            "type": "numeric",
+            "config": {
+              "enabled": false,
+              "value": 0,
+              "unlimited": false,
+              "unit": "days"
+            }
+          },
+          {
+            "feature": {
+              "key": "security.soc2_report",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.iso27001_certificate",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.questionnaire",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.enforce_mfa",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "log.retention_days",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 1,
+              "unlimited": false,
+              "unit": "days"
+            }
+          },
+          {
+            "feature": {
+              "key": "custom_domain",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "vanity_subdomain",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "ipv4",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "pitr.available_variants",
+              "type": "set"
+            },
+            "hasAccess": false,
+            "type": "set",
+            "config": {
+              "enabled": false,
+              "set": []
+            }
+          },
+          {
+            "feature": {
+              "key": "log_drains",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "audit_log_drains",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "branching_persistent",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "branching_limit",
+              "type": "numeric"
+            },
+            "hasAccess": false,
+            "type": "numeric",
+            "config": {
+              "enabled": false,
+              "value": 0,
+              "unlimited": false,
+              "unit": "branches"
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.mfa_phone",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.mfa_web_authn",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.mfa_enhanced_security",
+              "type": "boolean"
+            },
+            "hasAccess": true,
+            "type": "boolean",
+            "config": {
+              "enabled": true
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.hooks",
+              "type": "set"
+            },
+            "hasAccess": true,
+            "type": "set",
+            "config": {
+              "enabled": true,
+              "set": [
+                "HOOK_CUSTOM_ACCESS_TOKEN",
+                "HOOK_SEND_SMS",
+                "HOOK_SEND_EMAIL",
+                "HOOK_BEFORE_USER_CREATED",
+                "HOOK_AFTER_USER_CREATED"
+              ]
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.platform.sso",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.custom_jwt_template",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.saml_2",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.user_sessions",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.leaked_password_protection",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.advanced_auth_settings",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.performance_settings",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.password_hibp",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "auth.custom_oauth.max_providers",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 3,
+              "unlimited": false,
+              "unit": "providers"
+            }
+          },
+          {
+            "feature": {
+              "key": "backup.retention_days",
+              "type": "numeric"
+            },
+            "hasAccess": false,
+            "type": "numeric",
+            "config": {
+              "enabled": false,
+              "value": 0,
+              "unlimited": false,
+              "unit": "days"
+            }
+          },
+          {
+            "feature": {
+              "key": "backup.restore_to_new_project",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "backup.schedule",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.private_link",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "function.max_count",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 100,
+              "unlimited": false,
+              "unit": "functions"
+            }
+          },
+          {
+            "feature": {
+              "key": "function.size_limit_mb",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 20,
+              "unlimited": false,
+              "unit": "MB"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_concurrent_users",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 200,
+              "unlimited": false,
+              "unit": "users"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_events_per_second",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 100,
+              "unlimited": false,
+              "unit": "events/second"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_joins_per_second",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 100,
+              "unlimited": false,
+              "unit": "joins/second"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_channels_per_client",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 100,
+              "unlimited": false,
+              "unit": "channels/client"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_bytes_per_second",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 100000,
+              "unlimited": false,
+              "unit": "bytes/second"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_presence_events_per_second",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 20,
+              "unlimited": false,
+              "unit": "events/second"
+            }
+          },
+          {
+            "feature": {
+              "key": "realtime.max_payload_size_in_kb",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 256,
+              "unlimited": false,
+              "unit": "KB"
+            }
+          },
+          {
+            "feature": {
+              "key": "project_scoped_roles",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "security.member_roles",
+              "type": "set"
+            },
+            "hasAccess": true,
+            "type": "set",
+            "config": {
+              "enabled": true,
+              "set": [
+                "Administrator",
+                "Developer",
+                "Owner"
+              ]
+            }
+          },
+          {
+            "feature": {
+              "key": "project_pausing",
+              "type": "boolean"
+            },
+            "hasAccess": true,
+            "type": "boolean",
+            "config": {
+              "enabled": true
+            }
+          },
+          {
+            "feature": {
+              "key": "project_cloning",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "project_restore_after_expiry",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "assistant.advance_model",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "integrations.github_connections",
+              "type": "boolean"
+            },
+            "hasAccess": true,
+            "type": "boolean",
+            "config": {
+              "enabled": true
+            }
+          },
+          {
+            "feature": {
+              "key": "integrations.github_push_webhooks_limit",
+              "type": "numeric"
+            },
+            "hasAccess": true,
+            "type": "numeric",
+            "config": {
+              "enabled": true,
+              "value": 1000,
+              "unlimited": false,
+              "unit": "webhooks/month"
+            }
+          },
+          {
+            "feature": {
+              "key": "dedicated_pooler",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "observability.dashboard_advanced_metrics",
+              "type": "set"
+            },
+            "hasAccess": false,
+            "type": "set",
+            "config": {
+              "enabled": false,
+              "set": []
+            }
+          },
+          {
+            "feature": {
+              "key": "api.members.invitations",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          },
+          {
+            "feature": {
+              "key": "api.members.roles",
+              "type": "boolean"
+            },
+            "hasAccess": false,
+            "type": "boolean",
+            "config": {
+              "enabled": false
+            }
+          }
+        ]
+      }
+    }
+  }
+}

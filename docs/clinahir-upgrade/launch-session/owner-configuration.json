@@ -1,0 +1,11 @@
+{
+  "executedAt": "2026-11-16T14:48:05.398Z",
+  "projectId": "prj_ncLXnX0fRpThugNz33klNz4Sskq3",
+  "target": "preview",
+  "ownerId": "29a461eb-da31-4b77-8d6a-2c0b13fb9af6",
+  "ownerEmail": "youssef…@gmail.com",
+  "mfaRequired": true,
+  "status": "configured_for_next_preview",
+  "humanEnrollmentVerified": false,
+  "productionChanged": false
+}

@@ -1,0 +1,38 @@
+{
+  "createdAt": "2026-11-17T13:49:08.793Z",
+  "revision": "d4fe45346c44df55d0b606a9459586ee5e85d663",
+  "dirtyWorkingTree": true,
+  "lockfileSha256": "0ddbeb72b927a33eb1121e18841f2d8a599703db72df2617391f25f0f9f5eb45",
+  "indexHtmlSha256": "37e0632bddb5a7d89c21e7456ed280ab1d00ed7dd3ee4200e1dbf0dd2800eb91",
+  "migrations": [
+    {
+      "name": "20260930000000_clinahir_base.sql",
+      "sha256": "8fb5c992c62ec95c4300c0685595787411128783bcc2fc68f7f5bb329835c1d1"
+    },
+    {
+      "name": "20261003095303_clinahir_supabase_outbox.sql",
+      "sha256": "d695a80b5f361b2c38227c1787377d00b0c4d880144cd9712a23bc1cc3b4faa2"
+    },
+    {
+      "name": "20261004180738_clinahir_conversion_analytics.sql",
+      "sha256": "a52f9e4a974738a813f15f24f92bbb21bddeed3786b6beee997c31531d217a5d"
+    },
+    {
+      "name": "20261020165330_whatsapp_contact_leads.sql",
+      "sha256": "73882fddb3d62152a90c1e91af03ce6a2a8f25d011255ea59b8157eff5046412"
+    },
+    {
+      "name": "20261020171750_clinahir_admin_workspace.sql",
+      "sha256": "5d524d4ce337d92a386b909e34b60392118f74fba17d85a1e26598e9b4f8fe99"
+    },
+    {
+      "name": "20261024110233_preselection_prospects.sql",
+      "sha256": "1996595fc228e27e9c2df417145ac130e734556321cfeed2dce74b344cb43ca4"
+    },
+    {
+      "name": "20261026090000_prospect_address_category_and_filters.sql",
+      "sha256": "6e4082be3b03cc87a3e1a5a1cecff8b271c10345717a6ef3c1ddd5a546684609"
+    }
+  ],
+  "limitations": "Local artifact inventory only. No deployment or remote migration reconciliation. Dirty changes must be reviewed and captured in an immutable release revision."
+}

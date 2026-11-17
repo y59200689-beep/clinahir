@@ -1,0 +1,81 @@
+{
+  "executedAt": "2026-11-16T14:46:05.793Z",
+  "scope": "New synthetic account; actual Supabase Auth MFA with locally executed admin handler and real source database; no human credentials or factor enrollment",
+  "checks": [
+    {
+      "name": "synthetic MFA account provisioned without invitation email",
+      "passed": true
+    },
+    {
+      "name": "synthetic setup link generated without sending email",
+      "passed": true
+    },
+    {
+      "name": "actual one-time email verification succeeds",
+      "passed": true
+    },
+    {
+      "name": "actual OTP session can enter private owner setup",
+      "passed": true
+    },
+    {
+      "name": "owner password setup succeeds with both private cookies",
+      "passed": true
+    },
+    {
+      "name": "password setup clears bootstrap cookies",
+      "passed": true
+    },
+    {
+      "name": "actual password login enters MFA-pending state",
+      "passed": true
+    },
+    {
+      "name": "MFA-pending actual owner denied snapshot",
+      "passed": true
+    },
+    {
+      "name": "actual provider enrollment succeeds",
+      "passed": true
+    },
+    {
+      "name": "provisioning code is private same-origin SVG",
+      "passed": true
+    },
+    {
+      "name": "actual provider OTP verification succeeds",
+      "passed": true
+    },
+    {
+      "name": "verification JSON contains no access token",
+      "passed": true
+    },
+    {
+      "name": "actual AAL2 session can read private snapshot",
+      "passed": true
+    },
+    {
+      "name": "old actual AAL1 session still cannot read business data",
+      "passed": true
+    },
+    {
+      "name": "synthetic factor removed after test",
+      "passed": true
+    },
+    {
+      "name": "stale AAL2 cannot bypass mandatory factor enrollment",
+      "passed": true
+    }
+  ],
+  "enrollmentDiagnostic": {
+    "httpStatus": 200,
+    "hasFactorId": true,
+    "qrLength": 321600,
+    "svgOffset": 49,
+    "hasQr": true,
+    "qrStartsSvg": false,
+    "qrStartsXml": true,
+    "qrStartsData": false
+  },
+  "status": "passed"
+}

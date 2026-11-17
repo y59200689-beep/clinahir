@@ -1,0 +1,5 @@
+import {readdir,readFile,writeFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';
+const digest=async path=>createHash('sha256').update(await readFile(path)).digest('hex');
+const migrations=await Promise.all((await readdir('supabase/migrations')).filter(n=>n.endsWith('.sql')).sort().map(async name=>({name,sha256:await digest('supabase/migrations/'+name)})));
+const report={createdAt:new Date().toISOString(),revision:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),dirtyWorkingTree:Boolean(execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim()),lockfileSha256:await digest('package-lock.json'),indexHtmlSha256:await digest('dist/client/index.html'),migrations,limitations:'Local artifact inventory only. No deployment or remote migration reconciliation. Dirty changes must be reviewed and captured in an immutable release revision.'};
+await writeFile('docs/clinahir-upgrade/phase3/release-manifest.json',JSON.stringify(report,null,2)+'\n');console.log('Local release/migration digests recorded; no remote state inspected.');

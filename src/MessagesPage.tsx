@@ -3,34 +3,9 @@ import { useMemo, useState } from 'react';
 import { Check, CheckCheck, Inbox, Mail, MailOpen, MessageSquare, RotateCw } from 'lucide-react';
 
 type Language = 'en' | 'fr';
-type Message = { id: number; sender: string; receivedAt: string; subject: string; preview: string; body: string; category: 'reminder' | 'availability' | 'question'; read: boolean };
 type Filter = 'all' | 'unread' | 'read';
-
-const messageSubjects = [
-  ['Appointment reminder', 'Please confirm the time for my examination.', 'Hello, I would like to confirm the time of my upcoming examination. Please let me know if I need to bring any documents.'],
-  ['Morning availability', 'I am available in the morning.', 'Hello, I am available in the morning for my appointment. Could you let me know which time slots are still open?'],
-  ['Examination documents', 'Which documents should I bring?', 'Hello, could you tell me which documents I need to bring for my imaging appointment? Thank you.'],
-  ['Change of appointment', 'I need another time for my appointment.', 'Hello, I am unable to attend at the scheduled time. Could you help me choose another available time?'],
-  ['Report collection', 'When can I collect my report?', 'Hello, I would like to know when my examination report will be ready for collection.'],
-  ['Preparation question', 'Is any preparation needed beforehand?', 'Hello, please let me know whether I need to prepare for my examination before arriving at the center.'],
-] as const;
-
-const initialMessages: Message[] = Array.from({ length: 21 }, (_, index) => {
-  const content = messageSubjects[index % messageSubjects.length];
-  const day = 29 - Math.floor(index / 4);
-  const hour = 9 + (index % 8);
-  return {
-    id: index + 1,
-    sender: ['Youssef', 'Salma', 'Amine', 'Lina', 'Nadia', 'Karim'][index % 6],
-    receivedAt: `2026-09-${String(day).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${index % 2 ? '45' : '15'}:00`,
-    subject: content[0],
-    preview: content[1],
-    body: content[2],
-    category: index % 6 === 0 ? 'reminder' : index % 6 === 1 ? 'availability' : 'question',
-    read: index >= 18,
-  };
-});
-
+import { useDemo } from './demo/DemoProvider';
+import type { Message } from './demo/messages';
 const copy = {
   en: { title: 'Messages', total: 'Total messages', unread: 'Unread', read: 'Read', all: 'All', refresh: 'Refresh', updated: 'Up to date', select: 'Select a message to read it', noMessages: 'No messages in this view', noMessagesHint: 'Choose another filter to see more messages.', reminder: 'Reminder', availability: 'Availability', question: 'Question', markUnread: 'Mark as unread', markRead: 'Mark as read', received: 'Received' },
   fr: { title: 'Messages', total: 'Messages au total', unread: 'Non lus', read: 'Déjà lus', all: 'Tous', refresh: 'Actualiser', updated: 'À jour', select: 'Sélectionnez un message pour le lire', noMessages: 'Aucun message dans cette vue', noMessagesHint: 'Choisissez un autre filtre pour voir les messages.', reminder: 'Rappel', availability: 'Disponibilité', question: 'Question', markUnread: 'Marquer comme non lu', markRead: 'Marquer comme lu', received: 'Reçu le' },
@@ -40,7 +15,7 @@ const maskSender = (name: string) => `${name.trim().slice(0, 2).toLocaleUpperCas
 
 export default function MessagesPage({ language }: { language: Language }) {
   const t = copy[language];
-  const [messages, setMessages] = useState(initialMessages);
+  const { messages, setMessages } = useDemo();
   const [filter, setFilter] = useState<Filter>('all');
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [showUpdated, setShowUpdated] = useState(false);
@@ -70,7 +45,7 @@ export default function MessagesPage({ language }: { language: Language }) {
     setMessages((current) => current.map((item) => item.id === message.id ? { ...item, read: !item.read } : item));
   }
 
-  return <div className="min-w-0 space-y-5 text-left text-white/90">
+  return <div data-i18n-managed className="min-w-0 space-y-5 text-left text-white/90">
     <h1 className="text-2xl font-bold">{t.title}</h1>
     <div className="grid gap-4 sm:grid-cols-3">{summary.map((card) => <div key={card.label} className="flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/5 backdrop-blur-xl"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${card.surface} ${card.tone}`}><card.icon size={27} /></span><div className="min-w-0"><p className="text-3xl font-bold leading-none"><AnimatedMetricValue value={card.value} /></p><p className="mt-2 text-xs font-medium text-white/60">{card.label}</p></div></div>)}</div>
 

@@ -1,0 +1,718 @@
+{
+  "executedAt": "2026-11-16T01:07:42.264Z",
+  "scope": "Local real PostgreSQL only; no hosted Supabase/Auth/CRM acceptance claim",
+  "image": "public.ecr.aws/supabase/postgres:17.11.0.006",
+  "container": "clinahir-rehearsal-8b193354",
+  "network": "none",
+  "publishedPorts": false,
+  "checks": [
+    {
+      "name": "reviewed hash 20260930000000_clinahir_base.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261003095303_clinahir_supabase_outbox.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261004180738_clinahir_conversion_analytics.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261020165330_whatsapp_contact_leads.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261020171750_clinahir_admin_workspace.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261024110233_preselection_prospects.sql",
+      "passed": true
+    },
+    {
+      "name": "reviewed hash 20261026090000_prospect_address_category_and_filters.sql",
+      "passed": true
+    },
+    {
+      "name": "isolated postgres container started",
+      "passed": true
+    },
+    {
+      "name": "empty pre-migration baseline exported",
+      "passed": true
+    },
+    {
+      "name": "empty baseline restored to separate database",
+      "passed": true
+    },
+    {
+      "name": "empty baseline has no business tables",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20260930000000_clinahir_base.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261003095303_clinahir_supabase_outbox.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261004180738_clinahir_conversion_analytics.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261020165330_whatsapp_contact_leads.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261020171750_clinahir_admin_workspace.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261024110233_preselection_prospects.sql",
+      "passed": true
+    },
+    {
+      "name": "migration executed 20261026090000_prospect_address_category_and_filters.sql",
+      "passed": true
+    },
+    {
+      "name": "concurrent capture RPC calls succeed",
+      "passed": true
+    },
+    {
+      "name": "concurrent duplicate creates one durable lead",
+      "passed": true
+    },
+    {
+      "name": "concurrent claim RPC calls succeed",
+      "passed": true
+    },
+    {
+      "name": "one concurrent lease winner",
+      "passed": true
+    },
+    {
+      "name": "outage state and admin edit persisted",
+      "passed": true
+    },
+    {
+      "name": "business edit audit persisted",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon lacks SELECT clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks INSERT clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks UPDATE clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon lacks DELETE clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks SELECT clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks INSERT clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks UPDATE clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated lacks DELETE clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual private RPC execution denied",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual private RPC execution denied",
+      "passed": true
+    },
+    {
+      "name": "RLS independently hides rows under temporary SELECT grant",
+      "passed": true
+    },
+    {
+      "name": "temporary test grant rolled back",
+      "passed": true
+    },
+    {
+      "name": "synthetic full backup exported",
+      "passed": true
+    },
+    {
+      "name": "backup bytes read back with matching checksum",
+      "passed": true
+    },
+    {
+      "name": "full synthetic backup restored into separate database",
+      "passed": true
+    },
+    {
+      "name": "all table counts and complete row digests match after restore",
+      "passed": true
+    },
+    {
+      "name": "constraints match after restore",
+      "passed": true
+    },
+    {
+      "name": "anon denied on restored lead table",
+      "passed": true
+    },
+    {
+      "name": "authenticated denied on restored lead table",
+      "passed": true
+    },
+    {
+      "name": "restored lead remains readable by service role",
+      "passed": true
+    }
+  ],
+  "status": "passed",
+  "backup": {
+    "path": "output/staging/postgres-rehearsal-clinahir-rehearsal-8b193354.dump",
+    "bytes": 58188,
+    "sha256": "7da4574a971fa28cde3362dbf756961575f359a7567e08b63b0819c1725dbe53"
+  },
+  "manifest": {
+    "tables": [
+      {
+        "name": "clinahir_admin_audit",
+        "rows": 1,
+        "sha256": "6255792ac168832d404d2e9996b1797f9388e865f05953f8ea6b2193d5e7a24f"
+      },
+      {
+        "name": "clinahir_analytics_events",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clinahir_cron_runs",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clinahir_lead_limits",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clinahir_leads",
+        "rows": 1,
+        "sha256": "dce3ced4a1908c9d10e3bfd72920deb44e60d3d61b8948a38f4cf3619e42b2fa"
+      },
+      {
+        "name": "clinahir_prospects",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clinahir_site_content",
+        "rows": 1,
+        "sha256": "bf4fb9771683162bbbc7a04f1d6304ae8fd0b4f76f7861bee37e5de855a3aa6e"
+      },
+      {
+        "name": "clinahir_whatsapp_jobs",
+        "rows": 1,
+        "sha256": "ef64080e8575eae56f874d7b9b3af83717edaccb0940f599a36766faeef0c828"
+      }
+    ],
+    "constraintsSha256": "f1017b0c8ad14019e6ea6e4dc53c85ed4787f45ed08ad3875b75491ac034cc79"
+  },
+  "containerRemoved": true
+}

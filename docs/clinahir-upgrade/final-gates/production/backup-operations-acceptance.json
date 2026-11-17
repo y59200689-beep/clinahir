@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-17T08:45:09.142Z",
+  "status": "manual_operational_cycle_passed_and_daily_desktop_job_configured",
+  "backupId": "2026-11-17T08-13-20-568Z",
+  "archiveId": "1I3k2hAM-2TB_lg4Ws0yyBokPx_VvCXiK",
+  "manifestId": "1VuduylbZjbj1Tw_tkIlv5sdQ-Lp0KMSo",
+  "independentReadbackDecryption": true,
+  "readerPermissionsVerified": true,
+  "originalBackupReceiptPreserved": true,
+  "productionRecoveryKeyReused": true,
+  "retention": "14 daily / 8 weekly / 12 monthly; newest two and pinned",
+  "trashCandidates": 0,
+  "automationId": "clinahir-production-encrypted-backups",
+  "schedule": "09:00 Africa/Casablanca daily",
+  "automationStatus": "ACTIVE",
+  "notificationPolicy": "failed_runs_only",
+  "futureScheduledSuccessVerified": true,
+  "alwaysAvailableExecutor": false,
+  "limitations": "Requires awake Mac/Codex/Docker/private credential and Drive access. Production data writes, role/grant changes and paid infrastructure not performed.",
+  "latestScheduledRun": {
+    "runId": "2026-11-17T09-17-07-642Z",
+    "completedAt": "2026-11-17T09:19:31.709Z",
+    "status": "offsite_verified_retention_completed",
+    "archiveId": "1B9aa0Dst95d1Ub81kI5Gd0SXjmEPfoS7",
+    "manifestId": "1mJXWA_zbIANVbwPq7zfMIkpTB6hkj1Wk",
+    "privateReceipt": "output/production/offsite/runs/2026-11-17T09-17-07-642Z.json",
+    "retentionCandidates": 0
+  }
+}

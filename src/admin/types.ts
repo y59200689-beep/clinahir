@@ -101,7 +101,7 @@ export interface ProspectSnapshot {
     counts: { total: number; review: number; qualified: number; opted_in: number; no_website: number };
 }
 export const emptySnapshot: Snapshot = { leads: [], total: 0, summary: { total: 0, new: 0, qualified: 0, won: 0, attention: 0 }, analytics: [], sources: [], health: [], heartbeat: null, whatsapp: [], audit: [], integrations: { dailyCommand: false, whatsappEnabled: false, whatsappConfigured: false, cron: false } };
-export async function adminApi<T>(action: string, body?: object, query = ''): Promise<T> { const response = await fetch(`/api/admin?action=${action}${query}`, { method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined, credentials: 'same-origin', cache: 'no-store' }); const result = await response.json(); if (!response.ok) {
+export async function adminApi<T>(action: string, body?: object, query = ''): Promise<T> { const response = await fetch(`/api/admin?action=${action}${query}`, { method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined, credentials: 'same-origin', cache: 'no-store', signal: AbortSignal.timeout(15000) }); const result = await response.json(); if (!response.ok) {
     const error = new Error(result.error ?? 'Please try again.') as Error & {
         status: number;
     };

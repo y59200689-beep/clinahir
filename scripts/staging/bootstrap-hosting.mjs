@@ -1,0 +1,11 @@
+import {mkdir,writeFile} from 'node:fs/promises';import {resolve} from 'node:path';
+import {hosting,hostingApi,stagingProjectId,stagingTeamId} from './hosting-cli.mjs';
+const project=await hostingApi('/v9/projects/'+stagingProjectId);if(project.name!=='clinahir-staging'||project.accountId!==stagingTeamId||project.ssoProtection?.deploymentType!=='all')throw Error('dedicated_protected_project_required');
+if(project.latestDeployments?.length)throw Error('initial_bootstrap_only');
+const dir=resolve('output/staging/protected-placeholder');await mkdir(dir+'/.vercel',{recursive:true});await mkdir(dir+'/public',{recursive:true});
+await writeFile(dir+'/.vercel/project.json',JSON.stringify({projectId:stagingProjectId,orgId:stagingTeamId,projectName:'clinahir-staging'}));
+await writeFile(dir+'/public/index.html','<!doctype html><html lang="en"><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Clinahir protected staging</title><h1>Protected staging setup</h1><p>Application verification is pending. No clinical operations.</p></html>');
+await writeFile(dir+'/vercel.json',JSON.stringify({framework:null,buildCommand:'',installCommand:'',outputDirectory:'public',headers:[{source:'/(.*)',headers:[{key:'X-Robots-Tag',value:'noindex, nofollow, noarchive'}]}]}));
+const r=await hosting(['deploy','--yes','--scope','paraoonline','--prod'],undefined,{cwd:dir});await writeFile('output/staging/bootstrap-cli.json',JSON.stringify(r),{mode:0o600});
+const report={executedAt:new Date().toISOString(),scope:'Owner-approved static protected placeholder only in separate staging project; provider Production label, no Clinahir application or credentials deployed',projectId:stagingProjectId,status:r.code===0?'deployed':'failed',url:r.out.match(/https:\/\/[a-z0-9-]+\.vercel\.app/)?.[0]};
+await writeFile('docs/clinahir-upgrade/staging-execution/hosting-bootstrap.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));if(r.code!==0)process.exitCode=1;

@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-11-17T08:43:29.556Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "hosting": {
+    "id": "prj_zGZICTaNNTHcLa1fhxI1WQCto7lK",
+    "name": "clinahir",
+    "accountId": "team_TjuQw2TZ5FOq8fdj8xeiBoFz",
+    "domains": [
+      "clinahir.tech",
+      "www.clinahir.tech"
+    ],
+    "verifiedDomains": true,
+    "protection": {
+      "enabled": true,
+      "deploymentType": "all_except_custom_domains"
+    }
+  },
+  "runtimeNames": [
+    {
+      "key": "CLINAHIR_ADMIN_USER_ID",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "CLINAHIR_ADMIN_EMAIL",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "CRON_SECRET",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "CLINAHIR_INTEGRATION_SECRET",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "DAILY_COMMAND_URL",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "SUPABASE_SERVICE_ROLE_KEY",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "SUPABASE_URL",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    }
+  ],
+  "missingRequiredNames": [
+    "CLINAHIR_ENV",
+    "VITE_APP_ENV",
+    "VITE_SENTRY_ENABLED",
+    "CLINAHIR_PRODUCTION_SUPABASE_REF",
+    "CLINAHIR_ADMIN_MFA_REQUIRED",
+    "WHATSAPP_ENABLED",
+    "CLINAHIR_PRODUCTION_ORIGIN",
+    "CLINAHIR_PRODUCTION_CRM_ORIGIN"
+  ],
+  "sealedValuesIndependentlyVerified": false,
+  "localDevelopmentEnvRejected": "Supabase ref yurquokjaumjdzglioaf differs from approved production; not reused",
+  "authMetadata": {
+    "scope": "read-only aggregate counts only; no users, hashes or secrets selected",
+    "users": 0,
+    "verifiedTotpFactors": 0
+  },
+  "crmSource": {
+    "revision": "ff74c0d37686f7117f439331932b98802c647c4d",
+    "files": [
+      {
+        "path": "src/app/api/integrations/clinahir/leads/route.ts",
+        "blobSha": "5e282f08875629773ac23a255dec0d9e11256775",
+        "url": "https://github.com/y59200689-beep/daily-command-center/blob/ff74c0d37686f7117f439331932b98802c647c4d/src/app/api/integrations/clinahir/leads/route.ts"
+      },
+      {
+        "path": "src/lib/integrations/clinahir.ts",
+        "blobSha": "3559a8cf93f42eace9a3abc4d5cff12e84589e3a",
+        "url": "https://github.com/y59200689-beep/daily-command-center/blob/ff74c0d37686f7117f439331932b98802c647c4d/src/lib/integrations/clinahir.ts"
+      }
+    ],
+    "review": "Bearer secret, destination UUID, fixed source mapping, unique-violation retry and same external ID contract present; actual live credentials, recipient ownership and database unique index still require private verification"
+  },
+  "productionChanges": false,
+  "status": "blocked_pending_private_runtime_configuration_and_owner_provisioning"
+}

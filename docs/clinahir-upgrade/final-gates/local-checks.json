@@ -1,0 +1,75 @@
+{
+  "executedAt": "2026-11-16T19:53:49.386Z",
+  "results": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "durationMs": 8921
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "durationMs": 458
+    },
+    {
+      "command": "npm run test:leads",
+      "exitCode": 0,
+      "durationMs": 2948,
+      "passedTests": 43,
+      "failedTests": 0
+    },
+    {
+      "command": "npm run test:demo",
+      "exitCode": 0,
+      "durationMs": 1750,
+      "passedTests": 2,
+      "failedTests": 0
+    },
+    {
+      "command": "npm run test:phase2",
+      "exitCode": 0,
+      "durationMs": 2008,
+      "passedTests": 17,
+      "failedTests": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "durationMs": 7141
+    },
+    {
+      "command": "npm run test:sites",
+      "exitCode": 0,
+      "durationMs": 279,
+      "passedTests": 4,
+      "failedTests": 0
+    },
+    {
+      "command": "npm run report:bundles",
+      "exitCode": 0,
+      "durationMs": 181
+    },
+    {
+      "command": "npm run test:smoke",
+      "exitCode": 0,
+      "durationMs": 14154
+    },
+    {
+      "command": "npm run test:phase2:browser",
+      "exitCode": 0,
+      "durationMs": 32437
+    },
+    {
+      "command": "npm run test:phase3",
+      "exitCode": 0,
+      "durationMs": 7618,
+      "passedTests": 52,
+      "failedTests": 0
+    },
+    {
+      "command": "npm run report:release",
+      "exitCode": 0,
+      "durationMs": 234
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "scope": "Production HTML/hydration with local fictional transport; no live business access",
+  "groups": [
+    "Public value proposition renders without JavaScript or autoplay video transfer",
+    "Public admin sign-in prerenders without private records or credentials",
+    "Hydration preserves an early French language choice without recoverable errors",
+    "Deferred demo-request navigation, keyboard skip focus, mobile reflow and reduced motion work"
+  ],
+  "status": "passed"
+}

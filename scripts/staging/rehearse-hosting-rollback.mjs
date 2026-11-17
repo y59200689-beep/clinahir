@@ -1,0 +1,13 @@
+import {readFile,writeFile} from 'node:fs/promises';import {hosting,stagingOrigin} from './hosting-cli.mjs';import {hostingProtected} from './access-checks.mjs';
+const current=JSON.parse(await readFile('docs/clinahir-upgrade/staging-execution/deployment.json','utf8')),baseline=JSON.parse(await readFile('docs/clinahir-upgrade/staging-execution/hosting-bootstrap.json','utf8')),env=JSON.parse(await readFile('output/staging/hosting-env.json','utf8'));
+if(current.status!=='deployed'||baseline.status!=='deployed'||!current.url?.startsWith('https://clinahir-staging-')||!baseline.url?.startsWith('https://clinahir-staging-'))throw Error('known_staging_deployments_required');
+const report={executedAt:new Date().toISOString(),scope:'Dedicated staging alias only; rollback to protected maintenance placeholder, then restore verified Preview; no production domain or data rollback',checks:[]};
+const check=(name,passed)=>{report.checks.push({name,passed});if(!passed)throw Error('verification_failed');console.log('PASS',name);};
+const alias=async url=>{const result=await hosting(['alias','set',new URL(url).hostname,new URL(stagingOrigin).hostname,'--scope','paraoonline']);if(result.code!==0)throw Error('staging_alias_failed');};
+const get=path=>fetch(stagingOrigin+path,{headers:{'x-vercel-protection-bypass':env.STAGING_PROTECTION_BYPASS},redirect:'manual',signal:AbortSignal.timeout(15000)});
+async function waitFor(path,predicate){for(let i=0;i<20;i++){const r=await get(path);if(await predicate(r))return true;await new Promise(resolve=>setTimeout(resolve,1500));}return false;}
+try{
+ await alias(baseline.url);let r=await fetch(stagingOrigin,{redirect:'manual'});check('rollback retains unauthenticated hosting protection',hostingProtected(r));await r.body?.cancel();check('rollback exposes only protected staging maintenance placeholder',await waitFor('/',async r=>r.status===200&&(await r.text()).includes('Protected staging setup')));
+ await alias(current.url);check('forward restoration identifies staging again',await waitFor('/api/environment',async r=>{try{return r.status===200&&(await r.json()).environment==='staging';}catch{return false;}}));r=await fetch(stagingOrigin,{redirect:'manual'});check('forward restoration retains hosting protection',hostingProtected(r));await r.body?.cancel();report.status='passed';
+}catch{report.status='failed';report.failure='See checks; restoring known Preview alias attempted.';process.exitCode=1;try{await alias(current.url);report.recovery='preview_alias_restored';}catch{report.recovery='operator_review_required';}}
+await writeFile('docs/clinahir-upgrade/staging-execution/hosting-rollback.json',JSON.stringify(report,null,2)+'\n');

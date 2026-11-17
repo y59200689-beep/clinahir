@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-11-17T08:45:09.142Z",
+  "scope": "Sampled native Brave checks on local production HTML with fictional transport",
+  "nativeZoomPercent": 200,
+  "pages": [
+    "English owner sign-in",
+    "French public demo inquiry"
+  ],
+  "checks": {
+    "labelsReadable": true,
+    "fieldsAndSubmitReachableByVerticalScroll": true,
+    "dropdownOpensWithinPageFlow": true,
+    "escapeDismissesDropdown": true,
+    "noObservedHorizontalClippingInSampledControls": true,
+    "zoomRestoredTo90": true,
+    "voiceOverEnabled": false
+  },
+  "limits": [
+    "Sampled native zoom acceptance, not complete WCAG or screen-reader certification",
+    "Existing Safari keyboard checks and automated mobile/tablet workflow evidence retained",
+    "No real production authentication or form submission in this native check"
+  ]
+}

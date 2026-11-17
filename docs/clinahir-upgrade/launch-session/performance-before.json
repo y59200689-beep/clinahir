@@ -1,0 +1,16 @@
+[
+  {
+    "name": "public-mobile",
+    "score": 0.35,
+    "lcp": 17400.287740000003,
+    "tbt": 24094.237420000005,
+    "cls": 0
+  },
+  {
+    "name": "admin-desktop",
+    "score": 0.58,
+    "lcp": 4454.143,
+    "tbt": 331,
+    "cls": 0
+  }
+]

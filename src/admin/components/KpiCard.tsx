@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -25,6 +26,7 @@ export function KpiCard({
   icon: Icon,
   onClick,
 }: KpiCardProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const Component = onClick ? 'button' : 'div';
 
   if (isHero) {
@@ -38,7 +40,7 @@ export function KpiCard({
         <div className="flex items-center justify-between mb-4">
           <span className="text-emerald-200/90 text-sm font-medium tracking-normal flex items-center gap-2">
             {Icon && <Icon size={16} className="text-emerald-300" />}
-            {title}
+            {t(title)}
           </span>
           {onClick && (
             <div className="w-6 h-6 rounded-md bg-emerald-900/80 flex items-center justify-center text-emerald-300">
@@ -52,7 +54,7 @@ export function KpiCard({
             {value}
           </div>
           {subtitle && (
-            <p className="text-xs text-emerald-300/70 mt-1">{subtitle}</p>
+            <p className="text-xs text-emerald-300/70 mt-1">{t(subtitle)}</p>
           )}
         </div>
 
@@ -77,7 +79,7 @@ export function KpiCard({
       <div className="flex items-center justify-between mb-4">
         <span className="text-slate-600 text-sm font-medium tracking-normal flex items-center gap-2">
           {Icon && <Icon size={16} className="text-slate-400" />}
-          {title}
+          {t(title)}
         </span>
         {onClick && (
           <div className="w-6 h-6 rounded-md bg-slate-100 flex items-center justify-center text-slate-400">
@@ -91,7 +93,7 @@ export function KpiCard({
           {value}
         </div>
         {subtitle && (
-          <p className="text-xs text-slate-500 mt-1">{subtitle}</p>
+          <p className="text-xs text-slate-500 mt-1">{t(subtitle)}</p>
         )}
       </div>
 

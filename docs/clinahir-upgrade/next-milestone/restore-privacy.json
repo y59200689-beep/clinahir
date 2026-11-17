@@ -1,0 +1,44 @@
+{
+  "executedAt": "2026-11-16T10:50:06.723Z",
+  "scope": "Disposable network-isolated local PostgreSQL; no hosted writes",
+  "checks": [
+    {
+      "name": "provider-like permissive defaults created",
+      "passed": true
+    },
+    {
+      "name": "restore and private grant reconciliation commit together",
+      "passed": true
+    },
+    {
+      "name": "anon actual private table access denied",
+      "passed": true
+    },
+    {
+      "name": "anon actual private routine access denied",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual private table access denied",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual private routine access denied",
+      "passed": true
+    },
+    {
+      "name": "service-role restored data and routine remain usable",
+      "passed": true
+    },
+    {
+      "name": "unrelated intentionally public table remains readable",
+      "passed": true
+    },
+    {
+      "name": "failed restore transaction leaves no partially restored table",
+      "passed": true
+    }
+  ],
+  "status": "passed",
+  "containerRemoved": true
+}

@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import { useState, type FormEvent } from 'react';
 import {
   Users,
@@ -41,6 +42,7 @@ export function LeadsPage({
   onRefresh,
   onToast,
 }: LeadsPageProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [editStage, setEditStage] = useState('');
   const [editNotes, setEditNotes] = useState('');
@@ -49,11 +51,11 @@ export function LeadsPage({
 
   const stagesList = ['all', 'new', 'contacted', 'qualified', 'won', 'lost'];
 
-  const number = (n: number) => new Intl.NumberFormat('en').format(n);
+  const number = (n: number) => new Intl.NumberFormat(intlLocale).format(n);
   const formatDate = (s: string | null) =>
-    s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+    s ? new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
   const formatTime = (s: string) =>
-    new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    new Date(s).toLocaleTimeString(intlLocale, { hour: '2-digit', minute: '2-digit' });
 
   function openLeadDrawer(lead: Lead) {
     setSelectedLead(lead);
@@ -100,12 +102,9 @@ export function LeadsPage({
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Inbound Leads
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Inbound Leads")} </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            {number(totalCount)} requests captured through the public website.
-          </p>
+            {number(totalCount)} {t("requests captured through the public website.")} </p>
         </div>
 
         <button
@@ -114,7 +113,7 @@ export function LeadsPage({
           className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium text-xs transition-colors shadow-sm disabled:opacity-50"
         >
           <ArrowDownToLine size={14} />
-          <span>Export page</span>
+          <span> {t("Export page")} </span>
         </button>
       </div>
 
@@ -135,11 +134,11 @@ export function LeadsPage({
                   }}
                   className={`px-2.5 py-1 rounded text-xs font-medium capitalize transition-colors ${
                     isActive
-                      ? 'bg-[#0A261D] text-white font-semibold'
+                      ? 'bg-[#6754cf] text-white font-semibold'
                       : 'text-slate-600 hover:bg-slate-100'
                   }`}
                 >
-                  {st === 'all' ? 'All' : st}
+                  {st === 'all' ? t("All") : st}
                 </button>
               );
             })}
@@ -152,17 +151,17 @@ export function LeadsPage({
               className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <input
-              value={search}
+              aria-label={t("Filter leads…")} value={search}
               onChange={(e) => {
                 onSearchChange(e.target.value);
                 onPageChange(() => 0);
               }}
-              placeholder="Filter leads…"
+              placeholder={t("Filter leads…")}
               className="w-full pl-8 pr-7 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:bg-white transition-colors"
             />
             {search && (
               <button
-                onClick={() => onSearchChange('')}
+                aria-label={t('Close')} onClick={() => onSearchChange('')}
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
               >
                 <X size={13} />
@@ -177,17 +176,20 @@ export function LeadsPage({
             <table className="w-full text-left border-collapse text-sm">
               <thead>
                 <tr className="bg-slate-50/60 text-xs font-medium text-slate-500 border-b border-slate-100">
-                  <th className="py-2.5 px-5">Clinic</th>
-                  <th className="py-2.5 px-4">Contact person</th>
-                  <th className="py-2.5 px-3">Stage</th>
-                  <th className="py-2.5 px-3">Source</th>
-                  <th className="py-2.5 px-5 text-right">Received</th>
+                  <th className="py-2.5 px-5"> {t("Clinic")} </th>
+                  <th className="py-2.5 px-4"> {t("Contact person")} </th>
+                  <th className="py-2.5 px-3"> {t("Stage")} </th>
+                  <th className="py-2.5 px-3"> {t("Source")} </th>
+                  <th className="py-2.5 px-5 text-right"> {t("Received")} </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {leads.map((lead) => (
                   <tr
                     key={lead.external_id}
+                    tabIndex={0}
+                    aria-label={t('Open {{name}}', { name: lead.company_name })}
+                    onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLeadDrawer(lead); } }}
                     onClick={() => openLeadDrawer(lead)}
                     className="hover:bg-slate-50/70 cursor-pointer transition-colors group"
                   >
@@ -209,10 +211,10 @@ export function LeadsPage({
 
                     <td className="py-3 px-4">
                       <div className="font-medium text-slate-800 text-xs">
-                        {lead.contact_name || '—'}
+                        {lead.contact_name || t("—")}
                       </div>
                       <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                        {lead.phone || lead.email || '—'}
+                        {lead.phone || lead.email || t("—")}
                       </div>
                     </td>
 
@@ -222,7 +224,7 @@ export function LeadsPage({
 
                     <td className="py-3 px-3">
                       <span className="text-xs font-mono text-slate-600">
-                        {lead.utm_source || 'Direct'}
+                        {lead.utm_source || t("Direct")}
                       </span>
                     </td>
 
@@ -242,10 +244,8 @@ export function LeadsPage({
         ) : (
           <div className="p-12 text-center">
             <Users size={32} className="mx-auto text-slate-300 mb-2" />
-            <p className="text-xs font-medium text-slate-700">No matching leads</p>
-            <p className="text-[11px] text-slate-400 mt-0.5">
-              Try adjusting your search or clearing the stage filter.
-            </p>
+            <p className="text-xs font-medium text-slate-700"> {t("No matching leads")} </p>
+            <p className="text-[11px] text-slate-400 mt-0.5"> {t("Try adjusting your search or clearing the stage filter.")} </p>
           </div>
         )}
 
@@ -253,22 +253,21 @@ export function LeadsPage({
         <div className="p-3.5 px-5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
           <span>
             {leads.length ? number(pageIndex * 25 + 1) : 0}–
-            {number(Math.min((pageIndex + 1) * 25, totalCount))} of {number(totalCount)}
+            {number(Math.min((pageIndex + 1) * 25, totalCount))} {t("of")} {number(totalCount)}
           </span>
 
           <div className="flex items-center gap-1">
             <button
-              onClick={() => onPageChange((n) => Math.max(0, n - 1))}
+              aria-label={t('Previous page')} onClick={() => onPageChange((n) => Math.max(0, n - 1))}
               disabled={pageIndex === 0 || isLoading}
               className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 transition-colors"
             >
               <ChevronLeft size={15} />
             </button>
-            <span className="px-2 font-mono text-slate-600">
-              Page {pageIndex + 1}
+            <span className="px-2 font-mono text-slate-600"> {t("Page")} {pageIndex + 1}
             </span>
             <button
-              onClick={() => onPageChange((n) => n + 1)}
+              aria-label={t('Next page')} onClick={() => onPageChange((n) => n + 1)}
               disabled={(pageIndex + 1) * 25 >= totalCount || isLoading}
               className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 transition-colors"
             >
@@ -280,8 +279,8 @@ export function LeadsPage({
 
       {/* Slide-over Drawer for Lead Detail */}
       <AdminDrawer
-        title="Lead Record"
-        subtitle={selectedLead ? `Reference: ${selectedLead.external_id}` : undefined}
+        title={t("Lead Record")}
+        subtitle={selectedLead ? t('Reference: {{id}}', { id: selectedLead.external_id }) : undefined}
         isOpen={Boolean(selectedLead)}
         onClose={() => setSelectedLead(null)}
       >
@@ -289,13 +288,13 @@ export function LeadsPage({
           <div className="space-y-5">
             {/* Header Profile */}
             <div className="p-4 rounded-lg bg-slate-50 border border-slate-100 flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-[#0A261D] text-white font-mono font-semibold text-sm flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded bg-[#6754cf] text-white font-mono font-semibold text-sm flex items-center justify-center shrink-0">
                 {selectedLead.company_name.slice(0, 2).toUpperCase()}
               </div>
               <div>
                 <h3 className="font-semibold text-slate-900 text-sm">{selectedLead.company_name}</h3>
                 <p className="text-xs text-slate-500">
-                  {selectedLead.city} · Received {formatDate(selectedLead.submitted_at)}
+                  {selectedLead.city} {t("· Received")} {formatDate(selectedLead.submitted_at)}
                 </p>
               </div>
             </div>
@@ -303,18 +302,18 @@ export function LeadsPage({
             {/* Contact details */}
             <div className="grid grid-cols-2 gap-2.5 text-xs">
               <div className="p-3 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Contact</span>
-                <span className="font-medium text-slate-800">{selectedLead.contact_name || 'Not provided'}</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Contact")} </span>
+                <span className="font-medium text-slate-800">{selectedLead.contact_name || t("Not provided")}</span>
               </div>
 
               <div className="p-3 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Phone</span>
-                <span className="font-mono text-slate-800">{selectedLead.phone || '—'}</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Phone")} </span>
+                <span className="font-mono text-slate-800">{selectedLead.phone || t("—")}</span>
               </div>
 
               {selectedLead.email && (
                 <div className="p-3 rounded bg-slate-50 border border-slate-100 col-span-2">
-                  <span className="text-[10px] text-slate-400 block mb-0.5">Email</span>
+                  <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Email")} </span>
                   <a href={`mailto:${selectedLead.email}`} className="font-mono text-emerald-800 hover:underline">
                     {selectedLead.email}
                   </a>
@@ -322,58 +321,57 @@ export function LeadsPage({
               )}
 
               <div className="p-3 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Sync status</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Sync status")} </span>
                 <StatusPill value={selectedLead.daily_command_status} />
               </div>
 
               <div className="p-3 rounded bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Channel</span>
-                <span className="font-mono text-slate-700">{selectedLead.utm_source || 'Direct'}</span>
+                <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Channel")} </span>
+                <span className="font-mono text-slate-700">{selectedLead.utm_source || t("Direct")}</span>
               </div>
             </div>
 
             {/* Consultation Note */}
             <div className="p-3.5 rounded bg-slate-50 border border-slate-100">
-              <span className="text-[10px] font-medium text-slate-500 block mb-1">Inquiry note</span>
+              <span className="text-[10px] font-medium text-slate-500 block mb-1"> {t("Inquiry note")} </span>
               <p className="text-xs text-slate-700 leading-relaxed">
-                {selectedLead.message || selectedLead.priority || 'No written context attached.'}
+                {selectedLead.message || selectedLead.priority || t("No written context attached.")}
               </p>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSaveLead} className="space-y-4 pt-1">
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">
-                  Pipeline stage
-                </label>
+                <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Pipeline stage")} </label>
                 <select
+                  aria-label={t("Lead stage")}
                   value={editStage}
                   onChange={(e) => setEditStage(e.target.value)}
                   className="w-full p-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none"
                 >
                   {['new', 'contacted', 'qualified', 'won', 'lost'].map((s) => (
                     <option key={s} value={s}>
-                      {s.charAt(0).toUpperCase() + s.slice(1)}
+                      {t(s)}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">
-                  Private notes
-                </label>
+                <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Private notes")} </label>
                 <textarea
+                  aria-label={t("Private notes")}
+                  maxLength={5000}
                   rows={3}
                   value={editNotes}
                   onChange={(e) => setEditNotes(e.target.value)}
-                  placeholder="Add internal notes…"
+                  placeholder={t("Add internal notes…")}
                   className="w-full p-2.5 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none placeholder:text-slate-400"
                 />
               </div>
 
               {saveError && (
-                <p className="text-xs text-rose-600 font-medium">{saveError}</p>
+                <p className="text-xs text-rose-600 font-medium">{errorText(saveError)}</p>
               )}
 
               <div className="flex items-center justify-end gap-2 pt-2">
@@ -381,16 +379,14 @@ export function LeadsPage({
                   type="button"
                   onClick={() => setSelectedLead(null)}
                   className="px-3 py-1.5 rounded text-xs font-medium text-slate-600 hover:bg-slate-100"
-                >
-                  Cancel
-                </button>
+                > {t("Cancel")} </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-4 py-2 rounded-lg bg-[#0A261D] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-[#6754cf] hover:bg-emerald-900 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50"
                 >
                   {isSaving ? <LoaderCircle size={14} className="animate-spin" /> : <Save size={14} />}
-                  <span>Save changes</span>
+                  <span> {t("Save changes")} </span>
                 </button>
               </div>
             </form>

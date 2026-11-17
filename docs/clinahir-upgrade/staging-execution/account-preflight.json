@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-16T00:49:13.403Z",
+  "mode": "read-only account discovery",
+  "tokenAvailable": true,
+  "checks": {
+    "user": {
+      "status": 403,
+      "errorCode": "forbidden"
+    },
+    "teams": {
+      "status": 403,
+      "errorCode": "forbidden"
+    },
+    "linkedProject": {
+      "status": 403,
+      "errorCode": "forbidden"
+    }
+  }
+}

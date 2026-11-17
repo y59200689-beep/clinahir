@@ -50,7 +50,7 @@ export function makeRecord(input: LeadInput, now = new Date()): LeadRecord {
   return { payload: { ...values, message: values.message ?? `Role: ${role}\nPriority: ${priority}`, externalId: `cli_${submissionId}`, submittedAt: now.toISOString() }, role, priority,
     fingerprint: createHash('sha256').update(JSON.stringify(input)).digest('hex'), status: 'pending', attempts: 0 };
 }
-export interface IntegrationConfig { DAILY_COMMAND_URL?: string; CLINAHIR_INTEGRATION_SECRET?: string }
+export interface IntegrationConfig { DAILY_COMMAND_URL?: string; CLINAHIR_INTEGRATION_SECRET?: string; stagingProtectionBypass?: string }
 export async function deliver(store: LeadStore, id: string, config: IntegrationConfig, fetcher: typeof fetch = fetch, now = Date.now()): Promise<void> {
   const token = randomUUID();
   const record = await store.claim(id, token, now);
@@ -62,7 +62,7 @@ export async function deliver(store: LeadStore, id: string, config: IntegrationC
     const url = new URL(config.DAILY_COMMAND_URL);
     if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/') throw new Error('configuration_invalid');
     url.pathname = '/api/integrations/clinahir/leads';
-    const response = await fetcher(url, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.CLINAHIR_INTEGRATION_SECRET}` }, body: JSON.stringify(record.payload), redirect: 'error', signal: AbortSignal.timeout(5000) });
+    const response = await fetcher(url, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.CLINAHIR_INTEGRATION_SECRET}`, ...(config.stagingProtectionBypass ? {'x-vercel-protection-bypass':config.stagingProtectionBypass} : {}) }, body: JSON.stringify(record.payload), redirect: 'error', signal: AbortSignal.timeout(5000) });
     if (response.ok) { record.status = 'synced'; record.syncedAt = new Date(now).toISOString(); delete record.lastError; }
     else { error = `http_${response.status}`; retryable = response.status >= 500 || response.status === 429 || response.status === 408; }
   } catch (e) {

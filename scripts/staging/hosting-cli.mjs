@@ -1,0 +1,5 @@
+import {spawn} from 'node:child_process';
+import {writeFile} from 'node:fs/promises';
+export function hosting(args,input,options={}){return new Promise(resolve=>{const child=spawn('npx',['--yes','vercel@65.16.0',...args],{...options,stdio:['pipe','pipe','pipe']});let out='',err='';child.stdout.on('data',d=>out+=d);child.stderr.on('data',d=>err+=d);child.on('error',()=>resolve({code:1,out:'',err:'cli_failed'}));child.on('close',code=>resolve({code,out,err}));child.stdin.end(input);});}
+export async function hostingApi(path,body,method){const r=await hosting(['api',path,'--scope','paraoonline','--method',method??(body?'POST':'GET'),'--raw',...(body?['--input','-']:[])],body?JSON.stringify(body):undefined);if(r.code!==0){await writeFile('output/staging/hosting-api-error.json',JSON.stringify({path,code:r.code,out:r.out,err:r.err}),{mode:0o600});throw Error('hosting_api_failed');}return JSON.parse(r.out);}
+export const stagingProjectId='prj_ncLXnX0fRpThugNz33klNz4Sskq3',stagingTeamId='team_TjuQw2TZ5FOq8fdj8xeiBoFz',stagingOrigin='https://clinahir-staging.vercel.app';

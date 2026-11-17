@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import { Activity, FileText } from 'lucide-react';
 import type { Snapshot } from '../types';
 
@@ -6,30 +7,25 @@ interface ActivityPageProps {
 }
 
 export function ActivityPage({ data }: ActivityPageProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const formatDate = (s: string | null) =>
-    s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—';
+    s ? new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short' }) : '—';
   const formatTime = (s: string) =>
-    new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    new Date(s).toLocaleTimeString(intlLocale, { hour: '2-digit', minute: '2-digit' });
 
   return (
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Activity Log
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-          History of administrative actions and content releases.
-        </p>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Activity Log")} </h1>
+        <p className="text-xs sm:text-sm text-slate-500 mt-0.5"> {t("History of administrative actions and content releases.")} </p>
       </div>
 
       {/* Main List */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900">
-            Recent Events (Latest 50)
-          </h3>
-          <span className="text-xs text-slate-400">Excludes patient contact details</span>
+          <h3 className="text-sm font-semibold text-slate-900"> {t("Recent Events (Latest 50)")} </h3>
+          <span className="text-xs text-slate-400"> {t("Excludes patient contact details")} </span>
         </div>
 
         {data.audit.length > 0 ? (
@@ -59,10 +55,9 @@ export function ActivityPage({ data }: ActivityPageProps) {
 
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-slate-900 text-xs sm:text-sm">
-                      {actionTitle}
+                      {t(item.action) === item.action ? t('Administrative action') : t(item.action)}
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5 font-mono">
-                      Target: {isWebsite ? 'Public website' : `Lead ${item.target.slice(0, 16)}…`}
+                    <div className="text-xs text-slate-400 mt-0.5 font-mono"> {t("Target:")} {isWebsite ? t("Public website") : t('Lead {{id}}', { id: item.target.slice(0,16) + '…' })}
                     </div>
                   </div>
 
@@ -79,9 +74,7 @@ export function ActivityPage({ data }: ActivityPageProps) {
             })}
           </div>
         ) : (
-          <div className="p-12 text-center text-slate-400 text-xs">
-            No activity recorded.
-          </div>
+          <div className="p-12 text-center text-slate-400 text-xs"> {t("No activity recorded.")} </div>
         )}
       </div>
     </div>

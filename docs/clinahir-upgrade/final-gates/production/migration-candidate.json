@@ -1,0 +1,32 @@
+{
+  "preparedAt": "2026-11-16T23:52:40.893Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "candidatePath": "docs/clinahir-upgrade/final-gates/production/20261116234811_clinahir_production_upgrade.sql",
+  "candidateSha256": "795effede714ae0a5d7cfacb1b94939ccc658353232c902ec9933bba94ff72b3",
+  "baselineFingerprint": "358cc12f88b899530ab6d0e0cfada5e99b5be585d9e84f97dd0701e431931040",
+  "backupId": "2026-11-16T23-30-09-724Z",
+  "sourceHashes": [
+    {
+      "name": "20261020165330_whatsapp_contact_leads.sql",
+      "sha256": "73882fddb3d62152a90c1e91af03ce6a2a8f25d011255ea59b8157eff5046412"
+    },
+    {
+      "name": "20261020171750_clinahir_admin_workspace.sql",
+      "sha256": "5d524d4ce337d92a386b909e34b60392118f74fba17d85a1e26598e9b4f8fe99"
+    },
+    {
+      "name": "20261024110233_preselection_prospects.sql",
+      "sha256": "1996595fc228e27e9c2df417145ac130e734556321cfeed2dce74b344cb43ca4"
+    },
+    {
+      "name": "20261026090000_prospect_address_category_and_filters.sql",
+      "sha256": "6e4082be3b03cc87a3e1a5a1cecff8b271c10345717a6ef3c1ddd5a546684609"
+    }
+  ],
+  "status": "rehearsed_ready_for_review_not_authorized_for_hosted_execution",
+  "productionApplicationAuthorized": false,
+  "historicalMigrationRepair": false,
+  "normalFreshInstallChainModified": false,
+  "rehearsalReceipt": "migration-rehearsal.json",
+  "catalogDriftReceipt": "catalog-drift-check.json"
+}

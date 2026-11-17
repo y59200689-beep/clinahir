@@ -1,0 +1,14 @@
+{
+  "executedAt": "2026-11-15T20:39:58.626Z",
+  "scope": "Actual staging HTTP checks only when approved; no service-role access and no business-record writes",
+  "status": "blocked",
+  "prerequisites": [
+    "owner_authorization_required",
+    "staging_identity_required",
+    "dedicated_database_identity_required",
+    "protected_site_origin_required",
+    "restricted_role_accounts_required",
+    "whatsapp_must_be_disabled"
+  ],
+  "checks": []
+}

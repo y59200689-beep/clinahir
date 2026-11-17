@@ -1,0 +1,24 @@
+{
+  "executedAt": "2026-11-16T11:32:00.501Z",
+  "projectRef": "wpjoszvojojuxmozkhkm",
+  "scope": "Additive private-trigger permission hardening in isolated CRM sandbox only",
+  "migration": {
+    "name": "20261116113024_clinahir_sandbox_audit_trigger_permissions.sql",
+    "sha256": "79a3cd68c8fa51e9b53329b07de0aa69bd1f743b55656789decd635a1f3163f6"
+  },
+  "checks": [
+    {
+      "name": "both browser roles denied direct audit-trigger execution",
+      "passed": true
+    },
+    {
+      "name": "real audit trigger still records an insert inside rollback-only probe",
+      "passed": true
+    },
+    {
+      "name": "probe audit record rolled back without retained financial data",
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

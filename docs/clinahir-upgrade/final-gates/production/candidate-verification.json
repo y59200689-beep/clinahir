@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-11-17T13:08:24.814Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "environment",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "admin",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "admin-session",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "cron-denied",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "cron-health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "crm-auth",
+      "status": 400,
+      "passed": true
+    }
+  ]
+}

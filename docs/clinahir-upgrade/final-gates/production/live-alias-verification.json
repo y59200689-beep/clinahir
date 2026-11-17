@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-17T13:14:59.370Z",
+  "checks": [
+    {
+      "domain": "clinahir.tech",
+      "deploymentId": "dpl_AuvzgC644YQHG71wpGkpqPvubszu",
+      "passed": true
+    },
+    {
+      "domain": "www.clinahir.tech",
+      "deploymentId": "dpl_AuvzgC644YQHG71wpGkpqPvubszu",
+      "passed": true
+    },
+    {
+      "domain": "daily-command-center-pink.vercel.app",
+      "deploymentId": "dpl_GrLUHnwnFp5awX4DB66KfW1FmdFN",
+      "passed": true
+    }
+  ]
+}

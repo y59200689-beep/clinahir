@@ -1,68 +1,626 @@
-import { useSiteContent } from '../../../src/content/SiteContent';
-import { useState } from 'react';
-import { CalendarDays, Check, CheckCircle2, Clock3, MapPin, Search, ArrowUpRight, BarChart3, Users, Stethoscope, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  CalendarDays, 
+  Check, 
+  CheckCircle2, 
+  Clock3, 
+  MapPin, 
+  Search, 
+  ArrowUpRight, 
+  BarChart3, 
+  Users, 
+  Stethoscope, 
+  ShieldCheck, 
+  Sparkles, 
+  MessageSquare, 
+  FileText, 
+  Activity, 
+  ArrowRight,
+  TrendingUp,
+  Sliders,
+  Send,
+  Zap,
+  Lock
+} from 'lucide-react';
 
-export default function Features({ language = 'en', className = '' }: { language?: 'en' | 'fr'; className?: string }) {
+interface FeaturesProps {
+  language?: 'en' | 'fr';
+  className?: string;
+}
+
+const EXAM_PREVIEWS = {
+  en: [
+    {
+      id: 'mri',
+      label: 'MRI 1.5T / 3T',
+      fullName: 'Magnetic Resonance Imaging',
+      prep: 'No metal objects · 4h fasting if contrast needed',
+      duration: '25 min',
+      slots: ['09:15', '11:00', '14:30', '16:15'],
+      icon: Activity,
+      badge: 'High Precision'
+    },
+    {
+      id: 'ct',
+      label: 'CT Scan TDM',
+      fullName: 'Multi-slice Computed Tomography',
+      prep: 'Creatinine lab work required for injection',
+      duration: '15 min',
+      slots: ['08:45', '10:30', '13:45', '15:30'],
+      icon: Zap,
+      badge: 'Ultra Fast'
+    },
+    {
+      id: 'ultrasound',
+      label: 'Ultrasound 4D',
+      fullName: 'Doppler & High-Resolution Ultrasound',
+      prep: 'Full bladder for pelvic / Fasting for abdominal',
+      duration: '20 min',
+      slots: ['09:30', '11:15', '14:00', '16:45'],
+      icon: Stethoscope,
+      badge: 'Immediate Report'
+    },
+    {
+      id: 'mammo',
+      label: '3D Mammography',
+      fullName: 'Digital Breast Tomosynthesis',
+      prep: 'Schedule day 7-12 of cycle · No deodorant/talc',
+      duration: '20 min',
+      slots: ['10:00', '11:45', '15:00', '17:15'],
+      icon: Sparkles,
+      badge: 'Women Health'
+    }
+  ],
+  fr: [
+    {
+      id: 'mri',
+      label: 'IRM 1.5T / 3T',
+      fullName: 'Imagerie par Résonance Magnétique',
+      prep: 'Aucun objet métallique · Jeûne 4h si injection de produit de contraste',
+      duration: '25 min',
+      slots: ['09:15', '11:00', '14:30', '16:15'],
+      icon: Activity,
+      badge: 'Haute Résolution'
+    },
+    {
+      id: 'ct',
+      label: 'Scanner TDM',
+      fullName: 'Tomodensitométrie Multi-coupes',
+      prep: 'Dosage de créatinine récent requis en cas d’injection',
+      duration: '15 min',
+      slots: ['08:45', '10:30', '13:45', '15:30'],
+      icon: Zap,
+      badge: 'Acquisition Rapide'
+    },
+    {
+      id: 'ultrasound',
+      label: 'Échographie 4D',
+      fullName: 'Échographie Générale & Écho-Doppler Couleur',
+      prep: 'Vessie pleine pour pelvien · À jeun 6h pour abdominal',
+      duration: '20 min',
+      slots: ['09:30', '11:15', '14:00', '16:45'],
+      icon: Stethoscope,
+      badge: 'Compte Rendu Immédiat'
+    },
+    {
+      id: 'mammo',
+      label: 'Mammographie 3D',
+      fullName: 'Tomosynthèse Mammaire & Sénologie',
+      prep: 'Jours 7 à 12 du cycle conseillés · Pas de talc ni déodorant',
+      duration: '20 min',
+      slots: ['10:00', '11:45', '15:00', '17:15'],
+      icon: Sparkles,
+      badge: 'Pôle Sénologique'
+    }
+  ]
+};
+
+const CITIES = {
+  en: [
+    { name: 'Casablanca (Maârif / Racine)', queries: '4,280 searches/mo', rank: '#1 on Google Maps', conversion: '+380%' },
+    { name: 'Marrakech (Guéliz / Hivernage)', queries: '3,150 searches/mo', rank: '#1 on Google Maps', conversion: '+340%' },
+    { name: 'Rabat (Agdal / Souissi)', queries: '2,890 searches/mo', rank: '#1 on Google Maps', conversion: '+310%' },
+    { name: 'Tanger (Malabata / Centre)', queries: '2,420 searches/mo', rank: '#1 on Google Maps', conversion: '+295%' }
+  ],
+  fr: [
+    { name: 'Casablanca (Maârif / Racine)', queries: '4 280 recherches/mois', rank: '#1 sur Google Maps', conversion: '+380%' },
+    { name: 'Marrakech (Guéliz / Hivernage)', queries: '3 150 recherches/mois', rank: '#1 sur Google Maps', conversion: '+340%' },
+    { name: 'Rabat (Agdal / Souissi)', queries: '2 890 recherches/mois', rank: '#1 sur Google Maps', conversion: '+310%' },
+    { name: 'Tanger (Malabata / Centre)', queries: '2 420 recherches/mois', rank: '#1 sur Google Maps', conversion: '+295%' }
+  ]
+};
+
+export default function Features({ language = 'en', className = '' }: FeaturesProps) {
   const fr = language === 'fr';
-  const [slot, setSlot] = useState('09:30');
-  const { document: site } = useSiteContent();
-  const t = (en: string, french: string) => site.features[en]?.[language] ?? (fr ? french : en);
-  const card = 'feature-preview-card min-w-0 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8 shadow-sm';
-  const preview = 'rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-5 sm:p-6';
-  const label = 'text-xs font-medium text-[var(--text-secondary)]';
-  return <section className={`bg-[var(--surface)] px-6 py-24 md:px-12 ${className}`}>
-    <div className="mx-auto max-w-7xl">
-      <div className="mb-12 grid items-end gap-6 md:grid-cols-2 md:gap-12">
-        <h2 className="text-4xl font-semibold leading-[1.1] tracking-tight text-[var(--text-primary)] md:text-5xl">{t('One System for Your Digital Patient Journey', 'Une seule solution pour le parcours digital de vos patients')}</h2>
-        <p className="max-w-lg text-lg leading-relaxed text-[var(--text-secondary)]">{t('Give patients a modern way to discover your center, understand your services and book an appointment while giving your team the tools to manage requests efficiently.', 'Permettez aux patients de découvrir votre centre, de comprendre vos services et de prendre rendez-vous facilement, tout en donnant à votre équipe les outils pour gérer les demandes efficacement.')}</p>
-      </div>
-      <div className="grid gap-5 lg:grid-cols-2">
-        <article className={card}>
-          <div className="mb-5 flex items-center gap-3"><CalendarDays className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Patient Experience', 'Expérience patient')}</h3></div>
-          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('A clear appointment request, from choosing an examination to finding a convenient time.', 'Une demande simple, du choix de l’examen à la sélection d’un créneau adapté.')}</p>
-          <div className={preview}>
-            <div className="mb-5 flex items-start justify-between gap-3"><div><p className={label}>{t('Appointment request', 'Demande de rendez-vous')}</p><p className="mt-2 text-lg font-semibold">{t('Find a time that suits you', 'Choisissez votre créneau')}</p></div><span className="rounded-lg bg-white p-2 text-[var(--brand-primary-hover)]"><Stethoscope size={20}/></span></div>
-            <div className="flex items-center justify-between gap-3 rounded-xl border border-[var(--border)] bg-white p-4"><div><p className={label}>{t('Examination', 'Examen')}</p><p className="mt-1 text-sm font-semibold">{t('Ultrasound', 'Échographie')}</p></div><CheckCircle2 size={18} className="shrink-0 text-[var(--brand-primary-hover)]"/></div>
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-2"><span className="text-sm font-medium">{t('Monday, 12 October', 'Lundi 12 octobre')}</span><span className="text-xs text-[var(--text-secondary)]">{t('Choose a time', 'Choisissez une heure')}</span></div>
-            <div className="mt-3 grid grid-cols-3 gap-2" role="group" aria-label={t('Sample appointment times', 'Exemples de créneaux')}>
-              {['09:30','10:00','14:30'].map(time => <button key={time} type="button" aria-pressed={slot===time} onClick={()=>setSlot(time)} className={`rounded-xl border px-2 py-3 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-primary)] ${slot===time?'border-[var(--brand-primary-hover)] bg-[var(--brand-primary-hover)] text-white':'border-[var(--border)] bg-white hover:border-[var(--brand-primary)]'}`}>{time}</button>)}
+  const exams = EXAM_PREVIEWS[fr ? 'fr' : 'en'];
+  const cities = CITIES[fr ? 'fr' : 'en'];
+
+  // Interactive states
+  const [activeExamId, setActiveExamId] = useState(exams[0].id);
+  const [selectedSlot, setSelectedSlot] = useState(exams[0].slots[0]);
+  const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const [activeCityIdx, setActiveCityIdx] = useState(0);
+  const [seoCompareMode, setSeoCompareMode] = useState<'optimized' | 'baseline'>('optimized');
+  
+  // Interactive receptionist queue demo
+  const [queueItems, setQueueItems] = useState([
+    { id: 1, patient: 'Mme Kabbaj F.', exam: 'IRM Rachis Lombaire', time: '14:30', status: 'pending', phone: '+212 661...89' },
+    { id: 2, patient: 'M. Benjelloun O.', exam: 'Scanner Thoracique TDM', time: '15:15', status: 'confirmed', phone: '+212 662...34' },
+    { id: 3, patient: 'Mme Tazi S.', exam: 'Écho Doppler Carotides', time: '16:00', status: 'pending', phone: '+212 663...12' }
+  ]);
+
+  const activeExam = exams.find(e => e.id === activeExamId) || exams[0];
+
+  const handleSlotSelect = (slot: string) => {
+    setSelectedSlot(slot);
+    setBookingConfirmed(true);
+    setTimeout(() => {
+      setBookingConfirmed(false);
+    }, 4500);
+  };
+
+  const handleConfirmItem = (id: number) => {
+    setQueueItems(prev => prev.map(item => item.id === id ? { ...item, status: 'confirmed' } : item));
+  };
+
+  return (
+    <section 
+      id="solutions" 
+      aria-labelledby="solutions-title"
+      className={`relative bg-[#090d0b] py-24 px-6 text-white md:px-12 ${className}`}
+    >
+      <div className="mx-auto max-w-7xl">
+        <p className="mb-5 text-center text-sm text-white/80">{fr ? "Aperçus de prototypes avec données fictives. Les intégrations et engagements réels doivent être validés avant activation." : "Prototype previews with fictional data. Actual integrations and service commitments require verification before activation."}</p>
+        {/* Section Header */}
+        <div className="mb-16 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: 'easeOut' as const }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-medium text-emerald-400"
+          >
+            <Sparkles size={13} className="text-emerald-400" />
+            <span>{fr ? 'Architecture médicale' : 'Clinical platform architecture'}</span>
+          </motion.div>
+
+          <motion.h2 
+            id="solutions-title"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' as const }}
+            className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl"
+          >
+            {fr ? (
+              <>Un écosystème unifié pour <br className="hidden sm:inline" /><span className="text-white/60">l'excellence en radiologie</span></>
+            ) : (
+              <>Engineered for radiology, <br className="hidden sm:inline" /><span className="text-white/60">calibrated for care</span></>
+            )}
+          </motion.h2>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' as const }}
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg"
+          >
+            {fr ? (
+              'De la recherche Google jusqu’au compte rendu médical : offrez aux patients un parcours fluide 24h/24 et dotez votre secrétariat d’un copilote intelligent pour éliminer les retards et les rendez-vous manqués.'
+            ) : (
+              'From first Google query to confirmed examination: deliver a frictionless 24/7 patient booking journey while empowering your reception desk with automated triage and zero no-shows.'
+            )}
+          </motion.p>
+        </div>
+
+        {/* Bento Grid Layout */}
+        <div className="grid gap-6 lg:grid-cols-12">
+          
+          {/* Card 1: Interactive Live Patient Booking & Modality Matrix (Span 7) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:bg-white/[0.045] lg:col-span-7 lg:p-9"
+          >
+            <div>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#01bc7c]/30 bg-[#01bc7c]/10 text-[#01bc7c]">
+                    <CalendarDays size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold tracking-tight text-white">
+                      {fr ? 'Réservation Instantanée & Triage' : 'Instant Triage & 24/7 Booking'}
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      {fr ? 'Module interactif intégré au site du centre' : 'Interactive patient booking experience'}
+                    </p>
+                  </div>
+                </div>
+                <span className="rounded-full border border-[#01bc7c]/30 bg-[#01bc7c]/10 px-3 py-1 text-xs font-medium text-[#01bc7c]">
+                  {activeExam.badge}
+                </span>
+              </div>
+
+              {/* Modality Selector Pills */}
+              <div className="mt-8">
+                <p className="text-xs font-medium text-white/50">
+                  {fr ? '1. Choisissez un examen d\'imagerie' : '1. Select examination modality'}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {exams.map(exam => {
+                    const isSelected = exam.id === activeExamId;
+                    return (
+                      <button
+                        key={exam.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveExamId(exam.id);
+                          setSelectedSlot(exam.slots[0]);
+                        }}
+                        className={`group/btn relative flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#01bc7c] ${
+                          isSelected 
+                            ? 'bg-white text-black shadow-lg shadow-white/10' 
+                            : 'border border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        <exam.icon size={14} className={isSelected ? 'text-[#01bc7c]' : 'text-white/50'} />
+                        <span>{exam.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Dynamic Exam Details Glass Panel */}
+              <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl">
+                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                  <div>
+                    <span className="text-[11px] font-medium text-[#01bc7c]">
+                      {activeExam.fullName}
+                    </span>
+                    <p className="mt-1 text-xs leading-relaxed text-white/70">
+                      <strong className="text-white/90">{fr ? 'Consignes : ' : 'Preparation: '}</strong>
+                      {activeExam.prep}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/80">
+                    <Clock3 size={14} className="text-[#01bc7c]" />
+                    <span>{fr ? `Durée : ${activeExam.duration}` : `Est. ${activeExam.duration}`}</span>
+                  </div>
+                </div>
+
+                {/* Slot Selector */}
+                <div className="mt-5 border-t border-white/10 pt-4">
+                  <div className="flex items-center justify-between text-xs text-white/60">
+                    <span>{fr ? 'Créneaux disponibles aujourd’hui' : 'Available slots today'}</span>
+                    <span className="text-emerald-400">{fr ? 'Temps réel' : 'Live availability'}</span>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {activeExam.slots.map(slot => {
+                      const isChosen = selectedSlot === slot;
+                      return (
+                        <button
+                          key={slot}
+                          type="button"
+                          onClick={() => handleSlotSelect(slot)}
+                          className={`flex items-center justify-center gap-1.5 rounded-xl border py-2.5 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#01bc7c] ${
+                            isChosen
+                              ? 'border-[#01bc7c] bg-[#01bc7c] text-white shadow-[0_0_20px_rgba(1,188,124,0.35)]'
+                              : 'border-white/10 bg-white/5 text-white/85 hover:border-white/30 hover:bg-white/10'
+                          }`}
+                        >
+                          <Clock3 size={12} className={isChosen ? 'text-white' : 'text-white/40'} />
+                          <span>{slot}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Instant Feedback Toast */}
+                <AnimatePresence>
+                  {bookingConfirmed && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                      transition={{ duration: 0.25, ease: 'easeOut' }}
+                      className="mt-4 flex items-center justify-between rounded-xl border border-emerald-500/40 bg-emerald-950/60 p-3.5 text-xs text-emerald-200 backdrop-blur-md"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <CheckCircle2 size={16} className="text-[#01bc7c]" />
+                        <span>
+                          {fr 
+                            ? `Créneau de ${selectedSlot} présélectionné pour ${activeExam.label}. Triage WhatsApp actif.`
+                            : `${selectedSlot} slot simulated for ${activeExam.label}. WhatsApp triage confirmed.`}
+                        </span>
+                      </div>
+                      <span className="rounded-md bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                        {fr ? 'Simulateur' : 'Interactive'}
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-            <div aria-live="polite" className="mt-5 flex items-center gap-2 text-xs text-[var(--text-secondary)]"><Clock3 size={14}/>{t('Selected time:', 'Créneau choisi :')} <strong className="text-[var(--text-primary)]">{slot}</strong></div>
-          </div>
-          <p className="mt-4 text-xs text-[var(--text-secondary)]">{t('Interactive example · No appointment is created.', 'Exemple interactif · Aucun rendez-vous n’est créé.')}</p>
-        </article>
-        <article className={card}>
-          <div className="mb-5 flex items-center gap-3"><BarChart3 className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Center Dashboard', 'Tableau de bord du centre')}</h3></div>
-          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('See incoming requests, confirmed appointments and what still needs your team’s attention.', 'Suivez les demandes reçues, les rendez-vous confirmés et les demandes à traiter par votre équipe.')}</p>
-          <div className={preview}>
-            <div className="mb-6 flex flex-wrap items-start justify-between gap-3"><div><p className={label}>{t('Appointment activity', 'Activité des rendez-vous')}</p><p className="mt-2 text-lg font-semibold">{t('This week at a glance', 'Votre semaine en bref')}</p></div><span className="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-xs">{t('Sample report', 'Rapport fictif')}</span></div>
-            <div className="grid grid-cols-3 gap-3">
-              {[[48,t('Requests','Demandes')],[40,t('Confirmed','Confirmés')],[8,t('To review','À traiter')]].map(([value,name])=><div key={name} className="min-w-0"><p className="text-3xl font-semibold tracking-tight tabular-nums">{value}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{name}</p></div>)}
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-white/50 border-t border-white/10 pt-4">
+              <span className="flex items-center gap-1.5">
+                <Check size={14} className="text-[#01bc7c]" />
+                {fr ? 'Dépôt ordonnance sécurisé' : 'Secure prescription upload'}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check size={14} className="text-[#01bc7c]" />
+                {fr ? 'Rappels WhatsApp automatiques' : 'Automated WhatsApp reminders'}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check size={14} className="text-[#01bc7c]" />
+                {fr ? 'Zéro double réservation' : 'Zero double-booking'}
+              </span>
             </div>
-            <div className="mt-7 border-t border-[var(--border)] pt-5"><div className="mb-3 flex justify-between gap-2 text-xs"><span>{t('Confirmed appointments', 'Rendez-vous confirmés')}</span><strong>40 / 48</strong></div><div className="flex h-2.5 overflow-hidden rounded-full bg-white" aria-hidden="true"><div className="w-5/6 bg-[var(--brand-primary)]"/><div className="flex-1 bg-[var(--brand-primary-20)]"/></div></div>
-            <div className="mt-5 flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white p-3 text-sm"><Users size={17} className="shrink-0 text-[var(--brand-primary-hover)]"/>{t('8 requests ready for staff review', '8 demandes à examiner par l’équipe')}</div>
-          </div>
-          <p className="mt-4 text-xs text-[var(--text-secondary)]">{t('Illustrative figures · Not client results.', 'Chiffres fictifs · Aucun résultat client réel.')}</p>
-        </article>
-        <article className={card}>
-          <div className="mb-5 flex items-center gap-3"><Search className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Search Visibility', 'Visibilité sur Google')}</h3></div>
-          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('Help nearby patients find your services and reach your center’s booking page.', 'Aidez les patients à proximité à trouver vos services et votre page de réservation.')}</p>
-          <div className={preview}>
-            <div className="mb-4 flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm"><Search size={16} className="shrink-0 text-[var(--text-secondary)]"/><span>{t('Radiology center near me', 'Centre de radiologie à proximité')}</span></div>
-            <div className="rounded-xl border border-[var(--border)] bg-white p-4 sm:p-5"><div className="flex items-start gap-3"><span className="rounded-xl bg-[var(--brand-primary-10)] p-3 text-[var(--brand-primary-hover)]"><MapPin size={22}/></span><div className="min-w-0"><p className={label}>{t('Fictional local listing', 'Fiche locale fictive')}</p><p className="mt-1 text-lg font-semibold">{t('Example Radiology Center', 'Centre de radiologie exemple')}</p><p className="mt-1 text-xs text-[var(--text-secondary)]">{t('Radiology · Medical imaging', 'Radiologie · Imagerie médicale')}</p></div></div><div className="mt-4 flex flex-wrap gap-2">{[t('MRI','IRM'),t('Ultrasound','Échographie'),t('CT scan','Scanner')].map(service=><span key={service} className="rounded-lg bg-[var(--surface-muted)] px-3 py-1.5 text-xs">{service}</span>)}</div><div className="mt-4 flex items-center justify-between border-t border-[var(--border)] pt-4 text-sm font-semibold text-[var(--brand-primary-hover)]"><span>{t('Online appointment requests', 'Demandes de rendez-vous en ligne')}</span><ArrowUpRight size={18} className="shrink-0"/></div></div>
-          </div>
-        </article>
-        <article className={card}>
-          <div className="mb-5 flex items-center gap-3"><Users className="text-[var(--brand-primary-hover)]" size={21}/><h3 className="text-xl font-semibold">{t('Team Coordination', 'Coordination de l’équipe')}</h3></div>
-          <p className="mb-7 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{t('Give every request a clear next step, from the first contact to the appointment reminder.', 'Donnez à chaque demande une prochaine étape claire, du premier contact au rappel du rendez-vous.')}</p>
-          <div className={preview}>
-            <p className={label}>{t('Example patient journey', 'Exemple de parcours patient')}</p>
-            <ol className="mt-5 space-y-3">
-              {[[CalendarDays,t('Request received','Demande reçue'),t(`Ultrasound · Monday, ${slot}`,`Échographie · Lundi, ${slot}`)],[CheckCircle2,t('Appointment confirmed','Rendez-vous confirmé'),t('Time agreed with the patient','Créneau convenu avec le patient')],[Clock3,t('Follow-up planned','Suivi prévu'),t('Reminder before the appointment','Rappel avant le rendez-vous')]].map(([Icon,title,detail],index)=>{const StepIcon=Icon as typeof CalendarDays;return <li key={String(title)} className="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-white p-4"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary-10)] text-[var(--brand-primary-hover)]"><StepIcon size={17}/></span><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{String(title)}</p><p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">{String(detail)}</p></div>{index<2?<Check size={16} className="shrink-0 text-[var(--brand-primary-hover)]"/>:<ArrowRight size={16} className="shrink-0 text-[var(--text-secondary)]"/>}</li>;})}
-            </ol>
-          </div>
-        </article>
+          </motion.div>
+
+          {/* Card 2: Local Google Maps Dominance Simulator (Span 5) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:bg-white/[0.045] lg:col-span-5 lg:p-9"
+          >
+            <div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-blue-400">
+                    <Search size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold tracking-tight text-white">
+                      {fr ? 'Domination Google Maps' : 'Google Local Pack #1'}
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      {fr ? 'Référencement local ultra-ciblé' : 'High-intent patient acquisition'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* City Selector */}
+              <div className="mt-6 flex flex-wrap gap-1.5">
+                {cities.map((city, idx) => (
+                  <button
+                    key={city.name}
+                    type="button"
+                    onClick={() => setActiveCityIdx(idx)}
+                    className={`rounded-lg px-2.5 py-1 text-[11px] font-medium transition ${
+                      activeCityIdx === idx 
+                        ? 'bg-white/20 text-white font-semibold' 
+                        : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {city.name.split(' ')[0]}
+                  </button>
+                ))}
+              </div>
+
+              {/* Simulated Google Search Box */}
+              <div className="mt-4 rounded-2xl border border-white/10 bg-black/50 p-4">
+                <div className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70">
+                  <Search size={14} className="text-[#01bc7c]" />
+                  <span className="font-mono text-white/90">
+                    {fr ? `centre de radiologie irm ${cities[activeCityIdx].name.split(' ')[0].toLowerCase()}` : `radiology center mri ${cities[activeCityIdx].name.split(' ')[0].toLowerCase()}`}
+                  </span>
+                </div>
+
+                {/* Mode Toggle */}
+                <div className="mt-3 flex items-center justify-between rounded-xl bg-white/5 p-1 text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => setSeoCompareMode('optimized')}
+                    className={`flex-1 rounded-lg py-1 font-medium transition ${
+                      seoCompareMode === 'optimized' ? 'bg-[#01bc7c] text-white shadow-sm' : 'text-white/60 hover:text-white'
+                    }`}
+                  >
+                    {fr ? 'Avec Clinahir (#1)' : 'With Clinahir (#1)'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSeoCompareMode('baseline')}
+                    className={`flex-1 rounded-lg py-1 font-medium transition ${
+                      seoCompareMode === 'baseline' ? 'bg-red-500/30 text-red-200' : 'text-white/60 hover:text-white'
+                    }`}
+                  >
+                    {fr ? 'Sans Référencement' : 'Without SEO'}
+                  </button>
+                </div>
+
+                {/* Simulated Google Listing Card */}
+                <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3.5">
+                  {seoCompareMode === 'optimized' ? (
+                    <div>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
+                            <span className="text-[11px] font-semibold text-emerald-400">
+                              {fr ? 'Position #1 sur Google Maps' : 'Rank #1 on Google Maps'}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-sm font-semibold text-white">
+                            {fr ? 'Centre d\'Imagerie Médicale Clinahir' : 'Clinahir Medical Imaging Center'}
+                          </p>
+                          <div className="mt-1 flex items-center gap-1 text-[11px] text-amber-300">
+                            <span>★ 4.9</span>
+                            <span className="text-white/40">·</span>
+                            <span className="text-white/60">{fr ? '(avis fictifs pour illustration)' : '(fictional illustrative reviews)'}</span>
+                          </div>
+                        </div>
+                        <span className="rounded-lg bg-[#01bc7c]/20 px-2.5 py-1 text-[11px] font-semibold text-[#01bc7c]">
+                          {cities[activeCityIdx].conversion}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-[11px] text-white/60 flex items-center gap-1">
+                        <MapPin size={12} className="text-[#01bc7c]" />
+                        {cities[activeCityIdx].name} · {fr ? 'Ouvert 24/7 pour réservations' : '24/7 online booking'}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="py-2 text-center">
+                      <p className="text-xs font-medium text-white/50">
+                        {fr ? 'Non classé dans le top 10 local' : 'Unranked in local top 10'}
+                      </p>
+                      <p className="mt-1 text-[11px] text-white/40">
+                        {fr ? 'Les patients appellent les cliniques concurrentes visibles.' : 'Patients book with visible competitor centers.'}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-white/60">
+              <span>{fr ? 'Volume de recherche capté :' : 'Monthly local demand:'}</span>
+              <span className="font-semibold text-white">{cities[activeCityIdx].queries}</span>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Receptionist & WhatsApp Dispatch Co-Pilot (Span 6) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:bg-white/[0.045] lg:col-span-6 lg:p-9"
+          >
+            <div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-purple-500/30 bg-purple-500/10 text-purple-400">
+                  <MessageSquare size={22} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight text-white">
+                    {fr ? 'File de Réception Intelligente' : 'Smart Reception Dispatch'}
+                  </h3>
+                  <p className="text-xs text-white/50">
+                    {fr ? 'Traitement en 1 clic sans double saisie' : 'Instant 1-click confirmation workflow'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Interactive Queue Table */}
+              <div className="mt-6 space-y-2.5">
+                <p className="text-xs font-medium text-white/40">
+                  {fr ? 'Demandes en attente de validation' : 'Incoming patient queue'}
+                </p>
+                {queueItems.map(item => (
+                  <div 
+                    key={item.id}
+                    className="flex flex-col justify-between gap-2 rounded-2xl border border-white/10 bg-black/40 p-3.5 transition sm:flex-row sm:items-center"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm text-white">{item.patient}</span>
+                        <span className="text-[11px] text-white/40">{item.phone}</span>
+                      </div>
+                      <p className="mt-0.5 text-xs text-white/70">
+                        {item.exam} · <strong className="text-white/90">{item.time}</strong>
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {item.status === 'confirmed' ? (
+                        <span className="inline-flex items-center gap-1 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-300">
+                          <Check size={14} />
+                          {fr ? 'Confirmé sur WhatsApp' : 'WhatsApp Sent'}
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleConfirmItem(item.id)}
+                          className="flex items-center gap-1.5 rounded-xl bg-[#01bc7c] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#01a76f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#01bc7c]"
+                        >
+                          <Send size={12} />
+                          <span>{fr ? 'Valider' : 'Confirm'}</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-white/60">
+              <span>{fr ? 'Temps moyen de réponse secrétaire :' : 'Average staff response time:'}</span>
+              <strong className="text-[#01bc7c]">{fr ? '< 2 minutes' : '< 2 minutes'}</strong>
+            </div>
+          </motion.div>
+
+          {/* Card 4: Clinical Security, CNDP Compliance & Data Vault (Span 6) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:bg-white/[0.045] lg:col-span-6 lg:p-9"
+          >
+            <div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                  <ShieldCheck size={22} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight text-white">
+                    {fr ? 'Sécurité et confidentialité : périmètre à valider' : 'Security and privacy: scope to verify'}
+                  </h3>
+                  <p className="text-xs text-white/50">
+                    {fr ? 'Revue juridique et organisationnelle requise avant toute donnée clinique' : 'Legal and operational review required before clinical data use'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <div className="flex items-center gap-2 text-[#01bc7c]">
+                    <Lock size={16} />
+                    <span className="text-xs font-semibold">{fr ? 'Données de démonstration isolées' : 'Isolated demonstration data'}</span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-white/60">
+                    {fr ? 'Cette démonstration ne reçoit aucune ordonnance ni image médicale réelle.' : 'This demonstration receives no real prescriptions or medical images.'}
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <div className="flex items-center gap-2 text-[#01bc7c]">
+                    <FileText size={16} />
+                    <span className="text-xs font-semibold">{fr ? 'Cadre de protection des données à examiner' : 'Data protection framework to review'}</span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-white/60">
+                    {fr ? 'Les obligations applicables, dont la loi 09-08, nécessitent une vérification formelle.' : 'Applicable obligations, including Law 09-08, require formal verification.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-xs text-white/70">
+                <span className="font-semibold text-white">
+                  {fr ? 'Périmètre actuel :' : 'Current scope:'}
+                </span>{' '}
+                {fr ? 'Données fictives dans la démonstration ; aucune utilisation clinique ni certification revendiquée.' : 'Fictional data in the demonstration; no clinical operation or certification is claimed.'}
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-white/60">
+              <span>{fr ? 'Engagements de service :' : 'Service commitments:'}</span>
+              <strong className="text-emerald-400">{fr ? 'À convenir par contrat' : 'To be agreed by contract'}</strong>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
-    </div>
-  </section>;
+    </section>
+  );
 }

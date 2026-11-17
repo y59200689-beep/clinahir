@@ -1,0 +1,21 @@
+{
+  "executedAt": "2026-11-16T16:43:43.132Z",
+  "policy": "14 daily / 8 weekly / 12 monthly; newest two and pinned always retained",
+  "keep": [
+    {
+      "id": "2026-11-16T16-27-37-031Z-11c036a4",
+      "createdAt": "2026-11-16T16:27:37.031Z",
+      "projectRef": "fsfqgionuuxykpoxhrdm",
+      "folderId": "18_BWG8NWnSiWSc_pgcocxkLFHaHIWbzA",
+      "fileId": "1SP1XCvC-TIlBR03ttdaqv79sokVyX08c",
+      "fileName": "clinahir-staging-2026-11-16T16-27-37-031Z-11c036a4.dump.aesgcm",
+      "encryptedSha256": "f46823659b20d69918655dab9334712c40ba574e43844cf131d6ef90b85b02bb",
+      "plaintextSha256": "ceb5a89737b686ca340ef804d006124059570ad6cfea34785f034b45812b7628",
+      "verified": true,
+      "verifiedAt": "2026-11-16T16:43:43.068Z"
+    }
+  ],
+  "trashCandidates": [],
+  "unverified": [],
+  "permanentDeletionAllowed": false
+}

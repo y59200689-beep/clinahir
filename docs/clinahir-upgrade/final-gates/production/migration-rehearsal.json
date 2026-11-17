@@ -1,0 +1,397 @@
+{
+  "executedAt": "2026-11-16T23:53:02.763Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "backupId": "2026-11-16T23-30-09-724Z",
+  "backupSha256": "c30f822fd09fc2a9dbb646564cecfcfcaeb75cff5a56450f609beb45d0c63466",
+  "scope": "Offline production application upgrade rehearsal only; no hosted writes, Auth/Storage or live delivery",
+  "image": "public.ecr.aws/supabase/postgres:17.11.0.006",
+  "checks": [
+    {
+      "name": "independently downloaded backup authenticated and checksum verified",
+      "passed": true
+    },
+    {
+      "name": "fresh local PostgreSQL container created",
+      "passed": true
+    },
+    {
+      "name": "container isolated with no network ports or host mounts",
+      "passed": true
+    },
+    {
+      "name": "original production application backup restored without schema reconciliation",
+      "passed": true
+    },
+    {
+      "name": "restored original row digests equal backup receipt",
+      "passed": true
+    },
+    {
+      "name": "candidate hash matches frozen manifest",
+      "passed": true
+    },
+    {
+      "name": "restored baseline metadata matches migration precondition",
+      "passed": true
+    },
+    {
+      "name": "injected migration failure rejected",
+      "passed": true
+    },
+    {
+      "name": "failed migration restores complete original catalog",
+      "passed": true
+    },
+    {
+      "name": "failed migration preserves all original row digests",
+      "passed": true
+    },
+    {
+      "name": "exact candidate migration commits on restored production baseline",
+      "passed": true
+    },
+    {
+      "name": "all original fields and rows unchanged after migration",
+      "passed": true
+    },
+    {
+      "name": "five new private tables added",
+      "passed": true
+    },
+    {
+      "name": "all eight application tables retain RLS",
+      "passed": true
+    },
+    {
+      "name": "all application routines are invoker with restricted search_path",
+      "passed": true
+    },
+    {
+      "name": "all application routines deny browser roles",
+      "passed": true
+    },
+    {
+      "name": "application views use invoker permissions",
+      "passed": true
+    },
+    {
+      "name": "legacy UUID primary key and unique external ID preserved",
+      "passed": true
+    },
+    {
+      "name": "existing timestamp trigger preserved",
+      "passed": true
+    },
+    {
+      "name": "migration adds no messaging jobs or fictional business records",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_conversion_daily",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_delivery_health",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "anon actual read denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual insert denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual update denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon actual delete denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_admin_audit",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_analytics_events",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_conversion_daily",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_cron_runs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_delivery_health",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_lead_limits",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_leads",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_prospects",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_site_content",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual read denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual insert denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual update denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "authenticated actual delete denied clinahir_whatsapp_jobs",
+      "passed": true
+    },
+    {
+      "name": "anon private admin RPC denied",
+      "passed": true
+    },
+    {
+      "name": "authenticated private admin RPC denied",
+      "passed": true
+    },
+    {
+      "name": "transactional legacy/new capture CMS prospects retry and audit acceptance",
+      "passed": true
+    },
+    {
+      "name": "RLS hides all leads even under a temporary SELECT grant",
+      "passed": true
+    },
+    {
+      "name": "workflow probes rolled back without changing original rows",
+      "passed": true
+    },
+    {
+      "name": "accidental candidate reapplication is rejected by baseline guard",
+      "passed": true
+    },
+    {
+      "name": "rejected reapplication leaves target catalog unchanged",
+      "passed": true
+    }
+  ],
+  "productionChanges": false,
+  "activationAuthorized": false,
+  "candidateSha256": "795effede714ae0a5d7cfacb1b94939ccc658353232c902ec9933bba94ff72b3",
+  "candidatePath": "docs/clinahir-upgrade/final-gates/production/20261116234811_clinahir_production_upgrade.sql",
+  "baselineFingerprint": "358cc12f88b899530ab6d0e0cfada5e99b5be585d9e84f97dd0701e431931040",
+  "status": "passed",
+  "containerRemoved": true
+}

@@ -1,12 +1,12 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { captureLead, Conflict, InvalidLead, retryDue, validateLead, type IntegrationConfig, type LeadStore } from './leads.js';
 export interface ServerConfig extends IntegrationConfig { CRON_SECRET?: string }
-const json = (body: object, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
+const json = (body: object, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...(status === 429 ? { 'Retry-After': '60' } : {}) } });
 export async function leadRequest(request: Request, store: LeadStore, config: ServerConfig, fetcher: typeof fetch = fetch): Promise<Response> {
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
   const origin = request.headers.get('origin');
   if (origin !== new URL(request.url).origin) return json({ error: 'Request not allowed' }, 403);
-  if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return json({ error: 'JSON required' }, 415);
+  if (request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json') return json({ error: 'JSON required' }, 415);
   try {
     const reader = request.body?.getReader();
     if (!reader) throw new InvalidLead('body');

@@ -1,0 +1,38 @@
+{
+  "executedAt": "2026-11-16T09:53:32.538Z",
+  "sourceRef": "fsfqgionuuxykpoxhrdm",
+  "restoreRef": "xrfptjnsjckqgbvhvrwp",
+  "scope": "hosted public application-schema baseline only; managed Auth/Storage and infrastructure not included",
+  "checks": [
+    {
+      "name": "both supplied staging and isolated restore application schemas are empty",
+      "passed": true
+    },
+    {
+      "name": "backup credential belongs to exact staging target",
+      "passed": true
+    },
+    {
+      "name": "actual hosted baseline exported over verified TLS",
+      "passed": true
+    },
+    {
+      "name": "private baseline checksum verified after readback",
+      "passed": true
+    },
+    {
+      "name": "hosted baseline restored into independent Supabase project",
+      "passed": true
+    },
+    {
+      "name": "restored application baseline remains empty",
+      "passed": true
+    }
+  ],
+  "backup": {
+    "bytes": 7567,
+    "sha256": "0b131c74e2bae863dc2574f6d48141611fcce22c84ae6f42fdcb43101a76d0d8"
+  },
+  "restorePolicy": "Preserve target provider public schema, schema ACL/comment and provider default privileges; replay application objects only. Empty application baseline has no such objects.",
+  "status": "passed"
+}

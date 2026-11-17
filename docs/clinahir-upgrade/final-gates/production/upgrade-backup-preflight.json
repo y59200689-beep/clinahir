@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-11-17T13:13:22.476Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "scope": "Clinahir public application objects/data only; no managed Auth/Storage",
+  "productionChanges": false,
+  "checks": [
+    {
+      "name": "verified TLS and forced read-only session",
+      "passed": true
+    },
+    {
+      "name": "only approved application relations exist in public schema",
+      "passed": true
+    },
+    {
+      "name": "public routines are only Clinahir application routines",
+      "passed": true
+    }
+  ],
+  "identity": {
+    "user": "postgres",
+    "database": "postgres",
+    "readOnly": "on",
+    "ssl": false,
+    "version": "17.11",
+    "projectRef": null
+  },
+  "objects": [
+    {
+      "name": "clinahir_admin_audit",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_admin_audit_id_seq",
+      "kind": "S"
+    },
+    {
+      "name": "clinahir_analytics_events",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_conversion_daily",
+      "kind": "v"
+    },
+    {
+      "name": "clinahir_cron_runs",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_delivery_health",
+      "kind": "v"
+    },
+    {
+      "name": "clinahir_lead_limits",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_leads",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_prospects",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_site_content",
+      "kind": "r"
+    },
+    {
+      "name": "clinahir_whatsapp_jobs",
+      "kind": "r"
+    }
+  ],
+  "routines": [
+    {
+      "name": "clinahir_admin_content"
+    },
+    {
+      "name": "clinahir_admin_edit_lead"
+    },
+    {
+      "name": "clinahir_admin_import_prospects"
+    },
+    {
+      "name": "clinahir_admin_prospects"
+    },
+    {
+      "name": "clinahir_admin_replay"
+    },
+    {
+      "name": "clinahir_admin_snapshot"
+    },
+    {
+      "name": "clinahir_admin_update_prospect"
+    },
+    {
+      "name": "clinahir_allow_lead"
+    },
+    {
+      "name": "clinahir_capture_lead"
+    },
+    {
+      "name": "clinahir_claim_lead"
+    },
+    {
+      "name": "clinahir_claim_whatsapp"
+    },
+    {
+      "name": "clinahir_finish_lead"
+    },
+    {
+      "name": "clinahir_finish_whatsapp"
+    },
+    {
+      "name": "clinahir_record_analytics"
+    },
+    {
+      "name": "clinahir_record_cron"
+    },
+    {
+      "name": "clinahir_replay_lead"
+    },
+    {
+      "name": "clinahir_update_timestamp"
+    },
+    {
+      "name": "rls_auto_enable"
+    }
+  ],
+  "status": "preflight_passed"
+}

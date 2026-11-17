@@ -1,8 +1,9 @@
+import { useDemo } from './demo/DemoProvider';
 import AnimatedMetricValue from './AnimatedMetricValue';
 import { useMemo, useState, type ReactNode } from 'react';
 import { CalendarCheck2, CheckCircle2, CircleAlert, Clock3, Star, Users, XCircle } from 'lucide-react';
 import { type Appointment, type AppointmentDay } from './AppointmentsPage';
-import { buildTeamStats, formatDuration, memberFor, readDemoAppointments } from './teamActivity';
+import { buildTeamStats, formatDuration, memberFor } from './teamActivity';
 
 type Language = 'en' | 'fr';
 type ActivityFilter = 'all' | Appointment['status'];
@@ -42,7 +43,7 @@ export default function ActivityLogPage({ language, appointmentDays, rangeStart,
   const t = words[language];
   const [filter, setFilter] = useState<ActivityFilter>('all');
   const [visibleCount, setVisibleCount] = useState(10);
-  const [allAppointments] = useState<Appointment[]>(() => readDemoAppointments(appointmentDays));
+  const { appointments: allAppointments, staff } = useDemo();
   const selected = useMemo(() => allAppointments.filter((item) => item.date >= rangeStart && item.date <= rangeEnd), [allAppointments, rangeStart, rangeEnd]);
   const counts = useMemo(() => ({
     total: selected.length,
@@ -77,7 +78,7 @@ export default function ActivityLogPage({ language, appointmentDays, rangeStart,
     { label: t.confirmed, value: String(counts.confirmed), icon: CalendarCheck2, color: 'text-emerald-300', backdrop: 'bg-emerald-400/10' },
     { label: t.pending, value: String(counts.pending), icon: CircleAlert, color: 'text-rose-300', backdrop: 'bg-rose-400/10' },
     { label: t.response, value: averageResponse, icon: Clock3, color: 'text-orange-300', backdrop: 'bg-orange-400/10' },
-    { label: t.bestMember, value: bestMember?.[0] ?? '—', detail: bestMember ? `${bestMember[1]} ${t.confirmations}` : t.noMember, icon: Star, color: 'text-fuchsia-300', backdrop: 'bg-fuchsia-400/10' },
+    { label: t.bestMember, value: bestMember ? (staff.find(profile => profile.id === bestMember[0])?.name ?? bestMember[0]) : '—', detail: bestMember ? `${bestMember[1]} ${t.confirmations}` : t.noMember, icon: Star, color: 'text-fuchsia-300', backdrop: 'bg-fuchsia-400/10' },
   ];
   const filters: { key: ActivityFilter; label: string; count: number }[] = [
     { key: 'all', label: t.all, count: counts.total },
@@ -88,7 +89,7 @@ export default function ActivityLogPage({ language, appointmentDays, rangeStart,
     { key: 'no-answer', label: t.noAnswer, count: counts.noAnswer },
   ];
 
-  return <div className="min-w-0 space-y-6 text-left">
+  return <div data-i18n-managed className="min-w-0 space-y-6 text-left">
     <section className="relative rounded-3xl border border-white/15 bg-white/[0.07] backdrop-blur-xl p-5 sm:p-7 shadow-xl">
       <div className="relative z-30 flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
@@ -114,7 +115,7 @@ export default function ActivityLogPage({ language, appointmentDays, rangeStart,
       {teamStats.length ? <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {teamStats.map((member, index) => <article key={member.name} className="relative min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-lg">
           <span className={`absolute inset-x-0 top-0 h-[3px] ${index === 0 ? 'bg-cyan-300/80' : index === 1 ? 'bg-amber-300/80' : index === 2 ? 'bg-violet-300/80' : 'bg-rose-300/80'}`} aria-hidden="true" />
-          <div className="flex min-w-0 items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-900/60 border border-emerald-800/40 text-lg font-semibold text-emerald-200">{member.name.slice(-2)}</span><div className="min-w-0"><h3 className="truncate font-semibold" title={member.name}><span className="mr-1.5 text-amber-200">#{index + 1}</span>{member.name}</h3><p className="mt-1 text-xs text-white/55">{member.actions.toLocaleString(locale)} {t.actions}</p></div></div>
+          <div className="flex min-w-0 items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-900/60 border border-emerald-800/40 text-lg font-semibold text-emerald-200">{member.name.slice(-2)}</span><div className="min-w-0"><h3 className="truncate font-semibold" title={staff.find(profile => profile.id === member.name)?.name ?? member.name}><span className="mr-1.5 text-amber-200">#{index + 1}</span>{staff.find(profile => profile.id === member.name)?.name ?? member.name}</h3><p className="mt-1 text-xs text-white/55">{member.actions.toLocaleString(locale)} {t.actions}</p></div></div>
           <div className="mt-5 grid grid-cols-3 gap-2">
             {[{ label: t.share, value: `${member.share}%`, detail: `${member.confirmed.toLocaleString(locale)} ${t.confirmations}`, icon: CheckCircle2, tone: 'border-amber-300/20 bg-amber-400/10 text-amber-100' }, { label: t.handled, value: member.actions.toLocaleString(locale), detail: '', icon: Users, tone: 'border-emerald-300/20 bg-emerald-400/10 text-emerald-100' }, { label: t.average, value: formatDuration(member.averageMinutes), detail: '', icon: Clock3, tone: 'border-sky-300/20 bg-sky-400/10 text-sky-100' }].map(({ label, value, detail, icon: Icon, tone }) => <div key={label} className={`min-w-0 rounded-xl border ${tone} px-2 py-3 text-center`}><span className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/10"><Icon size={16} /></span><p className="mt-2 truncate text-lg font-bold" title={value}><AnimatedMetricValue value={value} locale={locale} /></p><p className="mt-1 text-xs font-medium leading-tight opacity-75">{label}</p>{detail && <p className="mt-1 truncate text-[9px] opacity-65" title={detail}>{detail}</p>}</div>)}
           </div>

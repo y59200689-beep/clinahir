@@ -1,0 +1,18 @@
+{
+  "executedAt": "2026-11-16T10:31:25.560Z",
+  "checks": [
+    {
+      "projectRef": "fsfqgionuuxykpoxhrdm",
+      "temporaryLoginDisabled": true,
+      "temporaryPoliciesRemoved": true,
+      "passed": true
+    },
+    {
+      "projectRef": "xrfptjnsjckqgbvhvrwp",
+      "temporaryLoginDisabled": true,
+      "temporaryPoliciesRemoved": true,
+      "passed": true
+    }
+  ],
+  "status": "passed"
+}

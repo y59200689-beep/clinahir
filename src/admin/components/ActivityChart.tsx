@@ -1,3 +1,4 @@
+import { useAdminLocale } from '../i18n';
 import { useState } from 'react';
 import { BarChart3, TrendingUp, Calendar } from 'lucide-react';
 
@@ -18,6 +19,7 @@ export function ActivityChart({
   title = 'Conversion Trend',
   subtitle = 'Demo submissions & consultation volume',
 }: ActivityChartProps) {
+  const { t, errorText, intlLocale } = useAdminLocale();
   // Default to 7d for spacious, clean visual hierarchy like BARONT
   const [selectedRange, setSelectedRange] = useState<'7d' | '14d' | '30d'>('7d');
 
@@ -34,7 +36,7 @@ export function ActivityChart({
 
   const formatDate = (s: string) => {
     try {
-      return new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      return new Date(s).toLocaleDateString(intlLocale, { day: 'numeric', month: 'short' });
     } catch {
       return s;
     }
@@ -44,7 +46,7 @@ export function ActivityChart({
     try {
       const d = new Date(s + 'T12:00:00');
       if (isWeekly) {
-        return d.toLocaleDateString('en-GB', { weekday: 'narrow' }); // M, T, W, T, F, S, S
+        return d.toLocaleDateString(intlLocale, { weekday: 'narrow' }); // M, T, W, T, F, S, S
       }
       return String(d.getDate());
     } catch {
@@ -58,11 +60,9 @@ export function ActivityChart({
       <div className="flex flex-col gap-3 mb-6">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-bold text-slate-900 tracking-tight">{title}</h3>
+            <h3 className="text-base font-bold text-slate-900 tracking-tight">{t(title)}</h3>
             <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
-              Live
-            </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" /> {t("Live")} </span>
           </div>
 
           {/* Time range switcher pills */}
@@ -77,16 +77,16 @@ export function ActivityChart({
                     : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                {range === '7d' ? '7 Days' : range === '14d' ? '14 Days' : '30 Days'}
+                {range === '7d' ? t("7 Days") : range === '14d' ? t("14 Days") : t("30 Days")}
               </button>
             ))}
           </div>
         </div>
 
         <div className="flex items-center justify-between text-xs text-slate-500">
-          <p className="text-xs text-slate-400 truncate">{subtitle}</p>
+          <p className="text-xs text-slate-400 truncate">{t(subtitle)}</p>
           <div className="font-mono text-slate-700 font-semibold shrink-0">
-            {total} {total === 1 ? 'request' : 'requests'}
+            {total} {total === 1 ? t("request") : t("requests")}
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@ export function ActivityChart({
                 >
                   {/* Tooltip on hover */}
                   <div className="absolute -top-9 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-[10px] font-medium py-1 px-2 rounded-md pointer-events-none whitespace-nowrap z-20 shadow-md">
-                    {formatDate(row.day)}: {val} {val === 1 ? 'request' : 'requests'}
+                    {formatDate(row.day)}: {val} {val === 1 ? t("request") : t("requests")}
                   </div>
 
                   {/* Rounded Bar */}
@@ -153,7 +153,7 @@ export function ActivityChart({
             <span>{formatDate(filteredRows[0]?.day || '')}</span>
             <div className="flex items-center gap-1.5 font-sans">
               <span className="w-2 h-2 rounded-sm bg-[#0A3A2A]" />
-              <span className="text-slate-500 text-[11px]">Consultation inquiries</span>
+              <span className="text-slate-500 text-[11px]"> {t("Consultation inquiries")} </span>
             </div>
             <span>{formatDate(filteredRows[filteredRows.length - 1]?.day || '')}</span>
           </div>
@@ -164,10 +164,8 @@ export function ActivityChart({
           <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center mb-2">
             <BarChart3 size={18} />
           </div>
-          <h4 className="text-xs font-bold text-slate-800">Awaiting Consultation Inquiries</h4>
-          <p className="text-[11px] text-slate-400 max-w-xs mt-1 leading-relaxed">
-            Inquiries booked through your website will plot automatically across this {selectedRange === '7d' ? '7-day' : selectedRange === '14d' ? '14-day' : '30-day'} window.
-          </p>
+          <h4 className="text-xs font-bold text-slate-800"> {t("Awaiting Consultation Inquiries")} </h4>
+          <p className="text-[11px] text-slate-400 max-w-xs mt-1 leading-relaxed"> {t("Inquiries booked through your website will plot automatically across this")} {selectedRange === '7d' ? t("7-day") : selectedRange === '14d' ? t("14-day") : t("30-day")} {t("window.")} </p>
         </div>
       )}
     </div>

@@ -1,0 +1,14 @@
+{
+  "submissionId": "9c71f949-0f12-4f6b-8eab-47ca1e881ab2",
+  "companyName": "SYNTHETIC RELEASE CHECK — NOT A CUSTOMER",
+  "contactName": "Release Acceptance Fixture",
+  "city": "Synthetic",
+  "email": "release-check@example.test",
+  "phone": "+12025550199",
+  "role": "Owner / director",
+  "priority": "A connected end-to-end workflow",
+  "formType": "demo",
+  "landingPage": "/",
+  "message": "Fictional production acceptance record. No outreach, no patient data.",
+  "utmSource": "release_acceptance"
+}

@@ -1,0 +1,77 @@
+{
+  "executedAt": "2026-11-16T10:20:13.943Z",
+  "scope": "Synthetic staging lead capture and owner edits; no CMS publish, queue-wide cron or WhatsApp sends",
+  "status": "passed",
+  "prerequisites": [],
+  "checks": [
+    {
+      "name": "hosting is protected",
+      "passed": true
+    },
+    {
+      "name": "server identifies staging",
+      "passed": true
+    },
+    {
+      "name": "owner signs in",
+      "passed": true
+    },
+    {
+      "name": "private owner cookie returned",
+      "passed": true
+    },
+    {
+      "name": "invalid lead rejected",
+      "passed": true
+    },
+    {
+      "name": "concurrent valid requests accepted",
+      "passed": true
+    },
+    {
+      "name": "duplicate identity preserved",
+      "passed": true
+    },
+    {
+      "name": "changed duplicate rejected",
+      "passed": true
+    },
+    {
+      "name": "owner snapshot readable",
+      "passed": true
+    },
+    {
+      "name": "one durable business lead visible through fresh API read",
+      "passed": true
+    },
+    {
+      "name": "stage and notes saved",
+      "passed": true
+    },
+    {
+      "name": "owner snapshot readable",
+      "passed": true
+    },
+    {
+      "name": "stage and notes survive fresh read",
+      "passed": true
+    },
+    {
+      "name": "lead change audited",
+      "passed": true
+    },
+    {
+      "name": "backend records CRM acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "controlled receiver receipt endpoint accessible",
+      "passed": true
+    },
+    {
+      "name": "receiver independently confirms one receipt",
+      "passed": true
+    }
+  ],
+  "syntheticExternalId": "cli_68b848de-3484-4ed0-a14d-1eaa61dbecde"
+}

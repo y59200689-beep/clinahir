@@ -1,3 +1,7 @@
+> Local upgrade: see [audit and verification](docs/clinahir-upgrade/README.md). The public clinic interface is synthetic; `/admin` manages business leads. No clinical production readiness or CNDP certification is claimed.
+
+> Production release, November 17, 2026: the nonclinical website and owner admin are live. See the [release completion record](docs/clinahir-upgrade/final-gates/production/release-completion.md) for current evidence, which supersedes historical preparation blockers. Owner MFA is optional, password recovery is verified, and WhatsApp sending remains disabled. Private runtime configuration, recovery keys and generated output must never be committed.
+
 # Clinahir
 
 > Digital patient discovery, online appointment booking, and clinic operations platform engineered specifically for radiology and medical imaging centers in Morocco.
@@ -178,7 +182,7 @@ npm run typecheck
 ## Deployment
 
 1. **Vercel (Recommended):**
-   - Root directory: `kelo-clone` (or repo root)
+   - Root directory: `clinahir` (or repo root)
    - Framework Preset: `Vite`
    - Build Command: `npm run build`
    - Output Directory: `dist/client`

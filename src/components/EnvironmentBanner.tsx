@@ -1,0 +1,1 @@
+export default function EnvironmentBanner() { return <aside data-i18n-managed="true" aria-label="Environment / Environnement" style={{background:'#312e81',color:'#fff',padding:'8px 16px',textAlign:'center',fontSize:13}}>STAGING · Synthetic data only / Données fictives uniquement · WhatsApp disabled / désactivé</aside>; }

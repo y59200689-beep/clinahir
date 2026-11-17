@@ -1,21 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
-import { LoaderCircle, CheckCircle2, X } from 'lucide-react';
+import { useAdminLocale } from './i18n';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { CheckCircle2, X } from 'lucide-react';
 import { adminApi, emptySnapshot, type Lead, type Snapshot } from './types';
 import { AdminShell, type AdminPage } from './components/AdminShell';
 import { LoginPage } from './pages/LoginPage';
-import { OverviewPage } from './pages/OverviewPage';
-import { LeadsPage } from './pages/LeadsPage';
-import { ProspectsPage } from './pages/ProspectsPage';
-import { WebsitePage } from './pages/WebsitePage';
-import { AnalyticsPage } from './pages/AnalyticsPage';
-import { DeliveriesPage } from './pages/DeliveriesPage';
-import { ActivityPage } from './pages/ActivityPage';
-import { SettingsPage } from './pages/SettingsPage';
+const OverviewPage = lazy(() => import('./pages/OverviewPage').then(module => ({ default: module.OverviewPage })));
+const LeadsPage = lazy(() => import('./pages/LeadsPage').then(module => ({ default: module.LeadsPage })));
+const ProspectsPage = lazy(() => import('./pages/ProspectsPage').then(module => ({ default: module.ProspectsPage })));
+const WebsitePage = lazy(() => import('./pages/WebsitePage').then(module => ({ default: module.WebsitePage })));
+const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage').then(module => ({ default: module.AnalyticsPage })));
+const DeliveriesPage = lazy(() => import('./pages/DeliveriesPage').then(module => ({ default: module.DeliveriesPage })));
+const ActivityPage = lazy(() => import('./pages/ActivityPage').then(module => ({ default: module.ActivityPage })));
+const SettingsPage = lazy(() => import('./pages/SettingsPage').then(module => ({ default: module.SettingsPage })));
 import './admin.css';
+import { AdminLocaleProvider } from './i18n';
 
-export default function AdminApp() {
+function AdminWorkspace() {
+  const { t, errorText, intlLocale } = useAdminLocale();
   const [user, setUser] = useState<string | null>(null);
-  const [checking, setChecking] = useState(true);
   const [page, setPage] = useState<AdminPage>('Overview');
   const [data, setData] = useState<Snapshot>(emptySnapshot);
   const [busy, setBusy] = useState(false);
@@ -29,7 +31,7 @@ export default function AdminApp() {
 
   // Set page meta on mount
   useEffect(() => {
-    document.title = 'Clinahir HQ — Clinical Operations Workspace';
+    document.title = t('Business administration');
     const robots = document.createElement('meta');
     robots.name = 'robots';
     robots.content = 'noindex, nofollow';
@@ -37,9 +39,11 @@ export default function AdminApp() {
 
     void adminApi<{ user: { email: string } }>('session')
       .then((r) => setUser(r.user.email))
-      .catch(() => {})
-      .finally(() => setChecking(false));
+      .catch(() => {});
+    return () => robots.remove();
   }, []);
+
+  useEffect(() => { document.title = `Clinahir — ${t('Business administration')}`; }, [t]);
 
   // Toast timer
   useEffect(() => {
@@ -91,26 +95,12 @@ export default function AdminApp() {
   async function handleLogout() {
     try {
       await adminApi('logout', {});
+      ++loadSequence.current;
       setUser(null);
       setData(emptySnapshot);
     } catch (e) {
       setError((e as Error).message);
     }
-  }
-
-  // Initial session checking screen
-  if (checking) {
-    return (
-      <div className="min-h-screen bg-[#F6F8F7] flex flex-col items-center justify-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[#0A3A2A] text-white flex items-center justify-center font-bold text-lg shadow-md">
-          C
-        </div>
-        <div className="flex items-center gap-2 text-slate-500 text-xs font-medium">
-          <LoaderCircle size={15} className="animate-spin text-emerald-700" />
-          <span>Verifying security session…</span>
-        </div>
-      </div>
-    );
   }
 
   // Unauthenticated login view
@@ -140,28 +130,31 @@ export default function AdminApp() {
           className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-semibold shadow-2xl flex items-center gap-3 border border-slate-800 animate-in fade-in slide-in-from-bottom-3 duration-200"
         >
           <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-          <span>{toast}</span>
+          <span>{t(toast)}</span>
           <button
             onClick={() => setToast('')}
-            className="text-slate-400 hover:text-white ml-1"
+            aria-label={t("Dismiss notification")} className="text-slate-400 hover:text-white ml-1"
           >
             <X size={14} />
           </button>
         </div>
       )}
 
+      {error && <div role="alert" className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900"><span>{errorText(error)}</span><button type="button" onClick={() => void loadData()} className="font-semibold underline"> {t("Try again")} </button></div>}
+      {busy && <p role="status" className="mb-3 text-sm text-slate-600"> {t("Updating business records…")} </p>}
+      <Suspense fallback={<p role="status" className="p-6 text-sm text-slate-600">{t("Loading…")}</p>}>
       {/* Dynamic Page Router */}
       {page === 'Overview' && (
         <OverviewPage
           data={data}
           onNavigate={navigate}
           onSelectLead={(lead) => {
-            setSearch(lead.company_name);
             navigate('Leads');
+            setSearch(lead.company_name);
           }}
           onFilterStage={(st) => {
-            setStage(st);
             navigate('Leads');
+            setStage(st);
           }}
         />
       )}
@@ -202,6 +195,9 @@ export default function AdminApp() {
           onNavigate={navigate}
         />
       )}
+      </Suspense>
     </AdminShell>
   );
 }
+
+export default function AdminApp() { return <AdminLocaleProvider><AdminWorkspace /></AdminLocaleProvider>; }

@@ -1,0 +1,454 @@
+{
+  "checkedAt": "2026-11-16T22:01:48.147Z",
+  "projectRef": "jsagrvxgydvhdoxibzny",
+  "projectName": "clinahir",
+  "organizationId": "ictxrvikmelaingrsqzq",
+  "status": "completed_read_only",
+  "scope": "Application catalog metadata only; no business rows, Auth users or secret settings selected; transaction rolled back",
+  "catalog": {
+    "server": [
+      {
+        "server_version": "PostgreSQL 17.11 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 15.2.0, 64-bit"
+      }
+    ],
+    "columns": [
+      {
+        "data_type": "uuid",
+        "table_name": "clinahir_analytics_events",
+        "column_name": "id",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_analytics_events",
+        "column_name": "event_type",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_analytics_events",
+        "column_name": "placement",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_analytics_events",
+        "column_name": "language",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_analytics_events",
+        "column_name": "created_at",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "date",
+        "table_name": "clinahir_conversion_daily",
+        "column_name": "day",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "bigint",
+        "table_name": "clinahir_conversion_daily",
+        "column_name": "page_views",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "bigint",
+        "table_name": "clinahir_conversion_daily",
+        "column_name": "demo_cta_clicks",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "bigint",
+        "table_name": "clinahir_conversion_daily",
+        "column_name": "demo_submissions",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_lead_limits",
+        "column_name": "identifier",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_lead_limits",
+        "column_name": "window_started_at",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "integer",
+        "table_name": "clinahir_lead_limits",
+        "column_name": "requests",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "uuid",
+        "table_name": "clinahir_leads",
+        "column_name": "id",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "external_id",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "company_name",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "contact_name",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "email",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "phone",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "city",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "message",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "role",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "priority",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "form_type",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "landing_page",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "utm_source",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "utm_medium",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "utm_campaign",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "submission_fingerprint",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "submitted_at",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "created_at",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "updated_at",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_status",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "integer",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_attempts",
+        "is_nullable": "NO"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_synced_at",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "text",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_last_error",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_next_attempt_at",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "uuid",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_lock_token",
+        "is_nullable": "YES"
+      },
+      {
+        "data_type": "timestamp with time zone",
+        "table_name": "clinahir_leads",
+        "column_name": "daily_command_lock_expires_at",
+        "is_nullable": "YES"
+      }
+    ],
+    "objects": [
+      {
+        "entity": "clinahir_analytics_events",
+        "entity_kind": "r",
+        "rls_enabled": true,
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_conversion_daily",
+        "entity_kind": "v",
+        "rls_enabled": false,
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_lead_limits",
+        "entity_kind": "r",
+        "rls_enabled": true,
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "entity_kind": "r",
+        "rls_enabled": true,
+        "schema_name": "public"
+      }
+    ],
+    "policies": [],
+    "routines": [
+      {
+        "signature": "clinahir_update_timestamp()",
+        "anon_execute": true,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "f8fc7d652d6e7ac2690295210360a786",
+        "authenticated_execute": true
+      },
+      {
+        "signature": "clinahir_capture_lead(jsonb)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "64b51a306c6951d4bf0f1e38c28616b7",
+        "authenticated_execute": false
+      },
+      {
+        "signature": "clinahir_claim_lead(text,uuid,timestamp with time zone)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "b5354cf9c09fa2488e586ddf990d6cb1",
+        "authenticated_execute": false
+      },
+      {
+        "signature": "clinahir_finish_lead(text,uuid,text,text,timestamp with time zone,timestamp with time zone)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "414683a762ebe736e33ded35a2efe5bf",
+        "authenticated_execute": false
+      },
+      {
+        "signature": "clinahir_replay_lead(text,timestamp with time zone)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "a07d9b97381580e15c3ab48df4c898a0",
+        "authenticated_execute": false
+      },
+      {
+        "signature": "clinahir_allow_lead(text)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "ca6f7b4501c22a1eac35cac444b28031",
+        "authenticated_execute": false
+      },
+      {
+        "signature": "clinahir_record_analytics(jsonb)",
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": false,
+        "definition_digest": "644928057afb8eec4059ac6ba34b8f6f",
+        "authenticated_execute": false
+      }
+    ],
+    "constraints": [
+      {
+        "entity": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_event_type_check",
+        "definition": "CHECK ((event_type = ANY (ARRAY['page_view'::text, 'demo_cta_click'::text])))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_language_check",
+        "definition": "CHECK ((language = ANY (ARRAY['en'::text, 'fr'::text])))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_pkey",
+        "definition": "PRIMARY KEY (id)",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_analytics_events",
+        "conname": "clinahir_analytics_events_placement_check",
+        "definition": "CHECK ((placement = ANY (ARRAY['page'::text, 'hero'::text, 'solutions'::text, 'how-it-works'::text, 'process'::text, 'about'::text, 'book-demo'::text, 'footer'::text, 'other'::text])))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_identifier_check",
+        "definition": "CHECK ((identifier ~ '^[0-9a-f]{64}$'::text))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_pkey",
+        "definition": "PRIMARY KEY (identifier)",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_lead_limits",
+        "conname": "clinahir_lead_limits_requests_check",
+        "definition": "CHECK ((requests > 0))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_company_name_not_blank",
+        "definition": "CHECK (((length(TRIM(BOTH FROM company_name)) >= 1) AND (length(TRIM(BOTH FROM company_name)) <= 200)))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_email_not_blank",
+        "definition": "CHECK (((length(TRIM(BOTH FROM email)) >= 3) AND (length(TRIM(BOTH FROM email)) <= 254)))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_external_id_format",
+        "definition": "CHECK ((external_id ~~ 'cli_%'::text))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_fingerprint_format",
+        "definition": "CHECK (((submission_fingerprint IS NULL) OR (submission_fingerprint ~ '^[0-9a-f]{64}$'::text)))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_leads_daily_command_attempts_check",
+        "definition": "CHECK ((daily_command_attempts >= 0))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_leads_daily_command_status_check",
+        "definition": "CHECK ((daily_command_status = ANY (ARRAY['pending'::text, 'synced'::text, 'blocked'::text, 'exhausted'::text])))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_leads_external_id_key",
+        "definition": "UNIQUE (external_id)",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_leads_form_type_check",
+        "definition": "CHECK ((form_type = ANY (ARRAY['demo'::text, 'contact'::text, 'consultation'::text, 'booking'::text])))",
+        "schema_name": "public"
+      },
+      {
+        "entity": "clinahir_leads",
+        "conname": "clinahir_leads_pkey",
+        "definition": "PRIMARY KEY (id)",
+        "schema_name": "public"
+      }
+    ],
+    "tableGrants": [
+      {
+        "tablename": "clinahir_analytics_events",
+        "anon_insert": false,
+        "anon_select": false,
+        "service_select": true,
+        "authenticated_insert": false,
+        "authenticated_select": false
+      },
+      {
+        "tablename": "clinahir_lead_limits",
+        "anon_insert": false,
+        "anon_select": false,
+        "service_select": true,
+        "authenticated_insert": false,
+        "authenticated_select": false
+      },
+      {
+        "tablename": "clinahir_leads",
+        "anon_insert": false,
+        "anon_select": false,
+        "service_select": true,
+        "authenticated_insert": false,
+        "authenticated_select": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "executedAt": "2026-11-16T11:29:13.545Z",
+  "scope": "Actual isolated Daily Command 500 failure and restoration, durable Clinahir outbox and real scheduled retry; no live CRM change",
+  "checks": [
+    {
+      "name": "only known synced synthetic source leads precede fault drill",
+      "passed": true
+    },
+    {
+      "name": "real CRM sandbox returns controlled database-failure 500",
+      "passed": true
+    },
+    {
+      "name": "website still acknowledges durable capture during actual CRM failure",
+      "passed": true
+    },
+    {
+      "name": "actual CRM 500 leaves saved source row retryable",
+      "passed": true
+    },
+    {
+      "name": "healthy real CRM sandbox restored before retry",
+      "passed": true
+    },
+    {
+      "name": "concurrent authenticated retry processors complete",
+      "passed": true
+    },
+    {
+      "name": "same durable source lead syncs on exactly one successful retry",
+      "passed": true
+    },
+    {
+      "name": "recovered receipt independently readable in real CRM database",
+      "passed": true
+    },
+    {
+      "name": "exactly one real CRM receipt exists after failure and concurrent recovery",
+      "passed": true
+    }
+  ],
+  "syntheticExternalId": "cli_cf450be0-807b-4857-b3f5-22cf921645de",
+  "status": "passed"
+}
