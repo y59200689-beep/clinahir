@@ -30,19 +30,22 @@ test('worker verifies signature, audience, immutable repository, default branch 
  assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:'yes'}),env,fetcher)).status,400);assert.equal(calls,2);
  assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:true,error:'Partial results ready.'}),env,fetcher)).status,200);assert.equal(calls,3);
 });
-test('hosted result preview is bounded while CSV/import include every result and reuse duplicate-safe RPC',async()=>{
+test('hosted history, match badges and selective import use stored rows',async()=>{
  const rows=Array.from({length:25},(_,i)=>({...row,title:i?'Synthetic '+i:'=FORMULA()'}));let imports=0;
- const store={adminRpc:async(name,data)=>{if(name==='clinahir_admin_import_prospects'){imports++;assert.equal(data.p_actor,actor);assert.equal(data.p_rows.length,25);assert.equal(data.p_rows[0].phone,'+212600000000');return {inserted:24,duplicates:1};}return {id,keywords:'imaging',city:'Rabat',status:'completed',created_at:'2026-11-18',results:rows};}};
- const preview=await (await mapsAdminRequest(req('maps-status'),undefined,store,actor)).json();assert.equal(preview.total,25);assert.equal(preview.rows.length,20);assert.equal(preview.job.lease_token,undefined);
+ const store={adminRpc:async(name,data)=>{if(name==='clinahir_maps_history')return [{id,keywords:'imaging',city:'Rabat',status:'completed',total:25}];if(name==='clinahir_maps_matches')return rows.map((_,i)=>i===0);if(name==='clinahir_admin_import_prospects'){imports++;assert.equal(data.p_actor,actor);assert.deepEqual(data.p_rows.map(row=>row.center_name),['Synthetic 24']);return {inserted:1,duplicates:0};}return {id,keywords:'imaging',city:'Rabat',status:'completed',created_at:'2026-11-18',results:rows};}};
+ const preview=await (await mapsAdminRequest(req('maps-status'),undefined,store,actor)).json();assert.equal(preview.total,25);assert.equal(preview.rows.length,25);assert.equal(preview.job.lease_token,undefined);
+ assert.equal(preview.rows[0].directoryMatch,true);
+ const history=await (await mapsAdminRequest(req('maps-history'),undefined,store,actor)).json();assert.equal(history.jobs[0].total,25);assert.equal(history.jobs[0].results,undefined);
+ assert.equal((await mapsAdminRequest(req('maps-import',{}),{jobId:id,indices:[25],sourceUseConfirmed:true},store,actor)).status,400);
  const csv=await (await mapsAdminRequest(req('maps-export'),undefined,store,actor)).text();assert.ok(csv.includes("'=FORMULA()"));assert.ok(csv.includes('Synthetic 24'));
  assert.equal((await mapsAdminRequest(req('maps-import',{}),{jobId:token,sourceUseConfirmed:true},store,actor)).status,409);assert.equal(imports,0);
- assert.deepEqual(await (await mapsAdminRequest(req('maps-import',{}),{jobId:id,sourceUseConfirmed:true},store,actor)).json(),{inserted:24,duplicates:1});
+ assert.deepEqual(await (await mapsAdminRequest(req('maps-import',{}),{jobId:id,indices:[24,24],sourceUseConfirmed:true},store,actor)).json(),{inserted:1,duplicates:0});
 });
 test('public admin Maps actions cannot bypass the existing owner session',async()=>{
  const {adminRequest}=await import('../.integration-build/server/admin.js');let calls=0;
  const fetcher=async()=>{calls++;return Response.json({id:'not-owner',email:'other@example.test'});};
  const configured={...env,CLINAHIR_ADMIN_EMAIL:'owner@example.test'};
- for(const action of ['maps-status','maps-export','maps-start','maps-stop','maps-import']){
+ for(const action of ['maps-status','maps-export','maps-start','maps-stop','maps-import','maps-history']){
   const request=req(action,action.includes('status')||action.includes('export')?undefined:{});
   assert.equal((await adminRequest(request,configured,fetcher)).status,401);
  }

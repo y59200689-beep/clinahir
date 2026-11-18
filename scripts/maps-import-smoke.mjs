@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { chromium } from 'playwright';
 const root = await mkdtemp(join(tmpdir(), 'maps-import-qa-'));
-const job = { id: 'fixture', directory: join(root, 'fixture'), query: 'imaging in Rabat', city: 'Rabat', status: 'completed' };
+const job = { id: 'fixture', directory: join(root, 'fixture'), query: 'imaging in Rabat', city: 'Rabat', status: 'completed', startedAt: new Date().toISOString() };
 await mkdir(job.directory);
 await writeFile(join(root, 'current.json'), JSON.stringify(job));
 const rows = [{ title: ' FICTIONAL   PROSPECT ', complete_address: {city:' RABAT '} }, { title:'Fictional Prospect' }, ...Array.from({length:24}, (_,i)=>({title:`Synthetic Imaging ${i}`,link:`https://maps.example.test/${i}`,web_site:`https://clinic${i}.example.test`,phone:'+212600000000',review_rating:4.5,review_count:10,address:'Synthetic address',category:'Radiologist'}))];
@@ -19,18 +19,22 @@ try {
  const origin='http://127.0.0.1:4181';
  assert.equal((await context.request.post(origin+'/api/admin?action=maps-import',{data:{jobId:'fixture',sourceUseConfirmed:true},headers:{Origin:origin}})).status(),401);
  await page.goto(origin+'/admin');await page.locator('input[name=email]').fill('owner@example.test');await page.locator('input[name=password]').fill('local-admin-fixture-only');await page.locator('button[type=submit]').click();await page.getByRole('link',{name:'Google Maps Search',exact:true}).click();
- await page.getByRole('heading',{name:'Search results · 26',exact:true}).waitFor();assert.equal(await page.locator('tbody tr').count(),20);
+ await page.getByRole('heading',{name:'Search results · 26',exact:true}).waitFor();assert.equal(await page.locator('tbody tr').count(),25);
  await mkdir('output/playwright',{recursive:true});await page.screenshot({path:'output/playwright/maps-design-desktop.png',fullPage:true});
  await page.setViewportSize({width:390,height:844});await page.waitForFunction(()=>document.documentElement.scrollWidth<=window.innerWidth,{},{timeout:5000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);await page.screenshot({path:'output/playwright/maps-design-mobile.png',fullPage:true});await page.setViewportSize({width:1440,height:1000});await page.waitForFunction(()=>document.querySelector('aside').getBoundingClientRect().x===0);
+ await page.getByRole('button',{name:/^Directory match:/}).click();
+ await page.getByRole('option',{name:'New to directory',exact:true}).click();
+ assert.equal(await page.locator('tbody tr').count(),24);
+ await page.getByRole('checkbox',{name:'Select Synthetic Imaging 23',exact:true}).check();
  const button=page.getByRole('button',{name:'Send to Prospect Directory',exact:true});await button.click();assert.equal(await button.isDisabled(),true);
- assert.equal((await context.request.post(origin+'/api/admin?action=maps-import',{data:{jobId:'wrong',sourceUseConfirmed:true},headers:{Origin:origin}})).status(),409);
+ assert.equal((await context.request.post(origin+'/api/admin?action=maps-import',{data:{jobId:'wrong',sourceUseConfirmed:true},headers:{Origin:origin}})).status(),404);
  assert.equal((await context.request.post(origin+'/api/admin?action=maps-import',{data:{jobId:'fixture',sourceUseConfirmed:false},headers:{Origin:origin}})).status(),400);
- await page.getByRole('checkbox').check();await button.click();await page.getByRole('heading',{name:'Prospect Directory',exact:true}).waitFor();await page.getByText('Imported 24 prospects; 2 duplicates skipped.',{exact:true}).waitFor();await page.getByText('Synthetic Imaging 23',{exact:true}).waitFor();
- const snapshot=await (await context.request.get(origin+'/api/admin?action=prospects')).json();assert.equal(snapshot.total,25);const imported=snapshot.prospects.find(p=>p.center_name==='Synthetic Imaging 23');assert.equal(imported.city,'Rabat');assert.equal(imported.website_url,'https://clinic23.example.test');assert.equal(imported.phone,'+212600000000');assert.equal(imported.listing_url,'https://maps.example.test/23');
- await page.getByRole('link',{name:'Google Maps Search',exact:true}).click();await page.getByRole('button',{name:'Send to Prospect Directory',exact:true}).click();await page.getByRole('checkbox').check();await page.getByRole('button',{name:'Send to Prospect Directory',exact:true}).click();await page.getByText('Imported 0 prospects; 26 duplicates skipped.',{exact:true}).waitFor();
+ await page.locator('.maps-import input[type=checkbox]').check();await button.click();await page.getByRole('heading',{name:'Prospect Directory',exact:true}).waitFor();await page.getByText('Imported 1 prospects; 0 duplicates skipped.',{exact:true}).waitFor();await page.getByText('Synthetic Imaging 23',{exact:true}).waitFor();
+ const snapshot=await (await context.request.get(origin+'/api/admin?action=prospects')).json();assert.equal(snapshot.total,2);const imported=snapshot.prospects.find(p=>p.center_name==='Synthetic Imaging 23');assert.equal(imported.city,'Rabat');assert.equal(imported.website_url,'https://clinic23.example.test');assert.equal(imported.phone,'+212600000000');assert.equal(imported.listing_url,'https://maps.example.test/23');
+ await page.getByRole('link',{name:'Google Maps Search',exact:true}).click();await page.getByRole('button',{name:'Send to Prospect Directory',exact:true}).click();await page.locator('.maps-import input[type=checkbox]').check();await page.getByRole('button',{name:'Send to Prospect Directory',exact:true}).click();await page.getByText('Imported 23 prospects; 3 duplicates skipped.',{exact:true}).waitFor();
  assert.equal((await (await context.request.get(origin+'/api/admin?action=prospects')).json()).total,25);
  await mkdir('output/playwright',{recursive:true});await page.screenshot({path:'output/playwright/maps-import-verified.png',fullPage:true});
- console.log('PASS authenticated Maps import transfers all 26 captured rows, navigates to directory, skips existing and intra-batch duplicates, and repeated import adds zero rows.');
+ console.log('PASS filtering identifies new prospects, selective import saves one result, and full import skips duplicates.');
  } catch(error) {
  if(page) {
   const diagnostics = await page.evaluate(() => {

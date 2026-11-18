@@ -6,6 +6,8 @@ export function createAdminFixture(){
  const leads=['Atlas Imaging Center','Horizon Medical','Northside Radiology','Olive Health Center'].map((company,i)=>({external_id:`cli_11111111-1111-4111-8111-11111111111${i}`,company_name:company,contact_name:`Test Contact ${i+1}`,email:null,phone:'+212600000000',city:['Casablanca','Rabat','Marrakech','Tangier'][i],message:'Role: Owner / director\nPriority: A stronger website and local visibility',role:'Owner / director',priority:'A stronger website and local visibility',form_type:'demo',landing_page:'/',utm_source:['google','instagram',null,'google'][i],utm_medium:'test',utm_campaign:'admin_fixture',submitted_at:new Date(now.getTime()-i*86400000).toISOString(),daily_command_status:i===2?'blocked':'synced',daily_command_attempts:1,daily_command_last_error:i===2?'http_401':null,admin_stage:['new','qualified','new','won'][i],admin_notes:''}));
  const prospects=[{id:'22222222-2222-4222-8222-222222222222',center_name:'Fictional Prospect',city:'Rabat',address:null,category:null,phone:null,email:null,listing_url:null,website_url:null,rating:null,review_count:null,instagram_url:null,facebook_url:null,tiktok_url:null,online_booking_available:null,main_gap:null,gap_evidence:null,source_name:'QA fixture',source_url:'https://fixture.invalid',qualification_stage:'review',whatsapp_opt_in_at:null,whatsapp_opt_in_evidence:null,notes:'',created_at:now.toISOString(),updated_at:now.toISOString()}];
  let mapsJob=null;
+ const mapsJobs=[];
+ const normalize=value=>value.trim().replace(/\s+/g,' ').toLowerCase();
  const audit=[];const json=x=>Response.json(x);const entry=(action,target)=>audit.unshift({id:audit.length+1,action,target,created_at:new Date().toISOString()});
  return async(url,init={})=>{const path=new URL(url).pathname;const d=init.body?JSON.parse(init.body):{};
   if(path.endsWith('/clinahir_allow_lead'))return json(true);
@@ -16,7 +18,16 @@ export function createAdminFixture(){
   if(path.endsWith('/clinahir_admin_content')){if(d.p_version!==document.version)return json({conflict:true});document={...document,draft:d.p_content,version:document.version+1,...(d.p_publish?{published:d.p_content,published_at:new Date().toISOString()}:{})};entry(d.p_publish?'website.published':'website.draft_saved','website');return json(document);}
   if(path.endsWith('/clinahir_admin_edit_lead')){const lead=leads.find(l=>l.external_id===d.p_id);if(!lead)return Response.json({}, {status:404});lead.admin_stage=d.p_stage;lead.admin_notes=d.p_notes;entry('lead.updated',lead.external_id);return json({ok:true});}
   if(path.endsWith('/clinahir_admin_replay')){const lead=leads.find(l=>l.external_id===d.p_id);if(lead)lead.daily_command_status='pending';entry('daily_command.requeued',d.p_id);return json({ok:true});}
-  if(path.endsWith('/clinahir_maps_job')){if(d.p_op==='start'){mapsJob={id:'33333333-3333-4333-8333-333333333333',keywords:d.p_data.keywords,city:d.p_data.city,status:'queued',created_at:now.toISOString(),results:[]};}else if(d.p_op==='stop'&&mapsJob)mapsJob.status='stopped';return json(mapsJob);}
+  if(path.endsWith('/clinahir_maps_history'))return json(mapsJobs.map(({results,...job})=>({...job,total:results.length})));
+  if(path.endsWith('/clinahir_maps_matches'))return json(d.p_rows.map(row=>prospects.some(p=>normalize(p.center_name)===normalize(row.title)&&normalize(p.city)===normalize(row.city))));
+  if(path.endsWith('/clinahir_maps_job')){
+   if(d.p_op==='start'){
+    mapsJob={id:crypto.randomUUID(),keywords:d.p_data.keywords,city:d.p_data.city,status:'queued',created_at:now.toISOString(),results:[]};
+    mapsJobs.unshift(mapsJob);
+   }else if(d.p_op==='stop'&&mapsJob)mapsJob.status='stopped';
+   else if(d.p_op==='get')return json(mapsJobs.find(job=>job.id===d.p_data.id)??null);
+   return json(mapsJob);
+  }
   if(path.endsWith('/clinahir_admin_prospects'))return json({prospects:prospects.filter(p=>(!d.p_stage||p.qualification_stage===d.p_stage)&&(!d.p_search||p.center_name.toLowerCase().includes(d.p_search.toLowerCase()))),total:prospects.length,cities:['Rabat'],counts:{total:prospects.length,review:prospects.filter(p=>p.qualification_stage==='review').length,qualified:prospects.filter(p=>p.qualification_stage==='qualified').length,opted_in:0,no_website:1}});
   if(path.endsWith('/clinahir_admin_import_prospects')){
    const normalize=value=>value.trim().replace(/\s+/g,' ').toLowerCase();let inserted=0,duplicates=0;

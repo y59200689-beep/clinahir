@@ -1,15 +1,23 @@
 import { validMapsWorker } from './maps-worker-auth.js';
 import { SupabaseLeadStore } from './supabase.js';
 import { environmentFailure } from './environment.js';
-import { parseMapsLocations, mapsResultCity } from './maps-locations.mjs';
+import { parseMapsLocations, mapsResultCity, selectMapsRows } from './maps-locations.mjs';
 import { parseProspectCsv } from './prospects.js';
 type Env = Record<string,string|undefined>;
-export type MapsRow = {title:string;category:string;rating:string;reviews:string;phone:string;website:string;address:string;listing:string;city:string};
-interface Job {id:string; keywords:string;city:string;status:string;created_at:string;lease_token:string|null;results:MapsRow[];error:string|null;conflict?:boolean;limited?:boolean}
+export type MapsRow = {title:string;category:string;rating:string;reviews:string;phone:string;website:string;address:string;listing:string;city:string;location?:string};
+type Milestone = "pending" | "searching" | "finished" | "incomplete";
+interface Job {id:string; keywords:string;city:string;status:string;created_at:string;updated_at?:string;milestones?:Milestone[];total?:number;lease_token:string|null;results:MapsRow[];error:string|null;conflict?:boolean;limited?:boolean}
 const reply=(data:object,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const uuid=(value:unknown):value is string=>typeof value==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const text=(value:unknown,max:number)=>typeof value==='string'&&value.trim().length>0&&value.length<=max&&!/[\x00-\x1f]/.test(value);
-const publicJob=(j:Job|null)=>j?{id:j.id,query:`${j.keywords} in ${parseMapsLocations(j.city).join('; ') || j.city}`,status:j.status,startedAt:j.created_at,error:j.error}:null;
+const publicJob = (job: Job | null) => {
+ if (!job) return null;
+ const locations = parseMapsLocations(job.city);
+ return { id: job.id, query: `${job.keywords} in ${locations.join('; ') || job.city}`,
+  keywords: job.keywords, locations, status: job.status, startedAt: job.created_at,
+  lastWorkerUpdate: job.status === 'running' ? job.updated_at : undefined,
+  total: job.total ?? job.results?.length, milestones: job.milestones, error: job.error };
+};
 const cell=(v:unknown)=>'"'+String(v??'').replaceAll('"','""')+'"';
 export function mapsCsv(rows:MapsRow[],city?:string,internal=false){
  const keys=internal?['center_name','city','address','category','phone','website_url','rating','review_count','listing_url','source_name','source_url']:['title','category','rating','reviews','phone','website','address','city'];
@@ -19,7 +27,8 @@ export function mapsCsv(rows:MapsRow[],city?:string,internal=false){
  return (internal?'':'\uFEFF')+[keys,...values].map(row=>row.map(quote).join(',')).join('\r\n');
 }
 export async function mapsAdminRequest(request:Request,body:Record<string,unknown>|undefined,store:SupabaseLeadStore,actor:string):Promise<Response>{
- const action=new URL(request.url).searchParams.get('action');
+ const params = new URL(request.url).searchParams;
+ const action = params.get('action');
  const rpc=(op:string,data:object={})=>store.adminRpc<Job|null>('clinahir_maps_job',{p_actor:actor,p_op:op,p_data:data});
  if(action==='maps-start'&&request.method==='POST'){
   const locations = parseMapsLocations(body?.city);
@@ -28,20 +37,34 @@ export async function mapsAdminRequest(request:Request,body:Record<string,unknow
   if(j?.conflict)return reply({error:'A search is already running.'},409);if(j?.limited)return reply({error:'Daily search limit reached. Try again tomorrow.'},429);
   return reply({job:publicJob(j)});
  }
- const j=await rpc('latest');
+ if (action === 'maps-history' && request.method === 'GET') {
+  const jobs = await store.adminRpc<Job[]>('clinahir_maps_history', { p_actor: actor });
+  return reply({ jobs: jobs.map(publicJob) });
+ }
+ const jobId = action === 'maps-import' ? body?.jobId : params.get('job');
+ if (jobId != null && !uuid(jobId)) return reply({ error: 'Search results changed. Refresh and try again.' }, 400);
+ const j = jobId && action !== 'maps-stop' ? await rpc('get', { id: jobId }) : await rpc('latest');
+ if (jobId && (!j || j.id !== jobId)) return reply({ error: 'Search results changed. Refresh and try again.' }, action === 'maps-import' ? 409 : 404);
  if(action==='maps-stop'&&request.method==='POST'){
-  if(!j)return reply({error:'No running search to stop.'},409);await rpc('stop',{id:j.id});return reply({stopped:true});
+  if(!j || (body?.jobId && body.jobId !== j.id) || !await rpc('stop',{id:j.id}))return reply({error:'No running search to stop.'},409);return reply({stopped:true});
  }
  if(action==='maps-import'&&request.method==='POST'){
   if(!j||body?.jobId!==j.id)return reply({error:'Search results changed. Refresh and try again.'},409);
   if(body.sourceUseConfirmed!==true)return reply({error:'Confirm the data source and choose a valid CSV under 180 KB.'},400);
   if(['queued','running'].includes(j.status))return reply({error:'Wait for the search to finish or stop it before importing.'},409);
-  if(!j.results.length)return reply({error:'No results to import.'},400);
-  try{const rows=parseProspectCsv(mapsCsv(j.results,j.city,true),true);return reply(await store.adminRpc('clinahir_admin_import_prospects',{p_actor:actor,p_rows:rows}));}catch{return reply({error:'Search results could not be imported. Check the captured business fields.'},400);}
+  const selected = selectMapsRows(j.results, body.indices) as MapsRow[] | null;
+  if (!selected?.length) return reply({error:'No results to import.'},400);
+  try{const rows=parseProspectCsv(mapsCsv(selected,j.city,true),true);return reply(await store.adminRpc('clinahir_admin_import_prospects',{p_actor:actor,p_rows:rows}));}catch{return reply({error:'Search results could not be imported. Check the captured business fields.'},400);}
  }
  if(request.method!=='GET')return reply({error:'Method not allowed'},405);
  if(action==='maps-export')return new Response(mapsCsv(j?.results??[]),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="google-maps-results.csv"','Cache-Control':'no-store'}});
- return reply({job:publicJob(j),rows:j?.results.slice(0,20)??[],total:j?.results.length??0});
+ const results = j?.results ?? [];
+ const locations = parseMapsLocations(j?.city);
+ const keys = results.map(row => ({ title: row.title ?? '', city: mapsResultCity(row.city, undefined, locations) }));
+ const matches = keys.length
+  ? await store.adminRpc<boolean[]>('clinahir_maps_matches', { p_rows: keys }).catch(() => null)
+  : [];
+ return reply({ job: publicJob(j), rows: results.map((row, index) => ({ ...row, directoryMatch: matches?.[index] ?? null })), total: results.length });
 }
 export async function mapsWorkerRequest(request:Request,env:Env,fetcher:typeof fetch=fetch):Promise<Response>{
  const failure=environmentFailure(env,request);if(failure)return failure;
@@ -54,7 +77,8 @@ export async function mapsWorkerRequest(request:Request,env:Env,fetcher:typeof f
   if(!['claim','progress','finish'].includes(String(d.op)))return reply({error:'Invalid request'},400);
   if(d.op==='claim'&&!uuid(d.claimToken))return reply({error:'Invalid claim'},400);
   if(d.op!=='claim'){
-   if(!uuid(d.id)||!uuid(d.token)||!Array.isArray(d.results)||d.results.length>500||d.results.some(r=>!r||typeof r!=='object'||Object.entries(r).some(([k,v])=>!['title','category','rating','reviews','phone','website','address','listing','city'].includes(k)||typeof v!=='string'||v.length>2000)))return reply({error:'Invalid results'},400);
+   if(!uuid(d.id)||!uuid(d.token)||!Array.isArray(d.results)||d.results.length>500||d.results.some(r=>!r||typeof r!=='object'||Object.entries(r).some(([k,v])=>!['title','category','rating','reviews','phone','website','address','listing','city','location'].includes(k)||typeof v!=='string'||v.length>2000)))return reply({error:'Invalid results'},400);
+   if (d.milestones !== undefined && (!Array.isArray(d.milestones) || d.milestones.length > 5 || d.milestones.some(value => !['pending','searching','finished','incomplete'].includes(value)))) return reply({error:'Invalid milestones'},400);
    if(d.op==='finish'&&(typeof d.success!=='boolean'||(d.partial!=null&&typeof d.partial!=='boolean')||(d.error!=null&&(!text(d.error,200)))))return reply({error:'Invalid completion'},400);
   }
   const store=new SupabaseLeadStore(env.SUPABASE_URL,env.SUPABASE_SERVICE_ROLE_KEY,fetcher);

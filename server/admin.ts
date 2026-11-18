@@ -186,7 +186,7 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
             await authCall(env, 'logout', fetcher, {}, token).catch(() => { });
             return reply({ ok: true }, 200, { 'Set-Cookie': cookie(request) });
         }
-        if (['maps-start','maps-status','maps-export','maps-stop','maps-import'].includes(action)) {
+        if (['maps-start','maps-status','maps-export','maps-stop','maps-import','maps-history'].includes(action)) {
             const body=request.method==='POST'?await readBody(request):undefined;
             return mapsAdminRequest(request,body,store,user.id);
         }

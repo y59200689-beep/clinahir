@@ -14,7 +14,17 @@ export function mapsQueryFile(keywords, locations) {
 }
 
 export function mapsResultCity(addressCity, inputId, locations) {
-  const id = /^clinahir-(\d+)$/.exec(inputId ?? '');
-  const location = id ? locations[Number(id[1])] : locations.length === 1 ? locations[0] : '';
+  const location = mapsQueryLocation(inputId, locations);
   return (typeof addressCity === 'string' && addressCity.trim()) || location?.split(',')[0].trim() || '';
+}
+
+export function selectMapsRows(rows, indices) {
+  if (indices === undefined) return rows;
+  if (!Array.isArray(indices) || indices.length > 500 || indices.some(index => !Number.isInteger(index) || index < 0 || index >= rows.length)) return null;
+  return [...new Set(indices)].map(index => rows[index]);
+}
+
+export function mapsQueryLocation(inputId, locations) {
+  const id = /^clinahir-(\d+)$/.exec(inputId ?? '');
+  return id ? locations[Number(id[1])] : locations.length === 1 ? locations[0] : undefined;
 }

@@ -3,7 +3,7 @@ import {parseMapsLocations, mapsQueryFile, mapsResultCity} from '../server/maps-
 import {randomUUID} from 'node:crypto';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
-import {mkdtemp,writeFile,readFile,rm} from 'node:fs/promises';
+import {mkdir,mkdtemp,writeFile,readFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 const exec=promisify(execFile);
@@ -30,32 +30,91 @@ const locations = parseMapsLocations(job.city);
 const keywords = job.keywords ?? job.query.slice(0, -(job.city?.length + 4));
 if (!locations.length || typeof keywords !== 'string' || !keywords.trim() || keywords.length > 120 || /[\x00-\x1f]|#!#/.test(keywords)) throw Error('Invalid search locations received');
 console.log('Processing one private Maps search.');
-const directory=await mkdtemp(join(tmpdir(),'clinahir-hosted-maps-'));const name='clinahir-maps-'+job.id;let rows=[],stopped=false;
-const docker=args=>exec('docker',args,{timeout:30000,maxBuffer:65536});
-const string=(value,max)=>String(value??'').slice(0,max);
-async function collect(){
- try{const data=await readFile(join(directory,'results.json'),'utf8');rows=data.split(/\r?\n/).filter(Boolean).flatMap(line=>{try{const r=JSON.parse(line);return [{title:string(r.title,200),category:string(r.category,120),rating:string(r.review_rating,10),reviews:string(r.review_count,12),phone:string(r.phone,40),website:string(r.web_site??r.website,1000),address:string(r.address,500),listing:string(r.link,1000),city:string(mapsResultCity(r.complete_address?.city, r.input_id, locations),120)}];}catch{return [];}}).slice(0,500);}catch{}
- return rows;
+const directory = await mkdtemp(join(tmpdir(), 'clinahir-hosted-maps-'));
+const name = 'clinahir-maps-' + job.id;
+const milestones = locations.map(() => 'pending');
+const rows = [];
+let currentRows = [];
+let stopped = false;
+const docker = args => exec('docker', args, { timeout: 30000, maxBuffer: 65536 });
+const string = (value, max) => String(value ?? '').slice(0, max);
+const send = (op, extra = {}) => api({
+  op, id: job.id, token: job.token, milestones,
+  results: [...rows, ...currentRows].slice(0, 500), ...extra,
+});
+
+async function collect(folder, location) {
+  let data;
+  try { data = await readFile(join(folder, 'results.json'), 'utf8'); } catch { return; }
+  currentRows = data.split(/\r?\n/).filter(Boolean).flatMap(line => {
+    try {
+      const r = JSON.parse(line);
+      return [{
+        title: string(r.title, 200), category: string(r.category, 120), rating: string(r.review_rating, 10),
+        reviews: string(r.review_count, 12), phone: string(r.phone, 40), website: string(r.web_site ?? r.website, 1000),
+        address: string(r.address, 500), listing: string(r.link, 1000), location,
+        city: string(mapsResultCity(r.complete_address?.city, undefined, [location]), 120),
+      }];
+    } catch { return []; }
+  }).slice(0, 500 - rows.length);
 }
-try{
- await writeFile(join(directory,'queries.txt'),mapsQueryFile(keywords, locations),{mode:0o600});
- // A heartbeat keeps the lease alive during the first image download.
- await api({op:'progress',id:job.id,token:job.token,results:[]});
- await exec('docker',['pull',image],{timeout:240000,maxBuffer:1024*1024});
- const ready=await api({op:'progress',id:job.id,token:job.token,results:[]});if(!ready.accepted){stopped=true;throw Error('Search was stopped');}
- await docker(['run','-d','--init','-e','DISABLE_TELEMETRY=1','--name',name,'--cpus','2','--memory','3g','--pids-limit','512','-v',join(directory,'queries.txt')+':/queries.txt:ro','-v',directory+':/out',image,'-input','/queries.txt','-results','/out/results.json','-json','-depth','1','-c','2','-lang','en','-exit-on-inactivity','3m']);
- const deadline=Date.now()+12*60*1000;let success=false,partial=false,lastCount=0,lastChangeAt=Date.now();
- while(Date.now()<deadline){
-  await new Promise(resolve=>setTimeout(resolve,20000));await collect();
-  if(rows.length>lastCount){lastCount=rows.length;lastChangeAt=Date.now();}
-  const progress=await api({op:'progress',id:job.id,token:job.token,results:rows});if(!progress.accepted){stopped=true;break;}
-  const {stdout}=await docker(['inspect','--format','{{json .State}}',name]);const state=JSON.parse(stdout);
-  if(state.Status==='exited'){success=state.ExitCode===0&&rows.length>0;partial=!success&&rows.length>0;break;}
-  if(rows.length>0&&Date.now()-lastChangeAt>=90_000){partial=true;break;}
- }
- if(!stopped){await collect();if(rows.length>0&&!success)partial=true;await api({op:'finish',id:job.id,token:job.token,results:rows,success,partial,error:success?null:(partial?'The scraper stopped finding new businesses. The partial results are ready.':'No businesses were captured. Try different keywords or a nearby city.')});console.log((success?'Search finished.':'Search finished with partial results.')+' Captured businesses: '+rows.length);}
-}catch{
- if(!stopped){const captured=await collect();partial=captured.length>0;await api({op:'finish',id:job.id,token:job.token,results:captured,success:false,partial,error:partial?'The scraper stopped finding new businesses. The partial results are ready.':'The online search could not finish. Try different keywords or a nearby city.'}).catch(()=>{});}
- console.log(stopped?'Search stopped by the owner.':'Search failed; partial results preserved.');
- process.exitCode=stopped?0:1;
-}finally{await docker(['rm','-f',name]).catch(()=>{});await rm(directory,{recursive:true,force:true});}
+
+async function heartbeat() {
+  const response = await send('progress');
+  stopped = !response.accepted;
+  return !stopped;
+}
+
+try {
+  if (await heartbeat()) {
+    await exec('docker', ['pull', image], { timeout: 240000, maxBuffer: 1024 * 1024 });
+    const deadline = Date.now() + 12 * 60 * 1000;
+    for (const [index, location] of locations.entries()) {
+      if (stopped || Date.now() >= deadline || rows.length >= 500) break;
+      milestones[index] = 'searching';
+      if (!await heartbeat()) break;
+      const folder = join(directory, String(index));
+      await mkdir(folder);
+      await writeFile(join(folder, 'queries.txt'), mapsQueryFile(keywords, [location]), { mode: 0o600 });
+      try {
+        await docker(['run','-d','--init','-e','DISABLE_TELEMETRY=1','--name',name,'--cpus','2','--memory','3g','--pids-limit','512','-v',join(folder,'queries.txt')+':/queries.txt:ro','-v',folder+':/out',image,'-input','/queries.txt','-results','/out/results.json','-json','-depth','1','-c','2','-lang','en','-exit-on-inactivity','60s']);
+        const cityDeadline = Math.min(deadline, Date.now() + 3 * 60 * 1000);
+        while (Date.now() < cityDeadline && rows.length + currentRows.length < 500) {
+          await new Promise(resolve => setTimeout(resolve, 10000));
+          await collect(folder, location);
+          const { stdout } = await docker(['inspect', '--format', '{{json .State}}', name]);
+          const state = JSON.parse(stdout);
+          if (state.Status === 'exited') {
+            milestones[index] = state.ExitCode === 0 ? 'finished' : 'incomplete';
+            break;
+          }
+          if (!await heartbeat()) break;
+        }
+      } finally {
+        await docker(['rm', '-f', name]).catch(() => {});
+        await collect(folder, location);
+      }
+      if (milestones[index] === 'searching') milestones[index] = 'incomplete';
+      rows.push(...currentRows);
+      currentRows = [];
+    }
+    if (!stopped) {
+      const success = milestones.every(state => state === 'finished');
+      const partial = !success && rows.length > 0;
+      await send('finish', { success, partial, error: success ? null : 'Some cities could not be finished. Captured results are still available.' });
+      console.log('Maps search ended. Captured businesses: ' + rows.length);
+    }
+  }
+} catch {
+  if (!stopped) {
+    const index = milestones.indexOf('searching');
+    if (index >= 0) milestones[index] = 'incomplete';
+    await send('finish', { success: false, partial: rows.length + currentRows.length > 0,
+      error: 'The online search could not finish. Captured results are still available.' }).catch(() => {});
+    process.exitCode = 1;
+  }
+  console.log(stopped ? 'Search stopped by the owner.' : 'Search failed; partial results preserved.');
+} finally {
+  await docker(['rm', '-f', name]).catch(() => {});
+  await rm(directory, { recursive: true, force: true });
+}

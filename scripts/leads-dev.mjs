@@ -22,10 +22,13 @@ export function leadsDev() {
           const {adminRequest}=await server.ssrLoadModule('/server/admin.ts');
           const action = new URL(request.url).searchParams.get('action');
           let result;
-          if (['maps-start', 'maps-status', 'maps-export', 'maps-stop', 'maps-import'].includes(action)) {
+          if (['maps-start', 'maps-status', 'maps-export', 'maps-stop', 'maps-import', 'maps-history'].includes(action)) {
             const sessionUrl = new URL(request.url); sessionUrl.search = '?action=session';
             const session = await adminRequest(new Request(sessionUrl, { headers: request.headers }), env);
-            result = session.ok ? await mapsDevRequest(request, { importProspects: async csv => {
+            result = session.ok ? await mapsDevRequest(request, { matchProspects: rows =>
+              new SupabaseLeadStore(env.SUPABASE_URL || '', env.SUPABASE_SERVICE_ROLE_KEY || '')
+                .adminRpc('clinahir_maps_matches', { p_rows: rows.map(({title,city}) => ({ title: title.slice(0,200), city: city.slice(0,120) })) }),
+            importProspects: async csv => {
               const importUrl = new URL(request.url); importUrl.search = '?action=prospects-import';
               const importHeaders = new Headers(request.headers); importHeaders.set('content-type', 'application/json'); importHeaders.delete('content-length');
               return adminRequest(new Request(importUrl, { method: 'POST', headers: importHeaders, body: JSON.stringify({ csv, sourceUseConfirmed: true }) }), env);

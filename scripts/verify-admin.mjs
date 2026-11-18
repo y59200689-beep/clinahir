@@ -12,11 +12,11 @@ const server=await createServer({cacheDir:'node_modules/.vite-admin-qa',server:{
  const headers=new Headers();for(const [k,v]of Object.entries(req.headers))if(v)headers.set(k,Array.isArray(v)?v.join(','):v);
  const request=new Request(url,{method:req.method,headers,...(['GET','HEAD'].includes(req.method)?{}:{body:Buffer.concat(chunks)})});
  let result;
- if (['maps-status','maps-import'].includes(url.searchParams.get('action')) && process.env.CLINAHIR_MAPS_HOSTED_QA!=='true') {
+ if (['maps-status','maps-import','maps-history'].includes(url.searchParams.get('action')) && process.env.CLINAHIR_MAPS_HOSTED_QA!=='true') {
   const sessionUrl=new URL(url);sessionUrl.search='?action=session';
   const session=await adminRequest(new Request(sessionUrl,{headers:request.headers}),fixtureEnv,fetcher);
-  if(session.ok && !process.env.CLINAHIR_MAPS_OUTPUT_DIR) result=Response.json(url.searchParams.get('action')==='maps-status'?{job:null,rows:[],total:0}:{error:'Maps fixture not configured'},{status:url.searchParams.get('action')==='maps-status'?200:503});
-  else result=session.ok?await mapsDevRequest(request,{importProspects:csv=>{const target=new URL(url);target.search='?action=prospects-import';const h=new Headers(request.headers);h.set('content-type','application/json');h.delete('content-length');return adminRequest(new Request(target,{method:'POST',headers:h,body:JSON.stringify({csv,sourceUseConfirmed:true})}),fixtureEnv,fetcher);}}):session;
+  if(session.ok && !process.env.CLINAHIR_MAPS_OUTPUT_DIR) result=Response.json(url.searchParams.get('action')==='maps-history'?{jobs:[]} : url.searchParams.get('action')==='maps-status'?{job:null,rows:[],total:0}:{error:'Maps fixture not configured'},{status:request.method==='GET'?200:503});
+  else result=session.ok?await mapsDevRequest(request,{matchProspects:async rows=>(await fetcher('https://admin-fixture.invalid/rest/v1/rpc/clinahir_maps_matches',{body:JSON.stringify({p_rows:rows})})).json(),importProspects:csv=>{const target=new URL(url);target.search='?action=prospects-import';const h=new Headers(request.headers);h.set('content-type','application/json');h.delete('content-length');return adminRequest(new Request(target,{method:'POST',headers:h,body:JSON.stringify({csv,sourceUseConfirmed:true})}),fixtureEnv,fetcher);}}):session;
  } else result=await adminRequest(request,fixtureEnv,fetcher);res.writeHead(result.status,Object.fromEntries(result.headers));res.end(await result.text());
  });},transformIndexHtml(html){return html.replace('<body>','<body><div style="position:fixed;bottom:3px;left:8px;z-index:9999;font:10px sans-serif;color:#688060">ADMIN QA · Fictional data · No production connection</div>');}}]});
 await server.listen();console.log('Isolated admin QA: http://127.0.0.1:4181/admin');
