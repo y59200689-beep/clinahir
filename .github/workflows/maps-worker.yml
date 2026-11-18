@@ -1,0 +1,25 @@
+name: Private Maps search worker
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '2-59/5 * * * *'
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: clinahir-maps-production
+  cancel-in-progress: false
+jobs:
+  search:
+    if: github.repository == 'y59200689-beep/clinahir' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - name: Check out trusted worker
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Process one private queued search
+        env:
+          CLINAHIR_MAPS_ORIGIN: https://clinahir.tech
+        run: node scripts/maps-hosted-worker.mjs

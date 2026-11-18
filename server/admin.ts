@@ -4,6 +4,7 @@ import { setupCookie, validSetup, freshEmailSession } from './admin-activation.j
 import { createHash } from 'node:crypto';
 import { SupabaseLeadStore } from './supabase.js';
 import { validateSiteDocument } from '../src/content/schema.js';
+import { mapsAdminRequest } from './maps.js';
 import { parseProspectCsv } from './prospects.js';
 export interface AdminEnv extends Record<string, string | undefined> {
     SUPABASE_URL?: string;
@@ -184,6 +185,10 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         if (action === 'logout' && request.method === 'POST') {
             await authCall(env, 'logout', fetcher, {}, token).catch(() => { });
             return reply({ ok: true }, 200, { 'Set-Cookie': cookie(request) });
+        }
+        if (['maps-start','maps-status','maps-export','maps-stop','maps-import'].includes(action)) {
+            const body=request.method==='POST'?await readBody(request):undefined;
+            return mapsAdminRequest(request,body,store,user.id);
         }
         if (action === 'snapshot' && request.method === 'GET') {
             const search = (url.searchParams.get('search') ?? '').slice(0, 120), stage = url.searchParams.get('stage') ?? '', page = Number(url.searchParams.get('page') ?? 0);

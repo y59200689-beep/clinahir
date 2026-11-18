@@ -12,7 +12,7 @@ const server=await createServer({cacheDir:'node_modules/.vite-admin-qa',server:{
  const headers=new Headers();for(const [k,v]of Object.entries(req.headers))if(v)headers.set(k,Array.isArray(v)?v.join(','):v);
  const request=new Request(url,{method:req.method,headers,...(['GET','HEAD'].includes(req.method)?{}:{body:Buffer.concat(chunks)})});
  let result;
- if (['maps-status','maps-import'].includes(url.searchParams.get('action'))) {
+ if (['maps-status','maps-import'].includes(url.searchParams.get('action')) && process.env.CLINAHIR_MAPS_HOSTED_QA!=='true') {
   const sessionUrl=new URL(url);sessionUrl.search='?action=session';
   const session=await adminRequest(new Request(sessionUrl,{headers:request.headers}),fixtureEnv,fetcher);
   if(session.ok && !process.env.CLINAHIR_MAPS_OUTPUT_DIR) result=Response.json(url.searchParams.get('action')==='maps-status'?{job:null,rows:[],total:0}:{error:'Maps fixture not configured'},{status:url.searchParams.get('action')==='maps-status'?200:503});

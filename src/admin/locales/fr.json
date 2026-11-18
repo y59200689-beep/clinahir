@@ -488,7 +488,7 @@
   "source_url": "URL de la source",
   "notes": "Notes",
   "sourceUseConfirmed": "Source confirmée",
-  "queued": "En attente",
+  "queued": "en attente",
   "Timed out. Please try again.": "Le délai est dépassé. Veuillez réessayer.",
   "Unsupported CSV column: {{field}}": "Colonne CSV non prise en charge : {{field}}",
   "CSV needs a {{field}} column.": "Le fichier CSV doit contenir une colonne {{field}}.",
@@ -619,5 +619,16 @@
   "Recorded": "Enregistré",
   "disabled": "désactivé",
   "Disabled": "Désactivé",
-  "Business qualification completed": "Qualification commerciale terminée"
+  "Business qualification completed": "Qualification commerciale terminée",
+  "Online searches": "Recherches en ligne",
+  "Searches run online through GitHub Actions. Your computer can stay off.": "Les recherches sont exécutées en ligne via GitHub Actions. Votre ordinateur peut rester éteint.",
+  "Online searches may take a few minutes to start. You can leave this page and return later.": "Les recherches en ligne peuvent prendre quelques minutes pour démarrer. Vous pouvez quitter cette page et revenir plus tard.",
+  "Your search is queued. The online worker will pick it up shortly.": "Votre recherche est en attente. Le service en ligne la prendra en charge prochainement.",
+  "Enter keywords and a city. Hosted searches currently run without a proxy.": "Saisissez des mots-clés et une ville. Les recherches en ligne fonctionnent actuellement sans proxy.",
+  "Daily search limit reached. Try again tomorrow.": "La limite quotidienne de recherches est atteinte. Réessayez demain.",
+  "Search results could not be imported. Check the captured business fields.": "Les résultats n’ont pas pu être importés. Vérifiez les informations collectées.",
+  "The search worker timed out. Captured results are still available.": "Le délai de recherche est dépassé. Les résultats collectés restent disponibles.",
+  "The search did not finish. Partial results are available.": "La recherche n’est pas terminée. Les résultats partiels sont disponibles.",
+  "No businesses were captured. Try different keywords or a nearby city.": "Aucun établissement collecté. Essayez d’autres mots-clés ou une ville voisine.",
+  "The online search could not finish. Captured results are still available.": "La recherche en ligne n’a pas pu se terminer. Les résultats collectés restent disponibles."
 }

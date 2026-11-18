@@ -619,5 +619,16 @@
   "Recorded": "Recorded",
   "disabled": "disabled",
   "Disabled": "Disabled",
-  "Business qualification completed": "Business qualification completed"
+  "Business qualification completed": "Business qualification completed",
+  "Online searches": "Online searches",
+  "Searches run online through GitHub Actions. Your computer can stay off.": "Searches run online through GitHub Actions. Your computer can stay off.",
+  "Online searches may take a few minutes to start. You can leave this page and return later.": "Online searches may take a few minutes to start. You can leave this page and return later.",
+  "Your search is queued. The online worker will pick it up shortly.": "Your search is queued. The online worker will pick it up shortly.",
+  "Enter keywords and a city. Hosted searches currently run without a proxy.": "Enter keywords and a city. Hosted searches currently run without a proxy.",
+  "Daily search limit reached. Try again tomorrow.": "Daily search limit reached. Try again tomorrow.",
+  "Search results could not be imported. Check the captured business fields.": "Search results could not be imported. Check the captured business fields.",
+  "The search worker timed out. Captured results are still available.": "The search worker timed out. Captured results are still available.",
+  "The search did not finish. Partial results are available.": "The search did not finish. Partial results are available.",
+  "No businesses were captured. Try different keywords or a nearby city.": "No businesses were captured. Try different keywords or a nearby city.",
+  "The online search could not finish. Captured results are still available.": "The online search could not finish. Captured results are still available."
 }

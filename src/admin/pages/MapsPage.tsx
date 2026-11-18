@@ -18,9 +18,8 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
   const [importing, setImporting] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
-  const active = busy || ['starting', 'running'].includes(data.job?.status ?? '');
+  const active = busy || ['queued', 'starting', 'running'].includes(data.job?.status ?? '');
   useEffect(() => {
-    if (!local) return;
     let disposed = false;
     let timer: ReturnType<typeof setTimeout>;
     async function refresh() {
@@ -54,7 +53,7 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
   return <section data-i18n-managed className="maps-page">
     <header className="maps-page-heading">
       <div><h1>{t('Google Maps Search')}</h1><p>{t('Find local businesses. Turn the right results into prospects.')}</p></div>
-      <span className="maps-runtime"><span aria-hidden="true" />{t(local ? 'Local workspace' : 'Hosted workspace')}</span>
+      <span className="maps-runtime"><span aria-hidden="true" />{t(local ? 'Local workspace' : 'Online searches')}</span>
     </header>
 
     <section className="maps-search-panel" aria-label={t('New business search')}>
@@ -62,11 +61,11 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
         <div className="maps-query-row">
           <label className="maps-field"><span>{t('Keywords')}</span><div className="maps-input"><Search size={17} aria-hidden="true" /><input required maxLength={120} value={keywords} onChange={e => setKeywords(e.target.value)} placeholder={t('e.g. radiology centers')} /></div></label>
           <label className="maps-field"><span>{t('City or area')}</span><div className="maps-input"><MapPin size={17} aria-hidden="true" /><input required maxLength={120} value={city} onChange={e => setCity(e.target.value)} placeholder={t('Casablanca, Morocco')} /></div></label>
-          <div className="maps-search-actions"><button disabled={!local || active || importing} className="maps-button maps-primary">{active ? <LoaderCircle size={16} className="maps-spin" aria-hidden="true" /> : <Search size={16} aria-hidden="true" />}{t(active ? 'Search in progress…' : 'Search businesses')}</button>{data.job?.status === 'running' && <button type="button" disabled={busy} onClick={() => void stop()} className="maps-button">{t('Stop search')}</button>}</div>
+          <div className="maps-search-actions"><button disabled={active || importing} className="maps-button maps-primary">{active ? <LoaderCircle size={16} className="maps-spin" aria-hidden="true" /> : <Search size={16} aria-hidden="true" />}{t(active ? 'Search in progress…' : 'Search businesses')}</button>{['queued','running'].includes(data.job?.status ?? '') && <button type="button" disabled={busy} onClick={() => void stop()} className="maps-button">{t('Stop search')}</button>}</div>
         </div>
-        <details className="maps-options"><summary><SlidersHorizontal size={14} aria-hidden="true" />{t('Search options')}<span>{t(proxy === 'none' ? 'Without proxy' : 'Configured proxy')}</span></summary><div className="maps-options-content"><label className="maps-field"><span>{t('Proxy')}</span><select value={proxy} onChange={e => setProxy(e.target.value)}><option value="none">{t('Continue without a proxy')}</option><option value="configured">{t('Use the configured local proxy')}</option></select></label><p>{t('A proxy is optional for a small search. Configure credentials privately on this computer.')}<br />{t('Runs locally with Docker. Shallow search, no email extraction or extra reviews. Results stay on this computer.')}</p></div></details>
+        <details className="maps-options"><summary><SlidersHorizontal size={14} aria-hidden="true" />{t('Search options')}<span>{t(proxy === 'none' ? 'Without proxy' : 'Configured proxy')}</span></summary><div className="maps-options-content"><label className="maps-field"><span>{t('Proxy')}</span><select value={proxy} onChange={e => setProxy(e.target.value)}><option value="none">{t('Continue without a proxy')}</option><option value="configured" disabled={!local}>{t('Use the configured local proxy')}</option></select></label><p>{t('A proxy is optional for a small search. Configure credentials privately on this computer.')}<br />{t(local ? 'Runs locally with Docker. Shallow search, no email extraction or extra reviews. Results stay on this computer.' : 'Searches run online through GitHub Actions. Your computer can stay off.')}</p></div></details>
       </form>
-      {!local && <p role="status" className="maps-notice">{t('Open this dashboard on localhost to run searches. Hosted searches require a dedicated Docker worker.')}</p>}
+      {!local && <p className="maps-hosted-note">{t('Online searches may take a few minutes to start. You can leave this page and return later.')}</p>}
     </section>
     {(error || statusError) && <p role="alert" className="maps-error">{t(error || statusError)}</p>}
 
@@ -80,6 +79,7 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
         <div className="maps-import-intro"><span className="maps-import-icon"><CopyCheck size={19} aria-hidden="true" /></span><div><h3>{t('Add these businesses to your directory')}</h3><p>{t('All captured results will be checked against the directory. Matching business names and cities are skipped, ignoring case and extra spaces.')}</p></div><button type="button" className="maps-icon-button" onClick={() => setImportOpen(false)} aria-label={t('Close import')}><X size={18} aria-hidden="true" /></button></div>
         <div className="maps-import-confirm"><label><input type="checkbox" checked={sourceConfirmed} onChange={event => setSourceConfirmed(event.target.checked)} />{t('I confirm this source permits collecting and retaining business details for commercial prospecting.')}</label><button type="button" onClick={() => void importResults()} disabled={!sourceConfirmed || active || importing} className="maps-button maps-primary">{importing ? <LoaderCircle size={16} className="maps-spin" aria-hidden="true" /> : <Building2 size={16} aria-hidden="true" />}{t(importing ? 'Adding prospects…' : 'Send to Prospect Directory')}</button></div>
       </div>}
+      {data.job?.status === 'queued' && <p role="status" className="maps-notice">{t('Your search is queued. The online worker will pick it up shortly.')}</p>}
       {data.job?.error && <p role="status" className="maps-notice">{t(data.job.error)}</p>}
       {data.rows.length > 0 ? <>
         <div className="maps-table-scroll" role="region" aria-label={t('Business results')} tabIndex={0}><table className="maps-table"><caption className="sr-only">{t('Business results')}</caption><colgroup><col className="maps-col-business" /><col className="maps-col-rating" /><col className="maps-col-contact" /><col className="maps-col-address" /></colgroup><thead><tr>{['Business', 'Google rating', 'Contact details', 'Address'].map(label => <th key={label} scope="col">{t(label)}</th>)}</tr></thead><tbody>{data.rows.map((row, i) => {
