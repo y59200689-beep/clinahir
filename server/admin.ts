@@ -188,7 +188,7 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         }
         if (['maps-start','maps-status','maps-export','maps-stop','maps-import','maps-history'].includes(action)) {
             const body=request.method==='POST'?await readBody(request):undefined;
-            return mapsAdminRequest(request,body,store,user.id);
+            return await mapsAdminRequest(request,body,store,user.id);
         }
         if (action === 'snapshot' && request.method === 'GET') {
             const search = (url.searchParams.get('search') ?? '').slice(0, 120), stage = url.searchParams.get('stage') ?? '', page = Number(url.searchParams.get('page') ?? 0);
