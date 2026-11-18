@@ -4,7 +4,7 @@ create table public.clinahir_maps_jobs (
  id uuid primary key default gen_random_uuid(), actor uuid not null,
  keywords text not null check(length(keywords) between 1 and 120),
  city text not null check(length(city) between 1 and 120),
- status text not null default 'queued' check(status in ('queued','running','completed','failed','stopped')),
+ status text not null default 'queued' check(status in ('queued','running','completed','partial','failed','stopped')),
  created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
  lease_token uuid, lease_until timestamptz,
  results jsonb not null default '[]' check(jsonb_typeof(results)='array' and jsonb_array_length(results)<=500),
@@ -40,7 +40,7 @@ begin
  elsif p_op in ('progress','finish') then
   update public.clinahir_maps_jobs set
    results=coalesce(p_data->'results',results),
-   status=case when p_op='finish' then case when p_data->>'success'='true' then 'completed' else 'failed' end else status end,
+   status=case when p_op='finish' then case when p_data->>'success'='true' then 'completed' when p_data->>'partial'='true' then 'partial' else 'failed' end else status end,
    error=case when p_op='finish' then nullif(p_data->>'error','') else error end,
    lease_until=now()+interval '5 minutes', updated_at=now()
    where actor=p_actor and id=(p_data->>'id')::uuid and lease_token=(p_data->>'token')::uuid and status='running' returning * into j;

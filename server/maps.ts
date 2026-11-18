@@ -52,7 +52,7 @@ export async function mapsWorkerRequest(request:Request,env:Env,fetcher:typeof f
   if(d.op==='claim'&&!uuid(d.claimToken))return reply({error:'Invalid claim'},400);
   if(d.op!=='claim'){
    if(!uuid(d.id)||!uuid(d.token)||!Array.isArray(d.results)||d.results.length>500||d.results.some(r=>!r||typeof r!=='object'||Object.entries(r).some(([k,v])=>!['title','category','rating','reviews','phone','website','address','listing','city'].includes(k)||typeof v!=='string'||v.length>2000)))return reply({error:'Invalid results'},400);
-   if(d.op==='finish'&&(typeof d.success!=='boolean'||(d.error!=null&&(!text(d.error,200)))))return reply({error:'Invalid completion'},400);
+   if(d.op==='finish'&&(typeof d.success!=='boolean'||(d.partial!=null&&typeof d.partial!=='boolean')||(d.error!=null&&(!text(d.error,200)))))return reply({error:'Invalid completion'},400);
   }
   const store=new SupabaseLeadStore(env.SUPABASE_URL,env.SUPABASE_SERVICE_ROLE_KEY,fetcher);
   const j=await store.adminRpc<Job|null>('clinahir_maps_job',{p_actor:env.CLINAHIR_ADMIN_USER_ID,p_op:d.op,p_data:d});

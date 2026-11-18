@@ -71,7 +71,7 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
 
     <section className="maps-results" aria-label={t('Search results')}>
       <header className="maps-results-heading">
-        <div className="maps-results-title"><div><h2 aria-label={`${t('Search results')} · ${data.total}`}>{t('Search results')} <span className="maps-count">{data.total}</span></h2>{data.job && <span className={`maps-status maps-status-${data.job.status}`} role="status">{data.job.status === 'completed' ? <CircleCheck size={13} aria-hidden="true" /> : active ? <LoaderCircle size={13} className="maps-spin" aria-hidden="true" /> : null}{t(data.job.status)}</span>}</div><p>{data.job?.query || t('Start a search to find businesses.')}</p></div>
+        <div className="maps-results-title"><div><h2 aria-label={`${t('Search results')} · ${data.total}`}>{t('Search results')} <span className="maps-count">{data.total}</span></h2>{data.job && <span className={`maps-status maps-status-${data.job.status}`} role="status">{['completed','partial'].includes(data.job.status) ? <CircleCheck size={13} aria-hidden="true" /> : active ? <LoaderCircle size={13} className="maps-spin" aria-hidden="true" /> : null}{t(data.job.status)}</span>}</div><p>{data.job?.query || t('Start a search to find businesses.')}</p></div>
         {data.total > 0 && <div className="maps-result-actions"><a href="/api/admin?action=maps-export" className="maps-button"><Download size={15} aria-hidden="true" />{t('Download CSV')}</a>{!importOpen && <button type="button" className="maps-button maps-primary" disabled={active} onClick={() => setImportOpen(true)}><Building2 size={15} aria-hidden="true" />{t('Send to Prospect Directory')}</button>}</div>}
       </header>
 

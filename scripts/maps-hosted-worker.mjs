@@ -40,16 +40,18 @@ try{
  await exec('docker',['pull',image],{timeout:240000,maxBuffer:1024*1024});
  const ready=await api({op:'progress',id:job.id,token:job.token,results:[]});if(!ready.accepted){stopped=true;throw Error('Search was stopped');}
  await docker(['run','-d','--init','-e','DISABLE_TELEMETRY=1','--name',name,'--cpus','2','--memory','3g','--pids-limit','512','-v',join(directory,'queries.txt')+':/queries.txt:ro','-v',directory+':/out',image,'-input','/queries.txt','-results','/out/results.json','-json','-depth','1','-c','2','-lang','en','-exit-on-inactivity','3m']);
- const deadline=Date.now()+18*60*1000;let success=false;
+ const deadline=Date.now()+12*60*1000;let success=false,partial=false,lastCount=0,lastChangeAt=Date.now();
  while(Date.now()<deadline){
   await new Promise(resolve=>setTimeout(resolve,20000));await collect();
+  if(rows.length>lastCount){lastCount=rows.length;lastChangeAt=Date.now();}
   const progress=await api({op:'progress',id:job.id,token:job.token,results:rows});if(!progress.accepted){stopped=true;break;}
   const {stdout}=await docker(['inspect','--format','{{json .State}}',name]);const state=JSON.parse(stdout);
-  if(state.Status==='exited'){success=state.ExitCode===0&&rows.length>0;break;}
+  if(state.Status==='exited'){success=state.ExitCode===0&&rows.length>0;partial=!success&&rows.length>0;break;}
+  if(rows.length>0&&Date.now()-lastChangeAt>=90_000){partial=true;break;}
  }
- if(!stopped){await collect();await api({op:'finish',id:job.id,token:job.token,results:rows,success,error:success?null:(rows.length?'The search did not finish. Partial results are available.':'No businesses were captured. Try different keywords or a nearby city.')});console.log('Search finished. Captured businesses: '+rows.length);}
+ if(!stopped){await collect();if(rows.length>0&&!success)partial=true;await api({op:'finish',id:job.id,token:job.token,results:rows,success,partial,error:success?null:(partial?'The scraper stopped finding new businesses. The partial results are ready.':'No businesses were captured. Try different keywords or a nearby city.')});console.log((success?'Search finished.':'Search finished with partial results.')+' Captured businesses: '+rows.length);}
 }catch{
- if(!stopped)await api({op:'finish',id:job.id,token:job.token,results:await collect(),success:false,error:'The online search could not finish. Captured results are still available.'}).catch(()=>{});
+ if(!stopped){const captured=await collect();partial=captured.length>0;await api({op:'finish',id:job.id,token:job.token,results:captured,success:false,partial,error:partial?'The scraper stopped finding new businesses. The partial results are ready.':'The online search could not finish. Try different keywords or a nearby city.'}).catch(()=>{});}
  console.log(stopped?'Search stopped by the owner.':'Search failed; partial results preserved.');
  process.exitCode=stopped?0:1;
 }finally{await docker(['rm','-f',name]).catch(()=>{});await rm(directory,{recursive:true,force:true});}
