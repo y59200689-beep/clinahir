@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect, useRef, useState} from 'react';
+import {lazy, Suspense} from 'react';
 import {useSiteContent} from '../../../src/content/SiteContent';
 import {siteDefaults} from '../../../src/content/schema';
 import {DeferredSection} from '../../../src/components/DeferredSection';
@@ -9,36 +9,10 @@ const DemoDashboard = lazy(() => import('../../../src/DemoDashboard'));
 export default function AiMarketingHeroKelo({ className, language = "en", onLanguageChange }: { className?: string; language?: "en" | "fr"; onLanguageChange?: (language: "en" | "fr") => void }) {
   const { document: site } = useSiteContent();
   const hero=site.hero[language];
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [videoEnabled, setVideoEnabled] = useState(false);
-  useEffect(() => { const media=window.matchMedia('(prefers-reduced-motion: reduce)'); const changed=()=>setReducedMotion(media.matches); changed(); media.addEventListener('change',changed); return ()=>media.removeEventListener('change',changed); }, []);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.6;
-    }
-  }, []);
-
   return (
     <>
       <section className={"min-h-[110vh] flex flex-col bg-[#173c30] relative " + (className || "")}>
         <img src="/hero-landscape.jpg" alt="" width={1440} height={810} decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover z-0" />
-        {/* Optional motion shares the same landscape; no autoplay transfer on initial load. */}
-        {!reducedMotion && videoEnabled && <video
-          ref={videoRef}
-          autoPlay
-          aria-hidden="true"
-          preload="none"
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src="https://cdn.jiro.build/Kelo/Hero%202%20Video.mp4" type="video/mp4" />
-        </video>}
-
-        {!reducedMotion && <button type="button" onClick={() => setVideoEnabled(value => !value)} className="absolute right-4 top-24 z-20 rounded-full border border-white/40 bg-[#173c30] px-3 py-2 text-xs text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-pressed={videoEnabled} data-i18n-managed="true">{language === 'fr' ? (videoEnabled ? 'Arrêter l’animation' : 'Animer le paysage') : (videoEnabled ? 'Stop background motion' : 'Animate landscape')}</button>}
         {/* Overlay */}
         <div className="absolute inset-0 bg-[var(--hero-veil)] z-[1]" />
 

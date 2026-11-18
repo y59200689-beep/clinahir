@@ -102,3 +102,5 @@ The November 18 Maps page design follows Iris / Graphite with a compact keyword/
 The November 18 Overview refinement uses the Iris / Graphite palette, a compact four-metric band with one dark graphite emphasis, a factual follow-up cue, balanced inquiries/trend panels and an integrations strip. Keep lead links keyboard accessible, chart periods functional, empty states useful, and configuration/heartbeat labels factual. Do not reintroduce unsupported response-time conversion claims or imply that a recorded scheduler heartbeat proves current operational health.
 
 The owner explicitly rejected purple rectangular focus outlines across the entire website on November 18. Use subtle neutral focus feedback instead, retaining clear keyboard focus. Composite inputs such as Maps search must highlight the outer field only, never draw a second rectangle around the inner text input. This preference applies to future admin, marketing and demo changes.
+
+The owner removed the landing hero’s “Animer le paysage” / “Animate landscape” button on November 18. Keep the landscape static and do not reintroduce this control or background video autoplay.
