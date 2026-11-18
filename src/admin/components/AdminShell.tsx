@@ -1,3 +1,5 @@
+import { adminHref, type AdminPage } from '../routes';
+export type { AdminPage } from '../routes';
 import { AdminLanguageSwitch } from '../i18n';
 import { useAdminLocale } from '../i18n';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
@@ -19,17 +21,6 @@ import {
   Menu,
   X,
 } from 'lucide-react';
-
-export type AdminPage =
-  | 'Overview'
-  | 'Leads'
-  | 'Maps'
-  | 'Prospects'
-  | 'Website'
-  | 'Analytics'
-  | 'Deliveries'
-  | 'Activity'
-  | 'Settings';
 
 interface AdminShellProps {
   currentPage: AdminPage;
@@ -162,10 +153,17 @@ export function AdminShell({
                   const isActive = currentPage === item.name;
 
                   return (
-                    <button
+                    <a
                       key={item.name}
+                      href={adminHref(item.name)}
+                      aria-label={t(item.label)}
                       aria-current={isActive ? 'page' : undefined}
-                      onClick={() => onNavigate(item.name)}
+                      onClick={event => {
+                        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                        event.preventDefault();
+                        onNavigate(item.name);
+                        setMobileMenuOpen(false);
+                      }}
                       title={sidebarCollapsed ? item.label : undefined}
                       className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors ${
                         isActive
@@ -187,7 +185,7 @@ export function AdminShell({
                           {item.badge}
                         </span>
                       )}
-                    </button>
+                    </a>
                   );
                 })}
               </div>

@@ -106,3 +106,5 @@ The owner explicitly rejected purple rectangular focus outlines across the entir
 The owner removed the landing hero’s “Animer le paysage” / “Animate landscape” button on November 18. Keep the landscape static and do not reintroduce this control or background video autoplay.
 
 On November 18 the owner explicitly authorized hosted Google Maps searches and selected GitHub Actions. This supersedes the earlier local-only Maps boundary. Use the private job queue and narrowly verified GitHub OIDC worker identity; no production admin/database credentials or CRON-derived tokens may be stored in GitHub secrets. Preserve owner session checks, private RLS/service grants, bounded crawls, partial results and duplicate-safe explicit prospect import. Searches can be queued for several minutes; do not promise exact start times or activate outreach.
+
+Owner admin dropdowns share the workspace-styled AdminSelect component, including language, form fields, and Prospect Directory filters. Keep the city list searchable, selections visibly marked, and keyboard focus neutral. Dropdowns must fit the viewport and stay above tables and drawers.

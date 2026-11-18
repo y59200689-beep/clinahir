@@ -6,7 +6,7 @@
     "rootDir": ".",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "allowJs": false
+    "allowJs": true
   },
   "include": [
     "src/admin/translation.ts",

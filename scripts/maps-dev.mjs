@@ -1,3 +1,4 @@
+import { parseMapsLocations, mapsQueryFile, mapsResultCity } from '../server/maps-locations.mjs';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -37,7 +38,8 @@ export async function mapsDevRequest(request, { importProspects } = {}) {
     let body;
     try { body = await request.json(); } catch { return reply({ error: 'Invalid request' }, 400); }
     const clean = value => typeof value === 'string' && value.trim().length > 0 && value.length <= 120 && !/[\r\n\x00-\x1f]/.test(value);
-    if (!clean(body.keywords) || !clean(body.city) || !['none', 'configured'].includes(body.proxy)) return reply({ error: 'Enter keywords, a city and a proxy choice.' }, 400);
+    const locations = parseMapsLocations(body?.city);
+    if (!clean(body?.keywords) || body.keywords.includes('#!#') || !locations.length || !['none', 'configured'].includes(body.proxy)) return reply({ error: 'Enter keywords and up to 5 cities or areas.' }, 400);
     starting = true; shared.starting = true;
     try {
       await run('docker', ['info', '--format', '{{.ServerVersion}}']);
@@ -47,15 +49,15 @@ export async function mapsDevRequest(request, { importProspects } = {}) {
       await mkdir(root, { recursive: true, mode: 0o700 });
       const directory = join(root, randomUUID());
       await mkdir(directory, { mode: 0o700 });
-      const query = `${body.keywords.trim()} in ${body.city.trim()}`;
+      const query = `${body.keywords.trim()} in ${locations.join('; ')}`;
       const input = join(directory, 'queries.txt');
-      await writeFile(input, query + '\n', { mode: 0o600 });
+      await writeFile(input, mapsQueryFile(body.keywords.trim(), locations), { mode: 0o600 });
       const args = [join(skill, 'scripts/run-local.sh'), '--queries', input, '--output-dir', directory, '--format', 'json', '--depth', '1'];
       if (body.proxy === 'configured') {
         if (!process.env.CLINAHIR_MAPS_PROXY_FILE) return reply({ error: 'The local proxy file is not configured.' }, 400);
         args.push('--proxy-file', process.env.CLINAHIR_MAPS_PROXY_FILE);
       }
-      job = { id: directory.split('/').pop(), directory, query, city: body.city.trim().split(',')[0].trim(), status: 'starting', startedAt: new Date().toISOString() };
+      job = { id: directory.split('/').pop(), directory, query, locations, status: 'starting', startedAt: new Date().toISOString() };
       shared.job = job;
       await writeFile(join(root, 'current.json'), JSON.stringify(job), { mode: 0o600 });
       const current = job;
@@ -90,10 +92,11 @@ export async function mapsDevRequest(request, { importProspects } = {}) {
     } catch { job.status = 'failed'; }
   }
   const resultJob = job;
+  const locations = resultJob.locations ?? [resultJob.city || resultJob.query.split(' in ').at(-1)].filter(Boolean);
   let rows = [];
   try {
     const source = await readFile(join(resultJob.directory, 'results.json'), 'utf8');
-    rows = source.split(/\r?\n/).filter(Boolean).flatMap(line => { try { const r = JSON.parse(line); return [{ title: String(r.title ?? ''), category: String(r.category ?? ''), rating: String(r.review_rating ?? ''), reviews: String(r.review_count ?? ''), phone: String(r.phone ?? ''), website: String(r.web_site ?? r.website ?? ''), address: String(r.address ?? ''), listing: String(r.link ?? ''), city: String(r.complete_address?.city || resultJob.city || resultJob.query.split(' in ').at(-1)?.split(',')[0]?.trim() || '') }]; } catch { return []; } });
+    rows = source.split(/\r?\n/).filter(Boolean).flatMap(line => { try { const r = JSON.parse(line); return [{ title: String(r.title ?? ''), category: String(r.category ?? ''), rating: String(r.review_rating ?? ''), reviews: String(r.review_count ?? ''), phone: String(r.phone ?? ''), website: String(r.web_site ?? r.website ?? ''), address: String(r.address ?? ''), listing: String(r.link ?? ''), city: mapsResultCity(r.complete_address?.city, r.input_id, locations) }]; } catch { return []; } });
   } catch {}
   if (job.status === 'completed' && !rows.length) job.error = 'No businesses found. Try different keywords or a nearby city.';
   if (importing) {
@@ -108,7 +111,7 @@ export async function mapsDevRequest(request, { importProspects } = {}) {
     return importProspects(csv);
   }
   if (action === 'maps-export') {
-    const fields = ['title', 'category', 'rating', 'reviews', 'phone', 'website', 'address'];
+    const fields = ['title', 'category', 'rating', 'reviews', 'phone', 'website', 'address', 'city'];
     const cell = value => { const text = String(value ?? ''); return '"' + (/^(?:\s*[=+@-]|[\t\r\n])/.test(text) ? "'" : '') + text.replaceAll('"', '""') + '"'; };
     return new Response('\uFEFF' + [fields, ...rows.map(row => fields.map(key => row[key]))].map(row => row.map(cell).join(',')).join('\r\n'), { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="google-maps-results.csv"', 'Cache-Control': 'no-store' } });
   }

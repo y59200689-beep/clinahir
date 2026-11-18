@@ -1,13 +1,16 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { AdminSelect } from '../components/AdminSelect';
+import { useEffect, useId, useState, type FormEvent } from 'react';
 import { Download, MapPin, Search, LoaderCircle, ArrowUpRight, Building2, Star, SlidersHorizontal, CopyCheck, X, CircleCheck } from 'lucide-react';
 import { adminApi } from '../types';
 import { useAdminLocale } from '../i18n';
 import '../maps.css';
+import { maxMapsLocationLength } from '../../../server/maps-locations.mjs';
 function publicWebsite(value: string) { try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) && !url.username && !url.password ? url : null; } catch { return null; } }
 type Results = { job: null | { id: string; query: string; status: string; error?: string }; rows: Record<string, string>[]; total: number };
 export function MapsPage({ onImported }: { onImported: (result: { inserted: number; duplicates: number }) => void }) {
   const { t, intlLocale } = useAdminLocale();
   const [keywords, setKeywords] = useState('');
+  const locationsHelp = useId();
   const [city, setCity] = useState('');
   const [proxy, setProxy] = useState('none');
   const [data, setData] = useState<Results>({ job: null, rows: [], total: 0 });
@@ -60,10 +63,11 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
       <form onSubmit={start}>
         <div className="maps-query-row">
           <label className="maps-field"><span>{t('Keywords')}</span><div className="maps-input"><Search size={17} aria-hidden="true" /><input required maxLength={120} value={keywords} onChange={e => setKeywords(e.target.value)} placeholder={t('e.g. radiology centers')} /></div></label>
-          <label className="maps-field"><span>{t('City or area')}</span><div className="maps-input"><MapPin size={17} aria-hidden="true" /><input required maxLength={120} value={city} onChange={e => setCity(e.target.value)} placeholder={t('Casablanca, Morocco')} /></div></label>
+          <label className="maps-field"><span>{t('Cities or areas')}</span><div className="maps-input"><MapPin size={17} aria-hidden="true" /><input required maxLength={maxMapsLocationLength} aria-describedby={locationsHelp} value={city} onChange={e => setCity(e.target.value)} placeholder={t('Casablanca; Rabat; Tangier')} /></div></label>
           <div className="maps-search-actions"><button disabled={active || importing} className="maps-button maps-primary">{active ? <LoaderCircle size={16} className="maps-spin" aria-hidden="true" /> : <Search size={16} aria-hidden="true" />}{t(active ? 'Search in progress…' : 'Search businesses')}</button>{['queued','running'].includes(data.job?.status ?? '') && <button type="button" disabled={busy} onClick={() => void stop()} className="maps-button">{t('Stop search')}</button>}</div>
         </div>
-        <details className="maps-options"><summary><SlidersHorizontal size={14} aria-hidden="true" />{t('Search options')}<span>{t(proxy === 'none' ? 'Without proxy' : 'Configured proxy')}</span></summary><div className="maps-options-content"><label className="maps-field"><span>{t('Proxy')}</span><select value={proxy} onChange={e => setProxy(e.target.value)}><option value="none">{t('Continue without a proxy')}</option><option value="configured" disabled={!local}>{t('Use the configured local proxy')}</option></select></label><p>{t('A proxy is optional for a small search. Configure credentials privately on this computer.')}<br />{t(local ? 'Runs locally with Docker. Shallow search, no email extraction or extra reviews. Results stay on this computer.' : 'Searches run online through GitHub Actions. Your computer can stay off.')}</p></div></details>
+        <p id={locationsHelp} className="maps-location-help">{t('Separate up to 5 cities or areas with semicolons.')}</p>
+        <details className="maps-options"><summary><SlidersHorizontal size={14} aria-hidden="true" />{t('Search options')}<span>{t(proxy === 'none' ? 'Without proxy' : 'Configured proxy')}</span></summary><div className="maps-options-content"><div className="maps-field"><span>{t('Proxy')}</span><AdminSelect variant="field" label={t('Proxy')} value={proxy} onChange={setProxy} choices={[{ value: 'none', label: t('Continue without a proxy') }, { value: 'configured', label: t('Use the configured local proxy'), disabled: !local }]} /></div><p>{t('A proxy is optional for a small search. Configure credentials privately on this computer.')}<br />{t(local ? 'Runs locally with Docker. Shallow search, no email extraction or extra reviews. Results stay on this computer.' : 'Searches run online through GitHub Actions. Your computer can stay off.')}</p></div></details>
       </form>
       {!local && <p className="maps-hosted-note">{t('Online searches may take a few minutes to start. You can leave this page and return later.')}</p>}
     </section>

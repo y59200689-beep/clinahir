@@ -1,6 +1,7 @@
 import { validMapsWorker } from './maps-worker-auth.js';
 import { SupabaseLeadStore } from './supabase.js';
 import { environmentFailure } from './environment.js';
+import { parseMapsLocations, mapsResultCity } from './maps-locations.mjs';
 import { parseProspectCsv } from './prospects.js';
 type Env = Record<string,string|undefined>;
 export type MapsRow = {title:string;category:string;rating:string;reviews:string;phone:string;website:string;address:string;listing:string;city:string};
@@ -8,11 +9,12 @@ interface Job {id:string; keywords:string;city:string;status:string;created_at:s
 const reply=(data:object,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const uuid=(value:unknown):value is string=>typeof value==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const text=(value:unknown,max:number)=>typeof value==='string'&&value.trim().length>0&&value.length<=max&&!/[\x00-\x1f]/.test(value);
-const publicJob=(j:Job|null)=>j?{id:j.id,query:`${j.keywords} in ${j.city}`,status:j.status,startedAt:j.created_at,error:j.error}:null;
+const publicJob=(j:Job|null)=>j?{id:j.id,query:`${j.keywords} in ${parseMapsLocations(j.city).join('; ') || j.city}`,status:j.status,startedAt:j.created_at,error:j.error}:null;
 const cell=(v:unknown)=>'"'+String(v??'').replaceAll('"','""')+'"';
 export function mapsCsv(rows:MapsRow[],city?:string,internal=false){
- const keys=internal?['center_name','city','address','category','phone','website_url','rating','review_count','listing_url','source_name','source_url']:['title','category','rating','reviews','phone','website','address'];
- const values=rows.map(r=>internal?[r.title,r.city||city?.split(',')[0].trim(),r.address,r.category,r.phone,r.website,r.rating,r.reviews,r.listing,'Google Maps',r.listing||'https://www.google.com/maps']:[r.title,r.category,r.rating,r.reviews,r.phone,r.website,r.address]);
+ const keys=internal?['center_name','city','address','category','phone','website_url','rating','review_count','listing_url','source_name','source_url']:['title','category','rating','reviews','phone','website','address','city'];
+ const locations=parseMapsLocations(city);
+ const values=rows.map(r=>internal?[r.title,mapsResultCity(r.city, undefined, locations),r.address,r.category,r.phone,r.website,r.rating,r.reviews,r.listing,'Google Maps',r.listing||'https://www.google.com/maps']:[r.title,r.category,r.rating,r.reviews,r.phone,r.website,r.address,r.city]);
  const quote=(v:unknown)=>cell(!internal&&/^(?:\s*[=+@-]|[\t\r\n])/.test(String(v??''))?"'"+v:v);
  return (internal?'':'\uFEFF')+[keys,...values].map(row=>row.map(quote).join(',')).join('\r\n');
 }
@@ -20,8 +22,9 @@ export async function mapsAdminRequest(request:Request,body:Record<string,unknow
  const action=new URL(request.url).searchParams.get('action');
  const rpc=(op:string,data:object={})=>store.adminRpc<Job|null>('clinahir_maps_job',{p_actor:actor,p_op:op,p_data:data});
  if(action==='maps-start'&&request.method==='POST'){
-  if(!body||!text(body.keywords,120)||!text(body.city,120)||body.proxy!=='none')return reply({error:'Enter keywords and a city. Hosted searches currently run without a proxy.'},400);
-  const j=await rpc('start',{keywords:(body.keywords as string).trim(),city:(body.city as string).trim()});
+  const locations = parseMapsLocations(body?.city);
+  if(!body||!text(body.keywords,120)||String(body.keywords).includes('#!#')||!locations.length||body.proxy!=='none')return reply({error:'Enter keywords and up to 5 cities or areas.'},400);
+  const j=await rpc('start',{keywords:(body.keywords as string).trim(),city:locations.join(';')});
   if(j?.conflict)return reply({error:'A search is already running.'},409);if(j?.limited)return reply({error:'Daily search limit reached. Try again tomorrow.'},429);
   return reply({job:publicJob(j)});
  }
@@ -56,6 +59,6 @@ export async function mapsWorkerRequest(request:Request,env:Env,fetcher:typeof f
   }
   const store=new SupabaseLeadStore(env.SUPABASE_URL,env.SUPABASE_SERVICE_ROLE_KEY,fetcher);
   const j=await store.adminRpc<Job|null>('clinahir_maps_job',{p_actor:env.CLINAHIR_ADMIN_USER_ID,p_op:d.op,p_data:d});
-  return reply(d.op==='claim'?{job:j?{id:j.id,token:j.lease_token,query:`${j.keywords} in ${j.city}`,city:j.city}:null}:{accepted:!!j});
+  return reply(d.op==='claim'?{job:j?{id:j.id,token:j.lease_token,query:`${j.keywords} in ${j.city}`,keywords:j.keywords,city:j.city}:null}:{accepted:!!j});
  }catch{return reply({error:'Worker request could not be completed.'},503);}
 }

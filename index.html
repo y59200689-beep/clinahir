@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <script>if(location.pathname.replace(/\/$/, '') === '/admin')document.documentElement.dataset.adminRoute='true';</script>
+    <script>if(/^\/admin(?:\/|\.html$|$)/.test(location.pathname))document.documentElement.dataset.adminRoute='true';</script>
     <script>document.addEventListener('change',function(event){var field=event.target;if(!field||field.tagName!=='SELECT')return;var label=field.getAttribute('aria-label');var key=label==='Admin language / Langue'?'admin':label==='Site language / Langue du site'||label==='Language / Langue'?'site':null;if(key&&(field.value==='fr'||field.value==='en')){window.__clinahirLocaleIntent=window.__clinahirLocaleIntent||{};window.__clinahirLocaleIntent[key]=field.value;}},true);</script>
     <style>html[data-admin-route] #root > [data-public-root] {display:none}</style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

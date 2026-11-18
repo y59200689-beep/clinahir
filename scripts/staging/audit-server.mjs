@@ -19,7 +19,7 @@ export async function auditServer({port=4182}={}) {
     }else result=Response.json({error:'Disabled in local audit'}, {status:503});
     res.writeHead(result.status,Object.fromEntries(result.headers));res.end(await result.text());return;
    }
-   const requested=['/admin','/admin/'].includes(url.pathname)?'/admin.html':url.pathname;
+   const requested=/^\/admin(?:\/|$)/.test(url.pathname)?'/admin.html':url.pathname;
    const path=resolve(root,'.'+decodeURIComponent(requested));if(path!==root&&!path.startsWith(root+sep))throw Error();
    let file=path,body;try{body=await readFile(file);}catch{file=resolve(root,'index.html');body=await readFile(file);}
    res.writeHead(200,{'Content-Type':({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.jpg':'image/jpeg','.png':'image/png','.woff2':'font/woff2'})[extname(file)]??'application/octet-stream'});res.end(body);

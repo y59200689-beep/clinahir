@@ -24,7 +24,7 @@ const server=createServer(async(req,res)=>{try{
   const h=Object.fromEntries(response.headers);delete h['set-cookie'];res.writeHead(response.status,{...h,'Set-Cookie':response.headers.getSetCookie()});res.end(await response.text());return;
  }
  if(url.pathname.startsWith('/api/')){res.writeHead(404);res.end();return;}
- const path=resolve(root,'.'+(url.pathname==='/admin'||url.pathname==='/admin/'?'/admin.html':decodeURIComponent(url.pathname)));if(!path.startsWith(root+sep))throw Error('invalid_asset');
+ const path=resolve(root,'.'+(/^\/admin(?:\/|$)/.test(url.pathname)?'/admin.html':decodeURIComponent(url.pathname)));if(!path.startsWith(root+sep))throw Error('invalid_asset');
  const body=await readFile(path);res.writeHead(200,{'Content-Type':({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.woff2':'font/woff2'})[extname(path)]??'application/octet-stream'});res.end(body);
 }catch{res.writeHead(503,{'Content-Type':'text/plain'});res.end('Private setup unavailable. Return to Codex; no password or token is needed in chat.');}});
 await new Promise((ok,fail)=>{server.once('error',fail);server.listen(Number(process.env.CLINAHIR_OWNER_SETUP_PORT??0),'127.0.0.1',ok);});

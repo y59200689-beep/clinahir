@@ -22,6 +22,10 @@
     {
       "source": "/admin/",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/admin/:page*",
+      "destination": "/admin.html"
     }
   ],
   "headers": [

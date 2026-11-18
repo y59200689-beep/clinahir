@@ -1,3 +1,5 @@
+import { Languages } from 'lucide-react';
+import { AdminSelect } from './components/AdminSelect';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 import { translateAdmin, translateAdminError, type AdminLocale } from './translation';
@@ -19,6 +21,11 @@ export function useAdminLocale() {
   return { ...context, t, errorText, intlLocale: context.locale === 'fr' ? 'fr-MA' : 'en-GB' };
 }
 export function AdminLanguageSwitch() {
-  const { locale, setLocale, t } = useAdminLocale();
-  return <label className="inline-flex items-center gap-2 text-xs text-slate-600"><span className="sr-only">{t('Language')}</span><select aria-label="Admin language / Langue" value={locale} onChange={event => setLocale(event.target.value as AdminLocale)} className="rounded-lg border border-slate-300 bg-white px-2 py-2 text-slate-800"><option value="en">English</option><option value="fr">Français</option></select></label>;
+  const { locale, setLocale } = useAdminLocale();
+  return (
+    <AdminSelect label="Admin language / Langue" icon={<Languages size={15} aria-hidden="true" />}
+      value={locale} onChange={value => setLocale(value as AdminLocale)}
+      choices={[{ value: 'en', label: 'English' }, { value: 'fr', label: 'Français' }]}
+    />
+  );
 }

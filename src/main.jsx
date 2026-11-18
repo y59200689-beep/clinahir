@@ -3,7 +3,7 @@ import AppErrorBoundary from './components/AppErrorBoundary';
 import { startAnalytics } from './analytics';
 import React, {lazy, Suspense} from "react";
 const AdminApp=lazy(()=>import("./admin/AdminApp"));
-const isAdmin=/^\/admin(?:\/|\.html)?$/.test(window.location.pathname);
+const isAdmin=/^\/admin(?:\/|\.html$|$)/.test(window.location.pathname);
 import { createRoot, hydrateRoot } from "react-dom/client";
 const PublicApp=lazy(()=>import("./App.jsx").then(module=>({default:module.PublicRoot})));
 import "./styles.css";

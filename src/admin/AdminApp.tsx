@@ -2,7 +2,8 @@ import { useAdminLocale } from './i18n';
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { CheckCircle2, X } from 'lucide-react';
 import { adminApi, emptySnapshot, type Lead, type Snapshot } from './types';
-import { AdminShell, type AdminPage } from './components/AdminShell';
+import { AdminShell } from './components/AdminShell';
+import { adminHref, adminPageAt, type AdminPage } from './routes';
 import { LoginPage } from './pages/LoginPage';
 const MapsPage = lazy(() => import('./pages/MapsPage').then(module => ({ default: module.MapsPage })));
 const OverviewPage = lazy(() => import('./pages/OverviewPage').then(module => ({ default: module.OverviewPage })));
@@ -19,7 +20,9 @@ import { AdminLocaleProvider } from './i18n';
 function AdminWorkspace() {
   const { t, errorText, intlLocale } = useAdminLocale();
   const [user, setUser] = useState<string | null>(null);
-  const [page, setPage] = useState<AdminPage>('Overview');
+  const [page, setPage] = useState<AdminPage>(() => typeof window === 'undefined' ? 'Overview' : adminPageAt(window.location.pathname));
+  const [session, setSession] = useState<'checking' | 'ready' | 'unavailable'>('checking');
+  const [sessionAttempt, setSessionAttempt] = useState(0);
   const [data, setData] = useState<Snapshot>(emptySnapshot);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -38,13 +41,36 @@ function AdminWorkspace() {
     robots.content = 'noindex, nofollow';
     document.head.append(robots);
 
-    void adminApi<{ user: { email: string } }>('session')
-      .then((r) => setUser(r.user.email))
-      .catch(() => {});
     return () => robots.remove();
   }, []);
 
   useEffect(() => { document.title = `Clinahir — ${t('Business administration')}`; }, [t]);
+
+  useEffect(() => {
+    let current = true;
+    // Recovery links must reach the password setup flow even with an existing session.
+    if (new URLSearchParams(window.location.hash.slice(1)).has('access_token')) {
+      setSession('ready');
+      return;
+    }
+    void adminApi<{ user: { email: string } }>('session').then(result => {
+      if (!current) return;
+      setUser(result.user.email);
+      setSession('ready');
+    }).catch((error: Error & { status?: number }) => {
+      if (!current) return;
+      setSession(error.status === 401 || error.status === 403 ? 'ready' : 'unavailable');
+    });
+    return () => { current = false; };
+  }, [sessionAttempt]);
+
+  useEffect(() => {
+    function onHistoryChange() {
+      selectPage(adminPageAt(window.location.pathname));
+    }
+    window.addEventListener('popstate', onHistoryChange);
+    return () => window.removeEventListener('popstate', onHistoryChange);
+  }, []);
 
   // Toast timer
   useEffect(() => {
@@ -86,11 +112,17 @@ function AdminWorkspace() {
     return () => clearTimeout(timer);
   }, [user, search, stage, pageIndex]);
 
-  function navigate(next: AdminPage) {
+  function selectPage(next: AdminPage) {
     setPage(next);
     setSearch('');
     setStage('');
     setPageIndex(0);
+  }
+
+  function navigate(next: AdminPage) {
+    const href = adminHref(next);
+    if (window.location.pathname !== href) window.history.pushState(null, '', href);
+    selectPage(next);
   }
 
   async function handleLogout() {
@@ -102,6 +134,22 @@ function AdminWorkspace() {
     } catch (e) {
       setError((e as Error).message);
     }
+  }
+
+  if (session !== 'ready') {
+    return (
+      <main className="min-h-screen bg-[#f5f5f9] p-8 text-sm text-slate-700" data-i18n-managed>
+        {session === 'checking' ? <p role="status">{t('Loading…')}</p> : (
+          <div role="alert" className="space-y-3">
+            <p>{t('Authentication is temporarily unavailable. Please try again shortly.')}</p>
+            <button type="button" className="font-semibold underline" onClick={() => {
+              setSession('checking');
+              setSessionAttempt(attempt => attempt + 1);
+            }}>{t('Try again')}</button>
+          </div>
+        )}
+      </main>
+    );
   }
 
   // Unauthenticated login view

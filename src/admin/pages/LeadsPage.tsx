@@ -1,3 +1,4 @@
+import { AdminSelect } from '../components/AdminSelect';
 import { useAdminLocale } from '../i18n';
 import { useState, type FormEvent } from 'react';
 import {
@@ -343,18 +344,9 @@ export function LeadsPage({
             <form onSubmit={handleSaveLead} className="space-y-4 pt-1">
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Pipeline stage")} </label>
-                <select
-                  aria-label={t("Lead stage")}
-                  value={editStage}
-                  onChange={(e) => setEditStage(e.target.value)}
-                  className="w-full p-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none"
-                >
-                  {['new', 'contacted', 'qualified', 'won', 'lost'].map((s) => (
-                    <option key={s} value={s}>
-                      {t(s)}
-                    </option>
-                  ))}
-                </select>
+                <AdminSelect variant="field" label={t("Lead stage")} value={editStage} onChange={setEditStage}
+                  choices={['new', 'contacted', 'qualified', 'won', 'lost'].map(value => ({ value, label: t(value) }))}
+                />
               </div>
 
               <div>

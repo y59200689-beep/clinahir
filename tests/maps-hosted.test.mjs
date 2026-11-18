@@ -10,6 +10,10 @@ test('hosted owner start validates input, limits and active-job conflicts',async
  let calls=[];let result={id,keywords:'imaging',city:'Rabat',status:'queued',created_at:'2026-11-18',results:[]};const store={adminRpc:async(name,data)=>{calls.push({name,data});return result;}};
  assert.equal((await mapsAdminRequest(req('maps-start',{}),{},store,actor)).status,400);assert.equal(calls.length,0);
  const response=await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:'Rabat',proxy:'none'},store,actor);assert.equal(response.status,200);assert.equal((await response.json()).job.status,'queued');assert.equal(calls[0].data.p_actor,actor);
+ await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:' Casablanca, Morocco ; Rabat ',proxy:'none'},store,actor);
+ assert.equal(calls.at(-1).data.p_data.city,'Casablanca, Morocco;Rabat');
+ assert.equal((await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:'A;B;C;D;E;F',proxy:'none'},store,actor)).status,400);
+ assert.equal((await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:'Rabat #!#invalid',proxy:'none'},store,actor)).status,400);
  result={conflict:true};assert.equal((await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:'Rabat',proxy:'none'},store,actor)).status,409);
  result={limited:true};assert.equal((await mapsAdminRequest(req('maps-start',{}),{keywords:'imaging',city:'Rabat',proxy:'none'},store,actor)).status,429);
 });

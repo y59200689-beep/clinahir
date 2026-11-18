@@ -71,19 +71,19 @@ try {
   await check('Admin unauthorized rejection, login, lead notes and stage', async () => {
     assert.equal((await context.request.get(`${origin}/api/admin?action=snapshot`)).status(),401);
     await page.goto(`${origin}/admin`); await page.locator('input[name=email]').fill('owner@example.test'); await page.locator('input[name=password]').fill('local-admin-fixture-only'); await page.locator('button[type=submit]').click();
-    await page.getByRole('button',{name:/Inbound Leads/}).click(); await page.getByRole('row',{name:/Open Atlas Imaging Center/}).waitFor();
+    await page.getByRole('link',{name:/Inbound Leads/}).click(); await page.getByRole('row',{name:/Open Atlas Imaging Center/}).waitFor();
     await page.getByRole('row',{name:/Open Atlas Imaging Center/}).focus(); await page.keyboard.press('Enter');
     const panel = page.getByRole('dialog',{name:'Lead Record'}); await panel.locator('select').selectOption('contacted'); await panel.locator('textarea').fill('Fixture-only follow-up note'); await panel.getByRole('button',{name:/Save/}).click();
     await panel.waitFor({state:'hidden'}); await page.getByRole('row',{name:/Open Atlas Imaging Center/}).click(); assert.equal(await page.getByRole('dialog').locator('textarea').inputValue(),'Fixture-only follow-up note'); await page.keyboard.press('Escape');
   });
   await check('Admin content draft editing and delivery monitoring', async () => {
-    await page.getByRole('button',{name:'Website Content',exact:true}).click(); await page.locator('textarea').first().waitFor();
+    await page.getByRole('link',{name:'Website Content',exact:true}).click(); await page.locator('textarea').first().waitFor();
     await page.locator('textarea').first().fill('Fixture-only headline'); await page.getByRole('button',{name:/Save draft/i}).click();
     await page.getByText('Draft saved.',{exact:true}).waitFor();
     await page.getByRole('button',{name:'Publish',exact:true}).click();
     await page.getByRole('dialog',{name:'Publish website changes?'}).getByRole('button',{name:'Publish',exact:true}).click();
     await page.getByText('Website published.',{exact:true}).waitFor();
-    await page.getByRole('button',{name:'Delivery Center',exact:true}).click(); await page.getByRole('heading',{name:'Deliveries',exact:true}).waitFor();
+    await page.getByRole('link',{name:'Delivery Center',exact:true}).click(); await page.getByRole('heading',{name:'Deliveries',exact:true}).waitFor();
     await page.screenshot({path:'output/playwright/admin-deliveries.png'});
     await page.setViewportSize({width:390,height:844});
     await page.getByRole('button',{name:'Open navigation',exact:true}).click();

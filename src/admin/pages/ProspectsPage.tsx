@@ -11,12 +11,14 @@ import {
   Star,
   ExternalLink,
   MapPin,
+  Globe,
   ChevronLeft,
   ChevronRight,
   LoaderCircle,
   Save,
 } from 'lucide-react';
 import { StatusPill } from '../components/StatusPill';
+import { AdminSelect } from '../components/AdminSelect';
 import { AdminDrawer } from '../components/AdminDrawer';
 import { adminApi, type Prospect, type ProspectSnapshot } from '../types';
 
@@ -362,34 +364,31 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label={t("Select city")} value={city}
-              onChange={(e) => {
-                setCity(e.target.value);
-                setPageIndex(0);
-              }}
-              className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium focus:outline-none"
-            >
-              <option value=""> {t("All cities (")} {data.cities.length})</option>
-              {data.cities.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+            <AdminSelect
+              highlight
+              label={t("Select city")}
+              icon={<MapPin size={15} aria-hidden="true" />}
+              value={city}
+              choices={[
+                { value: '', label: t("All cities ({{total}})", { total: number(data.cities.length) }) },
+                ...data.cities.map(city => ({ value: city, label: city })),
+              ]}
+              search={{ label: t("Search cities"), empty: t("No matching cities"), locale: intlLocale }}
+              onChange={value => { setCity(value); setPageIndex(0); }}
+            />
 
-            <select
-              aria-label={t("Website filter")} value={website}
-              onChange={(e) => {
-                setWebsite(e.target.value);
-                setPageIndex(0);
-              }}
-              className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium focus:outline-none"
-            >
-              <option value=""> {t("All listings")} </option>
-              <option value="with"> {t("Has website")} </option>
-              <option value="without"> {t("Missing website")} </option>
-            </select>
+            <AdminSelect
+              highlight
+              label={t("Website filter")}
+              icon={<Globe size={15} aria-hidden="true" />}
+              value={website}
+              choices={[
+                { value: '', label: t("All listings") },
+                { value: 'with', label: t("Has website") },
+                { value: 'without', label: t("Missing website") },
+              ]}
+              onChange={value => { setWebsite(value); setPageIndex(0); }}
+            />
 
             <button
               onClick={() => void load()}
@@ -549,18 +548,15 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             <form onSubmit={handleSaveProspect} className="space-y-4 pt-1">
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Review status")} </label>
-                <select
-                  aria-label={t("Review status")} value={drawerStage}
-                  onChange={(e) =>
-                    setDrawerStage(e.target.value as Prospect['qualification_stage'])
-                  }
-                  className="w-full p-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-700 focus:outline-none"
-                >
-                  <option value="review"> {t("Needs review")} </option>
-                  <option value="qualified"> {t("Qualified")} </option>
-                  <option value="not_a_fit"> {t("Not a fit")} </option>
-                  <option value="do_not_contact"> {t("Do not contact")} </option>
-                </select>
+                <AdminSelect variant="field" label={t("Review status")} value={drawerStage}
+                  onChange={value => setDrawerStage(value as Prospect['qualification_stage'])}
+                  choices={[
+                    { value: 'review', label: t("Needs review") },
+                    { value: 'qualified', label: t("Qualified") },
+                    { value: 'not_a_fit', label: t("Not a fit") },
+                    { value: 'do_not_contact', label: t("Do not contact") },
+                  ]}
+                />
               </div>
 
               {/* WhatsApp opt-in */}

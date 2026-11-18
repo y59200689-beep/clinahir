@@ -1,4 +1,11 @@
 {
+  "Cities or areas": "Villes ou zones",
+  "Casablanca; Rabat; Tangier": "Casablanca; Rabat; Tanger",
+  "Separate up to 5 cities or areas with semicolons.": "Séparez jusqu’à 5 villes ou zones par des points-virgules.",
+  "Enter keywords and up to 5 cities or areas.": "Saisissez des mots-clés et jusqu’à 5 villes ou zones.",
+  "All cities ({{total}})": "Toutes les villes ({{total}})",
+  "Search cities": "Rechercher une ville",
+  "No matching cities": "Aucune ville trouvée",
   "1 hour": "1 heure",
   "API connectivity": "Configuration des API",
   "Account": "Compte",

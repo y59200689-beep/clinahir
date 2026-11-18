@@ -1,4 +1,5 @@
 // Run only from the trusted default-branch workflow. Never log queries, results or secrets.
+import {parseMapsLocations, mapsQueryFile, mapsResultCity} from '../server/maps-locations.mjs';
 import {randomUUID} from 'node:crypto';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
@@ -25,16 +26,19 @@ async function api(body){
 const claimed=await api({op:'claim',claimToken:randomUUID()});const job=claimed.job;
 if(!job){console.log('No queued search.');process.exit(0);}
 if(!/^[0-9a-f-]{36}$/i.test(job.id)||!/^[0-9a-f-]{36}$/i.test(job.token)||typeof job.query!=='string'||job.query.length>260||/[\r\n\x00-\x1f]/.test(job.query))throw Error('Invalid job received');
+const locations = parseMapsLocations(job.city);
+const keywords = job.keywords ?? job.query.slice(0, -(job.city?.length + 4));
+if (!locations.length || typeof keywords !== 'string' || !keywords.trim() || keywords.length > 120 || /[\x00-\x1f]|#!#/.test(keywords)) throw Error('Invalid search locations received');
 console.log('Processing one private Maps search.');
 const directory=await mkdtemp(join(tmpdir(),'clinahir-hosted-maps-'));const name='clinahir-maps-'+job.id;let rows=[],stopped=false;
 const docker=args=>exec('docker',args,{timeout:30000,maxBuffer:65536});
 const string=(value,max)=>String(value??'').slice(0,max);
 async function collect(){
- try{const data=await readFile(join(directory,'results.json'),'utf8');rows=data.split(/\r?\n/).filter(Boolean).flatMap(line=>{try{const r=JSON.parse(line);return [{title:string(r.title,200),category:string(r.category,120),rating:string(r.review_rating,10),reviews:string(r.review_count,12),phone:string(r.phone,40),website:string(r.web_site??r.website,1000),address:string(r.address,500),listing:string(r.link,1000),city:string(r.complete_address?.city||job.city?.split(',')[0],120)}];}catch{return [];}}).slice(0,500);}catch{}
+ try{const data=await readFile(join(directory,'results.json'),'utf8');rows=data.split(/\r?\n/).filter(Boolean).flatMap(line=>{try{const r=JSON.parse(line);return [{title:string(r.title,200),category:string(r.category,120),rating:string(r.review_rating,10),reviews:string(r.review_count,12),phone:string(r.phone,40),website:string(r.web_site??r.website,1000),address:string(r.address,500),listing:string(r.link,1000),city:string(mapsResultCity(r.complete_address?.city, r.input_id, locations),120)}];}catch{return [];}}).slice(0,500);}catch{}
  return rows;
 }
 try{
- await writeFile(join(directory,'queries.txt'),job.query+'\n',{mode:0o600});
+ await writeFile(join(directory,'queries.txt'),mapsQueryFile(keywords, locations),{mode:0o600});
  // A heartbeat keeps the lease alive during the first image download.
  await api({op:'progress',id:job.id,token:job.token,results:[]});
  await exec('docker',['pull',image],{timeout:240000,maxBuffer:1024*1024});

@@ -604,9 +604,9 @@
 .ca-prospect-search:focus-within{background:#fff}
 .ca-prospect-search>button{border:0;background:none;color:#788477;display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:7px}
 .ca-prospect-search>button:hover{background:#f0f4ed;color:#31583d}
-.ca-prospect-filters{display:flex;align-items:flex-end;gap:9px}
-.ca-prospect-filters>label{min-width:120px;font-size:11px;line-height:1.2;color:#748072;font-weight:550}
-.ca-prospect-filters select{margin-top:6px!important;padding:9px 28px 9px 10px!important;min-height:39px;border-radius:9px;font-size:11px!important;color:#34463a}
+.ca-admin-selects{display:flex;align-items:flex-end;gap:9px}
+.ca-admin-selects>label{min-width:120px;font-size:11px;line-height:1.2;color:#748072;font-weight:550}
+.ca-admin-selects select{margin-top:6px!important;padding:9px 28px 9px 10px!important;min-height:39px;border-radius:9px;font-size:11px!important;color:#34463a}
 .ca-prospect-refresh{width:39px;height:39px;border:1px solid #e2e8de;background:#fff;color:#617463}
 .ca-prospect-caption{align-items:center;padding:0 25px 13px;color:#6f7a70}
 .ca-prospect-caption>strong{font-size:11px;color:#304b38;font-weight:650}
@@ -636,8 +636,8 @@
 .ca-prospect-table td:last-child,.ca-prospect-table th:last-child{width:44px;padding-right:10px;padding-left:4px}
 .ca-prospect-table .ca-icon-button{border:1px solid transparent}
 .ca-prospect-table tr:hover .ca-icon-button{border-color:#e5ebdf;background:#fff}
-@media(max-width:1100px){.ca-prospect-filters{flex-wrap:wrap;justify-content:flex-end}.ca-prospect-filters>label{min-width:105px}.ca-prospect-search{min-width:240px}}
-@media(max-width:720px){.ca-prospect-head{padding:18px 17px}.ca-prospect-head h2{font-size:18px}.ca-prospect-head .ca-actions{width:auto}.ca-prospect-head .ca-button{flex:auto}.ca-prospect-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ca-prospect-stat{padding:14px}.ca-prospect-stat>strong{font-size:27px}.ca-prospect-policy,.ca-import-review-rich{margin-left:15px;margin-right:15px}.ca-import-mapping{grid-template-columns:repeat(2,minmax(0,1fr))}.ca-import-review-footer{align-items:flex-start;flex-direction:column;gap:11px}.ca-import-review-footer>.ca-button{width:100%}.ca-lead-toolbar.ca-prospect-toolbar{padding:16px;align-items:stretch}.ca-prospect-search{flex-basis:100%;min-height:44px}.ca-prospect-filters{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}.ca-prospect-filters>label{min-width:0}.ca-prospect-filters select{width:100%;max-width:none}.ca-prospect-refresh{align-self:end}.ca-prospect-caption{padding:0 16px 14px}.ca-prospect-caption>span{gap:8px}.ca-prospect-caption>span>span{display:none}.ca-prospect-table{min-width:980px}}
+@media(max-width:1100px){.ca-admin-selects{flex-wrap:wrap;justify-content:flex-end}.ca-admin-selects>label{min-width:105px}.ca-prospect-search{min-width:240px}}
+@media(max-width:720px){.ca-prospect-head{padding:18px 17px}.ca-prospect-head h2{font-size:18px}.ca-prospect-head .ca-actions{width:auto}.ca-prospect-head .ca-button{flex:auto}.ca-prospect-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ca-prospect-stat{padding:14px}.ca-prospect-stat>strong{font-size:27px}.ca-prospect-policy,.ca-import-review-rich{margin-left:15px;margin-right:15px}.ca-import-mapping{grid-template-columns:repeat(2,minmax(0,1fr))}.ca-import-review-footer{align-items:flex-start;flex-direction:column;gap:11px}.ca-import-review-footer>.ca-button{width:100%}.ca-lead-toolbar.ca-prospect-toolbar{padding:16px;align-items:stretch}.ca-prospect-search{flex-basis:100%;min-height:44px}.ca-admin-selects{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}.ca-admin-selects>label{min-width:0}.ca-admin-selects select{width:100%;max-width:none}.ca-prospect-refresh{align-self:end}.ca-prospect-caption{padding:0 16px 14px}.ca-prospect-caption>span{gap:8px}.ca-prospect-caption>span>span{display:none}.ca-prospect-table{min-width:980px}}
 
 /* Deeper evergreen treatment for the owner prospect workspace. */
 .ca-prospects-page{--ca-brand:#145435;--ca-bg:#f2f5f1;background:#f2f5f1}
@@ -669,9 +669,9 @@
 .ca-prospects-page .ca-secondary:hover{background:#edf4ee;border-color:#9eb6a1}
 .ca-prospects-page .ca-prospect-search{border-color:#cbd8ce;background:#fff}
 .ca-prospects-page .ca-prospect-search:focus-within{border-color:#286b43;box-shadow:0 0 0 3px #286b431a}
-.ca-prospects-page .ca-prospect-filters>label{color:#4f6254;font-size:10px}
-.ca-prospects-page .ca-prospect-filters select{border-color:#cbd8ce!important;color:#233e2e!important;background:#fff}
-.ca-prospects-page .ca-prospect-filters select:focus{border-color:#286b43!important;box-shadow:0 0 0 3px #286b431a!important}
+.ca-prospects-page .ca-admin-selects>label{color:#4f6254;font-size:10px}
+.ca-prospects-page .ca-admin-selects select{border-color:#cbd8ce!important;color:#233e2e!important;background:#fff}
+.ca-prospects-page .ca-admin-selects select:focus{border-color:#286b43!important;box-shadow:0 0 0 3px #286b431a!important}
 .ca-prospects-page .ca-prospect-refresh{border-color:#cbd8ce;color:#24583a}
 .ca-prospects-page .ca-prospect-refresh:hover{background:#eaf2eb;color:#12482d}
 .ca-prospects-page .ca-prospect-caption{color:#53665a}
@@ -710,15 +710,15 @@
 .ca-prospects-page input[hidden]{display:none!important}
 .ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{display:grid;grid-template-columns:minmax(195px,.7fr) minmax(390px,1.3fr);align-items:end}
 .ca-prospects-page .ca-prospect-search{width:100%;min-width:0;align-self:stretch}
-.ca-prospects-page .ca-prospect-filters{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr)) 40px;gap:8px;align-items:end;min-width:0}
-.ca-prospects-page .ca-prospect-filters>label{min-width:0}
-.ca-prospects-page .ca-prospect-filters select{min-width:0;width:100%}
+.ca-prospects-page .ca-admin-selects{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr)) 40px;gap:8px;align-items:end;min-width:0}
+.ca-prospects-page .ca-admin-selects>label{min-width:0}
+.ca-prospects-page .ca-admin-selects select{min-width:0;width:100%}
 @media(max-width:720px){
   .ca-prospects-page .ca-main-content{padding-top:26px}
   .ca-prospects-page .ca-prospect-stat{border-top-width:2px}
   .ca-prospects-page .ca-prospect-stat>strong{font-size:29px}
   .ca-prospects-page .ca-lead-toolbar.ca-prospect-toolbar{grid-template-columns:minmax(0,1fr);padding:16px}
-  .ca-prospects-page .ca-prospect-filters{grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .ca-prospects-page .ca-admin-selects{grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
   .ca-prospects-page .ca-prospect-refresh{justify-self:start}
   .ca-prospects-page .ca-prospect-table{min-width:1010px}
 }
@@ -741,3 +741,121 @@
 /* Phase 3 measured contrast: secondary copy on the cool canvas needs more than slate-500. */
 .admin-workspace .text-slate-400,
 .admin-workspace .text-slate-500 { color: #59677b; }
+
+/* Admin dropdowns */
+.ca-admin-select-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid #dce2ec;
+  border-radius: 9px;
+  background: #fff;
+  color: #202a3c;
+  font-size: 13px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.ca-admin-select-trigger span { flex: 1; text-align: left; }
+.ca-admin-select-trigger svg { flex-shrink: 0; color: #58677e; }
+.ca-admin-select-trigger:hover,
+.ca-admin-select-trigger[aria-expanded="true"] {
+  border-color: #a9b4c7;
+  background: #f8f9fc;
+}
+.ca-admin-select-trigger[aria-expanded="true"] svg:last-child { transform: rotate(180deg); }
+.ca-admin-select-trigger[data-filtered="true"] {
+  border-color: #d8d2fa;
+  background: #f4f1fe;
+  color: #4c39a7;
+}
+.ca-admin-select-trigger:focus-visible {
+  outline: 2px solid #69778d;
+  outline-offset: 2px;
+}
+
+.ca-admin-select-popup {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 5px;
+  border: 1px solid #dce2ec;
+  border-radius: 13px;
+  background: #fff;
+  color: #202a3c;
+  box-shadow: 0 14px 34px #17233c26, 0 3px 8px #17233c12;
+  overflow: hidden;
+}
+.ca-admin-select-popup:popover-open { display: flex; flex-direction: column; }
+.ca-admin-select-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin: 2px 2px 5px;
+  padding: 0 9px;
+  border: 1px solid #e4e8f0;
+  border-radius: 8px;
+  background: #f7f8fb;
+  color: #58677e;
+}
+.ca-admin-select-search:focus-within { border-color: #8592a7; }
+.ca-admin-select-popup .ca-admin-select-search input {
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  color: #202a3c;
+  font-size: 13px;
+}
+.ca-admin-select-search input::placeholder { color: #58677e; }
+.ca-admin-select-options {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #c9d0dd transparent;
+}
+.ca-admin-select-options button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 35px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  text-align: left;
+  font-size: 13px;
+}
+.ca-admin-select-options button[aria-selected="true"] {
+  background: #eeeafb;
+  color: #4c39a7;
+  font-weight: 650;
+}
+.ca-admin-select-options button:hover { background: #f2f4f8; }
+.ca-admin-select-options button[aria-selected="true"]:hover { background: #e6dffb; }
+.ca-admin-select-options button:focus-visible { outline: 2px solid #69778d; outline-offset: -2px; }
+.ca-admin-select-empty { padding: 12px 10px; color: #58677e; font-size: 13px; }
+
+@media (pointer: coarse) {
+  .ca-admin-select-trigger, .ca-admin-select-options button { min-height: 44px; }
+  .ca-admin-select-popup .ca-admin-select-search input { font-size: 16px; }
+}
+
+.ca-admin-select[data-variant="field"] .ca-admin-select-trigger {
+  width: 100%;
+  min-height: 40px;
+}
+.ca-admin-select-options button:disabled {
+  color: #69778d;
+  cursor: not-allowed;
+  background: transparent;
+}
+@media (pointer: coarse) {
+  .ca-admin-select[data-variant="field"] .ca-admin-select-trigger { min-height: 44px; }
+}

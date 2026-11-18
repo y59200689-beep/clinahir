@@ -10,3 +10,10 @@
 .maps-status-partial{color:#8a5b08;background:#fff8e9;border-color:#f2e4c2}
 
 .maps-hosted-note{margin:0;padding:0 0 16px;color:var(--maps-muted);font-size:12px;line-height:1.6}
+
+.maps-location-help {
+  margin: 8px 0 0;
+  color: var(--maps-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}

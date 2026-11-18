@@ -29,10 +29,10 @@ export function AdminDrawer({
     const previous = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const focusable = () => Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href], [tabindex="0"]') ?? []).filter(element => element.getClientRects().length);
+    const focusable = () => Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href], [tabindex="0"]') ?? []).filter(element => element.tabIndex >= 0 && element.getClientRects().length);
     focusable()[0]?.focus();
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.preventDefault(); onClose(); }
+      if (e.key === 'Escape' && !e.defaultPrevented) { e.preventDefault(); onClose(); }
       if (e.key !== 'Tab') return;
       const controls = focusable(), first = controls[0], last = controls[controls.length - 1];
       if (!first) { e.preventDefault(); drawerRef.current?.focus(); return; }

@@ -19,9 +19,9 @@ try{
  }
  await page.goto(origin+'/admin');await page.locator('input[name=email]').waitFor();await scan('admin-login-en');await page.locator('input[name=email]').fill('owner@example.test');await page.locator('input[name=password]').fill('local-admin-fixture-only');await page.locator('button[type=submit]').click();
  for(const locale of ['en','fr']){
-  await page.getByLabel('Admin language / Langue').selectOption(locale);
+  await page.getByRole('button',{name:/^Admin language \/ Langue:/}).click();await page.getByRole('option',{name:locale === 'fr' ? 'Français' : 'English',exact:true}).click();
   const routes=locale==='fr'?['Vue d’ensemble','Demandes entrantes','Répertoire des prospects','Contenu du site','Analyse des conversions','Centre des transmissions','Journal d’audit','Paramètres']:['Overview','Inbound Leads','Prospect Directory','Website Content','Conversion Insights','Delivery Center','Audit Activity','Settings'];
-  for(const route of routes){await page.getByRole('button',{name:new RegExp('^'+route)}).first().click();await page.locator('main h1').waitFor();await scan('admin-'+locale+'-'+route);}
+  for(const route of routes){await page.getByRole('link',{name:new RegExp('^'+route)}).first().click();await page.locator('main h1').waitFor();await scan('admin-'+locale+'-'+route);}
  }
  await page.screenshot({path:'output/playwright/phase3-admin-audit.png'});
  await browser.close();browser=undefined;

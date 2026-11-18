@@ -32,26 +32,52 @@ try{
   await nav('Rendez-vous');await page.getByRole('button',{name:'Nouveau RDV',exact:true}).click();d=page.getByRole('dialog');await d.getByLabel('Nom fictif du patient',{exact:true}).fill(' ');await d.getByRole('button',{name:'Enregistrer le rendez-vous'}).click();await d.getByRole('alert').first().waitFor();await page.keyboard.press('Escape');
  });
  await check('French unauthorized login error, owner session and every admin route',async()=>{
-  await page.goto(origin+'/admin');await page.getByLabel('Admin language / Langue').selectOption('fr');await page.locator('input[name=email]').fill('owner@example.test');await page.locator('input[name=password]').fill('incorrect');await page.locator('button[type=submit]').click();await page.getByText('L’adresse e-mail ou le mot de passe est incorrect.',{exact:true}).waitFor();await page.locator('input[name=password]').fill('local-admin-fixture-only');await page.locator('button[type=submit]').click();
+  await page.goto(origin+'/admin');await page.getByRole('button',{name:/^Admin language \/ Langue:/}).click();await page.getByRole('option',{name:'Français',exact:true}).click();await page.locator('input[name=email]').fill('owner@example.test');await page.locator('input[name=password]').fill('incorrect');await page.locator('button[type=submit]').click();await page.getByText('L’adresse e-mail ou le mot de passe est incorrect.',{exact:true}).waitFor();await page.locator('input[name=password]').fill('local-admin-fixture-only');await page.locator('button[type=submit]').click();
   const routes=[['Vue d’ensemble','Vue d’ensemble'],['Demandes entrantes','Demandes entrantes'],['Répertoire des prospects','Répertoire des prospects'],['Contenu du site','Contenu du site'],['Analyse des conversions','Statistiques'],['Centre des transmissions','Transmissions'],['Journal d’audit','Journal d’activité'],['Paramètres','Paramètres']];
-  for(const [button,heading]of routes){await page.getByRole('button',{name:new RegExp('^'+button)}).first().click();await page.getByRole('heading',{name:heading,exact:true}).waitFor();assert.equal(await page.locator('main').getByText('Operation failed. Please try again.',{exact:true}).count(),0);}
+  for(const [button,heading]of routes){await page.getByRole('link',{name:new RegExp('^'+button)}).first().click();await page.getByRole('heading',{name:heading,exact:true}).waitFor();assert.equal(await page.locator('main').getByText('Operation failed. Please try again.',{exact:true}).count(),0);}
  });
  await page.screenshot({path:'output/playwright/phase2-admin-fr.png'});
  await check('French lead edits preserve machine stage values and French prospect review persists',async()=>{
-  await page.getByRole('button',{name:/^Demandes entrantes/}).click();await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).click();let d=page.getByRole('dialog',{name:'Fiche de la demande'});await d.getByLabel('Étape de la demande').selectOption('qualified');await d.getByLabel('Notes internes').fill('Note fictive en français');await d.getByRole('button',{name:'Enregistrer les modifications'}).click();await d.waitFor({state:'hidden'});await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).click();assert.equal(await page.getByRole('dialog').getByLabel('Étape de la demande').inputValue(),'qualified');await page.keyboard.press('Escape');
-  await page.getByRole('button',{name:'Répertoire des prospects',exact:true}).click();await page.getByRole('row').filter({hasText:'Fictional Prospect'}).click();d=page.getByRole('dialog',{name:'Fiche du prospect'});await d.getByLabel('Statut de vérification').selectOption('qualified');await d.getByLabel('Notes internes').fill('Vérification fictive');await d.getByRole('button',{name:'Enregistrer la vérification'}).click();await d.waitFor({state:'hidden'});
+  await page.getByRole('link',{name:/^Demandes entrantes/}).click();await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).click();let d=page.getByRole('dialog',{name:'Fiche de la demande'});const stagePicker=d.getByRole('button',{name:/^Étape de la demande:/});await stagePicker.press('ArrowDown');await d.getByRole('listbox').waitFor();await page.keyboard.press('Escape');await d.getByRole('listbox').waitFor({state:'hidden'});assert.equal(await d.isVisible(),true);await stagePicker.click();await d.getByRole('option',{name:'Qualifié',exact:true}).click();await d.getByLabel('Notes internes').fill('Note fictive en français');await d.getByRole('button',{name:'Enregistrer les modifications'}).click();await d.waitFor({state:'hidden'});await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).click();assert.equal((await page.getByRole('dialog').getByRole('button',{name:/^Étape de la demande:/}).innerText()).trim(),'Qualifié');await page.keyboard.press('Escape');
+  await page.getByRole('link',{name:'Répertoire des prospects',exact:true}).click();await page.getByRole('row').filter({hasText:'Fictional Prospect'}).click();d=page.getByRole('dialog',{name:'Fiche du prospect'});await d.getByRole('button',{name:/^Statut de vérification:/}).click();await d.getByRole('option',{name:'Qualifié',exact:true}).click();await d.getByLabel('Notes internes').fill('Vérification fictive');await d.getByRole('button',{name:'Enregistrer la vérification'}).click();await d.waitFor({state:'hidden'});
  });
  await check('French snapshot outage shows actionable failure and retry recovers',async()=>{
   await page.route('**/api/admin?action=snapshot*',route=>route.fulfill({status:503,json:{error:'The admin service is temporarily unavailable. Please try again shortly.'}}));
-  await page.getByRole('button',{name:/^Demandes entrantes/}).click();await page.getByLabel('Rechercher une demande…').fill('Atlas');await page.getByRole('alert').filter({hasText:'Le service d’administration est temporairement indisponible.'}).waitFor();await page.unroute('**/api/admin?action=snapshot*');await page.getByRole('button',{name:'Réessayer',exact:true}).click();await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).waitFor();
+  await page.getByRole('link',{name:/^Demandes entrantes/}).click();await page.getByLabel('Rechercher une demande…').fill('Atlas');await page.getByRole('alert').filter({hasText:'Le service d’administration est temporairement indisponible.'}).waitFor();await page.unroute('**/api/admin?action=snapshot*');await page.getByRole('button',{name:'Réessayer',exact:true}).click();await page.getByRole('row',{name:/Ouvrir Atlas Imaging Center/}).waitFor();
  });
  await check('Admin French and English switch without reloading or changing content-editor locale',async()=>{
-  await page.getByRole('button',{name:'Contenu du site',exact:true}).click();await page.getByRole('button',{name:'Enregistrer le brouillon'}).waitFor();await page.getByRole('button',{name:'Français',exact:true}).click();await page.locator('textarea').first().fill('Titre fictif français');await page.getByRole('button',{name:'Enregistrer le brouillon'}).click();await page.getByText('Brouillon enregistré.',{exact:true}).waitFor();await page.getByLabel('Admin language / Langue').selectOption('en');await page.getByRole('heading',{name:'Website Content',exact:true}).waitFor();assert.equal(await page.locator('textarea').first().inputValue(),'Titre fictif français');
+  await page.getByRole('link',{name:'Contenu du site',exact:true}).click();await page.getByRole('button',{name:'Enregistrer le brouillon'}).waitFor();await page.getByRole('button',{name:'Français',exact:true}).click();await page.locator('textarea').first().fill('Titre fictif français');await page.getByRole('button',{name:'Enregistrer le brouillon'}).click();await page.getByText('Brouillon enregistré.',{exact:true}).waitFor();await page.getByRole('button',{name:/^Admin language \/ Langue:/}).click();await page.getByRole('option',{name:'English',exact:true}).click();await page.getByRole('heading',{name:'Website Content',exact:true}).waitFor();assert.equal(await page.locator('textarea').first().inputValue(),'Titre fictif français');
  });
  await check('English admin route parity and accessible control names',async()=>{
   const routes=[['Overview','Overview'],['Inbound Leads','Inbound Leads'],['Prospect Directory','Prospect Directory'],['Website Content','Website Content'],['Conversion Insights','Analytics'],['Delivery Center','Deliveries'],['Audit Activity','Activity Log'],['Settings','Settings']];
-  for(const[button,heading]of routes){await page.getByRole('button',{name:new RegExp('^'+button)}).first().click();await page.getByRole('heading',{name:heading,exact:true}).waitFor();const unnamed=await page.locator('main button').evaluateAll(buttons=>buttons.filter(button=>button.getClientRects().length&&!button.textContent.trim()&&!button.getAttribute('aria-label')&&!button.getAttribute('title')&&!button.getAttribute('aria-labelledby')).length);assert.equal(unnamed,0,heading);}
-  await page.getByRole('button',{name:'Website Content',exact:true}).click();
+  for(const[button,heading]of routes){await page.getByRole('link',{name:new RegExp('^'+button)}).first().click();await page.getByRole('heading',{name:heading,exact:true}).waitFor();const unnamed=await page.locator('main button').evaluateAll(buttons=>buttons.filter(button=>button.getClientRects().length&&!button.textContent.trim()&&!button.getAttribute('aria-label')&&!button.getAttribute('title')&&!button.getAttribute('aria-labelledby')).length);assert.equal(unnamed,0,heading);}
+  await page.getByRole('link',{name:'Website Content',exact:true}).click();
+ });
+ await check('Admin deep links preserve the session, history and sign-in destination',async()=>{
+  const routes=[['Overview','overview'],['Inbound Leads','leads'],['Google Maps Search','maps'],['Prospect Directory','prospects'],['Website Content','website'],['Conversion Insights','analytics'],['Delivery Center','deliveries'],['Audit Activity','activity'],['Settings','settings']];
+  for(const [name,slug] of routes){
+   const link=page.getByRole('link',{name,exact:true});
+   assert.equal(await link.getAttribute('href'),'/admin/'+slug);
+   await link.click();
+   assert.equal(new URL(page.url()).pathname,'/admin/'+slug);
+   await page.reload();
+   await page.getByRole('link',{name,exact:true}).and(page.locator('[aria-current=page]')).waitFor();
+   assert.equal(await page.locator('input[name=password]').count(),0);
+  }
+  await page.getByRole('link',{name:'Google Maps Search',exact:true}).click();
+  await page.goBack();await page.getByRole('link',{name:'Settings',exact:true}).and(page.locator('[aria-current=page]')).waitFor();
+  await page.goForward();await page.getByRole('heading',{name:'Google Maps Search',exact:true}).waitFor();
+  const visitor=await browser.newContext();
+  try{
+   const tab=await visitor.newPage();
+   await tab.goto(origin+'/admin/prospects');
+   await tab.locator('input[name=email]').fill('owner@example.test');
+   await tab.locator('input[name=password]').fill('local-admin-fixture-only');
+   await tab.locator('button[type=submit]').click();
+   await tab.getByRole('heading',{name:'Prospect Directory',exact:true}).waitFor();
+   assert.equal(new URL(tab.url()).pathname,'/admin/prospects');
+  }finally{await visitor.close();}
+  await page.getByRole('link',{name:'Website Content',exact:true}).click();
  });
  await check('Mobile and tablet admin layouts, focus containment and Escape navigation',async()=>{
   for(const width of [390,768,1024]){await page.setViewportSize({width,height:900});await page.getByRole('heading',{name:'Website Content',exact:true}).waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));if(width===390){await page.getByRole('button',{name:'Open navigation'}).click();await page.keyboard.press('Tab');assert.ok(await page.locator('aside').evaluate(el=>el.contains(document.activeElement)));await page.keyboard.press('Escape');}}

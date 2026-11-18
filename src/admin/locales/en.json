@@ -1,4 +1,11 @@
 {
+  "Cities or areas": "Cities or areas",
+  "Casablanca; Rabat; Tangier": "Casablanca; Rabat; Tangier",
+  "Separate up to 5 cities or areas with semicolons.": "Separate up to 5 cities or areas with semicolons.",
+  "Enter keywords and up to 5 cities or areas.": "Enter keywords and up to 5 cities or areas.",
+  "All cities ({{total}})": "All cities ({{total}})",
+  "Search cities": "Search cities",
+  "No matching cities": "No matching cities",
   "1 hour": "1 hour",
   "API connectivity": "API connectivity",
   "Account": "Account",
