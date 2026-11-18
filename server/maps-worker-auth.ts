@@ -12,6 +12,6 @@ export async function validMapsWorker(token:string,fetcher:typeof fetch=fetch):P
   if(!verify('RSA-SHA256',Buffer.from(h+'.'+p),createPublicKey({key,format:'jwk'}),Buffer.from(s,'base64url')))return false;
   const c=JSON.parse(Buffer.from(p,'base64url').toString());const now=Math.floor(Date.now()/1000);
   const subjects=['repo:y59200689-beep/clinahir:ref:refs/heads/main','repo:y59200689-beep@297662398/clinahir@1402964658:ref:refs/heads/main'];
-  return c.iss===issuer&&c.aud===audience&&c.repository==='y59200689-beep/clinahir'&&c.repository_id==='1402964658'&&c.repository_owner_id==='297662398'&&c.ref==='refs/heads/main'&&subjects.includes(c.sub)&&['schedule','workflow_dispatch'].includes(c.event_name)&&c.workflow_ref==='y59200689-beep/clinahir/.github/workflows/maps-worker.yml@refs/heads/main'&&Number.isFinite(c.exp)&&c.exp>now&&c.exp<=now+900&&Number.isFinite(c.iat)&&c.iat<=now+30&&c.iat>=now-900&&(!c.nbf||c.nbf<=now+30);
+  return c.iss===issuer&&c.aud===audience&&c.repository==='y59200689-beep/clinahir'&&c.repository_id==='1402964658'&&c.repository_owner_id==='297662398'&&c.ref==='refs/heads/main'&&subjects.includes(c.sub)&&['push','schedule','workflow_dispatch'].includes(c.event_name)&&c.workflow_ref==='y59200689-beep/clinahir/.github/workflows/maps-worker.yml@refs/heads/main'&&Number.isFinite(c.exp)&&c.exp>now&&c.exp<=now+900&&Number.isFinite(c.iat)&&c.iat<=now+30&&c.iat>=now-900&&(!c.nbf||c.nbf<=now+30);
  }catch{return false;}
 }

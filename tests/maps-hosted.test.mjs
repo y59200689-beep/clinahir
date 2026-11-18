@@ -20,10 +20,11 @@ test('worker verifies signature, audience, immutable repository, default branch 
  const worker=(body,credential=identity())=>new Request('https://clinahir.test/api/maps-worker',{method:'POST',headers:{Authorization:'Bearer '+credential},body:JSON.stringify(body)});
  for(const credential of ['', 'wrong',identity({aud:'other'}),identity({repository_id:'other'}),identity({ref:'refs/heads/other'}),identity({event_name:'pull_request'}),identity({exp:1}),identity().slice(0,-4)+'AAAA'])assert.equal((await mapsWorkerRequest(worker({},credential),env,fetcher)).status,401);
  assert.equal(calls,0);assert.equal((await mapsWorkerRequest(worker({op:'claim',claimToken:id}),env,fetcher)).status,200);assert.equal(calls,1);
+ assert.equal((await mapsWorkerRequest(worker({op:'claim',claimToken:id},identity({event_name:'push'})),env,fetcher)).status,200);assert.equal(calls,2);
  assert.equal((await mapsWorkerRequest(worker({op:'delete'}),env,fetcher)).status,400);
- assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[{title:{unsafe:true}}],success:true}),env,fetcher)).status,400);assert.equal(calls,1);
- assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:'yes'}),env,fetcher)).status,400);assert.equal(calls,1);
- assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:true,error:'Partial results ready.'}),env,fetcher)).status,200);assert.equal(calls,2);
+ assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[{title:{unsafe:true}}],success:true}),env,fetcher)).status,400);assert.equal(calls,2);
+ assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:'yes'}),env,fetcher)).status,400);assert.equal(calls,2);
+ assert.equal((await mapsWorkerRequest(worker({op:'finish',id,token,results:[row],success:false,partial:true,error:'Partial results ready.'}),env,fetcher)).status,200);assert.equal(calls,3);
 });
 test('hosted result preview is bounded while CSV/import include every result and reuse duplicate-safe RPC',async()=>{
  const rows=Array.from({length:25},(_,i)=>({...row,title:i?'Synthetic '+i:'=FORMULA()'}));let imports=0;
