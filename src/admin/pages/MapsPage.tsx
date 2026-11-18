@@ -1,3 +1,4 @@
+import { MapsSearchProgress } from '../components/MapsSearchProgress';
 import { AdminSelect } from '../components/AdminSelect';
 import { useEffect, useId, useState, type FormEvent } from 'react';
 import { Download, MapPin, Search, LoaderCircle, ArrowUpRight, Building2, Star, SlidersHorizontal, CopyCheck, X, CircleCheck } from 'lucide-react';
@@ -6,7 +7,7 @@ import { useAdminLocale } from '../i18n';
 import '../maps.css';
 import { maxMapsLocationLength } from '../../../server/maps-locations.mjs';
 function publicWebsite(value: string) { try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) && !url.username && !url.password ? url : null; } catch { return null; } }
-type Results = { job: null | { id: string; query: string; status: string; error?: string }; rows: Record<string, string>[]; total: number };
+type Results = { job: null | { id: string; query: string; status: string; startedAt?: string; error?: string }; rows: Record<string, string>[]; total: number };
 export function MapsPage({ onImported }: { onImported: (result: { inserted: number; duplicates: number }) => void }) {
   const { t, intlLocale } = useAdminLocale();
   const [keywords, setKeywords] = useState('');
@@ -21,7 +22,8 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
   const [importing, setImporting] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
-  const active = busy || ['queued', 'starting', 'running'].includes(data.job?.status ?? '');
+  const jobActive = ['queued', 'starting', 'running'].includes(data.job?.status ?? '');
+  const active = busy || jobActive;
   useEffect(() => {
     let disposed = false;
     let timer: ReturnType<typeof setTimeout>;
@@ -83,7 +85,7 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
         <div className="maps-import-intro"><span className="maps-import-icon"><CopyCheck size={19} aria-hidden="true" /></span><div><h3>{t('Add these businesses to your directory')}</h3><p>{t('All captured results will be checked against the directory. Matching business names and cities are skipped, ignoring case and extra spaces.')}</p></div><button type="button" className="maps-icon-button" onClick={() => setImportOpen(false)} aria-label={t('Close import')}><X size={18} aria-hidden="true" /></button></div>
         <div className="maps-import-confirm"><label><input type="checkbox" checked={sourceConfirmed} onChange={event => setSourceConfirmed(event.target.checked)} />{t('I confirm this source permits collecting and retaining business details for commercial prospecting.')}</label><button type="button" onClick={() => void importResults()} disabled={!sourceConfirmed || active || importing} className="maps-button maps-primary">{importing ? <LoaderCircle size={16} className="maps-spin" aria-hidden="true" /> : <Building2 size={16} aria-hidden="true" />}{t(importing ? 'Adding prospects…' : 'Send to Prospect Directory')}</button></div>
       </div>}
-      {data.job?.status === 'queued' && <p role="status" className="maps-notice">{t('Your search is queued. The online worker will pick it up shortly.')}</p>}
+      {jobActive && data.job && <MapsSearchProgress key={data.job.id} status={data.job.status} startedAt={data.job.startedAt} />}
       {data.job?.error && <p role="status" className="maps-notice">{t(data.job.error)}</p>}
       {data.rows.length > 0 ? <>
         <div className="maps-table-scroll" role="region" aria-label={t('Business results')} tabIndex={0}><table className="maps-table"><caption className="sr-only">{t('Business results')}</caption><colgroup><col className="maps-col-business" /><col className="maps-col-rating" /><col className="maps-col-contact" /><col className="maps-col-address" /></colgroup><thead><tr>{['Business', 'Google rating', 'Contact details', 'Address'].map(label => <th key={label} scope="col">{t(label)}</th>)}</tr></thead><tbody>{data.rows.map((row, i) => {
@@ -96,7 +98,11 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
           </tr>;
         })}</tbody></table></div>
         <footer className="maps-results-footer"><span>{t('Showing {{shown}} of {{total}} businesses', {shown: data.rows.length, total: data.total})}</span><span>{t('CSV download includes all captured results.')}</span></footer>
-      </> : <div className="maps-empty"><span className="maps-empty-icon">{active ? <LoaderCircle size={25} className="maps-spin" aria-hidden="true" /> : <MapPin size={25} aria-hidden="true" />}</span><h3>{t(active ? 'Finding businesses in your area' : 'Your next prospects start here')}</h3><p>{t(active ? 'Searching Google Maps. The first image download can take a few minutes.' : 'Enter a business type and city above to start your search.')}</p></div>}
+      </> : !active && !data.job?.error && <div className="maps-empty">
+        <span className="maps-empty-icon"><MapPin size={25} aria-hidden="true" /></span>
+        <h3>{t(data.job ? 'No businesses captured' : 'Your next prospects start here')}</h3>
+        <p>{t(data.job ? 'Try different keywords or a nearby city.' : 'Enter a business type and city above to start your search.')}</p>
+      </div>}
     </section>
   </section>;
 }

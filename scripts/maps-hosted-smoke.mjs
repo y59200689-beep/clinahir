@@ -17,6 +17,24 @@ try{
  await page.keyboard.press('Enter');
  assert.match(await proxy.innerText(),/Continue without a proxy/);
  const search=page.getByRole('button',{name:'Search businesses',exact:true});assert.equal(await search.isEnabled(),true);assert.equal(await page.getByText(/Open this dashboard on localhost/).count(),0);
- await page.getByRole('textbox',{name:'Keywords',exact:true}).fill('Synthetic imaging');await page.getByRole('textbox',{name:'Cities or areas',exact:true}).fill('Rabat');await search.click();await page.getByText('Your search is queued. The online worker will pick it up shortly.',{exact:true}).waitFor();await page.getByRole('button',{name:'Stop search',exact:true}).click();await search.waitFor();assert.equal(await search.isEnabled(),true);
+ await page.getByRole('textbox',{name:'Keywords',exact:true}).fill('Synthetic imaging');await page.getByRole('textbox',{name:'Cities or areas',exact:true}).fill('Rabat');await search.click();const progress=page.getByRole('progressbar',{name:'Search progress'});
+ await progress.waitFor();
+ assert.equal(await progress.getAttribute('aria-valuetext'),'Waiting for the search worker');
+ assert.equal(await progress.getAttribute('aria-valuenow'),null);
+ await page.getByText(/^Elapsed \d+:\d{2}$/).waitFor();
+ await page.reload();
+ await progress.waitFor();
+ assert.equal(await progress.getAttribute('aria-valuetext'),'Waiting for the search worker');
+ const statusUrl='**/api/admin?action=maps-status';
+ await page.route(statusUrl,async route=>{
+  const response=await route.fetch();
+  const queued=await response.json();
+  await route.fulfill({response,json:{...queued,job:{...queued.job,status:'running'}}});
+ });
+ await page.getByRole('status').filter({hasText:'Searching Google Maps'}).waitFor();
+ assert.equal(await progress.getAttribute('aria-valuetext'),'Searching Google Maps');
+ assert.equal(await progress.locator('span').first().getAttribute('data-state'),'complete');
+ await page.unroute(statusUrl);
+ await page.getByRole('button',{name:'Stop search',exact:true}).click();await progress.waitFor({state:'hidden'});await search.waitFor();assert.equal(await search.isEnabled(),true);
  await mkdir('output/playwright',{recursive:true});await page.screenshot({path:'output/playwright/maps-hosted-ready.png',fullPage:true});console.log('PASS non-local admin enables online searches, queues work, displays status and stops the queued job.');
 }finally{await browser?.close();server.kill('SIGTERM');}

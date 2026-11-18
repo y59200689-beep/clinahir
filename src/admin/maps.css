@@ -17,3 +17,70 @@
   font-size: 12px;
   line-height: 1.5;
 }
+
+.maps-progress {
+  padding: 18px 24px;
+  background: var(--maps-soft);
+  border-bottom: 1px solid var(--maps-line);
+}
+.maps-progress-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+.maps-progress-heading p {
+  margin: 0;
+  font-weight: 650;
+}
+.maps-progress-heading span {
+  color: var(--maps-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.maps-progress-track,
+.maps-progress-labels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.maps-progress-track { margin-top: 12px; }
+.maps-progress-track span {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e5e5ed;
+}
+.maps-progress-track [data-state="complete"] { background: var(--maps-primary); }
+.maps-progress-track [data-state="active"] { background: #ded7fa; }
+.maps-progress-track [data-state="active"]::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 45%;
+  border-radius: inherit;
+  background: var(--maps-primary);
+  content: "";
+  animation: maps-progress-sweep 1.8s ease-in-out infinite alternate;
+}
+@keyframes maps-progress-sweep {
+  from { left: 0; }
+  to { left: 55%; }
+}
+.maps-progress-labels {
+  margin-top: 6px;
+  color: var(--maps-muted);
+  font-size: 11px;
+}
+.maps-progress-labels [data-current="true"] { color: #5943b6; font-weight: 650; }
+.maps-progress-hint {
+  margin: 10px 0 0;
+  color: var(--maps-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+@media (max-width: 640px) { .maps-progress { padding-inline: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+  .maps-progress-track [data-state="active"]::after { animation: none; }
+}
