@@ -4,6 +4,7 @@ import { CheckCircle2, X } from 'lucide-react';
 import { adminApi, emptySnapshot, type Lead, type Snapshot } from './types';
 import { AdminShell, type AdminPage } from './components/AdminShell';
 import { LoginPage } from './pages/LoginPage';
+const MapsPage = lazy(() => import('./pages/MapsPage').then(module => ({ default: module.MapsPage })));
 const OverviewPage = lazy(() => import('./pages/OverviewPage').then(module => ({ default: module.OverviewPage })));
 const LeadsPage = lazy(() => import('./pages/LeadsPage').then(module => ({ default: module.LeadsPage })));
 const ProspectsPage = lazy(() => import('./pages/ProspectsPage').then(module => ({ default: module.ProspectsPage })));
@@ -174,6 +175,8 @@ function AdminWorkspace() {
           onToast={setToast}
         />
       )}
+
+      {page === 'Maps' && <MapsPage onImported={result => { navigate('Prospects'); setToast(t('Imported {{count}} prospects; {{duplicates}} duplicates skipped.', { count: result.inserted, duplicates: result.duplicates })); }} />}
 
       {page === 'Prospects' && <ProspectsPage onToast={setToast} />}
 

@@ -1,6 +1,6 @@
 {
-  "id": "2026-11-16T16-27-37-031Z-11c036a4",
-  "createdAt": "2026-11-16T16:27:37.031Z",
+  "id": "2026-11-18T01-09-56-466Z-ae02f75a",
+  "createdAt": "2026-11-18T01:09:56.466Z",
   "projectRef": "fsfqgionuuxykpoxhrdm",
   "scope": "Synthetic staging application and fixture schemas only; managed Auth/Storage excluded",
   "checks": [
@@ -10,84 +10,11 @@
     },
     {
       "name": "restricted hosted export completed over verified TLS",
-      "passed": true
-    },
-    {
-      "name": "full source row digests stable across export",
-      "passed": true
-    },
-    {
-      "name": "PostgreSQL custom archive parses",
-      "passed": true
-    },
-    {
-      "name": "authenticated decryption matches fresh export",
-      "passed": true
-    },
-    {
-      "name": "ciphertext readback matches",
-      "passed": true
+      "passed": false
     }
   ],
-  "status": "passed",
-  "archivePath": "output/staging/offsite/2026-11-16T16-27-37-031Z-11c036a4/clinahir-staging-2026-11-16T16-27-37-031Z-11c036a4.dump.aesgcm",
-  "plaintextSha256": "ceb5a89737b686ca340ef804d006124059570ad6cfea34785f034b45812b7628",
-  "encryptedSha256": "f46823659b20d69918655dab9334712c40ba574e43844cf131d6ef90b85b02bb",
-  "bytes": 86071,
-  "tables": [
-    {
-      "name": "clinahir_staging_fixture.control",
-      "rows": 1,
-      "digest": "74973db7a3fc455b7c8ae95259f18d80"
-    },
-    {
-      "name": "clinahir_staging_fixture.receipts",
-      "rows": 4,
-      "digest": "5e02e4b9ca26b929b232d29ab4cf4c79"
-    },
-    {
-      "name": "public.clinahir_admin_audit",
-      "rows": 3,
-      "digest": "ef6b9f5924e36d0d907303a7072fda17"
-    },
-    {
-      "name": "public.clinahir_analytics_events",
-      "rows": 8,
-      "digest": "6ce96b78a2f09cf9244760a6ded1f30f"
-    },
-    {
-      "name": "public.clinahir_cron_runs",
-      "rows": 1,
-      "digest": "36ef7d3ed6a6ce0b37df595c6f088a49"
-    },
-    {
-      "name": "public.clinahir_lead_limits",
-      "rows": 1,
-      "digest": "daa0efa48666e1ca1fbcaf71f8dfc16f"
-    },
-    {
-      "name": "public.clinahir_leads",
-      "rows": 7,
-      "digest": "41f888ba9f2a81f8862e31271b8cd7a0"
-    },
-    {
-      "name": "public.clinahir_prospects",
-      "rows": 0,
-      "digest": "d41d8cd98f00b204e9800998ecf8427e"
-    },
-    {
-      "name": "public.clinahir_site_content",
-      "rows": 1,
-      "digest": "8131766c9e9122aff54a8e35bfb5ae46"
-    },
-    {
-      "name": "public.clinahir_whatsapp_jobs",
-      "rows": 7,
-      "digest": "fa2372e815ababc07d3d21e688af2ebb"
-    }
-  ],
-  "backupRole": "clinahir_stage_backup_b412deef64",
-  "keyReference": "f9f3699c9492ad9d0ec7c36339f7d664396c1b040f3eed10d9425330d441db1f",
+  "status": "failed",
+  "failure": "Export or integrity verification failed; sensitive diagnostics omitted.",
   "restrictedRoleClosed": true,
-  "durationMs": 13000
+  "durationMs": 2499
 }

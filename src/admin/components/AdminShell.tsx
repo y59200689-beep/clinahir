@@ -23,6 +23,7 @@ import {
 export type AdminPage =
   | 'Overview'
   | 'Leads'
+  | 'Maps'
   | 'Prospects'
   | 'Website'
   | 'Analytics'
@@ -78,6 +79,7 @@ export function AdminShell({
       items: [
         { name: 'Overview' as AdminPage, label: 'Overview', icon: LayoutDashboard },
         { name: 'Leads' as AdminPage, label: 'Inbound Leads', icon: Users, badge: newLeadsCount > 0 ? newLeadsCount : undefined },
+        { name: 'Maps' as AdminPage, label: 'Google Maps Search', icon: Globe2 },
         { name: 'Prospects' as AdminPage, label: 'Prospect Directory', icon: Building2 },
       ],
     },
@@ -228,7 +230,7 @@ export function AdminShell({
       <div inert={mobileMenuOpen} className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
         <header className="sticky top-0 z-20 h-14 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 px-4 sm:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <button
               aria-label={t("Open navigation")} aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(true)}
@@ -238,16 +240,18 @@ export function AdminShell({
             </button>
 
             {/* Breadcrumb Trail */}
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-              <span className="text-slate-400"> {t("Workspace")} </span>
-              <ChevronRight size={13} className="text-slate-300" />
-              <span className="text-slate-800 font-semibold">
+            <div className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500 font-medium">
+              <span className="hidden sm:inline text-slate-400"> {t("Workspace")} </span>
+              <ChevronRight size={13} className="hidden sm:block shrink-0 text-slate-300" />
+              <span className="truncate text-slate-800 font-semibold">
                 {currentPage === 'Overview'
                   ? t("Overview")
                   : currentPage === 'Leads'
                   ? t("Inbound Leads")
                   : currentPage === 'Prospects'
                   ? t("Prospects")
+                  : currentPage === 'Maps'
+                  ? t('Google Maps Search')
                   : currentPage === 'Website'
                   ? t("Website")
                   : currentPage === 'Analytics'
@@ -262,7 +266,7 @@ export function AdminShell({
           </div>
 
           {/* Right Header Badges & Actions */}
-          <div className="flex items-center gap-3"><AdminLanguageSwitch />
+          <div className="flex shrink-0 items-center gap-3"><AdminLanguageSwitch />
             {/* Live Indicator */}
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200/60 text-slate-600 text-xs font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
@@ -274,7 +278,7 @@ export function AdminShell({
               href="/"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-1"
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-1"
             >
               <span> {t("Public website")} </span>
               <ExternalLink size={12} />

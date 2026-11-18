@@ -151,3 +151,18 @@ input[type="range"]::-moz-range-thumb:hover {
 
 .demo-reserved { min-height: 900px; }
 @media (max-width: 767px) { .demo-reserved { min-height: 1250px; } }
+
+/* Use quiet neutral focus feedback throughout the site; never draw purple rectangles. */
+:root :is(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #64748b !important;
+}
+/* Composite search fields own their focus treatment, rather than framing the text inside. */
+:root .maps-input:focus-within {
+  border-color: #64748b;
+  box-shadow: 0 0 0 2px rgb(100 116 139 / .15);
+}
+:root .maps-input input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
