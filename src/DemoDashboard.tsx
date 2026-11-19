@@ -495,6 +495,7 @@ function DashboardContent({ language }: { language: "en" | "fr" }) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
             <input
               type="text"
+              data-search-field
               placeholder="Search"
               className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors"
             />

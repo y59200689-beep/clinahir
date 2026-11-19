@@ -110,3 +110,5 @@ On November 18 the owner explicitly authorized hosted Google Maps searches and s
 Owner admin dropdowns share the workspace-styled AdminSelect component, including language, form fields, and Prospect Directory filters. Keep the city list searchable, selections visibly marked, and keyboard focus neutral. Dropdowns must fit the viewport and stay above tables and drawers.
 
 During a Maps search, show elapsed queue time, delayed starts, available worker updates, and saved results as they arrive. Report city completion only when supported by the worker or a completed crawl, and retain captured rows after a stop. Recent searches and directory matching stay owner-only, and selective import must resolve saved result indices server-side through the existing duplicate-safe import.
+
+Search bars and dropdown controls use a subtle background tint for keyboard focus. Keep outlines and focus-ring shadows off the triggers, options, and search fields. Apply the tint to the wrapper for composite search inputs.

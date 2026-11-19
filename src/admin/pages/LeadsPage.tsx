@@ -152,7 +152,7 @@ export function LeadsPage({
               className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <input
-              aria-label={t("Filter leads…")} value={search}
+              data-search-field aria-label={t("Filter leads…")} value={search}
               onChange={(e) => {
                 onSearchChange(e.target.value);
                 onPageChange(() => 0);

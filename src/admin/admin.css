@@ -770,10 +770,6 @@
   background: #f4f1fe;
   color: #4c39a7;
 }
-.ca-admin-select-trigger:focus-visible {
-  outline: 2px solid #69778d;
-  outline-offset: 2px;
-}
 
 .ca-admin-select-popup {
   position: fixed;
@@ -800,15 +796,12 @@
   background: #f7f8fb;
   color: #58677e;
 }
-.ca-admin-select-search:focus-within { border-color: #8592a7; }
 .ca-admin-select-popup .ca-admin-select-search input {
   width: 100%;
   min-width: 0;
   min-height: 36px;
   padding: 0;
   border: 0;
-  outline: none !important;
-  box-shadow: none !important;
   background: transparent;
   color: #202a3c;
   font-size: 13px;
@@ -839,7 +832,6 @@
 }
 .ca-admin-select-options button:hover { background: #f2f4f8; }
 .ca-admin-select-options button[aria-selected="true"]:hover { background: #e6dffb; }
-.ca-admin-select-options button:focus-visible { outline: 2px solid #69778d; outline-offset: -2px; }
 .ca-admin-select-empty { padding: 12px 10px; color: #58677e; font-size: 13px; }
 
 @media (pointer: coarse) {

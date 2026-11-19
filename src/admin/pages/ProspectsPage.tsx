@@ -12,6 +12,7 @@ import {
   ExternalLink,
   MapPin,
   Globe,
+  Stethoscope,
   ChevronLeft,
   ChevronRight,
   LoaderCircle,
@@ -54,12 +55,14 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
     prospects: [],
     total: 0,
     cities: [],
+    specialties: [],
     counts: { total: 0, review: 0, qualified: 0, opted_in: 0, no_website: 0 },
   });
   const [search, setSearch] = useState('');
   const [stage, setStage] = useState('');
   const [city, setCity] = useState('');
   const [website, setWebsite] = useState('');
+  const [specialty, setSpecialty] = useState('');
   const [pageIndex, setPageIndex] = useState(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -91,7 +94,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
       const result = await adminApi<ProspectSnapshot>(
         'prospects',
         undefined,
-        `&search=${encodeURIComponent(search)}&stage=${stage}&city=${encodeURIComponent(city)}&website=${website}&page=${pageIndex}`
+        `&search=${encodeURIComponent(search)}&stage=${stage}&city=${encodeURIComponent(city)}&website=${website}&specialty=${encodeURIComponent(specialty)}&page=${pageIndex}`
       );
       if (seq === loadSeq.current) setData(result);
     } catch (e) {
@@ -104,7 +107,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
   useEffect(() => {
     const timer = setTimeout(() => void load(), 180);
     return () => clearTimeout(timer);
-  }, [search, stage, city, website, pageIndex]);
+  }, [search, stage, city, website, specialty, pageIndex]);
 
   function openProspectDrawer(p: Prospect) {
     setSelected(p);
@@ -187,7 +190,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
     URL.revokeObjectURL(url);
   }
 
-  const isFiltered = Boolean(search || stage || city || website);
+  const isFiltered = Boolean(search || stage || city || website || specialty);
   const recordsInUpload = csv ? csvRecordCount(csv) : 0;
 
   return (
@@ -279,6 +282,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
             setSearch('');
             setStage('');
             setCity('');
+            setSpecialty('');
             setWebsite('');
             setPageIndex(0);
           }}
@@ -345,7 +349,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
           <div className="relative flex-1 max-w-sm">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
-              aria-label={t("Search center, city, address or phone…")} value={search}
+              data-search-field aria-label={t("Search center, city, address or phone…")} value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPageIndex(0);
@@ -375,6 +379,19 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
               ]}
               search={{ label: t("Search cities"), empty: t("No matching cities"), locale: intlLocale }}
               onChange={value => { setCity(value); setPageIndex(0); }}
+            />
+
+            <AdminSelect
+              highlight
+              label={t("Specialty")}
+              icon={<Stethoscope size={15} aria-hidden="true" />}
+              value={specialty}
+              choices={[
+                { value: '', label: t("All specialties") },
+                ...(data.specialties ?? []).map(value => ({ value, label: value })),
+              ]}
+              search={{ label: t("Search specialties"), empty: t("No matching specialties"), locale: intlLocale }}
+              onChange={value => { setSpecialty(value); setPageIndex(0); }}
             />
 
             <AdminSelect

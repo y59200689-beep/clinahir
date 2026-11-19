@@ -142,7 +142,7 @@ export default function AppointmentsPage({ language, dateRange, rangeStart, rang
       </div>)}
     </div>
     <div className="flex flex-wrap items-center gap-2">
-      <label className="relative flex-1 min-w-[180px]"><Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/45" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t.search} className="w-full rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl py-2.5 pl-10 pr-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-white/30" /></label>
+      <label className="relative flex-1 min-w-[180px]"><Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/45" /><input data-search-field value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t.search} className="w-full rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl py-2.5 pl-10 pr-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-white/30" /></label>
       <div className="flex shrink-0 rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-1" role="group" aria-label={language === 'fr' ? 'Mode d’affichage' : 'View mode'}><button type="button" aria-pressed={view === 'list'} onClick={() => setView('list')} className={view === 'list' ? buttonActive : buttonQuiet}><List size={16} />{t.list}</button><button type="button" aria-pressed={view === 'agenda'} onClick={() => setView('agenda')} className={view === 'agenda' ? buttonActive : buttonQuiet}><CalendarDays size={16} />{t.agenda}</button></div>
     </div>
     <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-2 flex gap-1 overflow-x-auto">

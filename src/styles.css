@@ -157,12 +157,15 @@ input[type="range"]::-moz-range-thumb:hover {
   outline: none !important;
   box-shadow: 0 0 0 2px #64748b !important;
 }
-/* Composite search fields own their focus treatment, rather than framing the text inside. */
-:root .maps-input:focus-within {
-  border-color: #64748b;
-  box-shadow: 0 0 0 2px rgb(100 116 139 / .15);
-}
-:root .maps-input input:focus-visible {
+/* Search and dropdown controls use a surface tint for focus. */
+:root :is(input[type="search"], [data-search-field], select, [aria-haspopup], [role="option"], [role="menuitem"], .maps-input input):focus {
   outline: none !important;
   box-shadow: none !important;
+}
+:root :is(input[type="search"], [data-search-field], select, [aria-haspopup], [role="option"], [role="menuitem"]):focus,
+:root :is(.maps-input, .ca-admin-select-search):focus-within {
+  background-image: linear-gradient(color-mix(in srgb, currentColor 10%, transparent), color-mix(in srgb, currentColor 10%, transparent));
+}
+:root .ca-admin-select-search input:focus {
+  background-image: none;
 }

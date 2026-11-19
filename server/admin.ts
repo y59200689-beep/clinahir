@@ -203,10 +203,19 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         }
         if (action === 'prospects' && request.method === 'GET') {
             const search = (url.searchParams.get('search') ?? '').slice(0, 120), stage = url.searchParams.get('stage') ?? '',
-                city = (url.searchParams.get('city') ?? '').slice(0, 120), website = url.searchParams.get('website') ?? '', page = Number(url.searchParams.get('page') ?? 0);
+                city = (url.searchParams.get('city') ?? '').slice(0, 120), specialty = url.searchParams.get('specialty')?.trim().slice(0, 120), website = url.searchParams.get('website') ?? '', page = Number(url.searchParams.get('page') ?? 0);
             if (!['','review','qualified','not_a_fit','do_not_contact'].includes(stage) || !['','with','without'].includes(website) || !Number.isInteger(page) || page < 0 || page > 10000)
                 return reply({ error: 'Invalid filters' }, 400);
-            return reply(await store.adminRpc('clinahir_admin_prospects', { p_search: search, p_stage: stage, p_page: page, p_city: city, p_website: website }));
+            const filters = { p_search: search, p_stage: stage, p_page: page, p_city: city, p_website: website };
+            if (specialty !== undefined) {
+                try {
+                    return reply(await store.adminRpc('clinahir_admin_prospects', { ...filters, p_specialty: specialty }));
+                } catch (error) {
+                    // An unfiltered directory remains readable while the new RPC is being rolled out.
+                    if (specialty || (error as { status?: number }).status !== 404) throw error;
+                }
+            }
+            return reply(await store.adminRpc('clinahir_admin_prospects', filters));
         }
         if (request.method === 'POST') {
             const d = await readBody(request);

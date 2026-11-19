@@ -98,6 +98,7 @@ export interface ProspectSnapshot {
     prospects: Prospect[];
     total: number;
     cities: string[];
+    specialties?: string[];
     counts: { total: number; review: number; qualified: number; opted_in: number; no_website: number };
 }
 export const emptySnapshot: Snapshot = { leads: [], total: 0, summary: { total: 0, new: 0, qualified: 0, won: 0, attention: 0 }, analytics: [], sources: [], health: [], heartbeat: null, whatsapp: [], audit: [], integrations: { dailyCommand: false, whatsappEnabled: false, whatsappConfigured: false, cron: false } };

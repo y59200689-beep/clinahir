@@ -27,7 +27,7 @@ export class SupabaseLeadStore implements LeadStore {
   if (!this.key.startsWith('sb_secret_')) headers.Authorization = `Bearer ${this.key}`;
   const response = await this.fetcher(`${this.base}/rest/v1/${path}`, { method: body ? 'POST' : 'GET', headers,
    body: body ? JSON.stringify(body) : undefined, redirect: 'error', signal: AbortSignal.timeout(5000) });
-  if (!response.ok) throw new Error('lead_storage_unavailable');
+  if (!response.ok) throw Object.assign(new Error('lead_storage_unavailable'), { status: response.status });
   return await response.json() as T;
  }
  async adminRpc<T>(name:string,args:object):Promise<T>{return this.request<T>(`rpc/${name}`,args);}
