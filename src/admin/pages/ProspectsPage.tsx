@@ -1,3 +1,6 @@
+import { DeleteSelected, RecordCheckbox, useRecordSelection } from '../components/RecordSelection';
+import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
+import { spreadsheetCsv } from '../csv';
 import { useAdminLocale } from '../i18n';
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import {
@@ -24,6 +27,9 @@ import { AdminDrawer } from '../components/AdminDrawer';
 import { adminApi, type Prospect, type ProspectSnapshot } from '../types';
 
 interface ProspectsPageProps {
+  deletedProspects?: ReadonlySet<string>;
+  onDelete: (record: RecordTarget) => void;
+  onDeleteMany: (records: RecordTarget[]) => void;
   onToast: (msg: string) => void;
 }
 
@@ -49,8 +55,9 @@ function csvRecordCount(source: string) {
   return Math.max(0, records - 1);
 }
 
-export function ProspectsPage({ onToast }: ProspectsPageProps) {
+export function ProspectsPage({ onToast, onDelete, onDeleteMany, deletedProspects }: ProspectsPageProps) {
   const { t, errorText, intlLocale } = useAdminLocale();
+  const deletionSelection = useRecordSelection(deletedProspects);
   const [data, setData] = useState<ProspectSnapshot>({
     prospects: [],
     total: 0,
@@ -62,6 +69,8 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
   const [stage, setStage] = useState('');
   const [city, setCity] = useState('');
   const [website, setWebsite] = useState('');
+  const [shortlist, setShortlist] = useState<string[]>([]);
+  const [exporting, setExporting] = useState(false);
   const [specialty, setSpecialty] = useState('');
   const [pageIndex, setPageIndex] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -96,7 +105,10 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
         undefined,
         `&search=${encodeURIComponent(search)}&stage=${stage}&city=${encodeURIComponent(city)}&website=${website}&specialty=${encodeURIComponent(specialty)}&page=${pageIndex}`
       );
-      if (seq === loadSeq.current) setData(result);
+      if (seq === loadSeq.current) {
+        setData(result);
+        if (pageIndex > 0 && result.prospects.length === 0) setPageIndex(Math.max(0, Math.ceil(result.total / 25) - 1));
+      }
     } catch (e) {
       if (seq === loadSeq.current) setError((e as Error).message);
     } finally {
@@ -107,7 +119,14 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
   useEffect(() => {
     const timer = setTimeout(() => void load(), 180);
     return () => clearTimeout(timer);
-  }, [search, stage, city, website, specialty, pageIndex]);
+  }, [search, stage, city, website, specialty, pageIndex, deletedProspects]);
+
+  useEffect(() => {
+    if (!deletedProspects) return;
+    setShortlist(current => current.filter(id => !deletedProspects.has(id)));
+    setSelected(current => current && deletedProspects.has(current.id) ? null : current);
+    setData(current => ({ ...current, prospects: current.prospects.filter(p => !deletedProspects.has(p.id)) }));
+  }, [deletedProspects]);
 
   function openProspectDrawer(p: Prospect) {
     setSelected(p);
@@ -188,6 +207,28 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
     a.download = 'clinahir-prospects-template.csv';
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function exportShortlist() {
+    setExporting(true);
+    setError('');
+    try {
+      const { rows } = await adminApi<{ rows: Record<string, string | null>[] }>('prospects-shortlist', { ids: shortlist });
+      if (!rows.length) { setError('No selected prospects are available for export.'); return; }
+      const columns = ['prospect_id', 'center_name', 'specialty', 'city', 'website_url', 'email', 'qualification_stage'];
+      const csv = spreadsheetCsv([columns, ...rows.map(row => columns.map(column => row[column]))]);
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'clinahir-sellbird-shortlist.csv';
+      anchor.click();
+      URL.revokeObjectURL(url);
+      onToast(t('Exported {{count}} prospects.', { count: rows.length }));
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setExporting(false);
+    }
   }
 
   const isFiltered = Boolean(search || stage || city || website || specialty);
@@ -342,6 +383,16 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
         </button>
       </div>
 
+      {shortlist.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 text-sm">
+          <span role="status">{t('{{count}} selected', { count: shortlist.length })}</span>
+          <button type="button" disabled={exporting} onClick={() => void exportShortlist()} className="rounded-lg bg-[#6754cf] px-3 py-2 text-xs text-white disabled:opacity-50">
+            {t('Export selected prospects')}
+          </button>
+          <button type="button" disabled={exporting} onClick={() => setShortlist([])} className="text-xs underline">{t('Clear selection')}</button>
+        </div>
+      )}
+
       {/* Directory Table */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-[0_1px_3px_rgba(15,23,42,0.03)] overflow-hidden">
         {/* Filters Toolbar */}
@@ -419,6 +470,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
         </div>
 
         {/* Table */}
+        <DeleteSelected selection={deletionSelection} onDelete={onDeleteMany} />
         {data.prospects.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
@@ -430,6 +482,7 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                   <th className="py-2.5 px-3"> {t("Website")} </th>
                   <th className="py-2.5 px-3"> {t("Rating")} </th>
                   <th className="py-2.5 px-4"> {t("Status")} </th>
+                  <th scope="col" className="px-3 text-right">{t("Delete")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -437,16 +490,26 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
                   <tr
                     key={p.id}
                     tabIndex={0}
-                    onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openProspectDrawer(p);}}}
+                    onKeyDown={event=>{if(event.target===event.currentTarget&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openProspectDrawer(p);}}}
                     onClick={() => openProspectDrawer(p)}
                     className="hover:bg-slate-50/70 cursor-pointer transition-colors group"
                   >
                     <td className="py-3 px-5">
-                      <div className="font-medium text-slate-900 group-hover:text-emerald-800 transition-colors text-xs sm:text-sm">
-                        {p.center_name}
-                      </div>
-                      <div className="text-[11px] text-slate-400 font-mono">
-                        {p.phone || p.email || t("No phone listed")}
+                      <div className="flex items-start gap-2">
+                        <input type="checkbox" aria-label={t('Select {{business}}', { business: p.center_name })}
+                          checked={shortlist.includes(p.id)}
+                          disabled={exporting || p.qualification_stage === 'do_not_contact' || (shortlist.length >= 100 && !shortlist.includes(p.id))}
+                          onClick={event => event.stopPropagation()}
+                          onChange={event => setShortlist(current => event.target.checked ? [...current, p.id] : current.filter(id => id !== p.id))}
+                          className="mt-0.5 accent-[#6754cf]" />
+                        <div>
+                          <div className="font-medium text-slate-900 group-hover:text-emerald-800 transition-colors text-xs sm:text-sm">
+                            {p.center_name}
+                          </div>
+                          <div className="text-[11px] text-slate-400 font-mono">
+                            {p.phone || p.email || t("No phone listed")}
+                          </div>
+                        </div>
                       </div>
                     </td>
 
@@ -489,6 +552,12 @@ export function ProspectsPage({ onToast }: ProspectsPageProps) {
 
                     <td className="py-3 px-4">
                       <StatusPill value={p.qualification_stage} />
+                    </td>
+                    <td className="pr-3 text-right">
+                      <div className="inline-flex items-center gap-2">
+                        <RecordCheckbox selection={deletionSelection} record={{ kind: 'prospect', id: p.id, name: p.center_name, detail: p.city }} />
+                        <DeleteRecordButton onDelete={onDelete} record={{ kind: 'prospect', id: p.id, name: p.center_name, detail: p.city }} />
+                      </div>
                     </td>
                   </tr>
                 ))}

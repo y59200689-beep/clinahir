@@ -2,6 +2,7 @@ import { useAdminLocale } from './i18n';
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { CheckCircle2, X } from 'lucide-react';
 import { adminApi, emptySnapshot, type Lead, type Snapshot } from './types';
+import { DeleteRecordDialog, type RecordTarget } from './components/DeleteRecordDialog';
 import { AdminShell } from './components/AdminShell';
 import { adminHref, adminPageAt, type AdminPage } from './routes';
 import { LoginPage } from './pages/LoginPage';
@@ -30,6 +31,11 @@ function AdminWorkspace() {
   const [stage, setStage] = useState('');
   const [pageIndex, setPageIndex] = useState(0);
   const [toast, setToast] = useState('');
+
+  const [deletion, setDeletion] = useState<RecordTarget[] | null>(null);
+  const [deletedProspects, setDeletedProspects] = useState<ReadonlySet<string>>();
+  const [deletedLeads, setDeletedLeads] = useState<ReadonlySet<string>>();
+  const openDelete = (target: RecordTarget) => setDeletion([target]);
 
   const loadSequence = useRef(0);
 
@@ -91,12 +97,14 @@ function AdminWorkspace() {
       );
       if (sequence === loadSequence.current) {
         setData(result);
+        if (pageIndex > 0 && result.leads.length === 0) setPageIndex(Math.max(0, Math.ceil(result.total / 25) - 1));
         setError('');
       }
     } catch (e) {
       if (sequence !== loadSequence.current) return;
       if ((e as Error & { status?: number }).status === 401) {
         setUser(null);
+        setDeletion(null);
         setData(emptySnapshot);
       } else {
         setError((e as Error).message);
@@ -130,6 +138,7 @@ function AdminWorkspace() {
       await adminApi('logout', {});
       ++loadSequence.current;
       setUser(null);
+      setDeletion(null);
       setData(emptySnapshot);
     } catch (e) {
       setError((e as Error).message);
@@ -170,8 +179,26 @@ function AdminWorkspace() {
       onNavigate={navigate}
       userEmail={user}
       onLogout={handleLogout}
+      onFindRecord={() => setDeletion([])}
       newLeadsCount={data.summary.new}
     >
+      {deletion && <DeleteRecordDialog initialTargets={deletion} onClose={() => setDeletion(null)}
+        onDeleted={records => {
+          setDeletion(null);
+          const kind = records[0].kind;
+          const ids = new Set(records.map(record => record.id));
+          setToast(records.length === 1 ? (kind === 'lead' ? 'Lead deleted.' : 'Prospect deleted.') : 'Selected records deleted.');
+          if (kind === 'prospect') setDeletedProspects(ids);
+          else {
+            setDeletedLeads(ids);
+            setData(current => ({
+              ...current,
+              leads: current.leads.filter(lead => !ids.has(lead.external_id)),
+              whatsapp: current.whatsapp.filter(job => !ids.has(job.external_id)),
+            }));
+          }
+          void loadData();
+        }} />}
       {/* Toast Notification Pill */}
       {toast && (
         <div
@@ -197,6 +224,7 @@ function AdminWorkspace() {
         <OverviewPage
           data={data}
           onNavigate={navigate}
+          onDelete={openDelete}
           onSelectLead={(lead) => {
             navigate('Leads');
             setSearch(lead.company_name);
@@ -210,6 +238,9 @@ function AdminWorkspace() {
 
       {page === 'Leads' && (
         <LeadsPage
+          onDelete={openDelete}
+          onDeleteMany={setDeletion}
+          deletedLeads={deletedLeads}
           leads={data.leads}
           totalCount={data.total}
           search={search}
@@ -224,16 +255,16 @@ function AdminWorkspace() {
         />
       )}
 
-      {page === 'Maps' && <MapsPage onImported={result => { navigate('Prospects'); setToast(t('Imported {{count}} prospects; {{duplicates}} duplicates skipped.', { count: result.inserted, duplicates: result.duplicates })); }} />}
+      {page === 'Maps' && <MapsPage onDelete={openDelete} deletedProspects={deletedProspects} onImported={result => { navigate('Prospects'); setToast(t('Imported {{count}} prospects; {{duplicates}} duplicates skipped.', { count: result.inserted, duplicates: result.duplicates })); }} />}
 
-      {page === 'Prospects' && <ProspectsPage onToast={setToast} />}
+      {page === 'Prospects' && <ProspectsPage onToast={setToast} onDeleteMany={setDeletion} onDelete={openDelete} deletedProspects={deletedProspects} />}
 
       {page === 'Website' && <WebsitePage onToast={setToast} />}
 
       {page === 'Analytics' && <AnalyticsPage data={data} />}
 
       {page === 'Deliveries' && (
-        <DeliveriesPage data={data} onRefresh={loadData} onToast={setToast} />
+        <DeliveriesPage onDelete={openDelete} data={data} onRefresh={loadData} onToast={setToast} />
       )}
 
       {page === 'Activity' && <ActivityPage data={data} />}

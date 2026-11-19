@@ -61,10 +61,17 @@ export async function mapsAdminRequest(request:Request,body:Record<string,unknow
  const results = j?.results ?? [];
  const locations = parseMapsLocations(j?.city);
  const keys = results.map(row => ({ title: row.title ?? '', city: mapsResultCity(row.city, undefined, locations) }));
- const matches = keys.length
-  ? await store.adminRpc<boolean[]>('clinahir_maps_matches', { p_rows: keys }).catch(() => null)
+ const prospects = keys.length
+  ? await store.adminRpc<(string | null)[]>('clinahir_maps_matched_prospects', { p_rows: keys }).catch(() => null)
   : [];
- return reply({ job: publicJob(j), rows: results.map((row, index) => ({ ...row, directoryMatch: matches?.[index] ?? null })), total: results.length });
+ const legacyMatches = prospects === null
+  ? await store.adminRpc<boolean[]>('clinahir_maps_matches', { p_rows: keys }).catch(() => null)
+  : null;
+ return reply({ job: publicJob(j), rows: results.map((row, index) => ({
+  ...row,
+  directoryMatch: prospects ? Boolean(prospects[index]) : legacyMatches?.[index] ?? null,
+  prospectId: prospects?.[index] ?? null,
+ })), total: results.length });
 }
 export async function mapsWorkerRequest(request:Request,env:Env,fetcher:typeof fetch=fetch):Promise<Response>{
  const failure=environmentFailure(env,request);if(failure)return failure;

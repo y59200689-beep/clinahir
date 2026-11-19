@@ -1,3 +1,5 @@
+import { DeleteSelected, RecordCheckbox, useRecordSelection } from '../components/RecordSelection';
+import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import { AdminSelect } from '../components/AdminSelect';
 import { useAdminLocale } from '../i18n';
 import { useState, type FormEvent } from 'react';
@@ -17,6 +19,9 @@ import { adminApi, type Lead } from '../types';
 import { leadsCsv } from '../csv';
 
 interface LeadsPageProps {
+  onDelete: (record: RecordTarget) => void;
+  onDeleteMany: (records: RecordTarget[]) => void;
+  deletedLeads?: ReadonlySet<string>;
   leads: Lead[];
   totalCount: number;
   search: string;
@@ -31,6 +36,9 @@ interface LeadsPageProps {
 }
 
 export function LeadsPage({
+  onDelete,
+  onDeleteMany,
+  deletedLeads,
   leads,
   totalCount,
   search,
@@ -44,6 +52,7 @@ export function LeadsPage({
   onToast,
 }: LeadsPageProps) {
   const { t, errorText, intlLocale } = useAdminLocale();
+  const deletionSelection = useRecordSelection(deletedLeads);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [editStage, setEditStage] = useState('');
   const [editNotes, setEditNotes] = useState('');
@@ -172,6 +181,7 @@ export function LeadsPage({
         </div>
 
         {/* Data Table */}
+        <DeleteSelected selection={deletionSelection} onDelete={onDeleteMany} />
         {leads.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
@@ -182,6 +192,7 @@ export function LeadsPage({
                   <th className="py-2.5 px-3"> {t("Stage")} </th>
                   <th className="py-2.5 px-3"> {t("Source")} </th>
                   <th className="py-2.5 px-5 text-right"> {t("Received")} </th>
+                  <th scope="col" className="px-3 text-right">{t("Delete")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -190,7 +201,7 @@ export function LeadsPage({
                     key={lead.external_id}
                     tabIndex={0}
                     aria-label={t('Open {{name}}', { name: lead.company_name })}
-                    onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLeadDrawer(lead); } }}
+                    onKeyDown={event => { if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); openLeadDrawer(lead); } }}
                     onClick={() => openLeadDrawer(lead)}
                     className="hover:bg-slate-50/70 cursor-pointer transition-colors group"
                   >
@@ -235,6 +246,12 @@ export function LeadsPage({
                       </div>
                       <div className="text-[11px] text-slate-400">
                         {formatTime(lead.submitted_at)}
+                      </div>
+                    </td>
+                    <td className="pr-3 text-right">
+                      <div className="inline-flex items-center gap-2">
+                        <RecordCheckbox selection={deletionSelection} record={{ kind: 'lead', id: lead.external_id, name: lead.company_name, detail: lead.phone || lead.email || lead.city }} />
+                        <DeleteRecordButton onDelete={onDelete} record={{ kind: 'lead', id: lead.external_id, name: lead.company_name, detail: lead.phone || lead.email || lead.city }} />
                       </div>
                     </td>
                   </tr>

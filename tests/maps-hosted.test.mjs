@@ -32,9 +32,11 @@ test('worker verifies signature, audience, immutable repository, default branch 
 });
 test('hosted history, match badges and selective import use stored rows',async()=>{
  const rows=Array.from({length:25},(_,i)=>({...row,title:i?'Synthetic '+i:'=FORMULA()'}));let imports=0;
- const store={adminRpc:async(name,data)=>{if(name==='clinahir_maps_history')return [{id,keywords:'imaging',city:'Rabat',status:'completed',total:25}];if(name==='clinahir_maps_matches')return rows.map((_,i)=>i===0);if(name==='clinahir_admin_import_prospects'){imports++;assert.equal(data.p_actor,actor);assert.deepEqual(data.p_rows.map(row=>row.center_name),['Synthetic 24']);return {inserted:1,duplicates:0};}return {id,keywords:'imaging',city:'Rabat',status:'completed',created_at:'2026-11-18',results:rows};}};
+ const store={adminRpc:async(name,data)=>{if(name==='clinahir_maps_history')return [{id,keywords:'imaging',city:'Rabat',status:'completed',total:25}];if(name==='clinahir_maps_matched_prospects')return rows.map((_,i)=>i===0 ? id : null);if(name==='clinahir_admin_import_prospects'){imports++;assert.equal(data.p_actor,actor);assert.deepEqual(data.p_rows.map(row=>row.center_name),['Synthetic 24']);return {inserted:1,duplicates:0};}return {id,keywords:'imaging',city:'Rabat',status:'completed',created_at:'2026-11-18',results:rows};}};
  const preview=await (await mapsAdminRequest(req('maps-status'),undefined,store,actor)).json();assert.equal(preview.total,25);assert.equal(preview.rows.length,25);assert.equal(preview.job.lease_token,undefined);
  assert.equal(preview.rows[0].directoryMatch,true);
+ assert.equal(preview.rows[0].prospectId,id);
+ assert.equal(preview.rows[1].prospectId,null);
  const history=await (await mapsAdminRequest(req('maps-history'),undefined,store,actor)).json();assert.equal(history.jobs[0].total,25);assert.equal(history.jobs[0].results,undefined);
  assert.equal((await mapsAdminRequest(req('maps-import',{}),{jobId:id,indices:[25],sourceUseConfirmed:true},store,actor)).status,400);
  const csv=await (await mapsAdminRequest(req('maps-export'),undefined,store,actor)).text();assert.ok(csv.includes("'=FORMULA()"));assert.ok(csv.includes('Synthetic 24'));

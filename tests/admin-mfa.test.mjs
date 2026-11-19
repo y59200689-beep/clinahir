@@ -23,3 +23,37 @@ test('verified provider AAL2 upgrades the private cookie and enables business ac
 test('existing verified factor requires MFA even when the optional enforcement switch is off',async()=>{const h=harness(false,true);assert.equal((await h.call('snapshot')).status,403);assert.equal((await h.call('mfa-enroll',{})).status,409);assert.equal((await h.call('snapshot',undefined,secondary)).status,200);});
 test('unverified attacker AAL2 claim is rejected by provider identity before authorization',async()=>{const h=harness();assert.equal((await h.call('snapshot',undefined,'forged.'+Buffer.from(JSON.stringify({aal:'aal2'})).toString('base64url')+'.bad')).status,401);});
 test('MFA-pending owner can still cancel through logout',async()=>{const h=harness();const r=await h.call('logout',{});assert.equal(r.status,200);assert.match(r.headers.get('set-cookie'),/Max-Age=0/);});
+
+test('verified owner can delete leads and prospects once and read the resulting audit entries', async () => {
+ const h = harness(true, true);
+ const lead = { kind: 'lead', id: 'cli_11111111-1111-4111-8111-111111111110' };
+ const prospect = { kind: 'prospect', id: '22222222-2222-4222-8222-222222222222' };
+ for (const record of [lead, prospect]) {
+  assert.equal((await h.call('delete-record', record)).status, 403);
+  assert.equal((await h.call('delete-record', record, secondary)).status, 200);
+  assert.equal((await h.call('delete-record', record, secondary)).status, 200);
+ }
+ const leads = await (await h.call('snapshot', undefined, secondary)).json();
+ const prospects = await (await h.call('prospects', undefined, secondary)).json();
+ assert(!leads.leads.some(row => row.external_id === lead.id));
+ assert(!prospects.prospects.some(row => row.id === prospect.id));
+ assert.deepEqual(leads.audit.map(({ action, target }) => [action, target]), [
+  ['prospect.deleted', prospect.id], ['lead.deleted', lead.id],
+ ]);
+});
+
+test('bulk deletion removes selected records and validates the whole selection before writing', async () => {
+ const h = harness(true, true);
+ const ids = ['cli_11111111-1111-4111-8111-111111111110', 'cli_11111111-1111-4111-8111-111111111111'];
+ assert.equal((await h.call('delete-records', { kind: 'lead', ids })).status, 403);
+ for (const selection of [[], [ids[0], 'bad'], Array(101).fill(ids[0])]) {
+  assert.equal((await h.call('delete-records', { kind: 'lead', ids: selection }, secondary)).status, 400);
+ }
+ const snapshot = async () => (await h.call('snapshot', undefined, secondary)).json();
+ assert.equal((await snapshot()).leads.length, 4);
+ assert.equal((await h.call('delete-records', { kind: 'lead', ids: [...ids, ids[0]] }, secondary)).status, 200);
+ const remaining = await snapshot();
+ assert.equal(remaining.leads.length, 2);
+ assert(remaining.leads.every(row => !ids.includes(row.external_id)));
+ assert.equal(remaining.audit.filter(row => row.action === 'lead.deleted').length, 2);
+});

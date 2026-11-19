@@ -20,3 +20,49 @@ test('prospect import rejects missing source attestation and WhatsApp permission
 test('CSV quotes contact data and prevents formula injection',async()=>{const {leadsCsv}=await import('../.integration-build/src/admin/csv.js');const csv=leadsCsv([{company_name:'  =HYPERLINK("bad")',contact_name:'"Quoted", name',phone:'+212600000000',email:null,city:'Rabat',admin_stage:'new',utm_source:'@danger',submitted_at:'2026-10-20'}]);assert(csv.includes('"\'  =HYPERLINK(""bad"")"'));assert(csv.includes('"\'+212600000000"'));assert(csv.includes('"""Quoted"", name"'));});
 
 test('authentication outage keeps the session and does not masquerade as a wrong password',async()=>{let f=fake({login:503});assert.equal((await adminRequest(req('login',{email:'owner@example.com',password:'test'}),env,f.fetcher)).status,503);f=fake({userStatus:503});const r=await adminRequest(req('snapshot'),env,f.fetcher);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert(!f.calls.some(x=>x.url.includes('admin_snapshot')));});
+
+test('shortlist export requires the owner and excludes current do-not-contact records', async () => {
+ const included = '22222222-2222-4222-8222-222222222222';
+ const excluded = '33333333-3333-4333-8333-333333333333';
+ const base = fake();
+ const fetcher = async (url, init) => {
+  const remote = new URL(url);
+  if (!remote.pathname.endsWith('/clinahir_prospects')) return base.fetcher(url, init);
+  assert.equal(remote.searchParams.get('id'), `in.(${included},${excluded})`);
+  assert.equal(remote.searchParams.get('qualification_stage'), 'neq.do_not_contact');
+  return Response.json([
+   { id: excluded, qualification_stage: 'do_not_contact', center_name: 'Exclude me' },
+   { id: included, qualification_stage: 'qualified', center_name: 'Fixture', category: 'Dermatologue',
+     city: 'Rabat', website_url: 'https://clinic.example', email: 'info@clinic.example', notes: 'private notes' },
+  ]);
+ };
+ const selection = { ids: [included, excluded, included] };
+ assert.equal((await adminRequest(req('prospects-shortlist', selection, ''), env, fetcher)).status, 401);
+ assert.equal((await adminRequest(req('prospects-shortlist', { ids: ['bad'] }), env, fetcher)).status, 400);
+ const response = await adminRequest(req('prospects-shortlist', selection), env, fetcher);
+ assert.equal(response.status, 200);
+ assert.deepEqual(await response.json(), { rows: [
+  { prospect_id: included, center_name: 'Fixture', specialty: 'Dermatologue', city: 'Rabat',
+    website_url: 'https://clinic.example', email: 'info@clinic.example', qualification_stage: 'qualified' },
+ ] });
+});
+
+test('record deletion is an owner-only, same-origin write with a validated record ID', async () => {
+ const f = fake();
+ const id = '11111111-1111-4111-8111-111111111111';
+ const prospect = { kind: 'prospect', id };
+ assert.equal((await adminRequest(req('delete-record', prospect, ''), env, f.fetcher)).status, 401);
+ assert.equal((await adminRequest(req('delete-record', prospect, 'test-token', 'https://evil.test'), env, f.fetcher)).status, 403);
+ const nonOwner = fake({ user: 'other' });
+ assert.equal((await adminRequest(req('delete-record', prospect), env, nonOwner.fetcher)).status, 403);
+ assert.equal((await adminRequest(req('delete-record', { kind: 'lead', id }), env, f.fetcher)).status, 400);
+ assert.equal((await adminRequest(req('delete-record'), env, f.fetcher)).status, 404);
+ assert(![...f.calls, ...nonOwner.calls].some(call => call.url.endsWith('clinahir_admin_delete_record')));
+ for (const record of [prospect, { kind: 'lead', id: 'cli_' + id }]) {
+  const response = await adminRequest(req('delete-record', { ...record, actor: 'forged' }), env, f.fetcher);
+  assert.equal(response.status, 200);
+  assert.deepEqual(JSON.parse(f.calls.at(-1).init.body), {
+   p_actor: env.CLINAHIR_ADMIN_USER_ID, p_kind: record.kind, p_id: record.id,
+  });
+ }
+});

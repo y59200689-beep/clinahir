@@ -19,6 +19,17 @@ export function createAdminFixture(){
   if(path.endsWith('/clinahir_admin_edit_lead')){const lead=leads.find(l=>l.external_id===d.p_id);if(!lead)return Response.json({}, {status:404});lead.admin_stage=d.p_stage;lead.admin_notes=d.p_notes;entry('lead.updated',lead.external_id);return json({ok:true});}
   if(path.endsWith('/clinahir_admin_replay')){const lead=leads.find(l=>l.external_id===d.p_id);if(lead)lead.daily_command_status='pending';entry('daily_command.requeued',d.p_id);return json({ok:true});}
   if(path.endsWith('/clinahir_maps_history'))return json(mapsJobs.map(({results,...job})=>({...job,total:results.length})));
+  if(path.endsWith('/clinahir_maps_matched_prospects'))return json(d.p_rows.map(row=>prospects.find(p=>normalize(p.center_name)===normalize(row.title)&&normalize(p.city)===normalize(row.city))?.id??null));
+  if(path.endsWith('/clinahir_admin_delete_record')||path.endsWith('/clinahir_admin_delete_records')){
+   const rows=d.p_kind==='lead'?leads:prospects;
+   let count=0;
+   for(const id of new Set(d.p_ids??[d.p_id])){
+    const index=rows.findIndex(row=>(row.external_id??row.id)===id);
+    if(index<0)continue;
+    rows.splice(index,1);entry(d.p_kind+'.deleted',id);count++;
+   }
+   return json(d.p_ids?count:count>0);
+  }
   if(path.endsWith('/clinahir_maps_matches'))return json(d.p_rows.map(row=>prospects.some(p=>normalize(p.center_name)===normalize(row.title)&&normalize(p.city)===normalize(row.city))));
   if(path.endsWith('/clinahir_maps_job')){
    if(d.p_op==='start'){
@@ -27,6 +38,10 @@ export function createAdminFixture(){
    }else if(d.p_op==='stop'&&mapsJob)mapsJob.status='stopped';
    else if(d.p_op==='get')return json(mapsJobs.find(job=>job.id===d.p_data.id)??null);
    return json(mapsJob);
+  }
+  if(path.endsWith('/clinahir_prospects')){
+   const ids = (new URL(url).searchParams.get('id') ?? '').slice(4,-1).split(',');
+   return json(prospects.filter(p=>ids.includes(p.id)&&p.qualification_stage!=='do_not_contact'));
   }
   if(path.endsWith('/clinahir_admin_prospects'))return json({prospects:prospects.filter(p=>(!d.p_stage||p.qualification_stage===d.p_stage)&&(!d.p_specialty||p.category?.toLowerCase()===d.p_specialty.toLowerCase())&&(!d.p_search||p.center_name.toLowerCase().includes(d.p_search.toLowerCase()))),total:prospects.filter(p=>!d.p_specialty||p.category?.toLowerCase()===d.p_specialty.toLowerCase()).length,cities:['Rabat'],specialties:['Radiologist'],counts:{total:prospects.length,review:prospects.filter(p=>p.qualification_stage==='review').length,qualified:prospects.filter(p=>p.qualification_stage==='qualified').length,opted_in:0,no_website:1}});
   if(path.endsWith('/clinahir_admin_import_prospects')){

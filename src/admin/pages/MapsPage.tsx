@@ -1,3 +1,4 @@
+import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import { MapsSearchProgress } from '../components/MapsSearchProgress';
 import { AdminSelect } from '../components/AdminSelect';
 import { useEffect, useId, useRef, useState } from 'react';
@@ -13,7 +14,7 @@ type SearchJob = {
 };
 type ResultRow = {
   title: string; category: string; rating: string; reviews: string; phone: string;
-  website: string; address: string; city: string; location?: string; directoryMatch?: boolean | null;
+  website: string; address: string; city: string; location?: string; directoryMatch?: boolean | null; prospectId?: string | null;
 };
 type Results = { job: SearchJob | null; rows: ResultRow[]; total: number };
 const activeStatus = (status?: string) => ['queued', 'starting', 'running'].includes(status ?? '');
@@ -22,7 +23,11 @@ const normalizeLocation = (value: string) => normalize(value).normalize('NFD').r
 const resultLocation = (row: ResultRow, locations: string[]) => row.location
   || (locations.length === 1 ? locations[0] : locations.find(location =>
     normalizeLocation(location.split(',')[0]) === normalizeLocation(row.city)));
-export function MapsPage({ onImported }: { onImported: (result: { inserted: number; duplicates: number }) => void }) {
+export function MapsPage({ onImported, onDelete, deletedProspects }: {
+  onImported: (result: { inserted: number; duplicates: number }) => void;
+  onDelete: (record: RecordTarget) => void;
+  deletedProspects?: ReadonlySet<string>;
+}) {
   const { t, intlLocale } = useAdminLocale();
   const [keywords, setKeywords] = useState('');
   const locationsHelp = useId();
@@ -102,7 +107,17 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
     }
     void refresh();
     return () => { disposed = true; clearTimeout(timer); };
-  }, [local]);
+  }, [local, deletedProspects]);
+
+  useEffect(() => {
+    if (!deletedProspects) return;
+    const removeMatch = (result: Results): Results => ({
+      ...result, rows: result.rows.map(row => row.prospectId && deletedProspects.has(row.prospectId)
+        ? { ...row, directoryMatch: false, prospectId: null } : row),
+    });
+    setLatest(removeMatch);
+    setArchive(current => current && removeMatch(current));
+  }, [deletedProspects]);
   async function startSearch(nextKeywords: string, nextCity: string, nextProxy: string) {
     ++revision.current;
     setBusy(true); setError(''); setImportOpen(false); setSourceConfirmed(false);
@@ -255,7 +270,10 @@ export function MapsPage({ onImported }: { onImported: (result: { inserted: numb
                 onChange={() => setSelected(selectedSet.has(index) ? selected.filter(value => value !== index) : [...selected, index])} />
               <div><strong title={row.title}>{row.title || '—'}</strong><span>{row.category || t('Category unavailable')}</span>
                 {typeof row.directoryMatch === 'boolean' && <span className="maps-match" data-existing={row.directoryMatch}>{t(row.directoryMatch ? 'Already in directory' : 'New to directory')}</span>}
-              </div></div></td>
+              </div>
+              {row.prospectId && <DeleteRecordButton onDelete={onDelete}
+                record={{ kind: 'prospect', id: row.prospectId, name: row.title, detail: row.city }} />}
+            </div></td>
             <td><div className="maps-rating"><Star size={14} aria-hidden="true" /><strong>{row.rating || '—'}</strong></div><span className="maps-secondary">{row.reviews ? (Number(row.reviews) === 1 ? t('1 review') : t('{{count}} reviews', {count: Number(row.reviews).toLocaleString(intlLocale)})) : t('No reviews captured')}</span></td>
             <td><div className="maps-contact"><span className="maps-phone">{row.phone || t('Phone not captured')}</span>{website ? <a href={website.href} target="_blank" rel="noopener noreferrer" title={website.href}>{website.hostname.replace(/^www\./, '')}<ArrowUpRight size={12} aria-hidden="true" /><span className="sr-only">{t('Opens in a new tab')}</span></a> : <span className="maps-secondary">{t('Website not captured')}</span>}</div></td>
             <td><span className="maps-address">{row.address || '—'}</span></td>

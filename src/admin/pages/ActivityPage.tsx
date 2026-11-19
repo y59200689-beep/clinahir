@@ -37,6 +37,7 @@ export function ActivityPage({ data }: ActivityPageProps) {
                 .replace(/\b\w/g, (c) => c.toUpperCase());
 
               const isWebsite = item.target === 'website';
+              const isProspect = item.action.startsWith('prospect.');
 
               return (
                 <div
@@ -57,7 +58,7 @@ export function ActivityPage({ data }: ActivityPageProps) {
                     <div className="font-medium text-slate-900 text-xs sm:text-sm">
                       {t(item.action) === item.action ? t('Administrative action') : t(item.action)}
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5 font-mono"> {t("Target:")} {isWebsite ? t("Public website") : t('Lead {{id}}', { id: item.target.slice(0,16) + '…' })}
+                    <div className="text-xs text-slate-400 mt-0.5 font-mono"> {t("Target:")} {isWebsite ? t("Public website") : t(isProspect ? 'Prospect {{id}}' : 'Lead {{id}}', { id: item.target.slice(0,16) + '…' })}
                     </div>
                   </div>
 

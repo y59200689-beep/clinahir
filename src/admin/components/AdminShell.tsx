@@ -5,6 +5,7 @@ import { useAdminLocale } from '../i18n';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import {
   LayoutDashboard,
+  Trash2,
   Users,
   Building2,
   Globe2,
@@ -27,6 +28,7 @@ interface AdminShellProps {
   onNavigate: (page: AdminPage) => void;
   userEmail: string | null;
   onLogout: () => void;
+  onFindRecord: () => void;
   newLeadsCount?: number;
   children: ReactNode;
 }
@@ -36,6 +38,7 @@ export function AdminShell({
   onNavigate,
   userEmail,
   onLogout,
+  onFindRecord,
   newLeadsCount = 0,
   children,
 }: AdminShellProps) {
@@ -264,7 +267,11 @@ export function AdminShell({
           </div>
 
           {/* Right Header Badges & Actions */}
-          <div className="flex shrink-0 items-center gap-3"><AdminLanguageSwitch />
+          <div className="flex shrink-0 items-center gap-3"><button type="button" onClick={onFindRecord} title={t('Delete a lead or prospect')}
+              aria-label={t('Delete a lead or prospect')}
+              className="inline-flex items-center gap-1.5 rounded-md px-2 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100">
+              <Trash2 size={16} aria-hidden="true" /><span className="hidden lg:inline">{t('Delete record')}</span>
+            </button><AdminLanguageSwitch />
             {/* Live Indicator */}
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200/60 text-slate-600 text-xs font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />

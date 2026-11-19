@@ -1,3 +1,4 @@
+import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import { useState } from 'react';
 import { useAdminLocale } from '../i18n';
 import { Users, MessageCircle, ShieldCheck, CheckCircle2, ArrowUpRight, ArrowRight, Activity, Clock, MapPin, BarChart3, CalendarDays, Inbox } from 'lucide-react';
@@ -6,12 +7,13 @@ import type { Snapshot, Lead } from '../types';
 import type { AdminPage } from '../components/AdminShell';
 import '../overview.css';
 interface OverviewPageProps {
+  onDelete: (record: RecordTarget) => void;
   data: Snapshot;
   onNavigate: (page: AdminPage) => void;
   onSelectLead: (lead: Lead) => void;
   onFilterStage: (stage: string) => void;
 }
-export function OverviewPage({ data, onNavigate, onSelectLead, onFilterStage }: OverviewPageProps) {
+export function OverviewPage({ data, onNavigate, onSelectLead, onFilterStage, onDelete }: OverviewPageProps) {
   const { t, intlLocale } = useAdminLocale();
   const [range, setRange] = useState<7 | 14 | 30>(7);
   const number = (value: number) => new Intl.NumberFormat(intlLocale).format(value);
@@ -32,7 +34,8 @@ export function OverviewPage({ data, onNavigate, onSelectLead, onFilterStage }: 
     <div className="overview-main-grid">
       <section className="overview-panel overview-inquiries" aria-label={t('Recent Inquiries')}>
         <header className="overview-panel-heading"><div><h2>{t('Recent Inquiries')}<span className="overview-count">{number(Math.min(5,data.leads.length))}</span></h2><p>{t('Latest submissions from the website')}</p></div><button type="button" className="overview-text-button" onClick={()=>onNavigate('Leads')}>{t('View all')}<ArrowRight size={14} aria-hidden="true" /></button></header>
-        {data.leads.length ? <div className="overview-table-scroll" role="region" tabIndex={0} aria-label={t('Recent Inquiries')}><table className="overview-table"><thead><tr>{['Clinic','Stage','Received'].map(label=><th scope="col" key={label}>{t(label)}</th>)}</tr></thead><tbody>{data.leads.slice(0,5).map(lead=><tr key={lead.external_id}><td><div className="overview-lead"><span className="overview-lead-avatar" aria-hidden="true">{lead.company_name.slice(0,2).toUpperCase()}</span><div><button type="button" onClick={()=>onSelectLead(lead)}>{lead.company_name}</button><span>{lead.city || '—'}<span aria-hidden="true"> · </span>{lead.utm_source || t('Direct')}</span></div></div></td><td><StatusPill value={lead.admin_stage} /></td><td><time dateTime={lead.submitted_at}>{date(lead.submitted_at)}</time><span className="overview-subtext">{new Date(lead.submitted_at).toLocaleTimeString(intlLocale,{hour:'2-digit',minute:'2-digit'})}</span></td></tr>)}</tbody></table></div> : <div className="overview-empty"><span className="overview-empty-icon"><Inbox size={24} aria-hidden="true" /></span><h3>{t('No inquiries recorded yet')}</h3><p>{t('Website submissions will appear here automatically.')}</p><button type="button" className="overview-text-button" onClick={()=>onNavigate('Maps')}>{t('Find prospects on Google Maps')}<ArrowRight size={14} aria-hidden="true" /></button></div>}
+        {data.leads.length ? <div className="overview-table-scroll" role="region" tabIndex={0} aria-label={t('Recent Inquiries')}><table className="overview-table"><thead><tr>{['Clinic','Stage','Received'].map(label=><th scope="col" key={label}>{t(label)}</th>)}<th scope="col" className="sr-only">{t("Action")}</th></tr></thead><tbody>{data.leads.slice(0,5).map(lead=><tr key={lead.external_id}><td><div className="overview-lead"><span className="overview-lead-avatar" aria-hidden="true">{lead.company_name.slice(0,2).toUpperCase()}</span><div><button type="button" onClick={()=>onSelectLead(lead)}>{lead.company_name}</button><span>{lead.city || '—'}<span aria-hidden="true"> · </span>{lead.utm_source || t('Direct')}</span></div></div></td><td><StatusPill value={lead.admin_stage} /></td><td><time dateTime={lead.submitted_at}>{date(lead.submitted_at)}</time><span className="overview-subtext">{new Date(lead.submitted_at).toLocaleTimeString(intlLocale,{hour:'2-digit',minute:'2-digit'})}</span></td><td><DeleteRecordButton onDelete={onDelete}
+          record={{ kind: 'lead', id: lead.external_id, name: lead.company_name, detail: lead.phone || lead.email || lead.city }} /></td></tr>)}</tbody></table></div> : <div className="overview-empty"><span className="overview-empty-icon"><Inbox size={24} aria-hidden="true" /></span><h3>{t('No inquiries recorded yet')}</h3><p>{t('Website submissions will appear here automatically.')}</p><button type="button" className="overview-text-button" onClick={()=>onNavigate('Maps')}>{t('Find prospects on Google Maps')}<ArrowRight size={14} aria-hidden="true" /></button></div>}
       </section>
       <section className="overview-panel overview-trend" aria-label={t('Conversion Trend')}>
         <header className="overview-panel-heading"><div><h2>{t('Conversion Trend')}</h2><p>{t('Demo submissions by day')}</p></div><button type="button" className="overview-icon-button" onClick={()=>onNavigate('Analytics')} aria-label={t('View analytics')}><ArrowUpRight size={18} aria-hidden="true" /></button></header>

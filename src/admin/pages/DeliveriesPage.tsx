@@ -1,3 +1,4 @@
+import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import Modal from '../../components/Modal';
 import { useAdminLocale } from '../i18n';
 import { useState } from 'react';
@@ -12,12 +13,13 @@ import { StatusPill } from '../components/StatusPill';
 import { adminApi, type Snapshot } from '../types';
 
 interface DeliveriesPageProps {
+  onDelete: (record: RecordTarget) => void;
   data: Snapshot;
   onRefresh: () => void;
   onToast: (msg: string) => void;
 }
 
-export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps) {
+export function DeliveriesPage({ data, onRefresh, onToast, onDelete }: DeliveriesPageProps) {
   const { t, errorText, intlLocale } = useAdminLocale();
   const [requeueTarget, setRequeueTarget] = useState<{ id: string; channel: string } | null>(null);
   const [isRequeueing, setIsRequeueing] = useState(false);
@@ -152,9 +154,8 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                           <RefreshCw size={11} />
                           <span> {t("Requeue")} </span>
                         </button>
-                      ) : (
-                        <span className="text-xs text-slate-400 font-mono">—</span>
-                      )}
+                      ) : null}
+                      <DeleteRecordButton onDelete={onDelete} record={{ kind: 'lead', id: lead.external_id, name: lead.company_name, detail: lead.phone || lead.email || lead.city }} />
                     </td>
                   </tr>
                 ))}
@@ -218,9 +219,8 @@ export function DeliveriesPage({ data, onRefresh, onToast }: DeliveriesPageProps
                           <RefreshCw size={11} />
                           <span> {t("Requeue")} </span>
                         </button>
-                      ) : (
-                        <span className="text-xs text-slate-400 font-mono">—</span>
-                      )}
+                      ) : null}
+                      <DeleteRecordButton onDelete={onDelete} record={{ kind: 'lead', id: job.external_id, name: data.leads.find(lead => lead.external_id === job.external_id)?.company_name ?? job.external_id }} />
                     </td>
                   </tr>
                 ))}

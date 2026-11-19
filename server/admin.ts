@@ -219,6 +219,34 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
         }
         if (request.method === 'POST') {
             const d = await readBody(request);
+            if (action === 'delete-record' || action === 'delete-records') {
+                const { kind } = d;
+                const ids = action === 'delete-record' ? [d.id] : d.ids;
+                const prospectId = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
+                const leadId = /^cli_[0-9a-f-]{36}$/;
+                if ((kind !== 'lead' && kind !== 'prospect') || !Array.isArray(ids) || !ids.length || ids.length > 100
+                    || ids.some(id => typeof id !== 'string' || !(kind === 'lead' ? leadId : prospectId).test(id)))
+                    return reply({ error: 'Invalid record to delete.' }, 400);
+                if (action === 'delete-record') {
+                    await store.adminRpc<boolean>('clinahir_admin_delete_record', { p_actor: user.id, p_kind: kind, p_id: ids[0] });
+                } else {
+                    await store.adminRpc<number>('clinahir_admin_delete_records', { p_actor: user.id, p_kind: kind, p_ids: ids });
+                }
+                return reply({ ok: true });
+            }
+            if (action === 'prospects-shortlist') {
+                const ids = d.ids;
+                if (!Array.isArray(ids) || !ids.length || ids.length > 100 || ids.some(id => typeof id !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id)))
+                    return reply({ error: 'Invalid prospect selection.' }, 400);
+                const ordered = [...new Set<string>(ids)];
+                const rows = new Map((await store.prospectShortlist(ordered)).map(row => [row.id, row]));
+                return reply({ rows: ordered.flatMap(id => {
+                    const row = rows.get(id);
+                    if (!row || row.qualification_stage === 'do_not_contact') return [];
+                    const { id: prospect_id, center_name, category: specialty, city, website_url, email, qualification_stage } = row;
+                    return [{ prospect_id, center_name, specialty, city, website_url, email, qualification_stage }];
+                }) });
+            }
             if (action === 'prospects-import') {
                 if (typeof d.csv !== 'string' || d.csv.length > 180000 || d.sourceUseConfirmed !== true)
                     return reply({ error: 'Confirm the data source and choose a valid CSV under 180 KB.' }, 400);
