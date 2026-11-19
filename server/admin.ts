@@ -197,6 +197,21 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
             const data = await store.adminRpc<Record<string, unknown>>('clinahir_admin_snapshot', { p_search: search, p_stage: stage, p_page: page });
             return reply({ ...data, integrations: { dailyCommand: Boolean(env.DAILY_COMMAND_URL && env.CLINAHIR_INTEGRATION_SECRET), whatsappEnabled: env.WHATSAPP_ENABLED === 'true', whatsappConfigured: Boolean(env.WHATSAPP_ACCESS_TOKEN && env.WHATSAPP_PHONE_NUMBER_ID && env.WHATSAPP_TEMPLATE_NAME && env.WHATSAPP_TEMPLATE_LANGUAGE && env.WHATSAPP_API_VERSION && env.WHATSAPP_DEMO_URL), cron: Boolean(env.CRON_SECRET) } });
         }
+        if (action === 'lead-contacts' && request.method === 'GET') {
+            const id = url.searchParams.get('id') ?? '';
+            const page = Number(url.searchParams.get('page') ?? 0);
+            if (!/^cli_[0-9a-f-]{36}$/i.test(id) || !Number.isInteger(page) || page < 0 || page > 10000)
+                return reply({ error: 'Invalid contact history request.' }, 400);
+            const entries = await store.leadContacts(id, page);
+            return reply({ entries: entries.slice(0, 10), hasMore: entries.length > 10 });
+        }
+        if (action === 'follow-ups' && request.method === 'GET') {
+            const bucket = url.searchParams.get('bucket') ?? 'due';
+            const page = Number(url.searchParams.get('page') ?? 0);
+            if (!['due', 'overdue', 'today', 'upcoming'].includes(bucket) || !Number.isInteger(page) || page < 0 || page > 10000)
+                return reply({ error: 'Invalid filters' }, 400);
+            return reply(await store.adminRpc('clinahir_admin_follow_ups', { p_bucket: bucket, p_page: page }));
+        }
         if (action === 'content' && request.method === 'GET') {
             const rows = await store.content();
             return reply({ content: rows[0] ?? { draft: null, published: null, version: 0, published_at: null } });
@@ -266,10 +281,35 @@ export async function adminRequest(request: Request, env: AdminEnv, fetcher: typ
                 await store.adminRpc('clinahir_admin_update_prospect', { p_actor: user.id, p_id: d.id, p_stage: d.stage, p_notes: d.notes, p_whatsapp_opt_in: d.whatsappOptIn, p_opt_in_evidence: d.whatsappOptIn ? optInEvidence : null });
                 return reply({ ok: true });
             }
+            if (action === 'lead-contact') {
+                const { id, entryId, channel, outcome, note } = d;
+                if (typeof id !== 'string' || !/^cli_[0-9a-f-]{36}$/i.test(id)
+                    || typeof entryId !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(entryId)
+                    || typeof channel !== 'string' || !['phone', 'whatsapp', 'email', 'other'].includes(channel)
+                    || typeof outcome !== 'string' || !['reached', 'no_reply', 'follow_up_requested', 'declined'].includes(outcome)
+                    || typeof note !== 'string' || note.length > 1500)
+                    return reply({ error: 'Invalid contact entry.' }, 400);
+                await store.adminRpc('clinahir_admin_log_contact', {
+                    p_id: entryId, p_lead_id: id, p_actor: user.id, p_channel: channel, p_outcome: outcome, p_note: note.trim(),
+                });
+                return reply({ ok: true });
+            }
             if (action === 'lead') {
                 if (typeof d.id !== 'string' || !/^cli_[0-9a-f-]{36}$/i.test(d.id) || !['new', 'contacted', 'qualified', 'won', 'lost'].includes(String(d.stage)) || typeof d.notes !== 'string' || d.notes.length > 5000)
                     return reply({ error: 'Invalid lead update' }, 400);
-                await store.adminRpc('clinahir_admin_edit_lead', { p_actor: user.id, p_id: d.id, p_stage: d.stage, p_notes: d.notes });
+                const args = { p_actor: user.id, p_id: d.id, p_stage: d.stage, p_notes: d.notes };
+                if (d.nextAction !== undefined || d.dueDate !== undefined) {
+                    const nextAction = typeof d.nextAction === 'string' ? d.nextAction.trim() : null;
+                    const dueDate = d.dueDate;
+                    const calendarDate = typeof dueDate === 'string' && /^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(dueDate)
+                        ? new Date(dueDate + 'T00:00:00Z') : null;
+                    const validDate = calendarDate && Number.isFinite(calendarDate.getTime()) && calendarDate.toISOString().slice(0, 10) === dueDate;
+                    if (nextAction === null || nextAction.length > 240 || (nextAction ? !validDate : dueDate !== ''))
+                        return reply({ error: 'Enter both a next action and a valid due date.' }, 400);
+                    await store.adminRpc('clinahir_admin_edit_lead_follow_up', { ...args, p_next_action: nextAction || null, p_due_date: dueDate || null });
+                } else {
+                    await store.adminRpc('clinahir_admin_edit_lead', args);
+                }
                 return reply({ ok: true });
             }
             if (action === 'content') {

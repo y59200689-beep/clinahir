@@ -31,6 +31,13 @@ export class SupabaseLeadStore implements LeadStore {
   return await response.json() as T;
  }
  async adminRpc<T>(name:string,args:object):Promise<T>{return this.request<T>(`rpc/${name}`,args);}
+ async leadContacts(id: string, page: number): Promise<unknown[]> {
+  const query = new URLSearchParams({
+   select: 'id,channel,outcome,note,created_at',
+   lead_id: `eq.${id}`, order: 'created_at.desc,id.desc', limit: '11', offset: String(page * 10),
+  });
+  return this.request(`clinahir_lead_contacts?${query}`);
+ }
  async prospectShortlist(ids: string[]): Promise<Record<string, string | null>[]> {
   const query = new URLSearchParams({
    select: 'id,center_name,category,city,website_url,email,qualification_stage',

@@ -1,3 +1,4 @@
+import { FollowUpQueue } from '../components/FollowUpQueue';
 import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import { useState } from 'react';
 import { useAdminLocale } from '../i18n';
@@ -10,10 +11,11 @@ interface OverviewPageProps {
   onDelete: (record: RecordTarget) => void;
   data: Snapshot;
   onNavigate: (page: AdminPage) => void;
+  onSelectFollowUp: (lead: Lead) => void;
   onSelectLead: (lead: Lead) => void;
   onFilterStage: (stage: string) => void;
 }
-export function OverviewPage({ data, onNavigate, onSelectLead, onFilterStage, onDelete }: OverviewPageProps) {
+export function OverviewPage({ data, onNavigate, onSelectFollowUp, onSelectLead, onFilterStage, onDelete }: OverviewPageProps) {
   const { t, intlLocale } = useAdminLocale();
   const [range, setRange] = useState<7 | 14 | 30>(7);
   const number = (value: number) => new Intl.NumberFormat(intlLocale).format(value);
@@ -31,6 +33,7 @@ export function OverviewPage({ data, onNavigate, onSelectLead, onFilterStage, on
     <header className="overview-heading"><div><h1>{t('Overview')}</h1><p>{t('Your inquiries, pipeline, and business operations at a glance.')}</p></div><div className="overview-heading-actions"><span><CalendarDays size={14} aria-hidden="true" />{new Date().toLocaleDateString(intlLocale,{day:'numeric',month:'short',year:'numeric'})}</span><button type="button" className="overview-button overview-primary" onClick={()=>onNavigate('Maps')}><MapPin size={15} aria-hidden="true" />{t('Find prospects')}</button></div></header>
     <div className="overview-metrics" aria-label={t('Pipeline summary')}>{metrics.map((metric,index)=>{const Icon=metric.icon;return <button type="button" key={metric.title} onClick={metric.action} className={`overview-metric ${index===0?'overview-metric-primary':''}`}><span className="overview-metric-label"><Icon size={16} aria-hidden="true" />{t(metric.title)}<ArrowUpRight size={15} aria-hidden="true" /></span><strong>{number(metric.value)}</strong><span className="overview-metric-caption">{t(metric.subtitle)}</span></button>;})}</div>
     {data.summary.new>0 && <div className="overview-followup"><span className="overview-followup-icon"><Inbox size={19} aria-hidden="true" /></span><div><strong>{t(data.summary.new===1?'1 inquiry needs your attention':'{{count}} inquiries need your attention',{count:number(data.summary.new)})}</strong><p>{t('Review new requests and keep your pipeline moving.')}</p></div><button type="button" className="overview-text-button" onClick={()=>onFilterStage('new')}>{t('Review leads')}<ArrowRight size={15} aria-hidden="true" /></button></div>}
+    <FollowUpQueue onOpen={onSelectFollowUp} onBrowse={() => onNavigate('Leads')} />
     <div className="overview-main-grid">
       <section className="overview-panel overview-inquiries" aria-label={t('Recent Inquiries')}>
         <header className="overview-panel-heading"><div><h2>{t('Recent Inquiries')}<span className="overview-count">{number(Math.min(5,data.leads.length))}</span></h2><p>{t('Latest submissions from the website')}</p></div><button type="button" className="overview-text-button" onClick={()=>onNavigate('Leads')}>{t('View all')}<ArrowRight size={14} aria-hidden="true" /></button></header>

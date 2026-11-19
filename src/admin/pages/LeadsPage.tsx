@@ -12,17 +12,21 @@ import {
   ChevronRight,
   Save,
   LoaderCircle,
+  CalendarClock,
 } from 'lucide-react';
 import { StatusPill } from '../components/StatusPill';
+import { LeadContact } from '../components/LeadContact';
 import { AdminDrawer } from '../components/AdminDrawer';
 import { adminApi, type Lead } from '../types';
 import { leadsCsv } from '../csv';
+import '../follow-ups.css';
 
 interface LeadsPageProps {
   onDelete: (record: RecordTarget) => void;
   onDeleteMany: (records: RecordTarget[]) => void;
   deletedLeads?: ReadonlySet<string>;
   leads: Lead[];
+  initialLead?: Lead | null;
   totalCount: number;
   search: string;
   onSearchChange: (search: string) => void;
@@ -39,6 +43,7 @@ export function LeadsPage({
   onDelete,
   onDeleteMany,
   deletedLeads,
+  initialLead = null,
   leads,
   totalCount,
   search,
@@ -53,9 +58,11 @@ export function LeadsPage({
 }: LeadsPageProps) {
   const { t, errorText, intlLocale } = useAdminLocale();
   const deletionSelection = useRecordSelection(deletedLeads);
-  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [editStage, setEditStage] = useState('');
-  const [editNotes, setEditNotes] = useState('');
+  const [selectedLead, setSelectedLead] = useState(initialLead);
+  const [editStage, setEditStage] = useState(initialLead?.admin_stage ?? '');
+  const [editNotes, setEditNotes] = useState(initialLead?.admin_notes ?? '');
+  const [nextAction, setNextAction] = useState(initialLead?.admin_next_action ?? '');
+  const [dueDate, setDueDate] = useState(initialLead?.admin_due_date ?? '');
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
 
@@ -71,6 +78,8 @@ export function LeadsPage({
     setSelectedLead(lead);
     setEditStage(lead.admin_stage);
     setEditNotes(lead.admin_notes || '');
+    setNextAction(lead.admin_next_action ?? '');
+    setDueDate(lead.admin_due_date ?? '');
     setSaveError('');
   }
 
@@ -78,6 +87,13 @@ export function LeadsPage({
     e.preventDefault();
     if (!selectedLead) return;
 
+    const action = nextAction.trim();
+    if (Boolean(action) !== Boolean(dueDate)) {
+      setSaveError('Enter both a next action and a valid due date.');
+      return;
+    }
+    const followUpChanged = action !== (selectedLead.admin_next_action ?? '')
+      || dueDate !== (selectedLead.admin_due_date ?? '');
     setIsSaving(true);
     setSaveError('');
     try {
@@ -85,6 +101,7 @@ export function LeadsPage({
         id: selectedLead.external_id,
         stage: editStage,
         notes: editNotes,
+        ...(followUpChanged ? { nextAction: action, dueDate } : {}),
       });
       onToast('Lead updated.');
       onRefresh();
@@ -332,9 +349,9 @@ export function LeadsPage({
               {selectedLead.email && (
                 <div className="p-3 rounded bg-slate-50 border border-slate-100 col-span-2">
                   <span className="text-[10px] text-slate-400 block mb-0.5"> {t("Email")} </span>
-                  <a href={`mailto:${selectedLead.email}`} className="font-mono text-emerald-800 hover:underline">
+                  <span className="break-all font-mono text-slate-800">
                     {selectedLead.email}
-                  </a>
+                  </span>
                 </div>
               )}
 
@@ -348,6 +365,8 @@ export function LeadsPage({
                 <span className="font-mono text-slate-700">{selectedLead.utm_source || t("Direct")}</span>
               </div>
             </div>
+
+            <LeadContact key={selectedLead.external_id} lead={selectedLead} />
 
             {/* Consultation Note */}
             <div className="p-3.5 rounded bg-slate-50 border border-slate-100">
@@ -366,6 +385,33 @@ export function LeadsPage({
                 />
               </div>
 
+              <fieldset className="lead-follow-up" aria-labelledby="lead-follow-up-heading">
+                <div className="lead-follow-up-heading">
+                  <span className="follow-up-icon"><CalendarClock size={17} aria-hidden="true" /></span>
+                  <div>
+                    <h3 id="lead-follow-up-heading">{t('Follow-up')}</h3>
+                    <p>{t(editStage === 'won' || editStage === 'lost'
+                      ? 'Closed leads are hidden from the follow-up queue.'
+                      : 'Schedule this lead’s next step on Overview.')}</p>
+                  </div>
+                </div>
+                <div className="lead-follow-up-fields">
+                  <label>{t('Next action')}
+                    <input value={nextAction} maxLength={240} required={Boolean(dueDate)}
+                      placeholder={t('e.g. Call to confirm the demo')}
+                      onChange={event => setNextAction(event.target.value)} />
+                  </label>
+                  <label>{t('Due date')}
+                    <input type="date" value={dueDate} min="1000-01-01" max="9999-12-31"
+                      required={Boolean(nextAction.trim())} onChange={event => setDueDate(event.target.value)} />
+                  </label>
+                </div>
+                {(nextAction || dueDate) && <button type="button" className="lead-follow-up-clear" onClick={() => {
+                  setNextAction('');
+                  setDueDate('');
+                }}>{t('Clear follow-up')}</button>}
+              </fieldset>
+
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1"> {t("Private notes")} </label>
                 <textarea
@@ -380,7 +426,7 @@ export function LeadsPage({
               </div>
 
               {saveError && (
-                <p className="text-xs text-rose-600 font-medium">{errorText(saveError)}</p>
+                <p role="alert" className="text-xs text-rose-600 font-medium">{errorText(saveError)}</p>
               )}
 
               <div className="flex items-center justify-end gap-2 pt-2">

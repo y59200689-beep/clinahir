@@ -19,6 +19,8 @@ export interface Lead {
     daily_command_last_error: string | null;
     admin_stage: string;
     admin_notes: string;
+    admin_next_action?: string | null;
+    admin_due_date?: string | null;
 }
 export interface Snapshot {
     leads: Lead[];

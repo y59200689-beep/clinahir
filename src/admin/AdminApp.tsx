@@ -32,6 +32,7 @@ function AdminWorkspace() {
   const [pageIndex, setPageIndex] = useState(0);
   const [toast, setToast] = useState('');
 
+  const [followUpLead, setFollowUpLead] = useState<Lead | null>(null);
   const [deletion, setDeletion] = useState<RecordTarget[] | null>(null);
   const [deletedProspects, setDeletedProspects] = useState<ReadonlySet<string>>();
   const [deletedLeads, setDeletedLeads] = useState<ReadonlySet<string>>();
@@ -121,6 +122,7 @@ function AdminWorkspace() {
   }, [user, search, stage, pageIndex]);
 
   function selectPage(next: AdminPage) {
+    setFollowUpLead(null);
     setPage(next);
     setSearch('');
     setStage('');
@@ -225,6 +227,10 @@ function AdminWorkspace() {
           data={data}
           onNavigate={navigate}
           onDelete={openDelete}
+          onSelectFollowUp={(lead) => {
+            navigate('Leads');
+            setFollowUpLead(lead);
+          }}
           onSelectLead={(lead) => {
             navigate('Leads');
             setSearch(lead.company_name);
@@ -241,6 +247,7 @@ function AdminWorkspace() {
           onDelete={openDelete}
           onDeleteMany={setDeletion}
           deletedLeads={deletedLeads}
+          initialLead={followUpLead}
           leads={data.leads}
           totalCount={data.total}
           search={search}
