@@ -19,24 +19,42 @@ interface Entry {
   created_at: string;
 }
 
-export function LeadWhatsAppLink({ phone, className }: { phone: Lead['phone']; className?: string }) {
-  const { t } = useAdminLocale();
+function mobileNumber(phone: Lead['phone']) {
   const normalized = (phone ?? '').trim().replace(/[\s().-]/g, '');
-  const mobile = /^(?:0|(?:\+|00)?212)([67][0-9]{8})$/.exec(normalized)?.[1];
-  if (!mobile) return null;
+  return /^(?:0|(?:\+|00)?212)([67][0-9]{8})$/.exec(normalized)?.[1];
+}
 
-  return <a className={className} href={`https://wa.me/212${mobile}`} target="_blank" rel="noopener noreferrer"
+export function LeadWhatsAppLink({ phone, className, draft }: { phone: Lead['phone']; className?: string; draft?: string }) {
+  const { t } = useAdminLocale();
+  const mobile = mobileNumber(phone);
+  if (!mobile) return null;
+  const query = draft?.trim() ? `?text=${encodeURIComponent(draft.trim())}` : '';
+
+  return <a className={className} href={`https://wa.me/212${mobile}${query}`} target="_blank" rel="noopener noreferrer"
     onClick={event => event.stopPropagation()}>
     <MessageCircle size={15} aria-hidden="true" />{t('WhatsApp')}
   </a>;
 }
 
-export function LeadContact({ lead }: { lead: Lead }) {
+const messageDrafts = {
+  intro: 'Bonjour, je vous contacte au sujet de votre demande de démonstration Clinahir. Quel créneau vous conviendrait pour en parler ?',
+  followUp: 'Bonjour, je reviens vers vous au sujet de Clinahir. Souhaitez-vous que nous fixions un créneau pour une démonstration ?',
+  confirm: 'Bonjour, je vous contacte pour confirmer notre démonstration Clinahir. Pouvez-vous me confirmer votre disponibilité ?',
+};
+
+export function LeadContact({ lead, onSaved }: {
+  lead: Lead;
+  onSaved: (followUp?: { nextAction: string; dueDate: string }) => void;
+}) {
   const { t, intlLocale, errorText } = useAdminLocale();
   const [editing, setEditing] = useState(false);
   const [channel, setChannel] = useState<Channel>('phone');
   const [outcome, setOutcome] = useState<Outcome | ''>('');
   const [note, setNote] = useState('');
+  const [nextAction, setNextAction] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [draft, setDraft] = useState('');
+  const [draftChoice, setDraftChoice] = useState('');
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [saved, setSaved] = useState(false);
@@ -78,7 +96,12 @@ export function LeadContact({ lead }: { lead: Lead }) {
   async function logContact(event: FormEvent) {
     event.preventDefault();
     if (!outcome || saving) return;
-    const payload = { id: lead.external_id, channel, outcome, note: note.trim() };
+    if (Boolean(nextAction.trim()) !== Boolean(dueDate)) {
+      setSaveError('Enter both a next action and a valid due date.');
+      return;
+    }
+    const followUp = nextAction.trim() ? { nextAction: nextAction.trim(), dueDate } : undefined;
+    const payload = { id: lead.external_id, channel, outcome, note: note.trim(), ...followUp };
     const key = JSON.stringify(payload);
     if (retry.current?.payload !== key) retry.current = { payload: key, id: crypto.randomUUID() };
     setSaving(true);
@@ -88,6 +111,9 @@ export function LeadContact({ lead }: { lead: Lead }) {
       retry.current = null;
       setOutcome('');
       setNote('');
+      setNextAction('');
+      setDueDate('');
+      onSaved(followUp);
       setSaved(true);
       closeForm();
       load(0);
@@ -104,6 +130,22 @@ export function LeadContact({ lead }: { lead: Lead }) {
       <LeadWhatsAppLink phone={lead.phone} />
       {canEmail && <a href={`mailto:${encodeURIComponent(email).replace('%40', '@')}`}><Mail size={16} aria-hidden="true" />{t('Email')}</a>}
     </div>}
+    {mobileNumber(lead.phone) && <details className="lead-follow-up">
+      <summary className="cursor-pointer text-xs font-semibold">{t('French WhatsApp drafts')}</summary>
+      <div className="lead-contact-form space-y-2">
+        <AdminSelect label={t('Message draft')} variant="field" value={draftChoice || 'none'}
+          choices={[
+            { value: 'none', label: t('Choose a draft') },
+            { value: 'intro', label: t('First reply') },
+            { value: 'followUp', label: t('Follow-up') },
+            { value: 'confirm', label: t('Demo confirmation') },
+          ]}
+          onChange={value => { setDraftChoice(value); setDraft(messageDrafts[value as keyof typeof messageDrafts] ?? ''); }} />
+        <textarea aria-label={t('Message draft')} rows={3} maxLength={1000} value={draft}
+          onChange={event => setDraft(event.target.value)} />
+        {draft.trim() && <div className="lead-contact-actions"><LeadWhatsAppLink phone={lead.phone} draft={draft} /></div>}
+      </div>
+    </details>}
     <div className="lead-contact-history">
       <header>
         <span className="follow-up-icon"><History size={17} aria-hidden="true" /></span>
@@ -130,6 +172,16 @@ export function LeadContact({ lead }: { lead: Lead }) {
         <label>{t('Contact note (optional)')}
           <textarea rows={2} maxLength={1500} value={note} onChange={event => setNote(event.target.value)} />
         </label>
+        <div className="lead-follow-up-fields">
+          <label>{t('Next action')}
+            <input value={nextAction} maxLength={240} required={Boolean(dueDate)}
+              onChange={event => setNextAction(event.target.value)} />
+          </label>
+          <label>{t('Due date')}
+            <input type="date" min="1000-01-01" max="9999-12-31" value={dueDate} required={Boolean(nextAction.trim())}
+              onChange={event => setDueDate(event.target.value)} />
+          </label>
+        </div>
         {saveError && <p role="alert" className="lead-contact-error">{errorText(saveError)}</p>}
         <div className="lead-contact-form-actions">
           <button type="button" disabled={saving} onClick={closeForm}>{t('Cancel')}</button>

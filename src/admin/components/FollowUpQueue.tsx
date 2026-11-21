@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, CalendarCheck, CalendarClock } from 'lucide-react';
 import { useAdminLocale } from '../i18n';
 import { adminApi, type Lead } from '../types';
+import { LeadWhatsAppLink } from './LeadContact';
 import '../follow-ups.css';
 
-const buckets = { due: 'All due', overdue: 'Overdue', today: 'Due today', upcoming: 'Upcoming' } as const;
+const buckets = { unanswered: 'Awaiting first reply', due: 'All due', overdue: 'Overdue', today: 'Due today', upcoming: 'Upcoming' } as const;
 type Bucket = keyof typeof buckets;
 interface Queue {
   today: string;
@@ -14,7 +15,7 @@ interface Queue {
 
 export function FollowUpQueue({ onOpen, onBrowse }: { onOpen: (lead: Lead) => void; onBrowse: () => void }) {
   const { t, intlLocale } = useAdminLocale();
-  const [bucket, setBucket] = useState<Bucket>('due');
+  const [bucket, setBucket] = useState<Bucket>('unanswered');
   const [page, setPage] = useState(0);
   const [revision, setRevision] = useState(0);
   const [result, setResult] = useState<Queue>();
@@ -51,7 +52,7 @@ export function FollowUpQueue({ onOpen, onBrowse }: { onOpen: (lead: Lead) => vo
     <header className="overview-panel-heading">
       <div className="follow-up-heading">
         <span className="follow-up-icon"><CalendarClock size={20} aria-hidden="true" /></span>
-        <div><h2 id="follow-up-title">{t('Lead follow-ups')}</h2><p>{t('Scheduled actions for open leads')}</p></div>
+        <div><h2 id="follow-up-title">{t('Today queue')}</h2><p>{t('New inquiries and scheduled follow-ups')}</p></div>
       </div>
       <button type="button" className="overview-text-button" onClick={onBrowse}>
         {t('View leads')} <ArrowRight size={15} aria-hidden="true" />
@@ -77,26 +78,34 @@ export function FollowUpQueue({ onOpen, onBrowse }: { onOpen: (lead: Lead) => vo
       </div>}
       {status === 'ready' && result && (result.leads.length ? <ul className="follow-up-list">
         {result.leads.map(lead => {
-          const dueDate = lead.admin_due_date!;
-          const urgency = dueDate < result.today ? 'overdue' : dueDate === result.today ? 'today' : 'upcoming';
-          const formattedDate = (dueDate.slice(0, 4) === result.today.slice(0, 4) ? date : dateWithYear)
-            .format(new Date(dueDate + 'T00:00:00Z'));
+          const dueDate = bucket === 'unanswered' ? null : lead.admin_due_date;
+          const urgency = !dueDate ? undefined : dueDate < result.today ? 'overdue' : dueDate === result.today ? 'today' : 'upcoming';
+          const formattedDate = dueDate
+            ? (dueDate.slice(0, 4) === result.today.slice(0, 4) ? date : dateWithYear).format(new Date(dueDate + 'T00:00:00Z'))
+            : '';
+          const phone = lead.phone?.trim().replace(/[\s().-]/g, '').replace(/^00/, '+');
+          const email = lead.email?.trim();
           return <li key={lead.external_id}>
             <button type="button" className="follow-up-row" onClick={() => onOpen(lead)}>
-              <span className="follow-up-row-detail"><strong>{lead.admin_next_action}</strong>
+              <span className="follow-up-row-detail"><strong>{dueDate ? lead.admin_next_action : t('First reply')}</strong>
                 <span>{lead.company_name}</span>
               </span>
-              <time dateTime={dueDate} data-urgency={urgency}>
+              {dueDate && <time dateTime={dueDate} data-urgency={urgency}>
                 {urgency === 'today' ? t('Due today') : formattedDate}
                 {urgency === 'overdue' && <span><span aria-hidden="true"> · </span>{t('Overdue')}</span>}
-              </time>
+              </time>}
               <ArrowRight size={16} aria-hidden="true" />
             </button>
+            <div className="lead-contact-actions px-3 pb-2">
+              {phone && /^\+?[0-9]{7,15}$/.test(phone) && <a href={`tel:${phone}`}>{t('Call')}</a>}
+              <LeadWhatsAppLink phone={lead.phone} />
+              {email && /^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(email) && <a href={`mailto:${encodeURIComponent(email).replace('%40', '@')}`}>{t('Email')}</a>}
+            </div>
           </li>;
         })}
       </ul> : <div className="follow-up-message" role="status">
         <CalendarCheck size={18} aria-hidden="true" />
-        {t(bucket === 'upcoming' ? 'No upcoming follow-ups.' : bucket === 'today' ? 'Nothing due today.' : bucket === 'overdue' ? 'No overdue follow-ups.' : 'You’re caught up on follow-ups.')}
+        {t(bucket === 'unanswered' ? 'No inquiries awaiting a first reply.' : bucket === 'upcoming' ? 'No upcoming follow-ups.' : bucket === 'today' ? 'Nothing due today.' : bucket === 'overdue' ? 'No overdue follow-ups.' : 'You’re caught up on follow-ups.')}
       </div>)}
     </div>
     {status === 'ready' && (total > 10 || page > 0) && <footer className="follow-up-pagination">

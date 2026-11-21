@@ -264,7 +264,11 @@ function AdminWorkspace() {
 
       {page === 'Maps' && <MapsPage onDelete={openDelete} deletedProspects={deletedProspects} onImported={result => { navigate('Prospects'); setToast(t('Imported {{count}} prospects; {{duplicates}} duplicates skipped.', { count: result.inserted, duplicates: result.duplicates })); }} />}
 
-      {page === 'Prospects' && <ProspectsPage onToast={setToast} onDeleteMany={setDeletion} onDelete={openDelete} deletedProspects={deletedProspects} />}
+      {page === 'Prospects' && <ProspectsPage onToast={setToast} onDeleteMany={setDeletion} onDelete={openDelete} deletedProspects={deletedProspects}
+        onOpenLead={lead => {
+          navigate('Leads');
+          setFollowUpLead(lead);
+        }} />}
 
       {page === 'Website' && <WebsitePage onToast={setToast} />}
 

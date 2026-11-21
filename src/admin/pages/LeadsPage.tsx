@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { StatusPill } from '../components/StatusPill';
 import { LeadContact, LeadWhatsAppLink } from '../components/LeadContact';
+import { LeadSalesDetails } from '../components/LeadSalesDetails';
 import { AdminDrawer } from '../components/AdminDrawer';
 import { adminApi, type Lead } from '../types';
 import { leadsCsv } from '../csv';
@@ -368,7 +369,17 @@ export function LeadsPage({
               </div>
             </div>
 
-            <LeadContact key={selectedLead.external_id} lead={selectedLead} />
+            <LeadContact key={selectedLead.external_id} lead={selectedLead} onSaved={followUp => {
+              if (followUp) {
+                if (nextAction === (selectedLead.admin_next_action ?? '') && dueDate === (selectedLead.admin_due_date ?? '')) {
+                  setNextAction(followUp.nextAction);
+                  setDueDate(followUp.dueDate);
+                }
+                setSelectedLead({ ...selectedLead, admin_next_action: followUp.nextAction, admin_due_date: followUp.dueDate });
+              }
+              onRefresh();
+            }} />
+            <LeadSalesDetails key={selectedLead.external_id} leadId={selectedLead.external_id} isLost={editStage === 'lost'} onSaved={onRefresh} />
 
             {/* Consultation Note */}
             <div className="p-3.5 rounded bg-slate-50 border border-slate-100">

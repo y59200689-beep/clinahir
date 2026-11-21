@@ -1,3 +1,4 @@
+import { SalesReport } from '../components/SalesReport';
 import { useAdminLocale } from '../i18n';
 import { BarChart3, Users, MousePointerClick, CheckCircle2 } from 'lucide-react';
 import { KpiCard } from '../components/KpiCard';
@@ -26,6 +27,8 @@ export function AnalyticsPage({ data }: AnalyticsPageProps) {
         <h1 className="text-2xl font-bold tracking-tight text-slate-900"> {t("Analytics")} </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-0.5"> {t("Visitor engagement and inquiry conversions over the last 30 days.")} </p>
       </div>
+
+      <SalesReport />
 
       {/* 3 Top Funnel Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">

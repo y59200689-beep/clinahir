@@ -1,3 +1,4 @@
+import { ProspectLeadMatches } from '../components/ProspectLeadMatches';
 import { DeleteSelected, RecordCheckbox, useRecordSelection } from '../components/RecordSelection';
 import { DeleteRecordButton, type RecordTarget } from '../components/DeleteRecordDialog';
 import { spreadsheetCsv } from '../csv';
@@ -24,9 +25,10 @@ import {
 import { StatusPill } from '../components/StatusPill';
 import { AdminSelect } from '../components/AdminSelect';
 import { AdminDrawer } from '../components/AdminDrawer';
-import { adminApi, type Prospect, type ProspectSnapshot } from '../types';
+import { adminApi, type Prospect, type ProspectSnapshot, type Lead } from '../types';
 
 interface ProspectsPageProps {
+  onOpenLead: (lead: Lead) => void;
   deletedProspects?: ReadonlySet<string>;
   onDelete: (record: RecordTarget) => void;
   onDeleteMany: (records: RecordTarget[]) => void;
@@ -55,7 +57,7 @@ function csvRecordCount(source: string) {
   return Math.max(0, records - 1);
 }
 
-export function ProspectsPage({ onToast, onDelete, onDeleteMany, deletedProspects }: ProspectsPageProps) {
+export function ProspectsPage({ onToast, onDelete, onDeleteMany, deletedProspects, onOpenLead }: ProspectsPageProps) {
   const { t, errorText, intlLocale } = useAdminLocale();
   const deletionSelection = useRecordSelection(deletedProspects);
   const [data, setData] = useState<ProspectSnapshot>({
@@ -609,6 +611,7 @@ export function ProspectsPage({ onToast, onDelete, onDeleteMany, deletedProspect
       >
         {selected && (
           <div className="space-y-5">
+            <ProspectLeadMatches key={selected.id} prospectId={selected.id} onOpen={onOpenLead} />
             {/* Header */}
             <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
               <h3 className="font-semibold text-slate-900 text-sm">{selected.center_name}</h3>
