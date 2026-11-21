@@ -19,6 +19,18 @@ interface Entry {
   created_at: string;
 }
 
+export function LeadWhatsAppLink({ phone, className }: { phone: Lead['phone']; className?: string }) {
+  const { t } = useAdminLocale();
+  const normalized = (phone ?? '').trim().replace(/[\s().-]/g, '');
+  const mobile = /^(?:0|(?:\+|00)?212)([67][0-9]{8})$/.exec(normalized)?.[1];
+  if (!mobile) return null;
+
+  return <a className={className} href={`https://wa.me/212${mobile}`} target="_blank" rel="noopener noreferrer"
+    onClick={event => event.stopPropagation()}>
+    <MessageCircle size={15} aria-hidden="true" />{t('WhatsApp')}
+  </a>;
+}
+
 export function LeadContact({ lead }: { lead: Lead }) {
   const { t, intlLocale, errorText } = useAdminLocale();
   const [editing, setEditing] = useState(false);
@@ -36,7 +48,6 @@ export function LeadContact({ lead }: { lead: Lead }) {
   const retry = useRef<{ payload: string; id: string } | null>(null);
   const phone = (lead.phone ?? '').trim().replace(/[\s().-]/g, '').replace(/^00/, '+');
   const callable = /^\+?[0-9]{7,15}$/.test(phone) && /[1-9]/.test(phone);
-  const whatsapp = /^\+[1-9][0-9]{7,14}$/.test(phone);
   const email = (lead.email ?? '').trim();
   const canEmail = /^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(email);
   const formatDate = new Intl.DateTimeFormat(intlLocale, {
@@ -88,11 +99,9 @@ export function LeadContact({ lead }: { lead: Lead }) {
   }
 
   return <section className="lead-contact" aria-labelledby="lead-contact-title">
-    {(callable || whatsapp || canEmail) && <div className="lead-contact-actions" role="group" aria-label={t('Contact shortcuts')}>
+    {(callable || canEmail) && <div className="lead-contact-actions" role="group" aria-label={t('Contact shortcuts')}>
       {callable && <a href={`tel:${phone}`}><Phone size={15} aria-hidden="true" />{t('Call')}</a>}
-      {whatsapp && <a href={`https://wa.me/${phone.slice(1)}`} target="_blank" rel="noopener noreferrer">
-        <MessageCircle size={16} aria-hidden="true" />{t('WhatsApp')}
-      </a>}
+      <LeadWhatsAppLink phone={lead.phone} />
       {canEmail && <a href={`mailto:${encodeURIComponent(email).replace('%40', '@')}`}><Mail size={16} aria-hidden="true" />{t('Email')}</a>}
     </div>}
     <div className="lead-contact-history">

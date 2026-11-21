@@ -15,7 +15,7 @@ import {
   CalendarClock,
 } from 'lucide-react';
 import { StatusPill } from '../components/StatusPill';
-import { LeadContact } from '../components/LeadContact';
+import { LeadContact, LeadWhatsAppLink } from '../components/LeadContact';
 import { AdminDrawer } from '../components/AdminDrawer';
 import { adminApi, type Lead } from '../types';
 import { leadsCsv } from '../csv';
@@ -245,6 +245,8 @@ export function LeadsPage({
                       <div className="text-[11px] text-slate-400 font-mono mt-0.5">
                         {lead.phone || lead.email || t("—")}
                       </div>
+                      <LeadWhatsAppLink phone={lead.phone}
+                        className="mt-1.5 inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-800 hover:bg-emerald-100 focus-visible:bg-emerald-100" />
                     </td>
 
                     <td className="py-3 px-3">
