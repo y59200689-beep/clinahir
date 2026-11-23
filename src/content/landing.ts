@@ -1,3 +1,5 @@
+export const demoCta = { en: "Request a tailored demo", fr: "Demander une démo personnalisée" } as const;
+
 export const landingDefaults = {
   en: {
     eyebrow: 'BUILT FOR MEDICAL CENTERS',

@@ -1,3 +1,4 @@
+import { demoCta } from './content/landing';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -309,10 +310,10 @@ export default function ClientSpotlight({ language = 'en' }: { language?: Langua
 
               <div className="pt-2">
                 <a
-                  href="#book-demo"
+                  href="#book-demo" data-i18n-managed="true"
                   className="inline-flex items-center gap-2 text-xs font-semibold text-[#01bc7c] hover:underline"
                 >
-                  <span>{fr ? 'Obtenir les mêmes résultats pour votre centre' : 'Achieve similar results for your center'}</span>
+                  <span>{demoCta[language]}</span>
                   <ArrowRight size={14} />
                 </a>
               </div>

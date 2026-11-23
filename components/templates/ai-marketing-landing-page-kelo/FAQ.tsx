@@ -1,3 +1,4 @@
+import { demoCta } from '../../../src/content/landing';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, ChevronDown, Sparkles, MessageCircle, ShieldCheck, Search, Users } from 'lucide-react';
@@ -146,10 +147,10 @@ export default function FAQ({ className, language = 'en' }: FAQProps) {
             <span>{fr ? 'Une question spécifique concernant votre matériel ou logiciel existant ?' : 'Specific inquiry regarding your current PACS/RIS or center hardware?'}</span>
           </div>
           <a
-            href="#book-demo"
+            href="#book-demo" data-i18n-managed="true"
             className="shrink-0 rounded-full bg-[#01bc7c] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#01a76f]"
           >
-            {fr ? 'Échanger avec un conseiller' : 'Speak with an advisor'}
+            {demoCta[language]}
           </a>
         </div>
 

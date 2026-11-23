@@ -15,6 +15,33 @@ export function DeferredSection({children,className,language,hashTargets=[]}: {c
     if(ref.current)observer.observe(ref.current);
     return()=>{observer.disconnect();window.removeEventListener('hashchange',revealForHash);document.removeEventListener('click',revealForClick);};
   },[targets]);
-  useEffect(()=>{if(!visible)return;const id=location.hash.slice(1);if(!targets.split('|').includes(id))return;let cancelled=false;const observer=new MutationObserver(()=>{const target=document.getElementById(id);if(target&&!cancelled){target.scrollIntoView({behavior:'instant'});observer.disconnect();}});observer.observe(ref.current!,{childList:true,subtree:true});return()=>{cancelled=true;observer.disconnect();};},[visible,targets]);
+  useEffect(() => {
+    const container = ref.current;
+    if (!visible || !container) return;
+    const targetIds = targets.split('|');
+
+    const scrollToTarget = () => {
+      const id = location.hash.slice(1);
+      if (!targetIds.includes(id)) return true;
+      const target = document.getElementById(id);
+      if (!target) return false;
+      target.scrollIntoView({ behavior: 'instant' });
+      return true;
+    };
+
+    const observer = new MutationObserver(() => {
+      if (scrollToTarget()) observer.disconnect();
+    });
+    const followHash = () => {
+      observer.disconnect();
+      if (!scrollToTarget()) observer.observe(container, { childList: true, subtree: true });
+    };
+    followHash();
+    window.addEventListener('hashchange', followHash);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('hashchange', followHash);
+    };
+  }, [visible, targets]);
   return <div ref={ref} className={className}>{visible?children:<p data-i18n-managed="true" className="sr-only">{language==='fr'?'Le contenu interactif se charge à l’approche de cette section.':'Interactive content loads when this section approaches the viewport.'}</p>}</div>;
 }

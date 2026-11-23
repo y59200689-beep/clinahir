@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { demoCta } from '../../../src/content/landing';
 import { useSiteContent } from '../../../src/content/SiteContent';
-import { PrivacyLink } from '../../../src/PrivacyNotice';
 import { ArrowRight, Globe, ShieldCheck, Activity, Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
@@ -11,27 +10,6 @@ interface FooterProps {
 export default function Footer({ language = 'en', onLanguageChange }: FooterProps) {
   const fr = language === 'fr';
   const { document: site } = useSiteContent();
-
-  const [moroccoTime, setMoroccoTime] = useState('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const timeStr = new Intl.DateTimeFormat('fr-FR', {
-          timeZone: 'Africa/Casablanca',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        }).format(new Date());
-        setMoroccoTime(timeStr);
-      } catch {
-        setMoroccoTime('Casablanca');
-      }
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <footer className="relative bg-[#040605] text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10">
@@ -55,10 +33,10 @@ export default function Footer({ language = 'en', onLanguageChange }: FooterProp
 
             <div className="shrink-0">
               <a
-                href="#book-demo"
+                href="#book-demo" data-i18n-managed="true"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
               >
-                <span>{site.settings.footerCta[language]}</span>
+                <span>{demoCta[language]}</span>
                 <ArrowRight size={17} />
               </a>
             </div>
@@ -68,7 +46,7 @@ export default function Footer({ language = 'en', onLanguageChange }: FooterProp
         {/* Multi-column Navigation Grid */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 text-xs text-white/70 pb-16 border-b border-white/10">
           
-          {/* Col 1: Brand & Status (Span 2) */}
+          {/* Col 1: Brand (Span 2) */}
           <div className="sm:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold tracking-tight text-white">Clinahir</span>
@@ -84,20 +62,6 @@ export default function Footer({ language = 'en', onLanguageChange }: FooterProp
                 'The benchmark digital patient experience platform for radiology and medical imaging centers across Morocco. From Google Maps discovery to confirmed scan.'
               )}
             </p>
-
-            {/* Live System Operational Status */}
-            <div className="flex flex-col gap-2 pt-2">
-              <div className="flex items-center gap-2 text-[11px] text-emerald-400">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span>{fr ? 'Démonstration interactive · données fictives' : 'Interactive demonstration · fictional data'}</span>
-              </div>
-              
-              {moroccoTime && (
-                <div className="text-[11px] text-white/40 font-mono">
-                  Casablanca, Maroc : {moroccoTime} (GMT+1)
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Col 2: Solutions */}
@@ -175,7 +139,6 @@ export default function Footer({ language = 'en', onLanguageChange }: FooterProp
           </div>
 
           <div className="flex items-center gap-4">
-            <PrivacyLink language={language} />
 
             {/* Language Switcher */}
             <div data-language-selector className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1">

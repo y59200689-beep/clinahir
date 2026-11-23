@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { 
   ArrowRight, 
   CalendarCheck2, 
   Check, 
   ChevronDown, 
   ClipboardList, 
-  MessageCircle, 
   Search, 
   ShieldCheck, 
   Building2, 
@@ -19,13 +17,12 @@ import {
   XCircle, 
   Sparkles, 
   Lock, 
-  Send,
   Zap,
   Activity,
   Award,
   PhoneCall
 } from 'lucide-react';
-import { landingDefaults as content } from './content/landing';
+import { landingDefaults as content, demoCta } from './content/landing';
 import { useManagedCopy, useSiteContent } from './content/SiteContent';
 import { PrivacyLink } from './PrivacyNotice';
 import { LeadConfirmation } from './LeadConfirmation';
@@ -158,14 +155,6 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
   const t = useManagedCopy('landing', content[language], language);
   const { document: site } = useSiteContent();
 
-  const reducedMotion = useReducedMotion();
-  const sectionReveal = reducedMotion ? {} : {
-    initial: { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.1 },
-    transition: { duration: 0.65, ease: 'easeOut' as const },
-  };
-
   useEffect(() => { captureAttribution(); }, []);
 
   // Form State
@@ -259,7 +248,7 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
       {/* ========================================================================= */}
       {/* 1. INTERACTIVE CLINICAL CAPACITY & ROI SIMULATOR (Apple Pro Style)        */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} className="relative bg-[#070b09] px-6 py-24 text-white md:px-12">
+      <section className="relative bg-[#070b09] px-6 py-24 text-white md:px-12">
         <div className="relative mx-auto max-w-6xl">
           <div className="mb-14 text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-400">
@@ -405,10 +394,10 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
 
                 <div className="pt-2 text-center">
                   <a
-                    href="#book-demo"
+                    href="#book-demo" data-i18n-managed="true"
                     className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-semibold text-black transition hover:bg-white/90"
                   >
-                    <span>{fr ? 'Recevoir une étude personnalisée pour votre centre' : 'Get a custom audit for your center'}</span>
+                    <span>{demoCta[language]}</span>
                     <ArrowRight size={14} />
                   </a>
                 </div>
@@ -418,12 +407,12 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ========================================================================= */}
       {/* 2. THE CLINAHIR OPERATING STANDARD (Comparison Matrix)                    */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} className="relative bg-[#0a0f0d] px-6 py-24 text-white md:px-12">
+      <section className="relative bg-[#0a0f0d] px-6 py-24 text-white md:px-12">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-medium text-emerald-400">
@@ -503,12 +492,12 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
 
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ========================================================================= */}
       {/* 3. THE 14-DAY CLINICAL DEPLOYMENT PROTOCOL (#process)                      */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} id="process" className="scroll-mt-12 bg-[#080d0a] px-6 py-28 text-white md:px-12">
+      <section id="process" className="scroll-mt-12 bg-[#080d0a] px-6 py-28 text-white md:px-12">
         <div className="mx-auto max-w-6xl">
           <div className="mb-16 text-center md:text-left">
             <span className="text-xs font-medium text-[#01bc7c]">
@@ -549,12 +538,12 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ========================================================================= */}
       {/* 4. TAILORED PARTNERSHIP MODELS (#fit)                                     */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} className="scroll-mt-12 bg-[#090e0b] px-6 py-28 text-white md:px-12">
+      <section className="scroll-mt-12 bg-[#090e0b] px-6 py-28 text-white md:px-12">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -601,14 +590,14 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
                       {scope.replace(/ · /g, ', ')}
                     </p>
                     <a
-                      href="#book-demo"
+                      href="#book-demo" data-i18n-managed="true"
                       onClick={() => {
                         setPriority(t.challenges[[2, 0, 3][index]]);
                         setSelectionError(false);
                       }}
                       className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-[#01bc7c]"
                     >
-                      <span>{fr ? 'Choisir cette option' : 'Select this scope'}</span>
+                      <span>{demoCta[language]}</span>
                       <ArrowRight size={14} />
                     </a>
                   </div>
@@ -617,12 +606,12 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
             })}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ========================================================================= */}
       {/* 5. ABOUT CLINAHIR MEDICAL (#about)                                        */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} id="about" className="scroll-mt-12 bg-[#060907] px-6 py-28 text-white md:px-12">
+      <section id="about" className="scroll-mt-12 bg-[#060907] px-6 py-28 text-white md:px-12">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:items-center">
           <div>
             <span className="text-xs font-medium text-[#01bc7c]">
@@ -653,40 +642,39 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
             )}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ========================================================================= */}
       {/* 6. THE EXECUTIVE VIP CONSULTATION TERMINAL (#book-demo)                   */}
       {/* ========================================================================= */}
-      <motion.section {...sectionReveal} id="book-demo" className="scroll-mt-12 bg-[#070b09] px-6 py-28 text-white md:px-12">
+      <section id="book-demo" data-i18n-managed="true" className="scroll-mt-12 bg-[#11583f] px-6 py-20 text-white md:px-12 md:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           
           {/* Left Context Information */}
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-400">
-              <Send size={13} />
-              {t.formEyebrow}
-            </span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              {t.formTitle}
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+              {demoCta[language]}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
-              {t.formBody}
+            <p className="mt-4 text-base leading-relaxed text-white/85">{t.formBody}</p>
+            <ul className="mt-8 divide-y divide-white/20 border-y border-white/20">
+              {(fr ? [
+                'Un aperçu du parcours de prise de rendez-vous de votre centre',
+                'Une démonstration du tableau de bord Clinahir',
+                'Une prochaine étape adaptée à votre centre, avec un périmètre clair',
+              ] : [
+                'A walkthrough of your center’s booking flow',
+                'A demo of the Clinahir dashboard',
+                'A scoped next step for your center',
+              ]).map(item => (
+                <li key={item} className="flex items-start gap-3 py-4 text-sm leading-relaxed text-white">
+                  <Check size={17} className="mt-0.5 shrink-0 text-[#a7f2c9]" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 flex items-center gap-2 text-sm text-white/80">
+              <Lock size={14} className="shrink-0" aria-hidden="true" />{t.privacy}
             </p>
-
-            <div className="mt-8 space-y-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-xs text-white/80 backdrop-blur-xl">
-              <div className="flex items-center gap-2 text-[#01bc7c] font-semibold">
-                <MessageCircle size={16} />
-                <span>{fr ? 'Demande de démonstration professionnelle' : 'Business demonstration request'}</span>
-              </div>
-              <p className="text-white/60 leading-relaxed">
-                {fr ? 'Votre numéro sera uniquement utilisé pour vous envoyer la démonstration interactive et planifier un échange sans engagement.' : 'Your number will only be used to share the customized center demonstration and schedule your consult.'}
-              </p>
-              <div className="pt-2 border-t border-white/10 flex items-center gap-2 text-[11px] text-white/50">
-                <Lock size={12} className="text-[#01bc7c]" />
-                <span>{t.privacy}</span>
-              </div>
-            </div>
           </div>
 
           {/* Right Consultation Form */}
@@ -703,7 +691,7 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
               }
             }}
             onSubmit={submit}
-            className="rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-2xl backdrop-blur-2xl sm:p-9"
+            className="rounded-[32px] border border-white/20 bg-[#0c3024] p-5 shadow-2xl backdrop-blur-2xl sm:p-9"
           >
             {/* Honeypot */}
             <div className="absolute -left-[10000px]" aria-hidden="true">
@@ -720,7 +708,7 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
                   aria-invalid={!!fieldErrors.center_name || undefined}
                   aria-describedby={fieldErrors.center_name ? "error-center_name" : undefined}
                   name="center_name"
-                  placeholder={fr ? 'Ex: Centre d’Imagerie Médicale Atlas' : 'e.g. Atlas Medical Imaging'}
+                  placeholder={t.fields[0]}
                   maxLength={200}
                   required
                   autoComplete="organization"
@@ -839,9 +827,9 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
               ref={submitButtonRef}
               type="submit"
               disabled={status === 'sending'}
-              className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#01bc7c] px-6 py-4 text-sm font-semibold text-white shadow-xl shadow-emerald-950/40 transition hover:bg-[#01a76f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#01bc7c] disabled:opacity-50"
+              className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#a7f2c9] px-6 py-4 text-sm font-semibold text-[#102c23] shadow-xl shadow-emerald-950/40 transition hover:bg-[#c1f8dc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#01bc7c] disabled:opacity-50"
             >
-              <span>{status === 'sending' ? t.sending : t.submit}</span>
+              <span>{status === 'sending' ? t.sending : demoCta[language]}</span>
               <ArrowRight size={18} />
             </button>
 
@@ -855,7 +843,7 @@ export default function LandingSections({ language = 'en' }: { language?: Langua
           </form>
 
         </div>
-      </motion.section>
+      </section>
     </>
   );
 }
